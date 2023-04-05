@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
 
-interface ItemDao
+interface ItemDaoInterface
 {
 	public function create(Item $item);
 
