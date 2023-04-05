@@ -32,4 +32,19 @@ class Project
 		$this->_title = $title;
 		return $this;
 	}
+
+	/**
+	 * Crée un projet.
+	 * 
+	 * @param $user L'utilisateur à qui appartient le projet.
+	 * 
+	 * @param $id L'identifiant du projet. Il n'a pas besoin d'être indiqué
+	 *            quand on en crée un nouveau.
+	 */
+	public function __construct(User $user, int $id = -1)
+	{
+		parent::__construct($user);
+
+		$this->_id = $id; 
+	}
 }

@@ -9,18 +9,17 @@ use TaskStep\Logic\{Context, Project};
 /**
  * Représente une tâche.
  */
-class Item
+class Item extends UserItem
 {
 	private int $_id;
 	private string $_title;
-	private DateTime $_date;
+	private ?DateTime $_date;
 	private string $_notes;
 	private string $_url;
 	private Section $_section;
 	private Context $_context;
 	private Project $_project;
 	private bool $_done;
-	private User $_user;
 
 	/**
 	 * L'identifiant de la tâche.
@@ -46,14 +45,14 @@ class Item
 	/**
 	 * L'échéance de la tâche.
 	 */
-	public function date(): DateTime { return $this->_date; }
+	public function date(): ?DateTime { return $this->_date; }
 
 	/**
 	 * Modifie l'échéance de la tâche.
 	 * 
-	 * @param $date La nouvelle échéance.
+	 * @param $date La nouvelle échéance, ou null pour l'enlever.
 	 */
-	public function setDate(DateTime $date): Item
+	public function setDate(?DateTime $date): Item
 	{
 		this->_date = $date;
 		return $this;
@@ -156,16 +155,6 @@ class Item
 	}
 
 	/**
-	 * Indique si une tâche appartient à un utilisateur.
-	 * 
-	 * @param $user L'utilisateur à tester.
-	 */
-	public function belongs(User $user): bool
-	{
-		return $this->_user->id() === $user->id();
-	}
-
-	/**
 	 * Crée une tâche.
 	 * 
 	 * @param $user L'utilisateur à qui appartient la tâche.
@@ -175,7 +164,8 @@ class Item
 	 */
 	public function __construct(User $user, int $id = -1)
 	{
-		$this->_user = $user;
+		parent::__construct($user);
+
 		$this->_id = $id; 
 	}
 }
