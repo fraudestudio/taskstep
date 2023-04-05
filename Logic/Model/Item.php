@@ -20,6 +20,7 @@ class Item
 	private Context $_context;
 	private Project $_project;
 	private bool $_done;
+	private User $_user;
 
 	/**
 	 * L'identifiant de la tâche.
@@ -152,5 +153,29 @@ class Item
 	{
 		$this->_done = $done;
 		return $this;
+	}
+
+	/**
+	 * Indique si une tâche appartient à un utilisateur.
+	 * 
+	 * @param $user L'utilisateur à tester.
+	 */
+	public function belongs(User $user): bool
+	{
+		return $this->_user->id() === $user->id();
+	}
+
+	/**
+	 * Crée une tâche.
+	 * 
+	 * @param $user L'utilisateur à qui appartient la tâche.
+	 * 
+	 * @param $id L'identifiant de la tâche. Il n'a pas besoin d'être indiqué
+	 *            quand on crée une nouvelle tâche.
+	 */
+	public function __construct(User $user, int $id = -1)
+	{
+		$this->_user = $user;
+		$this->_id = $id; 
 	}
 }
