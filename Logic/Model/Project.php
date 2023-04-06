@@ -7,7 +7,7 @@ namespace TaskStep\Logic\Model;
 /**
  * Un projet de tâche.
  */
-class Project
+class Project extends UserItem
 {
 	private int $_id;
 	private string $_title;
