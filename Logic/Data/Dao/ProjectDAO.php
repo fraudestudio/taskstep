@@ -61,6 +61,12 @@ class ProjectDAO implements ProjectDaoInterface
         Database::getInstance()->executeNonQuery($request,array('title'=>$toCopy->title(),'id'=>$id));
     }
 
+    public function Delete(int $id)
+    {
+        $request = "delete from projects where id = :id";
+        Database::getInstance()->executeNonQuery($request,array('id'=>$id));
+    }
+
 
 
 }
