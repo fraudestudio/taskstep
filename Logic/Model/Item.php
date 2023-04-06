@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
 
-use TaskStep\Logic\{Context, Project};
+use TaskStep\Logic\Model\{Context, Project};
+use \DateTime;
+
 
 /**
  * Représente une tâche.
@@ -38,7 +40,7 @@ class Item extends UserItem
 	 */
 	public function setTitle(string $title): Item
 	{
-		this->_title = $title;
+		$this->_title = $title;
 		return $this;
 	}
 
@@ -54,7 +56,7 @@ class Item extends UserItem
 	 */
 	public function setDate(?DateTime $date): Item
 	{
-		this->_date = $date;
+		$this->_date = $date;
 		return $this;
 	}
 
@@ -70,7 +72,7 @@ class Item extends UserItem
 	 */
 	public function setNotes(string $notes): Item
 	{
-		this->_notes = $notes;
+		$this->_notes = $notes;
 		return $this;
 	}
 
@@ -86,7 +88,7 @@ class Item extends UserItem
 	 */
 	public function setUrl(string $url): Item
 	{
-		this->_url = $url;
+		$this->_url = $url;
 		return $this;
 	}
 
