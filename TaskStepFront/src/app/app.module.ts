@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,4 +17,7 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
   providers: [],
   bootstrap: [AppComponent]
 })
+
+
+
 export class AppModule { }

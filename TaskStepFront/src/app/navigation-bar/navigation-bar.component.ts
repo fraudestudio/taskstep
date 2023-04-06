@@ -11,14 +11,14 @@ import { Component } from '@angular/core';
     </div>
     <div id="headernav">
 	    <ul>
-		    <li><img src="assets/calendar_view_day.png" alt="" />Aujourd'hui : {{date | date : 'dd LLLL yyyy' }}</li>
-		    <li><img src="assets/house.png" alt="" /></li>
-		    <li><img src="assets/page_white_text.png" alt="" /></li>
-		    <li><img src="assets/context.png" alt="" /></li>
-		    <li><img src="assets/project.png" alt="" /></li>
-		    <li><img src="assets/textfield_rename.png" alt="" /></li>
-		    <li><img src="assets/help.png" alt="" /></li>
-		    <li><img src="assets/door_in.png" alt="" /></li>
+		    <li><a><img src="assets/calendar_view_day.png" alt="" /></a><a> Aujourd'hui : {{date | date : 'dd LLLL yyyy' }}</a></li>
+		    <li><a><img src="assets/house.png" alt="" /></a><a> Acceuil</a></li>
+		    <li><a><img src="assets/page_white_text.png" alt="" /></a><a> Toutes les tâches</a></li>
+		    <li><a><img src="assets/context.png" alt="" /></a><a> Tous les contextes</a></li>
+		    <li><a><img src="assets/project.png" alt="" /></a><a> Tous les projets</a></li>
+		    <li><a><img src="assets/textfield_rename.png" alt="" /></a><a> Paramètres</a></li>
+		    <li><a><img src="assets/help.png" alt="" /></a><a> Aide</a></li>
+		    <li><a><img src="assets/door_in.png" alt="" /></a><a> Se déconnecter</a></li>
 	</ul>
 </div>
   `,
@@ -27,4 +27,6 @@ import { Component } from '@angular/core';
 })
 export class NavigationBarComponent {
     date = Date.now();
-}
+
+
+  }
