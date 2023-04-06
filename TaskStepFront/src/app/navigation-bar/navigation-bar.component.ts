@@ -3,30 +3,61 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-navigation-bar',
-  template: `
-    <div id = "container">
-    <!--Header-->
-    <div id="header"> 
-      <h1><img src="assets/icon.png" alt="" style="vertical-align:middle"/>&nbsp;<a href="index.php">TaskStep <span class="subtitle">1.1</span></a></h1>
-    </div>
-    <div id="headernav">
-	    <ul>
-		    <li><a><img src="assets/calendar_view_day.png" alt="" /></a><a> Aujourd'hui : {{date | date : 'dd LLLL yyyy' }}</a></li>
-		    <li><a><img src="assets/house.png" alt="" /></a><a> Acceuil</a></li>
-		    <li><a><img src="assets/page_white_text.png" alt="" /></a><a> Toutes les tâches</a></li>
-		    <li><a><img src="assets/context.png" alt="" /></a><a> Tous les contextes</a></li>
-		    <li><a><img src="assets/project.png" alt="" /></a><a> Tous les projets</a></li>
-		    <li><a><img src="assets/textfield_rename.png" alt="" /></a><a> Paramètres</a></li>
-		    <li><a><img src="assets/help.png" alt="" /></a><a> Aide</a></li>
-		    <li><a><img src="assets/door_in.png" alt="" /></a><a> Se déconnecter</a></li>
-	</ul>
-</div>
-  `,
-  styles: [
-  ]
+  templateUrl :"navigation-bar.html"
 })
 export class NavigationBarComponent {
-    date = Date.now();
+  private date : number = Date.now();
 
+  get Date() : number{
+    return this.date;
+  }
+
+  private sideBar : SideBarComponent[] = [ 
+    new SideBarComponent("lightbulb", "Idées",0,0), 
+    new SideBarComponent("cart", "Vous voulez peut être acheter",0,0), 
+    new SideBarComponent("lightning", "Immédiat",0,0),
+    new SideBarComponent("newspaper", "Ce week-end",0,0),
+    new SideBarComponent("calendar", "Ce mois-ci",0,0),
+    new SideBarComponent("world", "Cette année",0,0),
+    new SideBarComponent("user", "Peut-être un jour",0,0)
+  ];
+
+  get SideBar() : SideBarComponent[]{
+    return this.sideBar;
 
   }
+  
+}
+
+class SideBarComponent{
+
+  private image : string;
+  private title : string;
+
+  private done :  number;
+  private undone : number;
+
+
+  constructor(image : string, title : string, done : number, undone : number){
+    this.image = image;
+    this.title = title;
+    this.done = done;
+    this.undone = undone;
+  }
+
+  get Image() : string {
+    return "assets/" + this.image + ".png";
+  }
+
+  get Title() : string {
+    return " " + this.title;
+  }
+
+  get Done() : string {
+    return "(" + this.done + ")";
+  }
+
+  get UnDone() : string {
+    return "(" + this.undone + ")";
+  }
+}

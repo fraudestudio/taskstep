@@ -108,7 +108,7 @@ body{
 
 #sidebar{
 	border-right:1px dashed #ccc;
-	width:190px;
+	width:290px;
 	float: left;
 }
 
@@ -119,44 +119,12 @@ body{
 }
 
 #sidebar ul li a{
-	padding:0.9em 0 0.9em 25px;
+	padding:0.9em 0 0.9em 5px;
 	border-bottom:1px dashed #ccc;
-	background-image: url(images/add.png);
-	background-repeat: no-repeat;
-	background-position: 0.2em 0.9em;
 	display:block;
 	color:#000;
 	text-decoration:none;
-	font-size:10pt;
-}
-
-#sidebar a.ideas{
-	background-image: url(images/lightbulb.png);
-}
-
-#sidebar a.tobuy{
-	background-image: url(images/cart.png);
-}
-
-#sidebar a.immediate{
-	background-image: url(images/lightning.png);
-}
-
-#sidebar a.week{
-	background-image: url(images/newspaper.png);
-}
-
-#sidebar a.month{
-	background-image: url(images/calendar.png);
-}
-
-#sidebar a.year{
-	background-image: url(images/world.png);
-}
-
-#sidebar a.lifetime{
-	border:none;
-	background-image: url(images/user.png);
+	font-size:12pt;
 }
 
 #sidebar ul li a:hover{
@@ -165,12 +133,12 @@ body{
 
 .noundone{
 	color:red;
-	font-size:8pt;
+	font-size:10pt;
 }
 
 .nodone{
 	color:green;
-	font-size:8pt;
+	font-size:10pt;
 }
 
 #sectiontitle{
