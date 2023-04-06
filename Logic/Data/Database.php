@@ -77,7 +77,7 @@ class Database{
      * $query = requete à executer
      * $param = array de valeur
      */
-    public function executeQuery(string $query, array $param) : ?PDOStatement
+    public function executeQuery(string $query, array $param = []) : ?PDOStatement
     {
         $data = null;
         try
