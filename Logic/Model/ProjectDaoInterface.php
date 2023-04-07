@@ -1,60 +1,46 @@
 <?php
 
-
-declare(strict_type=1);
+declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
+
 /**
- * interface du DAO des projet
- * 
+ * Un DAO des projets.
  */
 interface ProjectDaoInterface
 {
     /**
-     * Return all the projects of an User
+     * Crée un projet.
      * 
-     * @return array of Projects
-     */
-    public function GetAll(int $iduser): array;
+     * @param $project Le nouvel projet.
+     */ 
+    public function create(Project $project);
 
     /**
-     * create a project,need a User 
+     * Récupère un projet par son identifiant.
      * 
-     * @param Project $project the concerned project
-     * @return int id of the created project
+     * @param $id L'identifiant du projet à récupérer.
      */
-    public function Create(Project $project):int;
+    public function readById(int $id): Project;
 
     /**
-     * return a project from an id
-     * 
-     * @param int $id id of the project
-     * @return Project return the getted project
+     * Récupère tous les projets.
      */
-    public function GetProject(int $id): Project;
+    public function readAll(): array;
 
     /**
-     * Update e selected project
+     * Mets à jour un projet.
      * 
-     * @param Project $toCopy project to copy into the latest one
-     * @param int $id id of the updating project
+     * @param $id L'identifiant du projet à modifier.
+     * 
+     * @param $project Le projet modifié.
      */
-    public function Update(Project $toCopy, int $id);
+    public function update(int $id, Project $project);
 
     /**
-     * Delete the id concerned project
+     * Supprime un projet.
      * 
-     * @param int $id the project id
+     * @param $id L'identifiant du projet à supprimer.
      */
-    public function Delete(int $id);
-
-    /**
-     * Get all items concerned by the specified project
-     * 
-     * @param int $id Project ID
-     */
-    public function GetAllItemFromProject(int $id):array;
-
-
-
+    public function delete(int $id);
 }

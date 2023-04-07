@@ -9,8 +9,8 @@ namespace TaskStep\Logic\Model;
  */
 enum Section : string
 {
-	case IDEA = 'idea';
-	case TO_BUY = 'to_buy';
+	case IDEA = 'ideas';
+	case TO_BUY = 'tobuy';
 	case IMMEDIATE = 'immediate';
 	case WEEK = 'week';
 	case MONTH = 'month';
