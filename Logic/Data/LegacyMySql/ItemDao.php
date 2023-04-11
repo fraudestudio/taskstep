@@ -5,6 +5,9 @@ namespace TaskStep\Logic\Data\LegacyMySql;
 use TaskStep\Logic\Model\{Item, Section, Context, Project, ItemDaoInterface};
 use \Exception, \DateTime;
 
+/**
+ * Accès au données des items compatible avec la BDD de la version 1.1.
+ */
 class ItemDao implements ItemDaoInterface
 {
 	private ContextDao $contexts;

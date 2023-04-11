@@ -13,7 +13,10 @@ class ProjectDao implements ProjectDaoInterface
 {
     public function create(Project $project)
     {
-        throw new \Exception("TODO!");
+        Database::instance()->execute(
+            'INSERT INTO projects (title) VALUES (:title)',
+            title: $project->title()
+        );
     }
     
     public function readById(int $id): Project
@@ -74,7 +77,11 @@ class ProjectDao implements ProjectDaoInterface
     
     public function update(int $id, Project $project)
     {
-        throw new \Exception("TODO!");
+        Database::instance()->execute(
+            'UPDATE projects SET title=:title WHERE id=:id',
+            id: $id,
+            title: $project->title()
+        );
     }
     
     public function delete(int $id)

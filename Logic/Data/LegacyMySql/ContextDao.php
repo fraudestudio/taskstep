@@ -15,7 +15,10 @@ class ContextDao implements ContextDaoInterface
 {
     public function create(Context $context)
     {
-        throw new Exception("TODO!");
+        Database::instance()->execute(
+            'INSERT INTO contexts (title) VALUES (:title)',
+            title: $context->title()
+        );
     }
     
     public function readById(int $id): Context
@@ -74,7 +77,11 @@ class ContextDao implements ContextDaoInterface
     
     public function update(int $id, Context $context)
     {
-        throw new Exception("TODO!");
+        Database::instance()->execute(
+            'UPDATE contexts SET title=:title WHERE id=:id',
+            id: $id,
+            title: $context->title()
+        );
     }
     
     public function delete(int $id)
