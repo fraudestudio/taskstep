@@ -22,7 +22,7 @@ $showSuccessMessage = false;
 if (isset($_GET['id']))
 {
 	$itemId = $_GET['id'];
-	$item = $dao->readOne($itemId);
+	$item = $itemDao->readById($itemId);
 }
 // Otherwise, if the user has submitted a form, grab the rest of the form data
 else if (isset($_POST["submit"]))
@@ -92,23 +92,29 @@ if ($showSuccessMessage): ?>
 <tr>
 	<td></td>
 	<td>
-		<select name='section' size="7">
+		<select name='section' size="7" required="true">
 		<?php foreach (Section::cases() as $section): ?>
-			<option value='<?= $section->value ?>' $selected><?= $l_sectionlist[$section->value] ?></option>
+			<option value='<?= $section->value ?>' <?= $item->section() == $section ? "selected='selected'" : '' ?> >
+				<?= $l_sectionlist[$section->value] ?>
+			</option>
 		<?php endforeach; ?>
 		</select>
 	</td>
 	<td>
-		<select name='context' size="7">
+		<select name='context' size="7" required="true">
 		<?php foreach ($contexts as $context): ?>
-			<option value='<?= $context->id() ?>' $selected><?= $context->title() ?></option>
+			<option value='<?= $context->id() ?>' <?= $item->context()->id() == $context->id() ? "selected='selected'" : '' ?> >
+				<?= $context->title() ?>
+			</option>
 		<?php endforeach; ?>
 		</select>
 	</td>
 	<td>
-		<select name='project' size="7">
+		<select name='project' size="7" required="true">
 		<?php foreach ($projects as $project): ?>
-			<option value='<?= $project->id() ?>' $selected><?= $project->title() ?></option>
+			<option value='<?= $project->id() ?>' <?= $item->project()->id() == $project->id() ? "selected='selected'" : '' ?> >
+				<?= $project->title() ?>
+			</option>
 		<?php endforeach; ?>
 		</select>
 	</td>

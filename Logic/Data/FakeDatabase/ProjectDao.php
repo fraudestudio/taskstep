@@ -17,7 +17,7 @@ class ProjectDao implements ProjectDaoInterface
     
     public function readById(int $id): Project
     {
-        throw new \Exception("TODO!");
+        return (new Project($id))->setTitle("Contexte #$id");
     }
 
     

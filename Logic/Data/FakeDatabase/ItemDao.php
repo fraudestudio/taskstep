@@ -4,6 +4,7 @@ namespace TaskStep\Logic\Data\FakeDatabase;
 
 use TaskStep\Logic\Model\{Item, Section, Context, Project, ItemDaoInterface};
 use TaskStep\Logic\Data\Database;
+use TaskStep\Logic\Data\FakeDatabase\ContextDao;
 
 class ItemDao implements ItemDaoInterface
 {
@@ -14,7 +15,11 @@ class ItemDao implements ItemDaoInterface
 
 	public function readById(int $id): Item
 	{
-		throw new \Exception("TODO!");
+		return (new Item($id))
+			->setTitle("Titre")
+			->setUrl("https://oomfnetwork.fr")
+			->setContext((new ContextDao)->readById(1))
+			->setProject((new ProjectDao)->readById(1));
 	}
 
 	public function readAll(): array

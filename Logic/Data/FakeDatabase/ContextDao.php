@@ -17,16 +17,16 @@ class ContextDao implements ContextDaoInterface
     
     public function readById(int $id): Context
     {
-        throw new \Exception("TODO!");
+        return (new Context($id))->setTitle("Contexte #$id");
     }
 
     
     public function readAll(): array
     {
         return [
-            (new Context(0))->setTitle("Contexte 1"), 
-            (new Context(1))->setTitle("Contexte 2"), 
-            (new Context(2))->setTitle("Contexte 3"), 
+            (new Context(0))->setTitle("Contexte #0"), 
+            (new Context(1))->setTitle("Contexte #1"), 
+            (new Context(2))->setTitle("Contexte #2"), 
         ];
     }
 
