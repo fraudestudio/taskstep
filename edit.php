@@ -3,7 +3,7 @@
 include("includes/header.php");
 
 use TaskStep\Logic\Model\{Item, User, Section, Context, Project};
-use TaskStep\Logic\Data\FakeDatabase\{ItemDao, ContextDao, ProjectDao};
+use TaskStep\Logic\Data\LegacyMySql\{ItemDao, ContextDao, ProjectDao};
 
 $itemDao = new ItemDao();
 $item = new Item();
@@ -122,13 +122,34 @@ if ($showSuccessMessage): ?>
 <tr>
 	<td></td>
 	<td></td>
-	<td><span class="listlinkstyle"><a href="edit_types.php?type=context"><img src="images/context_edit.png" alt="" /> <?= $l_forms_contexte ?></a></span></td>
-	<td><span class="listlinkstyle"><a href="edit_types.php?type=project"><img src="images/project_edit.png" alt="" /> <?= $l_forms_projecte ?></a></span></td>
+	<td>
+		<span class="listlinkstyle">
+			<a href="edit_types.php?type=context">
+				<img src="images/context_edit.png" alt="" />
+				<?= $l_forms_contexte ?>
+			</a>
+		</span>
+	</td>
+	<td>
+		<span class="listlinkstyle">
+			<a href="edit_types.php?type=project">
+				<img src="images/project_edit.png" alt="" />
+				<?= $l_forms_projecte ?>
+			</a>
+		</span>
+	</td>
 </tr>
 <tr>
    <td><?= $l_forms_date ?>:</td>
    <td colspan="3" rowspan="1" id="holder">
-      <input type='text' autocomplete="off" name='date' value="<?= $item->date() ?? '' ?>" size="60" class="datebox" onfocus="JACS.show(this,event);" />
+      <input
+      	type='text'
+      	autocomplete="off"
+      	name='date'
+      	value="<?= $item->date()?->format('Y-m-d') ?? '' ?>"
+      	size="60"
+      	class="datebox"
+      	onfocus="JACS.show(this,event);" />
    </td>
 </tr>
 <tr>
@@ -139,10 +160,12 @@ if ($showSuccessMessage): ?>
 </tr>
 <tr>
    <td></td>
-   <td colspan="3" rowspan="1"><input type="submit" name="submit" value="<?= $l_forms_button[isset($itemId) ? 'edit' : 'add'] ?>" /></td> 
+   <td colspan="3" rowspan="1">
+   	<input type="submit" name="submit" value="<?= $l_forms_button[isset($itemId) ? 'edit' : 'add'] ?>" />
+   </td> 
 </tr>
 </table>
-<input type="hidden" name="id" value="<?= $id ?>" />
+<input type="hidden" name="id" value="<?= $itemId ?? '' ?>" />
 </div>
 </form>
 

@@ -1,10 +1,8 @@
 <?php
 
-namespace TaskStep\Logic\Data\FakeDatabase;
+namespace TaskStep\Logic\Data\Fake;
 
 use TaskStep\Logic\Model\{Item, Section, Context, Project, ItemDaoInterface};
-use TaskStep\Logic\Data\Database;
-use TaskStep\Logic\Data\FakeDatabase\ContextDao;
 
 class ItemDao implements ItemDaoInterface
 {

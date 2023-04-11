@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Logic\Data\FakeDatabase;
+namespace TaskStep\Logic\Data\Fake;
 
 use TaskStep\Logic\Model\{Context, ContextDaoInterface};
 use TaskStep\Logic\Data\Database;
