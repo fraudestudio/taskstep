@@ -6,6 +6,7 @@ namespace TaskStep\Logic\Data\LegacyMySql;
 
 require_once 'config.php';
 
+use TaskStep\Config;
 use \Exception;
 use \PDO, \PDOException, \PDOStatement;
 
@@ -39,9 +40,9 @@ class Database
 
     private function __construct()
     {
-        global $server, $db, $user, $password;
+        $config = Config::instance()->legacyDatabase();
 
-        $this->pdo = new PDO("mysql:host=$server;dbname=$db", $user, $password);
+        $this->pdo = new PDO($config->dsn(), $config->username(), $config->password());
     }
 
     /**

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
 
+use \DateTime;
+
 /**
  * Un DAO des items.
  */
@@ -50,6 +52,13 @@ interface ItemDaoInterface
 	public function readByProject(Project $project): array;
 
 	/**
+	 * Récupère les items du jour.
+	 * 
+	 * @param $day Le jour pour lequel chercher les items.
+	 */
+	public function readDaily(DateTime $day): array;
+
+	/**
 	 * Mets à jour un item.
 	 * 
 	 * @param $id L'identifiant de l'item à modifier.
@@ -64,4 +73,9 @@ interface ItemDaoInterface
 	 * @param $id L'identifiant de l'item à supprimer.
 	 */
 	public function delete(int $id);
+
+	/**
+	 * Compte le nombre total de tâches à faire.
+	 */
+	public function countUndone(): int;
 }

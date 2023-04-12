@@ -1,40 +1,65 @@
-<?php include("includes/header.php") ?>
+<?php
+
+include("includes/header.php");
+
+use TaskStep\Logic\Data\LegacyMySql\{ItemDao, SettingsDao};
+
+$items = new ItemDao();
+$dailyItems = $items->readDaily(new DateTime('now'));
+
+$settings = new SettingsDao();
+
+$hour = date("H");
+if ($hour <= 11) $intro = l->index->introMorning;
+else if ($hour <= 18) $intro = l->index->introAfternoon;
+else $intro = l->index->introEvening;
+$intro .= l->index->introText;
+
+?>
+
 <div id="welcomebox">
-<h2><img src="images/page.png" alt="" />&nbsp;<?php echo $l_index_welcome; ?></h2>
-<p>
-	<?php
-		$var = date("H");
-		if ($var <= 11) echo $l_index_introm;
-		else if ($var > 11 and $var < 18) echo $l_index_introa;
-		else echo $l_index_introe;
-		echo $l_index_introtext;
-	?>
-	<p><img src="images/chart_bar.png" alt="" />&nbsp;
-	<?php
-		$tasktotal = $mysqli->query("SELECT * FROM items WHERE done='0'");
-		$numtasks = $tasktotal->num_rows;
-		if($numtasks == 1) echo $l_index_1task;
-		else echo $l_index_mtasks.$numtasks.$l_index_mtaske;
-	?>
-</p>
+	<h2>
+		<img src="images/page.png" alt="" />&nbsp;<?= l->index->welcome ?>
+	</h2>
+	<p><?= $intro ?></p>
+	<p>
+		<img src="images/chart_bar.png" alt="" />&nbsp;
+		<?php
+			$undone = $items->countUndone();
+			if($undone == 1) echo l->index->oneTask;
+			else echo sprintf(l->index->nTasks, $undone);
+		?>
+	</p>
 </div>
 
-<?php
-display_frontpage();
+<div id="immediateblock">
+	<h2>
+		<img src="images/lightning.png" alt="" />
+		<?= l->sections->immediate ?> (<?= count($dailyItems) ?>)
+	</h2>
 
-//Tips Box
-$result = $mysqli->query("SELECT * FROM settings WHERE setting='tips'");
-while($r=$result->fetch_array())
-{
-	if($r['value'] == 1)
-	{
-		echo '<div id="tipsbox"><img src="images/information.png" alt="" />&nbsp;' . $l_index_tip . ':&nbsp;';
-		//TEMPORARY LANGUAGE VALUE
-		srand((double)microtime()*1000000); 
-		$arry_txt=preg_split("/--NEXT--/",join('',file("lang/tips_$language.txt"))); 
-		echo $arry_txt[rand(0,sizeof($arry_txt)-1)] . '</div>'; 
-	}
-}
+	<?php foreach($dailyItems as $item): ?>
+	<div class='immediateitem'>
+		<a href='display.php?display=section&section=immediate&cmd=do&id=<?= $item->id() ?>' title='<?= l->items->do ?>'>
+			<img src='images/undone.png' alt='<?= l->items->do ?>' class='valign'/>
+		</a>
+		<a href='edit.php?id=<?= $item->id() ?>' title='<?= l->items->edit ?>'>
+			<?= $item->title() ?>
+		</a>
+		<?= $item->date()->format(l->dateFormat->task) ?> | <?= $item->context()->title() ?>
+	</div>
+	<?php endforeach; ?>
+
+	<?= empty($dailyItems) ? l->index->noImmediate : '' ?>
+</div>
+
+<?php if ($settings->displayTips()): ?>
+<div id="tipsbox">
+	<img src="images/information.png" alt="" />&nbsp;<?= l->index->tip ?>:
+	<?= l->tips[rand(0, count(l->tips) - 1)] ?>
+</div>
+<?php endif;
 
 include('includes/footer.php');
+
 ?>

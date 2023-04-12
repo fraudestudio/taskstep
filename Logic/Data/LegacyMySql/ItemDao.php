@@ -19,6 +19,19 @@ class ItemDao implements ItemDaoInterface
 		$this->projects = new ProjectDao();
 	}
 
+	public function hydrate(Item &$item, array $data)
+	{
+		$item
+			->setTitle($data['title'])
+			->setDate(new DateTime($data['date']))
+			->setNotes($data['notes'])
+			->setUrl($data['url'])
+			->setSection(Section::from($data['section']))
+			->setContext($this->contexts->readByTitle($data['context']))
+			->setProject($this->projects->readByTitle($data['project']))
+			->setDone($data['done']);
+	}
+
 	public function create(Item $item)
 	{
 		throw new \Exception("TODO!");
@@ -26,20 +39,13 @@ class ItemDao implements ItemDaoInterface
 
 	public function readById(int $id): Item
 	{
-		$statement = Database::instance()
-			->execute('SELECT * FROM items WHERE id = ?', $id);
+		$statement = Database::instance()->execute('SELECT * FROM items WHERE id = ?', $id);
 
 		if ($row = $statement->fetch())
 		{
-			return (new Item($id))
-				->setTitle($row['title'])
-				->setDate(new DateTime($row['date']))
-				->setNotes($row['notes'])
-				->setUrl($row['url'])
-				->setSection(Section::from($row['section']))
-				->setContext($this->contexts->readByTitle($row['context']))
-				->setProject($this->projects->readByTitle($row['project']))
-				->setDone($row['done']);
+			$item = new Item($id);
+			$this->hydrate($item, $row);
+			return $item;
 		}
 		else
 		{
@@ -67,6 +73,25 @@ class ItemDao implements ItemDaoInterface
 		throw new \Exception("TODO!");
 	}
 
+	public function readDaily(DateTime $day): array
+	{
+		$statement = Database::instance()->execute(
+			'SELECT * FROM items WHERE (section = "immediate" OR `date` <= :day) AND done = 0 ORDER BY `date` LIMIT 5',
+			day: $day->format('Y-m-d'),
+		);
+
+		$result = [];
+
+		while ($row = $statement->fetch())
+		{
+			$item = new Item($row['id']);
+			$this->hydrate($item, $row);
+			array_push($result, $item);
+		}
+
+		return $result;
+	}
+
 	public function update(int $id, Item $item)
 	{
 		Database::instance()->execute(
@@ -87,5 +112,20 @@ class ItemDao implements ItemDaoInterface
 	public function delete(int $id)
 	{
 		throw new \Exception("TODO!");
+	}
+
+	public function countUndone(): int
+	{
+		$statement = Database::instance()
+			->execute('SELECT COUNT(*) FROM items WHERE done = 0');
+
+		if ($row = $statement->fetch())
+		{
+			return $row[0];
+		}
+		else
+		{
+			throw new Exception($statement->errorInfo()[2]);
+		}
 	}
 }
