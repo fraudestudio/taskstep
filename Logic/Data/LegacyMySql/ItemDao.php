@@ -55,29 +55,92 @@ class ItemDao implements ItemDaoInterface
 
 	public function readAll(): array
 	{
-		throw new \Exception("TODO!");
+        $statement = Database::instance()->execute('SELECT * FROM items');
+
+        $result = [];
+
+        while ($row = $statement->fetch())
+        {
+        	$item = new Item($row['id']);
+        	$this->hydrate($item, $row);
+            array_push($result, $item);
+        }
+
+        return $result;
 	}
 
 	public function readBySection(Section $section): array
 	{
-		throw new \Exception("TODO!");
+        $statement = Database::instance()->execute('SELECT * FROM items WHERE section = ?', $section->value);
+
+        $result = [];
+
+        while ($row = $statement->fetch())
+        {
+        	$item = new Item($row['id']);
+        	$this->hydrate($item, $row);
+            array_push($result, $item);
+        }
+
+        return $result;
 	}
 
 	public function readByContext(Context $context): array
 	{
-		throw new \Exception("TODO!");
+        $statement = Database::instance()->execute('SELECT * FROM items WHERE context = ?', $context->title());
+
+        $result = [];
+
+        while ($row = $statement->fetch())
+        {
+        	$item = new Item($row['id']);
+        	$this->hydrate($item, $row);
+            array_push($result, $item);
+        }
+
+        return $result;
 	}
 
 	public function readByProject(Project $project): array
 	{
-		throw new \Exception("TODO!");
+        $statement = Database::instance()->execute('SELECT * FROM items WHERE project = ?', $project->title());
+
+        $result = [];
+
+        while ($row = $statement->fetch())
+        {
+        	$item = new Item($row['id']);
+        	$this->hydrate($item, $row);
+            array_push($result, $item);
+        }
+
+        return $result;
 	}
 
-	public function readDaily(DateTime $day): array
+	public function readByDate(DateTime $date): array
 	{
 		$statement = Database::instance()->execute(
-			'SELECT * FROM items WHERE (section = "immediate" OR `date` <= :day) AND done = 0 ORDER BY `date` LIMIT 5',
-			day: $day->format('Y-m-d'),
+			'SELECT * FROM items WHERE `date` = :date',
+			date: $date->format('Y-m-d'),
+		);
+
+		$result = [];
+
+		while ($row = $statement->fetch())
+		{
+			$item = new Item($row['id']);
+			$this->hydrate($item, $row);
+			array_push($result, $item);
+		}
+
+		return $result;
+	}
+
+	public function readDaily(DateTime $date): array
+	{
+		$statement = Database::instance()->execute(
+			'SELECT * FROM items WHERE (section = "immediate" OR `date` <= :date) AND done = 0 ORDER BY `date` LIMIT 6',
+			date: $date->format('Y-m-d'),
 		);
 
 		$result = [];
@@ -103,15 +166,15 @@ class ItemDao implements ItemDaoInterface
 			notes: $item->notes(),
 			url: $item->url(),
 			section: $item->section()->value,
-			context: $this->contexts->readById($item->context()->id())->title(),
-			project: $this->projects->readById($item->project()->id())->title(),
+			context: $item->context()->title(),
+			project: $item->project()->title(),
 			done: $item->done() ? 1 : 0
 		);
 	}
 
 	public function delete(int $id)
 	{
-		throw new \Exception("TODO!");
+		Database::instance()->execute('DELETE FROM items WHERE id = ?', $id);
 	}
 
 	public function countUndone(): int

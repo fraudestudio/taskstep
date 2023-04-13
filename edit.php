@@ -55,7 +55,10 @@ else if (isset($_POST["submit"]))
 }
 else
 {
-	$item->setTitle($l_forms_titledefval); 
+	$item->setTitle($l_forms_titledefval);
+	if (isset($_GET['section'])) $item->setSection(Section::from($_GET['section']));
+	if (isset($_GET['context'])) $item->setContext($contextDao->readById($_GET['context']));
+	if (isset($_GET['project'])) $item->setProject($projectDao->readById($_GET['project']));
 }
 
 if ($showSuccessMessage): ?>

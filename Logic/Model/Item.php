@@ -50,9 +50,45 @@ class Item
 	public function date(): ?DateTime { return $this->_date; }
 
 	/**
+	 * Indique si la tâche est à faire pour aujourd'hui.
+	 * 
+	 * Cette fonction renverra toujours `false` si la tâche n'a pas d'échéance.
+	 */
+	public function dueToday(): bool
+	{
+		if (!is_null($this->_date))
+		{
+			$diff = $this->_date->diff(new DateTime('now'));
+			return $diff->days == 0 and $diff->invert == 0;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Indique si la tâche est en retard.
+	 * 
+	 * Cette fonction renverra toujours `false` si la tâche n'a pas d'échéance.
+	 */
+	public function overdue(): bool
+	{
+		if (!is_null($this->_date))
+		{
+			$diff = $this->_date->diff(new DateTime('now'));
+			return $diff->days > 0 and $diff->invert == 0;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
 	 * Modifie l'échéance de la tâche.
 	 * 
-	 * @param $date La nouvelle échéance, ou null pour l'enlever.
+	 * @param $date La nouvelle échéance, ou `null` pour l'enlever.
 	 */
 	public function setDate(?DateTime $date): Item
 	{

@@ -18,19 +18,24 @@ return [
 	$l_login_l3 = "Haz click aqu&iacute; para ir a tus listas.";
 	$l_login_l4 = "Clave incorrecta.";
 	$l_login_l5 = "Acceso identificado desactivado. Esto no es seguro, por favor cambialo si estas en un servidor p&uacute;blico.";
-
+*/
 	// Navigation
-	$l_nav_today = "Hoy";
-	$l_nav_home = "Inicio";
-	$l_nav_context = "Por contexto";
-	$l_nav_project = "Por proyecto";
-	$l_nav_settings = "Configuraci&oacute;n";
-	$l_nav_help = "Ayuda";
-	$l_nav_logout = "Salir";
+	'navigation' => [
+		'today' => "Hoy",
+		'home' => "Inicio",
+		'allItems' => "Todos",
+		'context' => "Por contexto",
+		'project' => "Por proyecto",
+		'settings' => "Configuraci&oacute,n",
+		'help' => "Ayuda",
+		'logout' => "Salir",
+	],
 
 	// Sidebar
-	$l_side_add = "A&ntilde;adir";
-*/
+	'sidebar' => [
+		'add' => "A&ntilde;adir",
+	],
+
 	// Sections
 	'sections' => [
 		'ideas' => "Ideas",
@@ -58,20 +63,21 @@ return [
 	// Items
 	'items' => [
 		'do' => "Marcar como hecho",
+		'undo' => "Marcar como no hecho",
+		'edit' => "Editar",
+		'del' => "Borrar",
+		'print' => "Imprimir listado (3 x 5 Index card)",
+		'sort' => [
+			'title' => "Titulo",
+			'date' => "Fecha",
+			'context' => "Contexto",
+			'project' => "Proyecto",
+			'done' => "Hecho"
+		],
+		'sorttext' => "Ordenar por:",
+		'sortbutton' => "Ordenar",
 	],
-/*
-		$l_items_undo = "Marcar como no hecho";
-	$l_items_edit = "Editar";
-	$l_items_del = "Borrar";
-	$l_items_print = "Imprimir listado (3 x 5 Index card)";
-	$l_items_sort = array('title' => "Titulo", //Another array for list purposes
-	'date' => "Fecha",
-	'context' => "Contexto",
-	'project' => "Proyecto",
-	'done' => "Hecho");
-	$l_items_sorttext = "Ordenar por:";
-	$l_items_sortbutton = "Ordenar";
-*/
+
 	// "Display by" pages
 	'context' => [
 		'chooseToList' => "Filtrar por contexto. Opcionalmente, a&ntilde;adir uno nuevo.",
@@ -102,26 +108,35 @@ return [
 	$l_forms_url = "Url";
 	$l_forms_button['add'] = "A&ntilde;adir";
 	$l_forms_button['edit'] = "Editar";
-
-	//Messages
-	$l_msg_noitems = "No hay nada en esta secci&oacute;n";
-	$l_msg_addsome = "&iexcl;a&ntilde;ade algo!";
-	$l_msg_notoday = "No hay nada hoy. Es posible que no tengas nada que hacer, o quiz&aacute; quieras";
-	$l_msg_itemedit = "Actualizado correctamente";
-	$l_msg_itemadd = "A&ntilde;adido correctamente";
-	$l_msg_itemdel = "Borrado correctamente";
-	$l_msg_itemdo = "Marcado como hecho";
-	$l_msg_itemundo = "Marcado como no hecho";
-	$l_msg_actionerror = "Comando o acci&oacute;n inv&aacute;lida";
-	$l_msg_unspecific = "Es imprescindible especificar un contexto, proyecto y secci&oacute;n.";
-	$l_msg_updated['context'] = "Contexto actualizado";
-	$l_msg_updated['project'] = "Proyecto actualizado";
-	$l_msg_added['context'] = "Contexto a&ntilde;adido";
-	$l_msg_added['project'] = "Proyecto a&ntilde;adido";
-	$l_msg_deleted['context'] = "Contexto borrado";
-	$l_msg_deleted['project'] = "Proyecto borrado";
-	$l_msg_noid = "Error en la URL. Deberia haber una id especificada.";
-
+*/
+	// Messages
+	'message' => [
+		'noItems' => "No hay nada en esta secci&oacute;n",
+		'addSome' => "&iexcl;a&ntilde;ade algo!",
+		'noneToday' => "No hay nada hoy. Es posible que no tengas nada que hacer, o quiz&aacute; quieras",
+		'actionError' => "Comando o acci&oacute;n inv&aacute;lida",
+		'unspecific' => "Es imprescindible especificar un contexto, proyecto y secci&oacute;n.",
+		'noId' => "Error en la URL. Deberia haber una id especificada.",
+    	'exportedTo' => "Exportado a",
+    	'item' => [
+			'updated' => "Actualizado correctamente",
+			'added' => "A&ntilde;adido correctamente",
+			'deleted' => "Borrado correctamente",
+			'done' => "Marcado como hecho",
+			'undone' => "Marcado como no hecho",
+		],
+		'context' => [
+			'updated' => "Contexto actualizado",
+			'added' => "Contexto a&ntilde;adido",
+			'deleted' => "Contexto borrado",
+		],
+		'project' => [
+			'updated' => "Proyecto actualizado",
+			'added' => "Proyecto a&ntilde;adido",
+			'deleted' => "Proyecto borrado",
+		],
+	],
+/*
 	//Settings
 	$l_cp_bookmarklettext = "Arrastra la imagen a tus favoritos para a&ntilde;adirla a tus marcadores";
 	$l_cp_bookmarklet = "A&ntilde;adir a TaskStep";
@@ -157,16 +172,13 @@ return [
 
 	//Insert updated parts after this point
 	//--1/4/07--
-	$l_nav_allitems = "Todos";
 
 	//--28/8/07--
     $l_forms_titledefval = "Titulo de la tarea o acci&oacute;n";
-    $l_msg_updateassoctasks = "Actualizar las tareas asociadas?";
     $l_print_commontitle = "Imprimir";
     $l_print_printalltasks = "Tareas";
     $l_print_printtoday = "Hoy";
     $l_print_sectionnotfound = "Secci&oacute;n no encontrado!";
-    $l_msg_exportedto="Exportado a";
 	//Insert updated parts before this point
 */
     'tips' => ['...'],

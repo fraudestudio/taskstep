@@ -20,20 +20,24 @@ return [
 	'login_l3' => "Click here to go to your lists.";
 	'login_l4' => "Incorrect password.";
 	'login_l5' => "Password has been disabled. This isn't very secure, so please change this if you're using this on a public server.";
-
+*/
 	// Navigation
-	'nav_today' => "Today";
-	'nav_home' => "Home";
-	'nav_context' => "By context";
-	'nav_project' => "By project";
-	'nav_settings' => "Settings";
-	'nav_help' => "Help";
-	'nav_logout' => "Logout";
+	'navigation' => [
+		'today' => "Today",
+		'home' => "Home",
+		'allItems' => 'All Items',
+		'context' => "By context",
+		'project' => "By project",
+		'settings' => "Settings",
+		'help' => "Help",
+		'logout' => "Logout",
+	],
 
 	// Sidebar
-	'side_add' => "Add item";
+	'sidebar' => [
+		'add' => "Add item",
+	],
 
-*/
 	// Sections
 	'sections' => [
 		'ideas' => "Ideas",
@@ -61,20 +65,21 @@ return [
 	// Items
 	'items' => [
 		'do' => "Mark as done",
+		'undo' => "Mark as not done",
+		'edit' => "Edit item",
+		'delete' => "Delete",
+		'print' => "Print list (3 x 5 Index card)",
+		'sort' => [
+			'title' => "Title",
+			'date' => "Date",
+			'context' => "Context",
+			'project' => "Project",
+			'done' => "Done"
+		],
+		'sortText' => "Sort items by:",
+		'sortButton' => "Sort",
 	],
-/*
-	'items_undo' => "Mark as not done";
-	'items_edit' => "Edit item";
-	'items_del' => "Delete";
-	'items_print' => "Print list (3 x 5 Index card)";
-	'items_sort' => array('title' => "Title", //Another array for list purposes
-	'date' => "Date",
-	'context' => "Context",
-	'project' => "Project",
-	'done' => "Done");
-	'items_sorttext' => "Sort items by:";
-	'items_sortbutton' => "Sort";
-*/
+
 	// "Display by" pages
 	'context' => [
 		'chooseToList' => "Choose a context to list the items for. Alternatively, add a new context.",
@@ -105,26 +110,35 @@ return [
 	'forms_url' => "Url";
 	'forms_button'['>add'] = "Add item";
 	'forms_button'['>edit'] = "Edit item";
-
-	//Messages
-	'msg_noitems' => "No items in this section!";
-	'msg_addsome' => "Add some!";
-	'msg_notoday' => "No items today! Either there is nothing to do, or you should";
-	'msg_itemedit' => "Item updated!";
-	'msg_itemadd' => "Item added!";
-	'msg_itemdel' => "Item deleted";
-	'msg_itemdo' => "Marked as done";
-	'msg_itemundo' => "Marked as not done";
-	'msg_actionerror' => "Command or action invalid";
-	'msg_unspecific' => "Sorry, you need to specify a context, project and section.";
-	'msg_updated'['>context'] = "Context updated";
-	'msg_updated'['>project'] = "Project updated";
-	'msg_added'['>context'] = "Context added";
-	'msg_added'['>project'] = "Project added";
-	'msg_deleted'['>context'] = "Context deleted";
-	'msg_deleted'['>project'] = "Project deleted";
-	'msg_noid' => "Sorry, there is an error in the URL. There should be an id specified.";
-
+*/
+	// Messages
+	'message' => [
+		'noItems' => "No items in this section!",
+		'addSome' => "Add some!",
+		'noneToday' => "No items today! Either there is nothing to do, or you should",
+		'actionError' => "Command or action invalid",
+		'unspecific' => "Sorry, you need to specify a context, project and section.",
+		'noId' => "Sorry, there is an error in the URL. There should be an id specified.",
+    	'exportedTo' => "Exported to %s",
+		'item' => [
+			'updated' => "Item updated!",
+			'added' => "Item added!",
+			'deleted' => "Item deleted",
+			'done' => "Marked as done",
+			'undone' => "Marked as not done",
+		],
+		'context' => [
+			'updated' => "Context updated",
+			'added' => "Context added",
+			'deleted' => "Context deleted",
+		],
+		'project' => [
+			'updated' => "Project updated",
+			'added' => "Project added",
+			'deleted' => "Project deleted",
+		],
+	],
+/*
 	//Settings
 	'cp_bookmarklettext' => "Drag the image below onto your bookmarks to create the bookmarklet.";
 	'cp_bookmarklet' => "Add to TaskStep";
@@ -159,17 +173,13 @@ return [
 	'cp_tools_purgecheck' => "Are you sure you want to delete all done items?";
 
 	//Insert updated parts after this point
-	//--1/4/07--
-	'nav_allitems' => "All Items";
 
 	//--28/8/07--
     'forms_titledefval' => "Task or step title";
-    'msg_updateassoctasks' => "Update associated tasks?";
     'print_commontitle' => "Print";
     'print_printalltasks' => "Tasks";
     'print_printtoday' => "Today";
     'print_sectionnotfound' => "Section not found!";
-    'msg_exportedto'=">Exported to";
 	//Insert updated parts before this point
 */
     'tips' => [

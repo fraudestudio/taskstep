@@ -18,19 +18,23 @@ return [
 	$l_login_l3 = "Klicken Sie hier, um zu Ihren Listen zu gelangen.";
 	$l_login_l4 = "Falsches Kennwort.";
 	$l_login_l5 = "Kennwort wurde deaktiviert. Dies ist nicht sehr sicher. Bitte ändern Sie die Einstellung, wenn Sie TaskStep auf einem öffentlichen Server verwenden.";
-
+*/
 	// Navigation
-	$l_nav_today = "Heute";
-	$l_nav_home = "Home";
-	$l_nav_context = "Nach Kontext";
-	$l_nav_project = "Nach Projekt";
-	$l_nav_settings = "Einstellungen";
-	$l_nav_help = "Hilfe";
-	$l_nav_logout = "Abmelden";
+	'navigation' => [
+		'today' => "Heute",
+		'home' => "Home",
+		'allItems' => "Alle Aufgaben",
+		'context' => "Nach Kontext",
+		'project' => "Nach Projekt",
+		'settings' => "Einstellungen",
+		'help' => "Hilfe",
+		'logout' => "Abmelden",
+	],
 
 	// Sidebar
-	$l_side_add = "Aufgabe hinzufügen";
-*/
+	'sidebar' => [
+		'add' => "Aufgabe hinzufügen",
+	],
 
 	// Sections
 	'sections' => [
@@ -62,20 +66,21 @@ return [
 	// Items
 	'items' => [
 		'do' => "Markiere als erledigt",
+		'undo' => "Markiere als unerledigt",
+		'edit' => "Aufgabe Bearbeiten",
+		'delete' => "Löschen",
+		'print' => "Drucke Liste (3 x 5 Indexkarten)",
+		'sort' => [
+			'title' => "Titel",
+			'date' => "Datum",
+			'context' => "Kontext",
+			'project' => "Projekt",
+			'done' => "Erledigt"
+		],
+		'sortText' => "Sortiere Aufgaben nach:",
+		'sortButton' => "Sortiere",
 	],
-/*
-	$l_items_undo = "Markiere als unerledigt";
-	$l_items_edit = "Aufgabe Bearbeiten";
-	$l_items_del = "Löschen";
-	$l_items_print = "Drucke Liste (3 x 5 Indexkarten)";
-	$l_items_sort = array('title' => "Titel", //Another array for list purposes
-	'date' => "Datum",
-	'context' => "Kontext",
-	'project' => "Projekt",
-	'done' => "Erledigt");
-	$l_items_sorttext = "Sortiere Aufgaben nach:";
-	$l_items_sortbutton = "Sortiere";
-*/
+
 	// "Display by" pages
 	'context' => [
 		'chooseToList' => "Wählen Sie einen Kontext aus, in dem die Elemente aufgelistet werden sollen. Alternativ können Sie einen neuen Kontext hinzufügen.",
@@ -106,26 +111,35 @@ return [
 	$l_forms_url = "Url";
 	$l_forms_button['add'] = "Aufgabe hinzufügen";
 	$l_forms_button['edit'] = "Aufgabe bearbeiten";
-
-	//Messages
-	$l_msg_noitems = "Keine Einträge in diesem Abschnitt!";
-	$l_msg_addsome = "Füge einen hinzu!";
-	$l_msg_notoday = "Keine Einträge heute! Entweder ist nichts zu tun oder Sie sollten";
-	$l_msg_itemedit = "Aufgabe aktualisiert!";
-	$l_msg_itemadd = "Aufgabe hinzugefügt!";
-	$l_msg_itemdel = "Aufgabe gelöscht";
-	$l_msg_itemdo = "Als Erledigt marktiert";
-	$l_msg_itemundo = "Als Unerledigt markiert";
-	$l_msg_actionerror = "Command or action invalid";
-	$l_msg_unspecific = "Sorry, you need to specify a context, project and section.";
-	$l_msg_updated['context'] = "Kontext aktualisiert";
-	$l_msg_updated['project'] = "Projekt aktualisiert";
-	$l_msg_added['context'] = "Kontext hinzugefügt";
-	$l_msg_added['project'] = "Projekt hinzugefügt";
-	$l_msg_deleted['context'] = "Kontext gelöscht";
-	$l_msg_deleted['project'] = "Projekt gelöscht";
-	$l_msg_noid = "Entschuldigung, die URL enthält einen Fehler. Es sollte eine ID angegeben werden.";
-
+*/
+	// Messages
+	'message' => [
+		'noItems' => "Keine Einträge in diesem Abschnitt!",
+		'addSome' => "Füge einen hinzu!",
+		'noneToday' => "Keine Einträge heute! Entweder ist nichts zu tun oder Sie sollten",
+		'actionError' => "Command or action invalid",
+		'unspecific' => "Sorry, you need to specify a context, project and section.",
+		'noId' => "Entschuldigung, die URL enthält einen Fehler. Es sollte eine ID angegeben werden.",
+		'exportedTo' => "Exportiert nach",
+		'item' => [
+			'updated' => "Aufgabe aktualisiert!",
+			'added' => "Aufgabe hinzugefügt!",
+			'deleted' => "Aufgabe gelöscht",
+			'done' => "Als Erledigt marktiert",
+			'undone' => "Als Unerledigt markiert",
+		],
+		'context' => [
+			'updated' => "Kontext aktualisiert",
+			'added' => "Kontext hinzugefügt",
+			'deleted' => "Kontext gelöscht",
+		],
+		'project' => [
+			'updated' => "Projekt aktualisiert",
+			'added' => "Projekt hinzugefügt",
+			'deleted' => "Projekt gelöscht",
+		],
+	],
+/*
 	//Settings
 	$l_cp_bookmarklettext = "Ziehen Sie das Bild unten auf Ihre Lesezeichen, um das Lesezeichen zu erstellen.";
 	$l_cp_bookmarklet = "TaskStep Aufgabe";
@@ -161,16 +175,13 @@ return [
 
 	//Insert updated parts after this point
 	//--1/4/07--
-	$l_nav_allitems = "Alle Aufgaben";
 
 	//--28/8/07--
 	$l_forms_titledefval = "Aufgaben- oder Schritt-Titel";
-	$l_msg_updateassoctasks = "Verbundene Aufgaben aktualisieren?";
 	$l_print_commontitle = "Druck";
 	$l_print_printalltasks = "Aufgaben";
 	$l_print_printtoday = "Heute";
 	$l_print_sectionnotfound = "Abschnitt nicht gefunden!";
-	$l_msg_exportedto="Exportiert nach";
 	//Insert updated parts before this point
 */
 	'tips' => [

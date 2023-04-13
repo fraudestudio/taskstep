@@ -22,7 +22,7 @@ else
 }
 
 $categories = $dao->readAll();
-usort($categories, function($a, $b) { return strnatcmp($a->title(), $b->title()); });
+usort($categories, function($a, $b) { return strnatcasecmp($a->title(), $b->title()); });
 
 ?>
 

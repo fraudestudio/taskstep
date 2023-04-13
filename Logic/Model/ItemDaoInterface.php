@@ -52,7 +52,17 @@ interface ItemDaoInterface
 	public function readByProject(Project $project): array;
 
 	/**
+	 * Récupère les items avec une échéance particulière.
+	 * 
+	 * @param $date La date pour laquelle récupérer les items.
+	 */
+	public function readByDate(DateTime $date): array;
+
+	/**
 	 * Récupère les items du jour.
+	 * 
+	 * Les items du jour sont ceux à terminer avant aujourd'hui
+	 * et ceux de la section « immediate » qui s'ont pas été terminés.
 	 * 
 	 * @param $day Le jour pour lequel chercher les items.
 	 */

@@ -17,19 +17,24 @@ return [
 	$l_login_l3 = "Нажмите сюда для перехода к списку задач.";
 	$l_login_l4 = "Неверный пароль.";
 	$l_login_l5 = "Защита паролем была отключена. Это небезопасно, поэтому, если TaskStep размещен на публичном сервере, то активизируйте защиту.";
-
+*/
 	// Navigation
-	$l_nav_today = "Сегодня";
-	$l_nav_home = "Главная";
-	$l_nav_context = "Разделы";
-	$l_nav_project = "Проекты";
-	$l_nav_settings = "Настройки";
-	$l_nav_help = "Помощь";
-	$l_nav_logout = "Выйти";
+	'navigation' => [
+		'today' => "Сегодня",
+		'home' => "Главная",
+		'allItems' => "Все задачи",
+		'context' => "Разделы",
+		'project' => "Проекты",
+		'settings' => "Настройки",
+		'help' => "Помощь",
+		'logout' => "Выйти",
+	],
 
 	// Sidebar
-	$l_side_add = "Новая задача";
-*/
+	'sidebar' => [
+		'add' => "Новая задача",
+	],
+
 	// Sections
 	'sections' => [
 		'ideas' => "Идеи",
@@ -61,20 +66,21 @@ return [
 	// Items
 	'items' => [
 		'do' => "Пометить как сделанную",
+		'undo' => "Пометить как несделанную",
+		'edit' => "Изменить",
+		'delete' => "Удалить",
+		'print' => "Распечатать список 3 x 5",
+		'sort' => [
+			'title' => "Названию",
+			'date' => "Дате",
+			'context' => "Разделу",
+			'project' => "Проекту",
+			'done' => "Статусу"
+		],
+		'sortText' => "Сортировать по:",
+		'sortButton' => "Отсортировать",
 	],
-/*
-	$l_items_undo = "Пометить как несделанную";
-	$l_items_edit = "Изменить";
-	$l_items_del = "Удалить";
-	$l_items_print = "Распечатать список 3 x 5";
-	$l_items_sort = array('title' => "Названию", //Another array for list purposes
-	'date' => "Дате",
-	'context' => "Разделу",
-	'project' => "Проекту",
-	'done' => "Статусу");
-	$l_items_sorttext = "Сортировать по:";
-	$l_items_sortbutton = "Отсортировать";
-*/
+
 	// "Display by" pages
 	'context' => [
 		'chooseToList' => "Выберите раздел, чтобы вывести все задачи, размещенные в нем. Либо добавьте новый раздел.",
@@ -94,7 +100,7 @@ return [
 	],
 /*
 	//Forms (add, edit etc.)
-	$l_forms_title = "Название";
+	$l_forms_title = "Название",
 	$l_forms_notes = "Замечания";
 	$l_forms_section = "Категория";
 	$l_forms_context = "Раздел";
@@ -105,26 +111,35 @@ return [
 	$l_forms_url = "URL";
 	$l_forms_button['add'] = "Добавить задачу";
 	$l_forms_button['edit'] = "Изменить задачу";
-
-	//Messages
-	$l_msg_noitems = "В этой категории нет задач!";
-	$l_msg_addsome = "Новая задача!";
-	$l_msg_notoday = "На сегодня задач нет! Либо ничего делать не нужно, либо вам следует";
-	$l_msg_itemedit = "Задача обновлена!";
-	$l_msg_itemadd = "Задача добавлена!";
-	$l_msg_itemdel = "Задача удалена!";
-	$l_msg_itemdo = "Помечена как выполненная";
-	$l_msg_itemundo = "Помечена как невыполненная";
-	$l_msg_actionerror = "Неверная команда или действия";
-	$l_msg_unspecific = "Извините, но вам нужно нужно указать категорию, раздел и проект.";
-	$l_msg_updated['context'] = "Раздел обновлен";
-	$l_msg_updated['project'] = "Проект обновлен";
-	$l_msg_added['context'] = "Раздел добавлен";
-	$l_msg_added['project'] = "Проект добавлен";
-	$l_msg_deleted['context'] = "Раздел удален";
-	$l_msg_deleted['project'] = "Проект удален.";
-	$l_msg_noid = "Извините, но в URL имеет ошибка. Параметр id должен быть определен.";
-
+*/
+	// Messages
+	'message' => [
+		'noItems' => "В этой категории нет задач!",
+		'addSome' => "Новая задача!",
+		'noneToday' => "На сегодня задач нет! Либо ничего делать не нужно, либо вам следует",
+		'actionError' => "Неверная команда или действия",
+		'unspecific' => "Извините, но вам нужно нужно указать категорию, раздел и проект.",
+		'noId' => "Извините, но в URL имеет ошибка. Параметр id должен быть определен.",
+		'exportedTo' => "Экспортировано в",
+		'item' => [
+			'updated' => "Задача обновлена!",
+			'added' => "Задача добавлена!",
+			'deleted' => "Задача удалена!",
+			'done' => "Помечена как выполненная",
+			'undone' => "Помечена как невыполненная",
+		],
+		'context' => [
+			'updated' => "Раздел обновлен",
+			'added' => "Раздел добавлен",
+			'deleted' => "Раздел удален",
+		],
+		'project' => [
+			'updated' => "Проект обновлен",
+			'added' => "Проект добавлен",
+			'deleted' => "Проект удален.",
+		]
+	],
+/*
 	//Settings
 	$l_cp_bookmarklettext = "Перетащите изображение, размещенное ниже, для создания закладки.";
 	$l_cp_bookmarklet = "Добавить в TaskStep";
@@ -160,16 +175,13 @@ return [
 
 	//Insert updated parts after this point
 	//--1/4/07--
-	$l_nav_allitems = "Все задачи";
 
     //--28/8/07--
     $l_forms_titledefval = "Название задачи или шага";
-    $l_msg_updateassoctasks = "Обновить связанные задачи";
     $l_print_commontitle = "Печать";
     $l_print_printalltasks = "Задачи";
     $l_print_printtoday = "Сегодня";
     $l_print_sectionnotfound = "Категория не найдена!";
-    $l_msg_exportedto="Экспортировано в";
 	//Insert updated parts before this point
 */
     'tips' => [

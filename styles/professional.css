@@ -199,6 +199,14 @@ body{
 	margin-bottom:10px;
 }
 
+a.short-url {
+	display: inline-block;
+	max-width: 25ch;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+
 a img{
 	border:0;
 }
