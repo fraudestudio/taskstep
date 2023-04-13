@@ -34,7 +34,7 @@ return [
 	'side_add' => "Add item";
 
 */
-	//Sections
+	// Sections
 	'sections' => [
 		'ideas' => "Ideas",
 		'tobuy' => "Might Want to Buy",
@@ -58,7 +58,7 @@ return [
 		'nTasks' => "There are currently %d tasks left to do.",
 	],
 
-	//Items
+	// Items
 	'items' => [
 		'do' => "Mark as done",
 	],
@@ -74,21 +74,25 @@ return [
 	'done' => "Done");
 	'items_sorttext' => "Sort items by:";
 	'items_sortbutton' => "Sort";
-
-	//"Display by" pages
-	'dbp_l1'['>context'] = "Choose a context to list the items for. Alternatively, add a new context.";
-	'dbp_l1'['>project'] = "Choose a project to list the items for. Alternatively, add a new project.";
-	'dbp_l2'['>context'] = "Choose a context to edit. Alternatively, add a new context.";
-	'dbp_l2'['>project'] = "Choose a project to edit. Alternatively, add a new project.";
-	'dbp_add'['>context'] = "Add context";
-	'dbp_add'['>project'] = "Add project";
-	'dbp_edit'['>context'] = "Edit context";
-	'dbp_edit'['>project'] = "Edit project";
-	'dbp_del'['>context'] = "Delete context";
-	'dbp_del'['>project'] = "Delete project";
-	'dbp_new'['>context'] = "NewContext";
-	'dbp_new'['>project'] = "NewProject";
-
+*/
+	// "Display by" pages
+	'context' => [
+		'chooseToList' => "Choose a context to list the items for. Alternatively, add a new context.",
+		'chooseToEdit' => "Choose a context to edit. Alternatively, add a new context.",
+		'add' => "Add context",
+		'edit' => "Edit context",
+		'delete' => "Delete context",
+		'defaultName' => "New Context",
+	],
+	'project' => [
+		'chooseToList' => "Choose a project to list the items for. Alternatively, add a new project.",
+		'chooseToEdit' => "Choose a project to edit. Alternatively, add a new project.",
+		'add' => "Add project",
+		'edit' => "Edit project",
+		'delete' => "Delete project",
+		'defaultName' => "New Project",
+	],
+/*
 	//Forms (add, edit etc.)
 	'forms_title' => "Title";
 	'forms_notes' => "Notes";

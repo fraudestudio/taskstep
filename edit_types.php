@@ -90,6 +90,12 @@ else if ($getCommand == 'add')
 	$panel = 'add';
 }
 
+if ($panel == 'list')
+{
+	$categories = $dao->readAll();
+	usort($categories, function($a, $b) { return strnatcmp($a->title(), $b->title()); });
+}
+
 ?>
 
 <?php if (isset($messageBoxText)): ?>
@@ -107,11 +113,7 @@ else if ($getCommand == 'add')
 	<a href='edit_types.php?type=<?= $type ?>&cmd=add' class='listlinkssmart'>
 		<img src='images/add.png' alt=''/> <?= $l_dbp_add[$type] ?>
 	</a>
-	<?php
-		$categories = $dao->readAll();
-		usort($categories, function($a, $b) { return strnatcmp($a->title(), $b->title()); });
-		foreach ($categories as $category):
-	?>
+	<?php foreach ($categories as $category): ?>
 	<a href='edit_types.php?type=<?= $type ?>&cmd=edit&id=<?= $category->id() ?>' class='listlinkssmart'>
 		<img src='images/pencil.png' alt=''/> <?= $category->title() ?>
 	</a>

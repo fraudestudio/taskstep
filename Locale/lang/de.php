@@ -32,7 +32,7 @@ return [
 	$l_side_add = "Aufgabe hinzufügen";
 */
 
-	//Sections
+	// Sections
 	'sections' => [
 		'ideas' => "Ideen",
 		'tobuy' => "Wunschliste",
@@ -59,7 +59,7 @@ return [
 		'nTasks' => "Derzeit gibt es %d Aufgaben zu erledigen.",
 	],	
 
-	//Items
+	// Items
 	'items' => [
 		'do' => "Markiere als erledigt",
 	],
@@ -75,21 +75,25 @@ return [
 	'done' => "Erledigt");
 	$l_items_sorttext = "Sortiere Aufgaben nach:";
 	$l_items_sortbutton = "Sortiere";
-
-	//"Display by" pages
-	$l_dbp_l1['context'] = "Wählen Sie einen Kontext aus, in dem die Elemente aufgelistet werden sollen. Alternativ können Sie einen neuen Kontext hinzufügen.";
-	$l_dbp_l1['project'] = "Wählen Sie ein Projekt aus, für das die Elemente aufgelistet werden sollen. Alternativ können Sie ein neues Projekt hinzufügen.";
-	$l_dbp_l2['context'] = "Wählen Sie einen Kontext zum Bearbeiten. Alternativ können Sie einen neuen Kontext hinzufügen.";
-	$l_dbp_l2['project'] = "Wählen Sie ein Projekt zum Bearbeiten. Alternativ können Sie ein neues Projekt hinzufügen.";
-	$l_dbp_add['context'] = "Kontext hinzufügen";
-	$l_dbp_add['project'] = "Projekt hinzufügen";
-	$l_dbp_edit['context'] = "Bearbeite Kontext";
-	$l_dbp_edit['project'] = "Bearbeite Projekt";
-	$l_dbp_del['context'] = "Lösche Kontext";
-	$l_dbp_del['project'] = "Lösche Projekt";
-	$l_dbp_new['context'] = "NeuerKontext";
-	$l_dbp_new['project'] = "NeuesProjekt";
-
+*/
+	// "Display by" pages
+	'context' => [
+		'chooseToList' => "Wählen Sie einen Kontext aus, in dem die Elemente aufgelistet werden sollen. Alternativ können Sie einen neuen Kontext hinzufügen.",
+		'chooseToEdit' => "Wählen Sie einen Kontext zum Bearbeiten. Alternativ können Sie einen neuen Kontext hinzufügen.",
+		'add' => "Kontext hinzufügen",
+		'edit' => "Bearbeite Kontext",
+		'delete' => "Lösche Kontext",
+		'defaultName' => "Neuer Kontext",
+	]
+	'project' => [
+		'chooseToList' => "Wählen Sie ein Projekt aus, für das die Elemente aufgelistet werden sollen. Alternativ können Sie ein neues Projekt hinzufügen.",
+		'chooseToEdit' => "Wählen Sie ein Projekt zum Bearbeiten. Alternativ können Sie ein neues Projekt hinzufügen.",
+		'add' => "Projekt hinzufügen",
+		'edit' => "Bearbeite Projekt",
+		'delete' => "Lösche Projekt",
+		'defaultName' => "NeuesProjekt",
+	],
+/*
 	//Forms (add, edit etc.)
 	$l_forms_title = "Titel";
 	$l_forms_notes = "Bemerkungen";

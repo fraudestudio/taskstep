@@ -31,7 +31,7 @@ return [
 	// Sidebar
 	$l_side_add = "A&ntilde;adir";
 */
-	//Sections
+	// Sections
 	'sections' => [
 		'ideas' => "Ideas",
 		'tobuy' => "Quiero comprar",
@@ -55,7 +55,7 @@ return [
 		'nTasks' => "Tienes %d tareas por hacer.",
 	],
 
-	//Items
+	// Items
 	'items' => [
 		'do' => "Marcar como hecho",
 	],
@@ -71,21 +71,25 @@ return [
 	'done' => "Hecho");
 	$l_items_sorttext = "Ordenar por:";
 	$l_items_sortbutton = "Ordenar";
-
-	//"Display by" pages
-	$l_dbp_l1['context'] = "Filtrar por contexto. Opcionalmente, a&ntilde;adir uno nuevo.";
-	$l_dbp_l1['project'] = "Filtrar por proyecto. Opcionalmente, a&ntilde;adir uno nuevo.";
-	$l_dbp_l2['context'] = "Selecciona un contexto para editarlo o a&ntilde;ade uno nuevo.";
-	$l_dbp_l2['project'] = "Selecciona un poyecto para editarlo o a&ntilde;ade uno nuevo.";
-	$l_dbp_add['context'] = "A&ntilde;adir contexto";
-	$l_dbp_add['project'] = "A&ntilde;adir proyecto";
-	$l_dbp_edit['context'] = "Editar contexto";
-	$l_dbp_edit['project'] = "Editar proyecto";
-	$l_dbp_del['context'] = "Borrar contexto";
-	$l_dbp_del['project'] = "Borrar proyecto";
-	$l_dbp_new['context'] = "MiNuevoContexto";
-	$l_dbp_new['project'] = "MiNuevoProyecto";
-	   
+*/
+	// "Display by" pages
+	'context' => [
+		'chooseToList' => "Filtrar por contexto. Opcionalmente, a&ntilde;adir uno nuevo.",
+		'chooseToEdit' => "Selecciona un contexto para editarlo o a&ntilde;ade uno nuevo.",
+		'add' => "A&ntilde;adir contexto",
+		'edit' => "Editar contexto",
+		'delete' => "Borrar contexto",
+		'defaultName' => "Mi Nuevo Contexto",
+	],
+	'project' => [
+		'chooseToList' => "Filtrar por proyecto. Opcionalmente, a&ntilde;adir uno nuevo.",
+		'chooseToEdit' => "Selecciona un poyecto para editarlo o a&ntilde;ade uno nuevo.",
+		'add' => "A&ntilde;adir proyecto",
+		'edit' => "Editar proyecto",
+		'delete' => "Borrar proyecto",
+		'defaultName' => "Mi Nuevo Proyecto",
+	],
+/*
 	//Forms (add, edit etc.)
 	$l_forms_title = "T&iacute;tulo";
 	$l_forms_notes = "Notas";
