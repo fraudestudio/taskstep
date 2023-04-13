@@ -6,7 +6,7 @@
 
 require_once 'Config.php';
 
-$_cfg = TaskStep\Config::instance()
+$_cfg = TaskStep\Config::instance();
 
 $server           = $_cfg->legacyDatabase()->host();
 $db               = $_cfg->legacyDatabase()->schema();
