@@ -1,11 +1,17 @@
 <?php
-// Sample Config File
-// Copy this file to "config.php" and adapt it according to your local requirements 
 
-$server = 'localhost';	// MySQL server
-$db = 'tsdb';	// MySQL database name
-$user = 'taskstep';		// MySQL username
-$password = 'pwd';		// MySQL password
-$language = 'en';	// GUI language
-$menu_date_format = 'jS F Y';	// Menu date display format
-$task_date_format = 'Y-m-d';	// Task date display format
+// Le vrai fichier de configuration est `config.ini`
+
+// Ce fichier est là pour la compatibilité avec certaines parties du code
+
+require_once 'Config.php';
+
+$_cfg = TaskStep\Config::instance()
+
+$server           = $_cfg->legacyDatabase()->host();
+$db               = $_cfg->legacyDatabase()->schema();
+$user             = $_cfg->legacyDatabase()->username();
+$password         = $_cfg->legacyDatabase()->password();
+$language         = $_cfg->locale()->language();
+$menu_date_format = $_cfg->locale()->menuDateFormat();
+$task_date_format = $_cfg->locale()->taskDateFormat();
