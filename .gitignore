@@ -5,6 +5,8 @@
 
 sftp-config.json
 
+config.ini
+
 # User-specific files
 *.rsuser
 *.suo

@@ -33,7 +33,7 @@ class Config
 
 	private function __construct()
 	{
-		$configData = parse_ini_file("taskstep.ini", true);
+		$configData = parse_ini_file("config.ini", true);
 		
 		$this->_locale = new LocaleConfig($configData['locale']);
 		$this->_legacyDatabase = new MySqlConfig($configData['database:legacy']);
