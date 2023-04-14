@@ -44,12 +44,12 @@ else if (isset($_POST["submit"]))
 
 	$item
 		->setTitle($_POST['title'])
-		->setDate(isset($_POST['date']) ? new DateTime($_POST['date']) : null)
+		->setDate($_POST['date'] == '' ? null : new DateTime($_POST['date']))
 		->setNotes($_POST['notes'] ?? '')
 		->setUrl($_POST['url'] ?? '')
 		->setSection(Section::from($_POST['section']))
-		->setContext(new Context(intval($_POST['context'])))
-		->setProject(new Project(intval($_POST['project'])))
+		->setContext($contextDao->readById(intval($_POST['context'])))
+		->setProject($projectDao->readById(intval($_POST['project'])))
 		->setDone(false);
 
 	if (isset($itemId))
@@ -59,7 +59,7 @@ else if (isset($_POST["submit"]))
 	else
 	{
 		$itemDao->create($item);
-		$item = new Item($user);
+		$item = new Item();
 	}
 	$showSuccessMessage = true;
 }

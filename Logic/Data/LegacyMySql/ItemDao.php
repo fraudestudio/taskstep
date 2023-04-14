@@ -23,7 +23,7 @@ class ItemDao implements ItemDaoInterface
 	{
 		$item
 			->setTitle($data['title'])
-			->setDate(new DateTime($data['date']))
+			->setDate($data['date'] == '0001-01-01' ? null : new DateTime($data['date']))
 			->setNotes($data['notes'])
 			->setUrl($data['url'])
 			->setSection(Section::from($data['section']))
@@ -34,7 +34,18 @@ class ItemDao implements ItemDaoInterface
 
 	public function create(Item $item)
 	{
-		throw new \Exception("TODO!");
+		Database::instance()->execute(
+			'INSERT INTO items (title, `date`, notes, url, section, context, project, done) '.
+			'VALUES (:title, :date, :notes, :url, :section, :context, :project, :done)',
+			title: $item->title(),
+			date: $item->date()?->format('Y-m-d') ?? '0001-01-01',
+			notes: $item->notes(),
+			url: $item->url(),
+			section: $item->section()->value,
+			context: $item->context()->title(),
+			project: $item->project()->title(),
+			done: $item->done() ? 1 : 0
+		);
 	}
 
 	public function readById(int $id): Item
@@ -162,7 +173,7 @@ class ItemDao implements ItemDaoInterface
 			'section=:section, context=:context, project=:project, done=:done WHERE id=:id',
 			id: $id,
 			title: $item->title(),
-			date: $item->date()->format('Y-m-d'),
+			date: $item->date()?->format('Y-m-d') ?? '0001-01-01',
 			notes: $item->notes(),
 			url: $item->url(),
 			section: $item->section()->value,
