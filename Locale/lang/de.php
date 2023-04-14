@@ -79,6 +79,7 @@ return [
 		],
 		'sortText' => "Sortiere Aufgaben nach:",
 		'sortButton' => "Sortiere",
+		'defaultTitle' => "Aufgaben- oder Schritt-Titel",
 	],
 
 	// "Display by" pages
@@ -88,7 +89,7 @@ return [
 		'add' => "Kontext hinzufügen",
 		'edit' => "Bearbeite Kontext",
 		'delete' => "Lösche Kontext",
-		'defaultName' => "Neuer Kontext",
+		'defaultTitle' => "Neuer Kontext",
 	]
 	'project' => [
 		'chooseToList' => "Wählen Sie ein Projekt aus, für das die Elemente aufgelistet werden sollen. Alternativ können Sie ein neues Projekt hinzufügen.",
@@ -96,22 +97,24 @@ return [
 		'add' => "Projekt hinzufügen",
 		'edit' => "Bearbeite Projekt",
 		'delete' => "Lösche Projekt",
-		'defaultName' => "NeuesProjekt",
+		'defaultTitle' => "NeuesProjekt",
 	],
-/*
+
 	//Forms (add, edit etc.)
-	$l_forms_title = "Titel";
-	$l_forms_notes = "Bemerkungen";
-	$l_forms_section = "Abschnitt";
-	$l_forms_context = "Kontext";
-	$l_forms_project = "Projekt";
-	$l_forms_contexte = "Bearbeite Kontexte";
-	$l_forms_projecte = "Bearbeite Projekte";
-	$l_forms_date = "Fälligkeitsdatum";
-	$l_forms_url = "Url";
-	$l_forms_button['add'] = "Aufgabe hinzufügen";
-	$l_forms_button['edit'] = "Aufgabe bearbeiten";
-*/
+	'forms' => [
+		'title' => "Titel",
+		'notes' => "Bemerkungen",
+		'section' => "Abschnitt",
+		'context' => "Kontext",
+		'project' => "Projekt",
+		'editContexts' => "Bearbeite Kontexte",
+		'editProjects' => "Bearbeite Projekte",
+		'date' => "Fälligkeitsdatum",
+		'url' => "Url",
+		'addButton' => "Aufgabe hinzufügen",
+		'editButton' => "Aufgabe bearbeiten",
+	],
+
 	// Messages
 	'message' => [
 		'noItems' => "Keine Einträge in diesem Abschnitt!",
@@ -177,7 +180,6 @@ return [
 	//--1/4/07--
 
 	//--28/8/07--
-	$l_forms_titledefval = "Aufgaben- oder Schritt-Titel";
 	$l_print_commontitle = "Druck";
 	$l_print_printalltasks = "Aufgaben";
 	$l_print_printtoday = "Heute";

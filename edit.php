@@ -55,7 +55,7 @@ else if (isset($_POST["submit"]))
 }
 else
 {
-	$item->setTitle($l_forms_titledefval);
+	$item->setTitle(l->items->defaultTitle);
 	if (isset($_GET['section'])) $item->setSection(Section::from($_GET['section']));
 	if (isset($_GET['context'])) $item->setContext($contextDao->readById($_GET['context']));
 	if (isset($_GET['project'])) $item->setProject($projectDao->readById($_GET['project']));
@@ -64,9 +64,9 @@ else
 if ($showSuccessMessage): ?>
 	<div id='updated' class='fade'>
 	<?php if (isset($itemId)): ?>
-		<img src='images/pencil_go.png' alt=''/> <?= $l_msg_itemedit ?>
+		<img src='images/pencil_go.png' alt=''/> <?= l->message->item->updated ?>
 	<?php else: ?>
-		<img src='images/note_go.png' alt='' />  <?= $l_msg_itemadd ?>
+		<img src='images/note_go.png' alt='' />  <?= l->message->item->added ?>
 	<?php endif; ?>
 	</div>
 <?php endif; ?>
@@ -75,22 +75,22 @@ if ($showSuccessMessage): ?>
 <div>
 <table>
 <tr>
-   <td><?= $l_forms_title ?>:</td>
+   <td><?= l->forms->title ?>:</td>
    <td colspan="3" rowspan="1">
    	<input type='text' id="addtitle" name='title' value="<?= $item->title() ?>" size="60" />
    </td>
 </tr>
 <tr>
-   <td><?= $l_forms_notes ?>:</td>
+   <td><?= l->forms->notes ?>:</td>
    <td colspan="3" rowspan="1">
    	<input type='text' name='notes' value="<?= $item->notes() ?>" size="60" />
    </td>
 </tr>
 <tr>
    <td></td>
-   <td><?= $l_forms_section ?>:</td>
-   <td><?= $l_forms_context ?>:</td>
-   <td><?= $l_forms_project ?>:</td>
+   <td><?= l->forms->section ?>:</td>
+   <td><?= l->forms->context ?>:</td>
+   <td><?= l->forms->project ?>:</td>
 </tr>
 <tr>
 	<td></td>
@@ -98,7 +98,7 @@ if ($showSuccessMessage): ?>
 		<select name='section' size="7" required="true">
 		<?php foreach (Section::cases() as $section): ?>
 			<option value='<?= $section->value ?>' <?= $item->section() == $section ? "selected='selected'" : '' ?> >
-				<?= $l_sectionlist[$section->value] ?>
+				<?= l->sections->{$section->value} ?>
 			</option>
 		<?php endforeach; ?>
 		</select>
@@ -129,7 +129,7 @@ if ($showSuccessMessage): ?>
 		<span class="listlinkstyle">
 			<a href="edit_types.php?type=context">
 				<img src="images/context_edit.png" alt="" />
-				<?= $l_forms_contexte ?>
+				<?= l->forms->editContexts ?>
 			</a>
 		</span>
 	</td>
@@ -137,13 +137,13 @@ if ($showSuccessMessage): ?>
 		<span class="listlinkstyle">
 			<a href="edit_types.php?type=project">
 				<img src="images/project_edit.png" alt="" />
-				<?= $l_forms_projecte ?>
+				<?= l->forms->editProjects ?>
 			</a>
 		</span>
 	</td>
 </tr>
 <tr>
-   <td><?= $l_forms_date ?>:</td>
+   <td><?= l->forms->date ?>:</td>
    <td colspan="3" rowspan="1" id="holder">
       <input
       	type='text'
@@ -156,7 +156,7 @@ if ($showSuccessMessage): ?>
    </td>
 </tr>
 <tr>
-   <td><?= $l_forms_url ?>:</td>
+   <td><?= l->forms->url ?>:</td>
    <td colspan="3" rowspan="1">
       <input type='text' name='url' value="<?= $item->url() ?>" size="60" />
    </td>
@@ -164,7 +164,7 @@ if ($showSuccessMessage): ?>
 <tr>
    <td></td>
    <td colspan="3" rowspan="1">
-   	<input type="submit" name="submit" value="<?= $l_forms_button[isset($itemId) ? 'edit' : 'add'] ?>" />
+   	<input type="submit" name="submit" value="<?= isset($itemId) ? l->forms->editButton : l->forms->addButton ?>" />
    </td> 
 </tr>
 </table>

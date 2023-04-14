@@ -41,7 +41,7 @@ if ($postCommand == "edit" && isset($_POST["submit"]))
 	$dao->update($id, $category);
 
 	$messageBoxIcon = 'pencil_go.png';
-	$messageBoxText = $l_msg_updated[$type];
+	$messageBoxText = l->message->$type->updated;
 	$messageBoxId = 'updated';
 }
 
@@ -54,19 +54,19 @@ else if ($postCommand == 'add' && isset($_POST['add']))
 	$dao->create($category);
 
 	$messageBoxIcon = 'add.png';
-	$messageBoxText = $l_msg_added[$type];
+	$messageBoxText = l->message->$type->added;
 	$messageBoxId = 'updated';
 }
 
 // suppression
 else if ($getCommand == "delete")
 {
-    $id = $_GET['id'];$l_msg_added[$type];
+    $id = $_GET['id'];
 
 	$dao->delete($id);
 
 	$messageBoxIcon = 'bin.png';
-	$messageBoxText = $l_msg_deleted[$type];
+	$messageBoxText = l->message->$type->deleted;
 	$messageBoxId = 'deleted';
 }
 
@@ -108,10 +108,10 @@ if ($panel == 'list')
 
 <?php if ($panel == 'list'): ?>
 
-<p><?= $l_dbp_l2[$type] ?></p>
+<p><?= l->$type->chooseToEdit ?></p>
 <div id='editlist'>
 	<a href='edit_types.php?type=<?= $type ?>&cmd=add' class='listlinkssmart'>
-		<img src='images/add.png' alt=''/> <?= $l_dbp_add[$type] ?>
+		<img src='images/add.png' alt=''/> <?= l->$type->add ?>
 	</a>
 	<?php foreach ($categories as $category): ?>
 	<a href='edit_types.php?type=<?= $type ?>&cmd=edit&id=<?= $category->id() ?>' class='listlinkssmart'>
@@ -124,7 +124,7 @@ if ($panel == 'list')
 <?php elseif ($panel == 'noid'): ?>
 
 <div class='error' style='font-size:9pt; padding:5px;'>
-	<img src='images/exclamation.png' alt='' style='vertical-align:-3px;'/> <?= $l_msg_noid ?>
+	<img src='images/exclamation.png' alt='' style='vertical-align:-3px;'/> <?= l->message->noId ?>
 </div>
 <span class='linkback'>
 	<a href='edit_types.php?type=<?= $type ?>' class='linkback'>Return to editing <?= $type ?>s</a>
@@ -138,21 +138,21 @@ if ($panel == 'list')
 	<?= $l_forms_title ?>&nbsp;
 	<input type="text" name="title" value="<?= $category->title() ?>" size="30"/><br/><br/>
 	<input type="hidden" name="cmd" value="edit">
-	<input type="submit" name="submit" value="<?= $l_dbp_edit[$type] ?>"/>
+	<input type="submit" name="submit" value="<?= l->$type->edit ?>"/>
 </form>
 <br/>
-<a href='edit_types.php?type=$type&cmd=delete&id=<?= $category->id() ?>'>
+<a href='edit_types.php?type=<?= $type ?>&cmd=delete&id=<?= $category->id() ?>'>
 	<img src='images/bin_empty.png' alt=''/>
-	<?= $l_dbp_del[$type] ?>
+	<?= l->$type->delete ?>
 </a>
 
 <?php elseif ($panel == 'add'): ?>
 
 <form action="edit_types.php?type=<?= $type ?>" method="post">
-	<?= $l_forms_title ?>&nbsp;
-	<input type="text" name="newtitle" value="<?= $l_dbp_new[$type] ?>" size="30"/><br/><br/>
+	<?= l->forms->title ?>&nbsp;
+	<input type="text" name="newtitle" value="<?= l->$type->defaultTitle ?>" size="30"/><br/><br/>
 	<input type="hidden" name="cmd" value='add'/>
-	<input type="submit" name='add' value="<?= $l_dbp_add[$type] ?>"/>
+	<input type="submit" name='add' value="<?= l->$type->add ?>"/>
 </form>
 
 <?php endif; 

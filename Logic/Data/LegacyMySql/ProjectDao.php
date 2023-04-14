@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TaskStep\Logic\Data\LegacyMySql;
 
 use TaskStep\Logic\Model\{Project, ProjectDaoInterface};
+use \Exception;
 
 /**
  * Accès au données des projets compatible avec la BDD de la version 1.1.

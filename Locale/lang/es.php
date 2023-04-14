@@ -76,6 +76,7 @@ return [
 		],
 		'sorttext' => "Ordenar por:",
 		'sortbutton' => "Ordenar",
+		'defaultTitle' => "Titulo de la tarea o acci&oacute;n",
 	],
 
 	// "Display by" pages
@@ -85,7 +86,7 @@ return [
 		'add' => "A&ntilde;adir contexto",
 		'edit' => "Editar contexto",
 		'delete' => "Borrar contexto",
-		'defaultName' => "Mi Nuevo Contexto",
+		'defaultTitle' => "Mi Nuevo Contexto",
 	],
 	'project' => [
 		'chooseToList' => "Filtrar por proyecto. Opcionalmente, a&ntilde;adir uno nuevo.",
@@ -93,22 +94,24 @@ return [
 		'add' => "A&ntilde;adir proyecto",
 		'edit' => "Editar proyecto",
 		'delete' => "Borrar proyecto",
-		'defaultName' => "Mi Nuevo Proyecto",
+		'defaultTitle' => "Mi Nuevo Proyecto",
 	],
-/*
+
 	//Forms (add, edit etc.)
-	$l_forms_title = "T&iacute;tulo";
-	$l_forms_notes = "Notas";
-	$l_forms_section = "Secci&oacute;n";
-	$l_forms_context = "Contexto";
-	$l_forms_project = "Proyecto";
-	$l_forms_contexte = "Editar contextos";
-	$l_forms_projecte = "Editar proyectos";
-	$l_forms_date = "Fecha prevista:";
-	$l_forms_url = "Url";
-	$l_forms_button['add'] = "A&ntilde;adir";
-	$l_forms_button['edit'] = "Editar";
-*/
+	'forms' => [
+		'title' => "T&iacute;tulo",
+		'notes' => "Notas",
+		'section' => "Secci&oacute;n",
+		'context' => "Contexto",
+		'project' => "Proyecto",
+		'editContexts' => "Editar contextos",
+		'editProjects' => "Editar proyectos",
+		'date' => "Fecha prevista:",
+		'url' => "Url",
+		'addButton' => "A&ntilde;adir",
+		'editButton' => "Editar",
+	],
+
 	// Messages
 	'message' => [
 		'noItems' => "No hay nada en esta secci&oacute;n",
@@ -174,7 +177,6 @@ return [
 	//--1/4/07--
 
 	//--28/8/07--
-    $l_forms_titledefval = "Titulo de la tarea o acci&oacute;n";
     $l_print_commontitle = "Imprimir";
     $l_print_printalltasks = "Tareas";
     $l_print_printtoday = "Hoy";

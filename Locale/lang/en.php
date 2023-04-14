@@ -78,6 +78,7 @@ return [
 		],
 		'sortText' => "Sort items by:",
 		'sortButton' => "Sort",
+    	'defaultTitle' => "Task or step title",
 	],
 
 	// "Display by" pages
@@ -87,7 +88,7 @@ return [
 		'add' => "Add context",
 		'edit' => "Edit context",
 		'delete' => "Delete context",
-		'defaultName' => "New Context",
+		'defaultTitle' => "New Context",
 	],
 	'project' => [
 		'chooseToList' => "Choose a project to list the items for. Alternatively, add a new project.",
@@ -95,22 +96,24 @@ return [
 		'add' => "Add project",
 		'edit' => "Edit project",
 		'delete' => "Delete project",
-		'defaultName' => "New Project",
+		'defaultTitle' => "New Project",
 	],
-/*
-	//Forms (add, edit etc.)
-	'forms_title' => "Title";
-	'forms_notes' => "Notes";
-	'forms_section' => "Section";
-	'forms_context' => "Context";
-	'forms_project' => "Project";
-	'forms_contexte' => "Edit contexts";
-	'forms_projecte' => "Edit projects";
-	'forms_date' => "Due date";
-	'forms_url' => "Url";
-	'forms_button'['>add'] = "Add item";
-	'forms_button'['>edit'] = "Edit item";
-*/
+
+	// Forms (add, edit etc.)
+	'forms' => [
+		'title' => "Title",
+		'notes' => "Notes",
+		'section' => "Section",
+		'context' => "Context",
+		'project' => "Project",
+		'editContexts' => "Edit contexts",
+		'editProjects' => "Edit projects",
+		'date' => "Due date",
+		'url' => "Url",
+		'addButton' => "Add item",
+		'editButton' => "Edit item",
+	],
+
 	// Messages
 	'message' => [
 		'noItems' => "No items in this section!",
@@ -175,7 +178,6 @@ return [
 	//Insert updated parts after this point
 
 	//--28/8/07--
-    'forms_titledefval' => "Task or step title";
     'print_commontitle' => "Print";
     'print_printalltasks' => "Tasks";
     'print_printtoday' => "Today";

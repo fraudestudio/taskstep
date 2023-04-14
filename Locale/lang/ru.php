@@ -79,6 +79,7 @@ return [
 		],
 		'sortText' => "Сортировать по:",
 		'sortButton' => "Отсортировать",
+    	'defaultTitle' => "Название задачи или шага",
 	],
 
 	// "Display by" pages
@@ -88,7 +89,7 @@ return [
 		'add' => "Добавить раздел",
 		'edit' => "Изменить раздел",
 		'delete' => "Удалить раздел",
-		'defaultName' => "НовыйРаздел",
+		'defaultTitle' => "НовыйРаздел",
 	],
 	'project' => [
 		'chooseToList' => "Выберите проект, чтобы вывести все задачи, размещенные в нем. Либо добавьте новый проект.",
@@ -96,22 +97,24 @@ return [
 		'add' => "Добавить проект",
 		'edit' => "Изменить проект",
 		'delete' => "Удалить проект",
-		'defaultName' => "НовыйПроект",
+		'defaultTitle' => "НовыйПроект",
 	],
-/*
+
 	//Forms (add, edit etc.)
-	$l_forms_title = "Название",
-	$l_forms_notes = "Замечания";
-	$l_forms_section = "Категория";
-	$l_forms_context = "Раздел";
-	$l_forms_project = "Проект";
-	$l_forms_contexte = "Управление разделами";
-	$l_forms_projecte = "Управление проектами";
-	$l_forms_date = "Дедлайн";
-	$l_forms_url = "URL";
-	$l_forms_button['add'] = "Добавить задачу";
-	$l_forms_button['edit'] = "Изменить задачу";
-*/
+	'forms' => [
+		'title' => "Название",
+		'notes' => "Замечания",
+		'section' => "Категория",
+		'context' => "Раздел",
+		'project' => "Проект",
+		'editContexts' => "Управление разделами",
+		'editProjects' => "Управление проектами",
+		'date' => "Дедлайн",
+		'url' => "URL",
+		'addButton' => "Добавить задачу",
+		'editButton' => "Изменить задачу",
+	],
+
 	// Messages
 	'message' => [
 		'noItems' => "В этой категории нет задач!",
@@ -177,7 +180,6 @@ return [
 	//--1/4/07--
 
     //--28/8/07--
-    $l_forms_titledefval = "Название задачи или шага";
     $l_print_commontitle = "Печать";
     $l_print_printalltasks = "Задачи";
     $l_print_printtoday = "Сегодня";

@@ -33,6 +33,6 @@ class Locale
 
 	public function __get(string $property)
 	{
-		return $this->_text[$property];
+		return $this->_text[$property] ?? '<em>missing translation</em>';
 	}
 }
