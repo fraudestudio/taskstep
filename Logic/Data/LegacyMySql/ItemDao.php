@@ -139,7 +139,7 @@ class ItemDao implements ItemDaoInterface
 	public function readDaily(DateTime $date): array
 	{
 		$statement = Database::instance()->execute(
-			'SELECT * FROM items WHERE (section = "immediate" OR `date` <= :date) AND done = 0 ORDER BY `date` LIMIT 6',
+			'SELECT * FROM items WHERE (section = "immediate" OR `date` <= :date) AND done = 0 ORDER BY `date` LIMIT 5',
 			date: $date->format('Y-m-d'),
 		);
 
@@ -190,5 +190,22 @@ class ItemDao implements ItemDaoInterface
 		{
 			throw new Exception($statement->errorInfo()[2]);
 		}
+	}
+
+	public function countBySection(): array
+	{
+		$statement = Database::instance()->execute(
+			'SELECT sections.title AS section, SUM(IF(done=0, 1, 0)) AS undone, SUM(IF(done = 1, 1, 0)) AS done '.
+			'FROM items RIGHT JOIN sections ON section = sections.title GROUP BY sections.title'
+		);
+
+		$result = [];
+
+		while ($row = $statement->fetch())
+		{
+			$result[$row['section']] = ['done' => $row['done'], 'undone' => $row['undone']];
+		}
+
+		return $result;
 	}
 }

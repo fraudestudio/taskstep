@@ -13,7 +13,7 @@ use \PDO, \PDOException, \PDOStatement;
 /**
  * Connexion à la base de données.
  * 
- * Cette classe est un singleton: utilisez `instance` pour y avoir accès.
+ * Cette classe est un singleton: utilisez `instance()` pour y avoir accès.
  */
 class Database
 {

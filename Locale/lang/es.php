@@ -21,7 +21,7 @@ return [
 */
 	// Navigation
 	'navigation' => [
-		'today' => "Hoy",
+		'today' => "Hoy: %s",
 		'home' => "Inicio",
 		'allItems' => "Todos",
 		'context' => "Por contexto",

@@ -23,7 +23,7 @@ return [
 */
 	// Navigation
 	'navigation' => [
-		'today' => "Today",
+		'today' => "Today: %s",
 		'home' => "Home",
 		'allItems' => 'All Items',
 		'context' => "By context",

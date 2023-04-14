@@ -88,4 +88,12 @@ interface ItemDaoInterface
 	 * Compte le nombre total de tâches à faire.
 	 */
 	public function countUndone(): int;
+
+	/**
+	 * Compte le de tâches finies et à faire pour chaque section.
+	 * 
+	 * Le tableau associatif renvoyé est indexé par section
+	 * et contient des sous-tableaux avec deux clés : 'done' et 'undone'. 
+	 */
+	public function countBySection(): array;
 }

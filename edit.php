@@ -1,6 +1,16 @@
 <?php
 
-include("includes/header.php");
+$head = <<<'HEAD'
+	<link rel="stylesheet" type='text/css' href="styles/system/jacs.css">
+	<script type="text/javascript" src="script/jacsLang.js"></script>
+	<script type="text/javascript" src="script/jacs.js"></script>
+HEAD;
+
+include("includes/header.php"); ?>
+
+<script type="text/javascript"> <?php include('script/edit.js.php'); ?> </script>
+
+<?php
 
 use TaskStep\Logic\Model\{Item, User, Section, Context, Project};
 use TaskStep\Logic\Data\LegacyMySql\{ItemDao, ContextDao, ProjectDao};

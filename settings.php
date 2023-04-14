@@ -1,5 +1,8 @@
+<?php include("includes/header.php"); ?>
+
+<script type="text/javascript"> <?php include('script/settings.js.php'); ?> </script>
+
 <?php
-include("includes/header.php");
 
 //"Settings Updated" block
 if (isset($_POST["submit"]))

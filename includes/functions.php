@@ -15,24 +15,8 @@ function pagespecific(){
     $currentFile = $parts[count($parts) - 1];
 	switch ($currentFile)
 	{
-	case 'edit.php':
-		echo '<style type="text/css">';
-		readfile('styles/system/jacs.css');
-		echo '</style>' . "\n";
-		echo '<script type="text/javascript" src="script/jacsLang.js"></script>' . "\n";
-		echo '<script type="text/javascript" src="script/jacs.js"></script>' . "\n";
-		echo '<script type="text/javascript" src="script/edit.js"></script>' . "\n";
-	break;
 	case 'settings.php':
-		echo '<script type="text/javascript">function check(){
-				var message;
-				message = confirm("'.$l_cp_tools_purgecheck.'");
-				if (message) {
-					this.location.href = "settings.php?delete=confirm";
-				} else {
-					this.location.href = "settings.php";
-				}
-			}</script>';
+		
 	break;
 	}
 }

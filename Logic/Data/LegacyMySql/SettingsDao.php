@@ -11,15 +11,29 @@ class SettingsDao
 {
     public function displayTips(): bool
     {
-        $statement = Database::instance()->execute('SELECT * FROM settings WHERE setting = "tips"');
+        $statement = Database::instance()->execute('SELECT value FROM settings WHERE setting = "tips"');
 
         if ($row = $statement->fetch())
         {
-            return $row['value'] == '0' ? false : true;
+            return $row[0] == '0' ? false : true;
         }
         else
         {
             return true;
+        }
+    }
+
+    public function style(): string
+    {
+        $statement = Database::instance()->execute('SELECT value FROM settings WHERE setting = "style"');
+
+        if ($row = $statement->fetch())
+        {
+            return $row[0];
+        }
+        else
+        {
+            return 'default.css';
         }
     }
 }

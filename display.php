@@ -82,9 +82,9 @@ case "all":
 	break;
 
 case "today":
-	$today = Datetime('now');
+	$today = new Datetime('now');
 	$result = $items->readByDate($today);
-	$title = l->navigation->today . $today->format(l->dateFormat->menu);
+	$title = sprintf(l->navigation->today, $today->format(l->dateFormat->menu));
 
 	$printUrl = "?print=today";	
 	break;

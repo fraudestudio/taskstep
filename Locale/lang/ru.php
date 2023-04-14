@@ -20,7 +20,7 @@ return [
 */
 	// Navigation
 	'navigation' => [
-		'today' => "Сегодня",
+		'today' => "Сегодня: %s",
 		'home' => "Главная",
 		'allItems' => "Все задачи",
 		'context' => "Разделы",

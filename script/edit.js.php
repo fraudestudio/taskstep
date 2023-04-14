@@ -1,7 +1,7 @@
 // Set all calendars to the chosen language
 function setLanguages(jacsLanguage) {
 	for (const calendarId of JACS.cals()) {
-		var jacsCal = document.getElementById(JACS.cals()[i]);
+		var jacsCal = document.getElementById(calendarId);
 		
 		jacsCal.language = jacsLanguage;
 		jacsSetLanguage(jacsCal);
@@ -13,8 +13,7 @@ function setLanguages(jacsLanguage) {
 
 window.onload = () => {
 	JACS.make("jacs",true);
-	console.log(document.documentElement.lang);
-	setLanguages(document.documentElement.lang);
+	setLanguages('<?= l->language() ?>');
 
 	let titleInput;
 	if (titleInput = document.getElementById("addtitle")) {

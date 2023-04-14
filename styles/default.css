@@ -166,12 +166,12 @@ body{
 	background-color:#ececef;
 }
 
-.noundone{
+.done{
 	color:red;
 	font-size:8pt;
 }
 
-.nodone{
+.undone{
 	color:green;
 	font-size:8pt;
 }

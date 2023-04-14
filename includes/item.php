@@ -37,7 +37,7 @@ else
 	<a href='display.php?sort=<?= $sortBy . $baseActionUrl ?>&cmd=delete&id=<?= $item->id() ?>'
 		title='<?= l->items->delete ?>'
 		class='actionicon'>
-		<img src='images/bin_empty.png' alt='<?= l->items->del ?>' />
+		<img src='images/bin_empty.png' alt='<?= l->items->delete ?>' />
 	</a>
 	<a href='edit.php?id=<?= $item->id() ?>' title='<?= l->items->edit ?>' class='actionicon'>
 		<img src='images/pencil.png' alt='<?= l->items->edit ?>' />

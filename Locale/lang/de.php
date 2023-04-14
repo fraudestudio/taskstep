@@ -21,7 +21,7 @@ return [
 */
 	// Navigation
 	'navigation' => [
-		'today' => "Heute",
+		'today' => "Heute: %s",
 		'home' => "Home",
 		'allItems' => "Alle Aufgaben",
 		'context' => "Nach Kontext",
