@@ -21,28 +21,7 @@ function pagespecific(){
 		echo '</style>' . "\n";
 		echo '<script type="text/javascript" src="script/jacsLang.js"></script>' . "\n";
 		echo '<script type="text/javascript" src="script/jacs.js"></script>' . "\n";
-		echo '<script type="text/javascript">
-		function setLanguages(jacsLanguage) {	// Set all calendars to the chosen language
-		for (var i=0;i<JACS.cals().length;i++)
-		{
-			var jacsCal = document.getElementById(JACS.cals()[i]);
-
-			jacsCal.language = jacsLanguage;
-			jacsSetLanguage(jacsCal);
-
-			// Refresh any static calendars so that the change shows immediately.
-			if (!jacsCal.dynamic) JACS.show(jacsCal.ele,jacsCal.id,jacsCal.days);
-		}
-		};
-		window.onload = function() {
-			JACS.make("jacs",true);
-			setLanguages("'.$language.'");
-			if (document.getElementById("addtitle")) {
-				document.getElementById("addtitle").focus();
-				document.getElementById("addtitle").select();
-			}
-		};
-		</script>' . "\n";
+		echo '<script type="text/javascript" src="script/edit.js"></script>' . "\n";
 	break;
 	case 'settings.php':
 		echo '<script type="text/javascript">function check(){
