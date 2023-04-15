@@ -170,7 +170,7 @@ foreach ($formData as $name => $value) $baseActionUrl .= "&$name=$value";
 	<img src='images/information.png' alt='' />
 	<?= $display == 'today' ? l->message->noneToday : l->message->noItems ?>
 	
-	<a href='edit.php<?= $noResultsUrl ?>'> <?= $l_msg_addsome ?></a>
+	<a href='edit.php<?= $noResultsUrl ?>'> <?= l->message->addSome ?></a>
 </div>
 
 <?php else: 
