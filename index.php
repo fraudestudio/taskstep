@@ -44,16 +44,16 @@ $intro .= l->index->introText;
 			<img src='images/undone.png' alt='<?= l->items->do ?>' class='valign'/>
 		</a>
 		<a href='edit.php?id=<?= $item->id() ?>' title='<?= l->items->edit ?>'>
-			<?= $item->title() ?>
-		</a>
-		<?= $item->date()->format(l->dateFormat->task) ?> | <?= $item->context()->title() ?>
+			<?= $item->title()
+		?></a>
+		<?= $item->date()?->format(l->dateFormat->task) ?? '' ?> | <?= $item->context()->title() ?>
 	</div>
 	<?php endforeach; ?>
 
 	<?= empty($dailyItems) ? l->index->noImmediate : '' ?>
 </div>
 
-<?php if ($settings->displayTips()): ?>
+<?php if ($settings->tips()): ?>
 <div id="tipsbox">
 	<img src="images/information.png" alt="" />&nbsp;<?= l->index->tip ?>:
 	<?= l->tips[rand(0, count(l->tips) - 1)] ?>

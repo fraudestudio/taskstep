@@ -85,6 +85,13 @@ interface ItemDaoInterface
 	public function delete(int $id);
 
 	/**
+	 * Supprime tous les items terminés.
+	 * 
+	 * @return Le nombre d'items supprimés.
+	 */
+	public function deleteAllDone(): int;
+
+	/**
 	 * Compte le nombre total de tâches à faire.
 	 */
 	public function countUndone(): int;

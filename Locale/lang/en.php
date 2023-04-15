@@ -141,48 +141,51 @@ return [
 			'deleted' => "Project deleted",
 		],
 	],
-/*
+
 	//Settings
-	'cp_bookmarklettext' => "Drag the image below onto your bookmarks to create the bookmarklet.";
-	'cp_bookmarklet' => "Add to TaskStep";
-	'cp_display_title' => "Display";
-	'cp_display_tips' => "Display tips on the front page";
-	'cp_display_css' => "Stylesheet";
-	'cp_display_nocss' => "None";
-	'cp_display_button' => "Update settings";
-	'cp_display_settingsupdated' => "Settings updated";
-	'cp_display_tipson' => "Displaying tips";
-	'cp_display_tipsoff' => "Not displaying tips";
-	'cp_display_defaultcss' => "Default stylesheet chosen";
+	'settings' => [
+		'bookmarklet' => [
+			'text' => "Drag the image below onto your bookmarks to create the bookmarklet.",
+			'link' => "Add to TaskStep",
+		],
+		'display' => [
+			'title' => "Display",
+			'tips' => "Display tips on the front page",
+			'css' => "Stylesheet",
+			'noCss' => "None",
+			'button' => "Update settings",
+			'settingsUpdated' => "Settings updated",
+			'tipsOn' => "Displaying tips",
+			'tipsOff' => "Not displaying tips",
+			'usingStyle' => 'Using the %s stylesheet',
+		],
+		'password' => [
+			'title' => "Password",
+			'current' => "Current password",
+			'new' => "New password",
+			'newAgain' => "Confirm new password",
+			'use' => "Use passwords and sessions (Recommended)",
+			'requiredFields' => "Fields marked with a %s are necessary for changes to be made.",
+			'button' => "Update password",
+			'incorrect' => "Incorrect password!",
+			'noMatch' => "Passwords do not match!",
+			'updated' => "Updated!",
+		],
+		'tools' => [
+			'title' => "Tools",
+			'purge' => "Purge all done items",
+			'update' => "Run update file",
+			'export' => "Export all to <acronym title='Comma Separated Values'>CSV</acronym> file",
+			'purged' => "%d items purged.",
+			'purgeCheck' => "Are you sure you want to delete all done items?",
+		]
+	],
 
-	'cp_password_title' => "Password";
-	'cp_password_current' => "Current password";
-	'cp_password_new1' => "New password";
-	'cp_password_new2' => "Confirm new password";
-	'cp_password_use' => "Use passwords and sessions (Recommended)";
-	'cp_password_fieldss' => "Fields marked with a";
-	'cp_password_fieldse' => "are necessary for changes to be made.";
-	'cp_password_button' => "Update password";
-	'cp_password_incorrect' => "Incorrect password!";
-	'cp_password_nomatch' => "Passwords do not match!";
-	'cp_password_updated' => "Updated!";
-
-	'cp_tools_title' => "Tools";
-	'cp_tools_purge' => "Purge all done items";
-	'cp_tools_update' => "Run update file";
-	'cp_tools_export' => "Export all to <acronym title=\"Comma Separated Values\">CSV</acronym> file";
-		//NB The HTML for the acronym has been included for the sake of completeness, but make sure you leave the slashes before the quotes or TaskStep will break!
-	'cp_tools_purged' => " items purged.";
-	'cp_tools_purgecheck' => "Are you sure you want to delete all done items?";
-
-	//Insert updated parts after this point
-
-	//--28/8/07--
-    'print_commontitle' => "Print";
-    'print_printalltasks' => "Tasks";
+/*
+    'print_commontitle' => "Print",
+    'print_printalltasks' => "Tasks",
     'print_printtoday' => "Today";
     'print_sectionnotfound' => "Section not found!";
-	//Insert updated parts before this point
 */
     'tips' => [
     	'Clicking the date gives you the tasks due today.',

@@ -25,7 +25,7 @@ $sectionItemsCount = (new ItemDao)->countBySection();
 	
 	<title>TaskStep</title>
 
-	<link rel='stylesheet' type='text/css' href='styles/<?= $style ?>' media='screen' />
+	<link rel='stylesheet' type='text/css' href='styles/<?= $style ?>.css' media='screen' />
 	<link rel="stylesheet" type="text/css" href="styles/system/print.css" media="print" />
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.php" />
 	<script type="text/javascript" src="script/fat.js"></script>
@@ -41,7 +41,7 @@ $sectionItemsCount = (new ItemDao)->countBySection();
 	<div id="header">
 		<h1>
 			<img src="images/icon.png" alt="" style="vertical-align:middle"/>&nbsp;<a href="index.php">
-				TaskStep <span class="subtitle">1.2</span>
+				TaskStep <span class="subtitle">1.2-dev</span>
 			</a>
 		</h1>
 	</div>
@@ -49,36 +49,36 @@ $sectionItemsCount = (new ItemDao)->countBySection();
 		<ul>
 			<li><a href="display.php?display=today&sort=done">
 				<img src="images/calendar_view_day.png" alt="" />
-				<?= sprintf(l->navigation->today, (new DateTime('now'))->format(l->dateFormat->menu)) ?>
-			</a></li>
+				<?= sprintf(l->navigation->today, (new DateTime('now'))->format(l->dateFormat->menu)) ?></a>
+			</li>
 			<li><a href="index.php">
 				<img src="images/house.png" alt="" />
-				<?= l->navigation->home ?>
-			</a></li>
+				<?= l->navigation->home ?></a>
+			</li>
 			<li><a href="display.php?display=all&sort=date">
 				<img src="images/page_white_text.png" alt="" />
-				<?= l->navigation->allItems ?>
-			</a></li>
+				<?= l->navigation->allItems ?></a>
+			</li>
 			<li><a href="display_type.php?type=context">
 				<img src="images/context.png" alt="" />
-				<?= l->navigation->context ?>
-			</a></li>
+				<?= l->navigation->context ?></a>
+			</li>
 			<li><a href="display_type.php?type=project">
 				<img src="images/project.png" alt="" />
-				<?= l->navigation->project ?>
-			</a></li>
+				<?= l->navigation->project ?></a>
+			</li>
 			<li><a href="settings.php">
 				<img src="images/textfield_rename.png" alt="" />
-				<?= l->navigation->settings ?>
-			</a></li>
+				<?= l->navigation->settings ?></a>
+			</li>
 			<li><a href="http://www.taskstep.com/taskstep">
 				<img src="images/help.png" alt="" />
-				<?= l->navigation->help ?>
-			</a></li>
+				<?= l->navigation->help ?></a>
+			</li>
 			<li><a href="login.php?action=logout">
 				<img src="images/door_in.png" alt="" />
-				<?= l->navigation->logout ?>
-			</a></li>
+				<?= l->navigation->logout ?></a>
+			</li>
 		</ul>
 	</div>
 

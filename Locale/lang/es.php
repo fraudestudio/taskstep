@@ -139,49 +139,51 @@ return [
 			'deleted' => "Proyecto borrado",
 		],
 	],
-/*
+
 	//Settings
-	$l_cp_bookmarklettext = "Arrastra la imagen a tus favoritos para a&ntilde;adirla a tus marcadores";
-	$l_cp_bookmarklet = "A&ntilde;adir a TaskStep";
-	$l_cp_display_title = "T&iacute;tulo";
-	$l_cp_display_tips = "Mostrar notas en la p&aacute;gina principal";
-	$l_cp_display_css = "Hoja de estilo";
-	$l_cp_display_nocss = "Ninguna";
-	$l_cp_display_button = "Guardar cambios";
-	$l_cp_display_settingsupdated = "Cambios guardados";
-	$l_cp_display_tipson = "Mostrar notas";
-	$l_cp_display_tipsoff = "No mostrar notas";
-	$l_cp_display_defaultcss = "Hoja de estilo por defecto elegida";
-
-	$l_cp_password_title = "Clave";
-	$l_cp_password_current = "Clave actual";
-	$l_cp_password_new1 = "Nueva clave";
-	$l_cp_password_new2 = "Confirma la nueva clave";
-	$l_cp_password_use = "Usar clave y sesiones (Recomendado)";
-	$l_cp_password_fieldss = "Campos marcados con";
-	$l_cp_password_fieldse = "son obligatorios.";
-	$l_cp_password_button = "Cambiar clave";
-	$l_cp_password_incorrect = "Clave incorrecta";
-	$l_cp_password_nomatch = "Las claves no coinciden";
-	$l_cp_password_updated = "Clave modificada con &eacute;xito";
-
-	$l_cp_tools_title = "Herramientas";
-	$l_cp_tools_purge = "Borrar las tareas terminadas";
-	$l_cp_tools_update = "Ejecutar archivo de actualizaci&oacute;n";
-	$l_cp_tools_export = "Exportar todo a archivo  <acronym title=\"Comma Separated Values\">CSV</acronym>";
-		//NB The HTML for the acronym has been included for the sake of completeness, but make sure you leave the slashes before the quotes or TaskStep will break!
-	$l_cp_tools_purged = " Borradas.";
-	$l_cp_tools_purgecheck = "&iquest;Estas seguro de que quieres borrar todas las tareas finalizadas?";
-
-	//Insert updated parts after this point
-	//--1/4/07--
-
-	//--28/8/07--
+	'settings' => [
+		'bookmarklet' =>[
+			'text' => "Arrastra la imagen a tus favoritos para a&ntilde;adirla a tus marcadores",
+			'link' => "A&ntilde;adir a TaskStep",
+		],
+		'display' => [
+			'title' => "T&iacute;tulo",
+			'tips' => "Mostrar notas en la p&aacute;gina principal",
+			'css' => "Hoja de estilo",
+			'noCss' => "Ninguna",
+			'button' => "Guardar cambios",
+			'settingsUpdated' => "Cambios guardados",
+			'tipsOn' => "Mostrar notas",
+			'tipsOff' => "No mostrar notas",
+			'usingStyle' => '"%s" hoja de estilo',
+		],
+		'password' => [
+			'title' => "Clave",
+			'current' => "Clave actual",
+			'new' => "Nueva clave",
+			'newAgain' => "Confirma la nueva clave",
+			'use' => "Usar clave y sesiones (Recomendado)",
+			'requiredFields' => "Campos marcados con %s son obligatorios.",
+			'button' => "Cambiar clave",
+			'incorrect' => "Clave incorrecta",
+			'noMatch' => "Las claves no coinciden",
+			'updated' => "Clave modificada con &eacute;xito",
+		],
+		'tools' => [
+			'title' => "Herramientas",
+			'purge' => "Borrar las tareas terminadas",
+			'update' => "Ejecutar archivo de actualizaci&oacute;n",
+			'export' => "Exportar todo a archivo <acronym title='Comma Separated Values'>CSV</acronym>",
+			'purged' => "%d Borradas.",
+			'purgeCheck' => "&iquest;Estas seguro de que quieres borrar todas las tareas finalizadas?",
+		],
+	],
+/*
     $l_print_commontitle = "Imprimir";
     $l_print_printalltasks = "Tareas";
     $l_print_printtoday = "Hoy";
     $l_print_sectionnotfound = "Secci&oacute;n no encontrado!";
-	//Insert updated parts before this point
 */
+
     'tips' => ['...'],
 ];

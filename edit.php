@@ -69,6 +69,7 @@ else
 	if (isset($_GET['section'])) $item->setSection(Section::from($_GET['section']));
 	if (isset($_GET['context'])) $item->setContext($contextDao->readById($_GET['context']));
 	if (isset($_GET['project'])) $item->setProject($projectDao->readById($_GET['project']));
+	if (isset($_GET['url'])) $item->setUrl($_GET['url']);
 }
 
 if ($showSuccessMessage): ?>

@@ -142,49 +142,50 @@ return [
 			'deleted' => "Проект удален.",
 		]
 	],
-/*
+
 	//Settings
-	$l_cp_bookmarklettext = "Перетащите изображение, размещенное ниже, для создания закладки.";
-	$l_cp_bookmarklet = "Добавить в TaskStep";
-	$l_cp_display_title = "Интерфейс";
-	$l_cp_display_tips = "Отображать советы на главной странице";
-	$l_cp_display_css = "стили";
-	$l_cp_display_nocss = "Нет";
-	$l_cp_display_button = "Обновить настройки";
-	$l_cp_display_settingsupdated = "Настройки обновлены";
-	$l_cp_display_tipson = "Советы отображаются";
-	$l_cp_display_tipsoff = "Советы не отображаются";
-	$l_cp_display_defaultcss = "Стиль по умолчанию выбран";
-
-	$l_cp_password_title = "Пароль";
-	$l_cp_password_current = "Текущий пароль";
-	$l_cp_password_new1 = "Новый пароль";
-	$l_cp_password_new2 = "Повторите новый пароль";
-	$l_cp_password_use = "Использовать пароли и сессии (рекомендуется)";
-	$l_cp_password_fieldss = "Поля, помеченныые";
-	$l_cp_password_fieldse = ", являются обязательными.";
-	$l_cp_password_button = "Обновить пароль";
-	$l_cp_password_incorrect = "Неверный пароль!";
-	$l_cp_password_nomatch = "Пароли не совпадают!";
-	$l_cp_password_updated = "Обновление прошло успешно!";
-
-	$l_cp_tools_title = "Сервис";
-	$l_cp_tools_purge = "Удалить все выполненые задачи";
-	$l_cp_tools_update = "Выполнить файл обновления";
-	$l_cp_tools_export = "Экспортировать в <acronym title=\"Comma Separated Values\">CSV</acronym>";
-		//NB The HTML for the acronym has been included for the sake of completeness, but make sure you leave the slashes before the quotes or TaskStep will break!
-	$l_cp_tools_purged = " задач(а, и) удалено.";
-	$l_cp_tools_purgecheck = "Вы уверены, что вы хотите удалить все выполненные задачи?";
-
-	//Insert updated parts after this point
-	//--1/4/07--
-
-    //--28/8/07--
-    $l_print_commontitle = "Печать";
-    $l_print_printalltasks = "Задачи";
-    $l_print_printtoday = "Сегодня";
-    $l_print_sectionnotfound = "Категория не найдена!";
-	//Insert updated parts before this point
+	'settings' => [
+		'bookmarklet' => [
+			'text' => "Перетащите изображение, размещенное ниже, для создания закладки.",
+			'link' => "Добавить в TaskStep",
+		],
+		'display' => [
+			'title' => "Интерфейс",
+			'tips' => "Отображать советы на главной странице",
+			'css' => "стили",
+			'noCss' => "Нет",
+			'button' => "Обновить настройки",
+			'settingsUpdated' => "Настройки обновлены",
+			'tipsOn' => "Советы отображаются",
+			'tipsOff' => "Советы не отображаются",
+			'usingStyle' => '"%s" стиль'
+		],
+		'password' => [
+			'title' => "Пароль",
+			'current' => "Текущий пароль",
+			'new' => "Новый пароль",
+			'newAgain' => "Повторите новый пароль",
+			'use' => "Использовать пароли и сессии (рекомендуется)",
+			'requiredFields' => "Поля, помеченныые %s, являются обязательными.",
+			'button' => "Обновить пароль",
+			'incorrect' => "Неверный пароль!",
+			'noMatch' => "Пароли не совпадают!",
+			'updated' => "Обновление прошло успешно!",
+		],
+		'tools' => [
+			'title' => "Сервис",
+			'purge' => "Удалить все выполненые задачи",
+			'update' => "Выполнить файл обновления",
+			'export' => "Экспортировать в <acronym title='Comma Separated Values'>CSV</acronym>",
+			'purged' => "%d задач(а, и) удалено.",
+			'purgeCheck' => "Вы уверены, что вы хотите удалить все выполненные задачи?",
+		]
+	],
+/*
+    $l_print_commontitle = "Печать",
+    $l_print_printalltasks = "Задачи",
+    $l_print_printtoday = "Сегодня",
+    $l_print_sectionnotfound = "Категория не найдена!",
 */
     'tips' => [
     	'Кликните на дату для вывода задач на сегодня.',

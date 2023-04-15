@@ -188,6 +188,12 @@ class ItemDao implements ItemDaoInterface
 		Database::instance()->execute('DELETE FROM items WHERE id = ?', $id);
 	}
 
+	public function deleteAllDone(): int
+	{
+		$statement = Database::instance()->execute('DELETE FROM items WHERE done = 1');
+		return $statement->rowCount();
+	}
+
 	public function countUndone(): int
 	{
 		$statement = Database::instance()
