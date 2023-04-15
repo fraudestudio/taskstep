@@ -10,15 +10,14 @@ NOTE: Voir `en.php` pour les notes sur la migration
 */
 
 return [
-/*
 	// Login
-	$l_login_button = "Acceder";
-	$l_login_l1 = "Introduce tu clave para acceder";
-	$l_login_l2 = "Clave correcta.";
-	$l_login_l3 = "Haz click aqu&iacute; para ir a tus listas.";
-	$l_login_l4 = "Clave incorrecta.";
-	$l_login_l5 = "Acceso identificado desactivado. Esto no es seguro, por favor cambialo si estas en un servidor p&uacute;blico.";
-*/
+	'login' => [
+		'button' => "Acceder",
+		'prompt' => "Introduce tu clave para acceder",
+		'incorrect' => "Clave incorrecta.",
+		'alreadyLoggedIn' => "¡Ya has iniciado sesión! <a href='?action=logout'>Cierra la sesión</a> o continúa en la <a href='index.php'>página principal</a>.",
+	],
+
 	// Navigation
 	'navigation' => [
 		'today' => "Hoy: %s",
@@ -178,12 +177,13 @@ return [
 			'purgeCheck' => "&iquest;Estas seguro de que quieres borrar todas las tareas finalizadas?",
 		],
 	],
-/*
-    $l_print_commontitle = "Imprimir";
-    $l_print_printalltasks = "Tareas";
-    $l_print_printtoday = "Hoy";
-    $l_print_sectionnotfound = "Secci&oacute;n no encontrado!";
-*/
+	
+	'print' => [
+	    'commonTitle' => "Imprimir",
+	    'allTasks' => "Tareas",
+	    'today' => "Hoy (%s)",
+	    'sectionNotFound' => "Secci&oacute;n no encontrado!",
+	],
 
     'tips' => ['...'],
 ];

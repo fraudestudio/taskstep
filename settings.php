@@ -109,12 +109,14 @@ else
 	$exported = false;
 }
 
+$baseUrl = $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/');
+
 ?>
 
 <div id="bookmarklet">
 	<?= l->settings->bookmarklet->text ?>
 	<br />
-	<a href="javascript:window.open('http://<?= $_SERVER["SERVER_NAME"] ?>/edit.php?url=' + document.location.href, 'taskstep', 'noreferrer');">
+	<a href="javascript:window.open('http://<?= $baseUrl ?>/edit.php?url=' + document.location.href, 'taskstep', 'noreferrer');">
 		<img src="images/bookmarklet.jpg" alt="<?= l->settings->bookmarklet->link ?>" />
 	</a>
 </div>

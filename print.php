@@ -16,9 +16,17 @@ $print = $_GET['print'] ?? '';
 switch ($print)
 {
 case "section":
-	$result = $items->readBySection($_GET['section']);
+	try
+	{
+		$section = Section::from($_GET['section'] ?? '');
+		$result = $items->readBySection($section);
 
-	$title = l->sections->{$section->value};
+		$title = l->sections->{$section->value};
+	}
+	catch (ValueError)
+	{
+		$error = l->print->sectionNotFound;
+	}
 	break;
 
 case "project":
@@ -38,14 +46,14 @@ case "context":
 case "all":
 	$result = $items->readAll();
 
-	$title = l->navigation->allItems;
+	$title = l->print->allTasks;
 	break;
 
 case "today":
 	$today = new Datetime('now');
 	$result = $items->readByDate($today);
 
-	$title = sprintf(l->navigation->today, $today->format(l->dateFormat->menu));
+	$title = sprintf(l->print->today, $today->format(l->dateFormat->menu));
 	break;
 }
 
@@ -58,7 +66,7 @@ case "today":
 	<link rel="stylesheet" type="text/css" href="styles/system/print-style.css" />
 </head>
 <body>
-	<!--Open container-->
+	<!-- Begin container-->
 	<div id="container">
 
 	<h1> <?= $title ?> </h1>
@@ -74,7 +82,7 @@ case "today":
 		<?php endforeach; ?>
 	</ul>
 
-	<!--Close container-->
+	<!-- End container-->
 	</div>
 </body>
 </html>

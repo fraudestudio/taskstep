@@ -59,7 +59,6 @@ class SettingsDao
 
     public function checkPassword(string $password): bool
     {
-        return true;
         $statement = Database::instance()->execute('SELECT value FROM settings WHERE setting = "password"');
 
         $hash = '';

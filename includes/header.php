@@ -1,8 +1,6 @@
 <?php
 
 include "sessioncheck.php";
-include "lang/".$language.".php";
-include "functions.php";
 
 require_once "autoload.php";
 

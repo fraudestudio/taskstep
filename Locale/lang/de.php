@@ -9,16 +9,14 @@ NOTE: Voir `en.php` pour les notes sur la migration
 */
 
 return [
-/*
-
 	// Login
-	$l_login_button = "Login";
-	$l_login_l1 = "Bitte geben Sie Ihr Kennwort ein, um sich anzumelden";
-	$l_login_l2 = "Kennwort akzeptiert.";
-	$l_login_l3 = "Klicken Sie hier, um zu Ihren Listen zu gelangen.";
-	$l_login_l4 = "Falsches Kennwort.";
-	$l_login_l5 = "Kennwort wurde deaktiviert. Dies ist nicht sehr sicher. Bitte ändern Sie die Einstellung, wenn Sie TaskStep auf einem öffentlichen Server verwenden.";
-*/
+	'login' => [
+		'button' => "Login",
+		'prompt' => "Bitte geben Sie Ihr Kennwort ein, um sich anzumelden",
+		'incorrect' => "Falsches Kennwort.",
+		'alreadyLoggedIn' => "Du bist bereits angemeldet! <a href='?action=logout>Melden du sich ab</A> oder fährst du mit der <a href='index.php'>Hauptseite</a> fort.",
+	],
+
 	// Navigation
 	'navigation' => [
 		'today' => "Heute: %s",
@@ -180,12 +178,14 @@ return [
 			'purgeCheck' => "Möchten Sie wirklich alle erledigten Einträge löschen ??",
 		],
 	],
-/*
-	$l_print_commontitle = "Druck",
-	$l_print_printalltasks = "Aufgaben",
-	$l_print_printtoday = "Heute",
-	$l_print_sectionnotfound = "Abschnitt nicht gefunden!",
-*/
+
+	'print' => [
+		'commonTitle' => "Druck",
+		'printAllTasks' => "Aufgaben",
+		'printToday' => "Heute (%s)",
+		'sectionNotFound' => "Abschnitt nicht gefunden!",
+	],
+
 	'tips' => [
 		'Wenn Sie auf das Datum klicken, werden die heute fälligen Aufgaben angezeigt.',
 		'Alle kleinen Symbole hier stammen von <a href="http://www.famfamfam.com">famfamfam.com</a>.',

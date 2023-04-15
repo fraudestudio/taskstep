@@ -9,15 +9,14 @@ NOTE: Voir `en.php` pour les notes sur la migration
 */
 
 return [
-/*
 	// Login
-	$l_login_button = "Войти";
-	$l_login_l1 = "Пожалуйста, введите пароль.";
-	$l_login_l2 = "Пароль принят.";
-	$l_login_l3 = "Нажмите сюда для перехода к списку задач.";
-	$l_login_l4 = "Неверный пароль.";
-	$l_login_l5 = "Защита паролем была отключена. Это небезопасно, поэтому, если TaskStep размещен на публичном сервере, то активизируйте защиту.";
-*/
+	'login' => [
+		'button' => "Войти",
+		'prompt' => "Пожалуйста, введите пароль.",
+		'incorrect' => "Неверный пароль.",
+		'alreadyLoggedIn' => "Вы уже вошли! <a href='?action=logout'>Выйдите из системы</a> или перейдите на <a href='index.php'>главную страницу</a>.",
+	],
+
 	// Navigation
 	'navigation' => [
 		'today' => "Сегодня: %s",
@@ -181,12 +180,14 @@ return [
 			'purgeCheck' => "Вы уверены, что вы хотите удалить все выполненные задачи?",
 		]
 	],
-/*
-    $l_print_commontitle = "Печать",
-    $l_print_printalltasks = "Задачи",
-    $l_print_printtoday = "Сегодня",
-    $l_print_sectionnotfound = "Категория не найдена!",
-*/
+	
+	'print' => [
+	    'commonTitle' => "Печать",
+	    'allTasks' => "Задачи",
+	    'today' => "Сегодня",
+	    'sectionNotFound' => "Категория не найдена!",
+	],
+
     'tips' => [
     	'Кликните на дату для вывода задач на сегодня.',
     	'Все маленькие иконки с сайта <a href="http://www.famfamfam.com">famfamfam.com</a>.',
