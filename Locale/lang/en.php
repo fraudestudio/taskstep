@@ -181,12 +181,13 @@ return [
 		]
 	],
 
-/*
-    'print_commontitle' => "Print",
-    'print_printalltasks' => "Tasks",
-    'print_printtoday' => "Today";
-    'print_sectionnotfound' => "Section not found!";
-*/
+	'print' => [
+	    'commonTitle' => "Print",
+	    'printAllTasks' => "Tasks",
+	    'printToday' => "Today",
+	    'sectionNotFound' => "Section not found!",
+    ],
+
     'tips' => [
     	'Clicking the date gives you the tasks due today.',
 		'All the small icons here are from <a href="http://www.famfamfam.com">famfamfam.com</a>.',

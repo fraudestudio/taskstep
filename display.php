@@ -76,16 +76,16 @@ case "context":
 
 case "all":
 	$result = $items->readAll();
-	$title = l->navigation->allItems;
 
+	$title = l->navigation->allItems;
 	$printUrl = '?print=all';
 	break;
 
 case "today":
 	$today = new Datetime('now');
 	$result = $items->readByDate($today);
-	$title = sprintf(l->navigation->today, $today->format(l->dateFormat->menu));
 
+	$title = sprintf(l->navigation->today, $today->format(l->dateFormat->menu));
 	$printUrl = "?print=today";	
 	break;
 }
