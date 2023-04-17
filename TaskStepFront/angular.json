@@ -40,7 +40,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "localize": ["fr-FR"],
             "outputPath": "dist/task-step",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -104,5 +103,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
