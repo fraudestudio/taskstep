@@ -16,7 +16,7 @@
     <div id="immediateblock">
         <h2><img src="assets/lightning.png" alt="" /> Immédiat()</h2>
     </div>
-    <div id="tipsbox">
+    <div  *ngIf="ShowTips" id="tipsbox">
         <h2><img src="assets/information.png" alt=""/> Conseil :</h2>
         <p [innerHTML]="Tips"></p>
     </div>

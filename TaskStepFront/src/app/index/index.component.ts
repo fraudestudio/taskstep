@@ -16,6 +16,10 @@ export class IndexComponent {
     'Vous pouvez maintenant sélectionner la date à partir d\'un calendrier. Cliquez simplement dans la case de la date comme si vous étiez en train de taper.',
   ]
 
+  get ShowTips() : boolean{   
+    return sessionStorage.getItem("isCheckedDisplay") == "true";
+  }
+
   get Tips() : string {
     return this.getRandomElement(this.tips)
   }
@@ -27,6 +31,7 @@ export class IndexComponent {
 
   constructor(){
     this.taskLeft = 0;
+    console.log(sessionStorage.getItem("isCheckedDisplay"));
   }
 
 

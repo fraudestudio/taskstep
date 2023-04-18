@@ -9,9 +9,11 @@ export class LoginComponent {
   
   private hasError : boolean = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router) {}
+  constructor(private route: ActivatedRoute,  private router: Router) {
+    if (sessionStorage.getItem("login") == "true"){
+      this.router.navigate(['index']);
+    }
+  }
   
 
   form : any  = {
@@ -27,6 +29,7 @@ export class LoginComponent {
     // Temporaire
     if (this.form.password == "taskstep"){
       this.router.navigate(['index']);
+      sessionStorage.setItem("login","true");
     } 
     else {
       this.hasError = true;

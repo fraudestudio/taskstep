@@ -1,0 +1,15 @@
+<app-navigation-bar/>
+
+<div id="content">
+    <div class="breaker"></div>
+
+    <div class="settingssection">
+        <h2><b>Display</b></h2>
+        <p>Display tips on the front page: 
+            <input #checkDisplay  name="checkDisplay" (change)="onCheckedChange(checkDisplay.checked)" type="checkbox" *ngIf="!isDisplayChecked"/>
+            <input #checkDisplay  name="checkDisplay" (change)="onCheckedChange(checkDisplay.checked)" type="checkbox" *ngIf="isDisplayChecked" checked/>
+        </p>
+    </div>
+</div>
+
+<app-footer/>

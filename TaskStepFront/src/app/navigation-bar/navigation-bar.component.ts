@@ -1,17 +1,30 @@
 import { formatDate } from '@angular/common';
 import { Component } from '@angular/core';
+import { SideBarComponent } from 'src/app/model/sideBarComponent';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
-  templateUrl :"navigation-bar.html"
+  templateUrl :"navigation-bar.component.html"
 })
 export class NavigationBarComponent {
+
   private date : number = Date.now();
 
+  constructor(private route: ActivatedRoute,  private router: Router) {
+  }
+
+  /**
+   * Give the today date in french
+   */
   get Date() : string{
     return formatDate(this.date,'dd LLLL yyyy', 'fr-Fr');
   }
 
+  /**
+   * Table all of the sidebar componenet of the side
+   * They are requested from the server
+   */
   private sideBar : SideBarComponent[] = [ 
     new SideBarComponent("lightbulb", "Idées",0,0), 
     new SideBarComponent("cart", "Vous voulez peut être acheter",0,0), 
@@ -22,43 +35,21 @@ export class NavigationBarComponent {
     new SideBarComponent("user", "Peut-être un jour",0,0)
   ];
 
+  /**
+   * Get all the sidebar component
+   */
   get SideBar() : SideBarComponent[]{
     return this.sideBar;
+  }
 
+
+  /**
+   * User asked to be disconnected
+   */
+  disconnect(){
+    sessionStorage.setItem("login","false");
+    this.router.navigate(["login"]);
   }
   
 }
 
-class SideBarComponent{
-
-  private image : string;
-  private title : string;
-
-  private done :  number;
-  private undone : number;
-
-
-
-  constructor(image : string, title : string, done : number, undone : number){
-    this.image = image;
-    this.title = title;
-    this.done = done;
-    this.undone = undone;
-  }
-
-  get Image() : string {
-    return "assets/" + this.image + ".png";
-  }
-
-  get Title() : string {
-    return " " + this.title;
-  }
-
-  get Done() : string {
-    return "(" + this.done + ")";
-  }
-
-  get UnDone() : string {
-    return "(" + this.undone + ")";
-  }
-}
