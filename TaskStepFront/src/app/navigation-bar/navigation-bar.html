@@ -1,12 +1,12 @@
 <div id = "container">
     <!--Header-->
     <div id="header"> 
-      <h1><img src="assets/icon.png" alt="" style="vertical-align:middle"/>&nbsp;<a href="index.php">TaskStep <span class="subtitle">1.1</span></a></h1>
+      <h1><a routerLink="/index"><img src="assets/icon.png" alt="" style="vertical-align:middle"/></a>&nbsp;<a routerLink="/index">TaskStep <span class="subtitle">1.1</span></a></h1>
     </div>
     <div id="headernav">
 	    <ul>
-		    <li><a><img src="assets/calendar_view_day.png" alt="" /></a><a> Aujourd'hui : {{Date | date : 'dd LLLL yyyy' }}</a></li>
-		    <li><a><img src="assets/house.png" alt="" /></a><a> Accueil</a></li>
+		    <li><a><img src="assets/calendar_view_day.png" alt="" /></a><a> Aujourd'hui : {{ Date }}</a></li>
+		    <li><a routerLink="/index"><img src="assets/house.png" alt="" /></a><a routerLink="/index"> Accueil</a></li>
 		    <li><a><img src="assets/page_white_text.png" alt="" /></a><a> Toutes les tâches</a></li>
 		    <li><a><img src="assets/context.png" alt="" /></a><a> Tous les contextes</a></li>
 		    <li><a><img src="assets/project.png" alt="" /></a><a> Tous les projets</a></li>

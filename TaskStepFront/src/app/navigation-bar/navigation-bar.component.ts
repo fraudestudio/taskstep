@@ -8,8 +8,8 @@ import { Component } from '@angular/core';
 export class NavigationBarComponent {
   private date : number = Date.now();
 
-  get Date() : number{
-    return this.date;
+  get Date() : string{
+    return formatDate(this.date,'dd LLLL yyyy', 'fr-Fr');
   }
 
   private sideBar : SideBarComponent[] = [ 
@@ -36,6 +36,7 @@ class SideBarComponent{
 
   private done :  number;
   private undone : number;
+
 
 
   constructor(image : string, title : string, done : number, undone : number){

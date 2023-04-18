@@ -150,7 +150,7 @@ body{
 	font-size:10pt;
 	min-width:560px;
 	max-width:760px;
-	margin-left:210px;
+	margin-left:730px;
 }
 
 #content a{
@@ -336,13 +336,21 @@ h2{
 	padding:5px;
 	margin:10px 0 0 0;
 	color:#33d;
-	font-size:9pt;
+	font-size:10pt;
 	line-height:1.6em;
+}
+
+#tipsbox h2{
+	color:#33d;
 }
 
 #tipsbox a{
 	color:#33d;
-	text-decoration:none;
+	text-decoration: underline;
+}
+
+#tipsbox a:hover{
+	color: black;
 }
 
 #tipsbox img{
@@ -377,6 +385,8 @@ h2{
 	width:255px;
 	padding:5px;
 	text-align:justify;
+	margin-right: 80px;
+	font-size: 14px;
 }
 
 

@@ -8,6 +8,14 @@ import { LoginComponent } from './login/login.component';
 import { IndexComponent } from './index/index.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+ 
+
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { SettingsComponent } from './settings/settings.component';
+
+registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
@@ -15,12 +23,14 @@ import { FormsModule } from '@angular/forms';
     NavigationBarComponent,
     LoginComponent,
     IndexComponent,
-    FooterComponent
+    FooterComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
