@@ -1,14 +1,14 @@
 
 <div id="container">
     <div id="loginbox">
-        <h1><img src="assets/icon.png" alt="" /> TaskStep</h1>
-        <p><img src="assets/shield.png" alt="" /> <br>Veuillez saisir votre mot de passe pour vous connecter.</p>
+        <h1><img src="assets/images/icon.png" alt="" /> TaskStep</h1>
+        <p><img src="assets/images/shield.png" alt="" /> <br>Veuillez saisir votre mot de passe pour vous connecter.</p>
         <form #f = "ngForm" (ngSubmit)="submit()">
             <input type="password" name = "password" #name = "ngModel" [(ngModel)]="form.password"/>
             &nbsp;
             <input type="submit" name="submit" value="Connexion"/>
         </form> 
-        <p *ngIf="HasError"><img src="assets/cross.png" alt=""> Mot de passe incorrecte.</p>
+        <p *ngIf="HasError"><img src="assets/images/cross.png" alt=""> Mot de passe incorrecte.</p>
     </div>
 </div>
 <app-footer/>

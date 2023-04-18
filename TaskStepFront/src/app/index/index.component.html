@@ -1,7 +1,7 @@
 <app-navigation-bar/>
 <div id="content">
     <div id="welcomebox">
-        <h2><img src="assets/page.png" alt="" />Bienvenue sur TaskStep !</h2>
+        <h2><img src="assets/images/page.png" alt="" />Bienvenue sur TaskStep !</h2>
         <p>Bonjour, et bienvenue sur Taskstep. Taskstep est disigner pour vous aidez dans les tâches du quotidien, 
             de long terme et des listes générales. en les organisant vaguement à la <a href="https://gettingthingsdone.com/">GTD</a> avec des contextes et des projets.
         </p>
@@ -11,13 +11,13 @@
             Un contexte est l'endroit où vous ferez l'action, par exemple, sur votre ordinateur.
         </p>
         <br>
-        <p><img src="assets/chart_bar.png"/> Il y a actuellement {{TaskLeft}} tâches restantes.</p>
+        <p><img src="assets/images/chart_bar.png"/> Il y a actuellement {{TaskLeft}} tâches restantes.</p>
     </div>
     <div id="immediateblock">
-        <h2><img src="assets/lightning.png" alt="" /> Immédiat()</h2>
+        <h2><img src="assets/images/lightning.png" alt="" /> Immédiat()</h2>
     </div>
     <div  *ngIf="ShowTips" id="tipsbox">
-        <h2><img src="assets/information.png" alt=""/> Conseil :</h2>
+        <h2><img src="assets/images/information.png" alt=""/> Conseil :</h2>
         <p [innerHTML]="Tips"></p>
     </div>
 </div>

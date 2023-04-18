@@ -16,7 +16,7 @@ export class SideBarComponent{
     }
   
     get Image() : string {
-      return "assets/" + this.image + ".png";
+      return "assets/images/" + this.image + ".png";
     }
   
     get Title() : string {

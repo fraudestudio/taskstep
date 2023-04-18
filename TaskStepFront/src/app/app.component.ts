@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThemeService } from './theme/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
+  constructor(){
+    ThemeService.setInitialTheme();
+  }
   title = 'TaskStep';
 }

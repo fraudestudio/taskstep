@@ -1,8 +1,9 @@
 /* Standard Stylesheet for TaskStep */
 /* Created by Loco 2006 */
 
-body{
+body[data-theme ="light"]{
 	font-family:Helvetica, Arial, sans-serif;
+    background-color: white;
 }
 
 #container{

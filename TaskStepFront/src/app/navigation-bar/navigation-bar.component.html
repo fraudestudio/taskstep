@@ -1,24 +1,24 @@
 <div id = "container">
     <!--Header-->
     <div id="header"> 
-      <h1><a routerLink="/index"><img src="assets/icon.png" alt="" style="vertical-align:middle"/></a>&nbsp;<a routerLink="/index">TaskStep <span class="subtitle">1.1</span></a></h1>
+      <h1><a routerLink="/index"><img src="assets/images/icon.png" alt="" style="vertical-align:middle"/></a>&nbsp;<a routerLink="/index">TaskStep <span class="subtitle">1.1</span></a></h1>
     </div>
     <div id="headernav">
 	    <ul>
-		    <li><a><img src="assets/calendar_view_day.png" alt="" /></a><a> Aujourd'hui : {{ Date }}</a></li>
-		    <li><a routerLink="/index"><img src="assets/house.png" alt="" /></a><a routerLink="/index"> Accueil</a></li>
-		    <li><a><img src="assets/page_white_text.png" alt="" /></a><a> Toutes les tâches</a></li>
-		    <li><a><img src="assets/context.png" alt="" /></a><a> Tous les contextes</a></li>
-		    <li><a><img src="assets/project.png" alt="" /></a><a> Tous les projets</a></li>
-		    <li><a routerLink="/settings"><img src="assets/textfield_rename.png" alt="" /></a><a routerLink="/settings"> Paramètres</a></li>
-		    <li><a><img src="assets/help.png" alt="" /></a><a> Aide</a></li>
-		    <li><a (click)="disconnect()"><img src="assets/door_in.png" alt=""/></a><a (click)="disconnect()"> Se déconnecter</a></li>
+		    <li><a><img src="assets/images/calendar_view_day.png" alt="" /></a><a> Aujourd'hui : {{ Date }}</a></li>
+		    <li><a routerLink="/index"><img src="assets/images/house.png" alt="" /></a><a routerLink="/index"> Accueil</a></li>
+		    <li><a><img src="assets/images/page_white_text.png" alt="" /></a><a> Toutes les tâches</a></li>
+		    <li><a><img src="assets/images/context.png" alt="" /></a><a> Tous les contextes</a></li>
+		    <li><a><img src="assets/images/project.png" alt="" /></a><a> Tous les projets</a></li>
+		    <li><a routerLink="/settings"><img src="assets/images/textfield_rename.png" alt="" /></a><a routerLink="/settings"> Paramètres</a></li>
+		    <li><a><img src="assets/images/help.png" alt="" /></a><a> Aide</a></li>
+		    <li><a (click)="disconnect()"><img src="assets/images/door_in.png" alt=""/></a><a (click)="disconnect()"> Se déconnecter</a></li>
       </ul>
     </div>
 
     <div id="sidebar">                     
       <ul>
-        <li><a><img src = "assets/add.png"> Ajouter une tâche</a></li>
+        <li><a><img src = "assets/images/add.png"> Ajouter une tâche</a></li>
         <li *ngFor="let bar of SideBar">
             <a><img src ={{bar.Image}}/> {{bar.Title}} <span class="noundone">{{bar.Done}}</span><span class="nodone"> {{bar.UnDone}}</span></a>
         </li>

@@ -52,7 +52,16 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              {
+                "input": "src/assets/styles/light.css",
+                "bundleName": "light",
+                "inject": true
+              },
+              {
+                "input": "src/assets/styles/dark.css",
+                "bundleName": "dark",
+                "inject": true
+              }
             ],
             "scripts": []
           },
