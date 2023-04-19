@@ -53,13 +53,7 @@
             ],
             "styles": [
               {
-                "input": "src/assets/styles/light.css",
-                "bundleName": "light",
-                "inject": true
-              },
-              {
-                "input": "src/assets/styles/dark.css",
-                "bundleName": "dark",
+                "input": "src/assets/styles/styles.css",
                 "inject": true
               }
             ],
