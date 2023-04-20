@@ -4,9 +4,10 @@ import { Context } from "./context";
 export class FakeDatabase {
 
     public static Contexts : Context[] = [
-        new Context("SampleContext"),
-        new Context("SampleContext2")
     ];
+
+    constructor(){
+    }
 
     static RemoveContext(context : Context){
         const index = this.Contexts.indexOf(context);
@@ -17,10 +18,12 @@ export class FakeDatabase {
 
     static AddContext(context : Context){
         this.Contexts.push(context);
+        context.Id = this.Contexts.length;
     }
 
     static ModifyContext(index : number,context : Context){
-        this.Contexts[index] = context;
+        this.Contexts[index - 1] = context;
+        context.Id = index;
     }
 
     static GetIndexOfContext(context : Context) : number {

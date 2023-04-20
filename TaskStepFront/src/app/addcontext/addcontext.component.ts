@@ -20,8 +20,8 @@ export class AddcontextComponent {
     
   }
 
-  submit(){
 
+  submit(){
     FakeDatabase.AddContext(new Context(this.form.title));
     this.router.navigate(["bycontext"], {state : {data : "Votre contexte \""+ this.form.title +"\" a bien été ajouter !"}});
   }

@@ -16,6 +16,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { BycontextComponent } from './bycontext/bycontext.component';
 import { AddcontextComponent } from './addcontext/addcontext.component';
+import { EditcontextComponent } from './editcontext/editcontext.component';
 
 registerLocaleData(localeFr);
 
@@ -30,7 +31,8 @@ registerLocaleData(localeFr);
     ChangePasswordComponent,
     PagenotfoundComponent,
     BycontextComponent,
-    AddcontextComponent
+    AddcontextComponent,
+    EditcontextComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { BycontextComponent } from './bycontext/bycontext.component';
 import { AddcontextComponent } from './addcontext/addcontext.component';
+import { EditcontextComponent } from './editcontext/editcontext.component';
 
 const routes: Routes = [
   {path : '', redirectTo: '/login', pathMatch: 'full'},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path : 'changePassword', component: ChangePasswordComponent},
   {path : 'bycontext', component: BycontextComponent},
   {path : "addcontext", component: AddcontextComponent},
+  {path : "editcontext", component: EditcontextComponent},
   {path : '**', component: PagenotfoundComponent },
 ];
 

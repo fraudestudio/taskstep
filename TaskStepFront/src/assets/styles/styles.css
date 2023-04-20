@@ -404,6 +404,7 @@ a img{
 	background-color: var(--warning-background-color);
 	border: 1px solid var(--warning-border-color);
 	margin-top: 10px;
+	margin-bottom :20px;
 	margin-right: 250px;
 }
 
@@ -412,6 +413,7 @@ a img{
 	background-color: var(--confirmation-background-color);
 	border: 1px solid var(--confirmation-border-color);
 	margin-top: 10px;
+	margin-bottom :20px;
 	margin-right: 250px;
 }
 
