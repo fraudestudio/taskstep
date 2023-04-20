@@ -36,6 +36,12 @@ export class EditcontextComponent implements OnInit {
     this.checkbox = value;
   }
 
+
+  deleteContext(){
+    FakeDatabase.RemoveContext(this.currentContext.Id);
+    this.router.navigate(["bycontext"], {state : {data : "Votre contexte \""+ this.form.title +"\" a bien été supprimer !"}});    
+  }
+
   submit(){
 
     FakeDatabase.ModifyContext(this.currentContext.Id,new Context(this.form.title));

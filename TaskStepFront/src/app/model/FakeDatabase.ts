@@ -9,11 +9,8 @@ export class FakeDatabase {
     constructor(){
     }
 
-    static RemoveContext(context : Context){
-        const index = this.Contexts.indexOf(context);
-        if (index != -1){
-            this.Contexts.splice(index)
-        }
+    static RemoveContext(id : number){
+        this.Contexts.splice(id - 1)
     }
 
     static AddContext(context : Context){
