@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { SettingsComponent } from './settings/settings.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 registerLocaleData(localeFr);
 
@@ -22,7 +23,8 @@ registerLocaleData(localeFr);
     LoginComponent,
     IndexComponent,
     FooterComponent,
-    SettingsComponent
+    SettingsComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

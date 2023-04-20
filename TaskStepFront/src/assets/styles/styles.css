@@ -19,6 +19,8 @@
 	--loginbox-color: #f3f3f3;
 	--loginbox-border-color: #ddd;
 	--loginbox-text-color : #555;
+	--button-color : white;
+	--button-text :black;
 }
 
 [data-theme = "dark"]{
@@ -45,11 +47,18 @@
 	--loginbox-input-background: #1d1d1d;
 	--loginbox-input-text-color: white;
 	--loginbox-eyes : 100%;
+	--button-color : #1d1d1d;
+	--button-text : white;
 }
 
 body{
 	font-family:Helvetica, Arial, sans-serif;
     background-color: var(--background-color);
+}
+
+button{
+	background-color: var(--button-color);
+	color:var(--button-text)
 }
 
 #container{
@@ -337,6 +346,10 @@ a img{
 .settingssection h2{
 	padding:0;
 	margin:5px 0;
+}
+
+.settingssection #warning{
+	color:#c00
 }
 
 select{
