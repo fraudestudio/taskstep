@@ -5,27 +5,34 @@
 	--background-color: white;
 	--title-color: #333;
 	--subtitle-color: #333;
+
 	--navbar-background-color:#ececef;
 	--navbar-text-color:black;
+
 	--sidebar-text-color:black;
 	--sidebar-background-hover: #ececef;
+
 	--immediate-background-color : #ffa;
 	--immediate-border-color : #cc0;
+
 	--welcome-background-color : #cfc;
 	--welcome-border-color : #0c0;
+
 	--tips-background-color : #ddf;
 	--tips-border-color : #33d;
 	--tips-text-color: #33d;
+
 	--loginbox-color: #f3f3f3;
 	--loginbox-border-color: #ddd;
 	--loginbox-text-color : #555;
+	
 	--button-color : white;
 	--button-text :black;
 	--button-border-color: #ddd;
+
 	--warning-background-color : rgb(243, 146, 146);
 	--warning-border-color : #ff0000;
 	--warning-text-color : black;
-
 
 	--confirmation-background-color : #62e081;
 	--confirmation-border-color : rgb(20, 160, 62);
@@ -36,29 +43,39 @@
 	--background-color: #070707;
 	--title-color: white;
 	--subtitle-color:white;
+
 	--navbar-background-color:#1d1d1d;
 	--navbar-text-color:white;
+
 	--sidebar-text-color:white;
 	--sidebar-background-hover:#1d1d1d;
+
 	--content-color : white;
+
 	--select-background-color : #1d1d1d;
 	--select-color: white;
+
 	--immediate-background-color : rgb(39, 39, 2);
 	--immediate-border-color : rgb(105, 105, 0);
+
 	--welcome-background-color : rgb(51, 70, 51);
 	--welcome-border-color : rgb(1, 61, 1);
+
 	--tips-background-color : rgb(47, 47, 78);
 	--tips-border-color : rgb(9, 9, 94);
 	--tips-text-color: rgb(233, 233, 235);
+
 	--loginbox-color: #1d1d1d;
 	--loginbox-border-color: #333333;
 	--loginbox-text-color : white;
 	--loginbox-input-background: #1d1d1d;
 	--loginbox-input-text-color: white;
 	--loginbox-eyes : 100%;
+
 	--button-color : #1d1d1d;
 	--button-text : white;
 	--button-border-color: #333333;
+
 	--warning-background-color : #5a0000;
 	--warning-border-color : #c00;
 	--warning-text-color : white;
@@ -502,6 +519,11 @@ h2{
 	border:1px solid var(--loginbox-border-color);
 	padding:20px;
 	color:var(--loginbox-text-color);
+}
+
+#loginbox a{
+	color:var(--loginbox-text-color);
+	text-decoration: none;
 }
 
 #loginbox h1{
