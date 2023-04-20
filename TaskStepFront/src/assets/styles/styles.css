@@ -16,6 +16,9 @@
 	--tips-background-color : #ddf;
 	--tips-border-color : #33d;
 	--tips-text-color: #33d;
+	--loginbox-color: #f3f3f3;
+	--loginbox-border-color: #ddd;
+	--loginbox-text-color : #555;
 }
 
 [data-theme = "dark"]{
@@ -36,6 +39,12 @@
 	--tips-background-color : rgb(47, 47, 78);
 	--tips-border-color : rgb(9, 9, 94);
 	--tips-text-color: rgb(233, 233, 235);
+	--loginbox-color: #1d1d1d;
+	--loginbox-border-color: #333333;
+	--loginbox-text-color : white;
+	--loginbox-input-background: #1d1d1d;
+	--loginbox-input-text-color: white;
+	--loginbox-eyes : 100%;
 }
 
 body{
@@ -446,10 +455,10 @@ h2{
 #loginbox{
 	margin:100px auto 0px auto;
 	width:300px;
-	background-color:#f3f3f3;
-	border:1px solid #ddd;
+	background-color:var(--loginbox-color);
+	border:1px solid var(--loginbox-border-color);
 	padding:20px;
-	color:#555;
+	color:var(--loginbox-text-color);
 }
 
 #loginbox h1{
@@ -469,6 +478,14 @@ h2{
 
 #loginbox p a{
 	color:#555;
+}
+
+#loginbox input{
+	background-color: var(--loginbox-input-background);
+	color: var(--loginbox-input-text-color);
+}
+::-ms-reveal{
+	filter: invert(var(--loginbox-eyes));
 }
 
 .securityinfo{
