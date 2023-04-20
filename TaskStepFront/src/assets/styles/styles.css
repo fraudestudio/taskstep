@@ -37,6 +37,9 @@
 	--confirmation-background-color : #62e081;
 	--confirmation-border-color : rgb(20, 160, 62);
 	--confirmation-text-color : black;
+
+	--editlist-text-color : black;
+	--editlist-hover-color : #ececef;
 }
 
 [data-theme = "dark"]{
@@ -83,6 +86,10 @@
 	--confirmation-background-color : #0e4d02;
 	--confirmation-border-color : rgb(20, 160, 62);
 	--confirmation-text-color : white;
+
+
+	--editlist-text-color : white;
+	--editlist-hover-color : #1d1d1d;
 
 }
 
@@ -323,11 +330,20 @@ a img{
 	display:block;
 	padding:3px;
 	border-top:1px dotted #ccc;
-	text-decoration:none;
+	text-decoration: none;
+}
+
+#editlist a{
+	color: var(--editlist-text-color);
+	font-size: 12pt;
+}
+
+#editlist h2{
+	margin-bottom: 20px;
 }
 
 #editlist a:hover{
-	background-color:#ececef;
+	background-color:var(--editlist-hover-color);
 }
 
 .inform{
@@ -383,7 +399,7 @@ a img{
 	margin:5px 0;
 }
 
-.settingssection #warning{
+.warning{
 	color: var(--warning-text-color);
 	background-color: var(--warning-background-color);
 	border: 1px solid var(--warning-border-color);
@@ -391,7 +407,7 @@ a img{
 	margin-right: 250px;
 }
 
-.settingssection #confirmation{
+.confirmation{
 	color: var(--confirmation-text-color);
 	background-color: var(--confirmation-background-color);
 	border: 1px solid var(--confirmation-border-color);

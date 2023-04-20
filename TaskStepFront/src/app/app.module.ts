@@ -14,6 +14,8 @@ import localeFr from '@angular/common/locales/fr';
 import { SettingsComponent } from './settings/settings.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { BycontextComponent } from './bycontext/bycontext.component';
+import { AddcontextComponent } from './addcontext/addcontext.component';
 
 registerLocaleData(localeFr);
 
@@ -26,7 +28,9 @@ registerLocaleData(localeFr);
     FooterComponent,
     SettingsComponent,
     ChangePasswordComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    BycontextComponent,
+    AddcontextComponent
   ],
   imports: [
     BrowserModule,
