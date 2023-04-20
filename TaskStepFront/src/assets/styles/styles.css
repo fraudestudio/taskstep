@@ -21,6 +21,15 @@
 	--loginbox-text-color : #555;
 	--button-color : white;
 	--button-text :black;
+	--button-border-color: #ddd;
+	--warning-background-color : rgb(243, 146, 146);
+	--warning-border-color : #ff0000;
+	--warning-text-color : black;
+
+
+	--confirmation-background-color : #62e081;
+	--confirmation-border-color : rgb(20, 160, 62);
+	--confirmation-text-color : black;
 }
 
 [data-theme = "dark"]{
@@ -49,6 +58,15 @@
 	--loginbox-eyes : 100%;
 	--button-color : #1d1d1d;
 	--button-text : white;
+	--button-border-color: #333333;
+	--warning-background-color : #5a0000;
+	--warning-border-color : #c00;
+	--warning-text-color : white;
+
+	--confirmation-background-color : #0e4d02;
+	--confirmation-border-color : rgb(20, 160, 62);
+	--confirmation-text-color : white;
+
 }
 
 body{
@@ -308,8 +326,8 @@ a img{
 }
 
 .purgebutton{
-	background-color:#f3f3f3;
-	border:1px solid #ddd;
+	background-color: var(--button-color);
+	border:1px solid var(--button-border-color);
 	padding:5px;
 	margin-top:3px;
 }
@@ -349,7 +367,19 @@ a img{
 }
 
 .settingssection #warning{
-	color:#c00
+	color: var(--warning-text-color);
+	background-color: var(--warning-background-color);
+	border: 1px solid var(--warning-border-color);
+	margin-top: 10px;
+	margin-right: 250px;
+}
+
+.settingssection #confirmation{
+	color: var(--confirmation-text-color);
+	background-color: var(--confirmation-background-color);
+	border: 1px solid var(--confirmation-border-color);
+	margin-top: 10px;
+	margin-right: 250px;
 }
 
 select{
@@ -493,7 +523,7 @@ h2{
 	color:#555;
 }
 
-#loginbox input{
+input{
 	background-color: var(--loginbox-input-background);
 	color: var(--loginbox-input-text-color);
 }

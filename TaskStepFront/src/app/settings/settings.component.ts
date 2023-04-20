@@ -13,21 +13,64 @@ export class SettingsComponent {
    */
   private changePasswordConfirmation : boolean;
 
+  /**
+  * Says if the button purge items has been it once
+  */
+  private purgeItemConfirmation : boolean;
+
+  private exportConfirmation : boolean;
+
   get ChangePasswordConfirmation() : boolean{
     return this.changePasswordConfirmation;
   }
 
-  constructor(private route: ActivatedRoute,  private router: Router){
-    this.changePasswordConfirmation = false;
+  get PurgeItemConfirmation() : boolean{
+    return this.purgeItemConfirmation;
   }
 
+  get ExportConfirmation() : boolean{
+    return this.exportConfirmation;
+  }
+
+
+
+  constructor(private route: ActivatedRoute,  private router: Router){
+    this.changePasswordConfirmation = false;
+    this.purgeItemConfirmation = false;
+    this.exportConfirmation = false;
+  }
+
+  /**
+   * When the change password button is clicked
+   * It shows a warning the first time
+   * It redirect to the changePassword page the second time
+   */
   changePasswordClicked(){
     if (this.changePasswordConfirmation){
       this.router.navigate(["changePassword"]);
     }
     else {
       this.changePasswordConfirmation = true;
+      this.purgeItemConfirmation = false;
+      this.exportConfirmation = false;
     }
+  }
+
+
+  purgeItems(){
+    if (this.purgeItemConfirmation){
+      // A implémanter
+    }
+    else {
+      this.purgeItemConfirmation = true;
+      this.changePasswordConfirmation = false;
+      this.exportConfirmation = false;
+    }
+  }
+  exportCSV(){
+    this.exportConfirmation = true;
+    this.purgeItemConfirmation = false;
+    this.changePasswordConfirmation = false;
   }
 
   /**
