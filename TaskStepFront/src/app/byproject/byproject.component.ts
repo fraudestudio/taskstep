@@ -1,17 +1,13 @@
-import { Component, Input } from '@angular/core';
-import { Context } from "src/app/model/context";
+import { Component } from '@angular/core';
+import { Project } from "src/app/model/project";
 import { FakeDatabase } from '../model/FakeDatabase';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
-  selector: 'app-bycontext',
-  templateUrl: 'bycontext.component.html'
+  selector: 'app-byproject',
+  templateUrl : 'byproject.component.html'
 })
-
-
-
-export class BycontextComponent {
-
+export class ByprojectComponent {
   constructor(private route: ActivatedRoute,  private router: Router){  
   }
 
@@ -40,15 +36,15 @@ export class BycontextComponent {
     return history.state.data?.type;
   }
 
-  goEditMode(context : Context){
-    this.router.navigate(["editcontext"], {state : {data : context}});
+  goEditMode(project : Project){
+    this.router.navigate(["editproject"], {state : {data : project}});
   }
 
   setEditMode(){
     this.isEditing = true;
   }
 
-  get Contexts() : Context[]{
-    return FakeDatabase.Contexts;
+  get Projects() : Project[]{
+    return FakeDatabase.Projects;
   }
 }

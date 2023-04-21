@@ -8,6 +8,9 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { BycontextComponent } from './bycontext/bycontext.component';
 import { AddcontextComponent } from './addcontext/addcontext.component';
 import { EditcontextComponent } from './editcontext/editcontext.component';
+import { ByprojectComponent } from './byproject/byproject.component';
+import { AddprojectComponent } from './addproject/addproject.component';
+import { EditprojectComponent } from './editproject/editproject.component';
 
 const routes: Routes = [
   {path : '', redirectTo: '/login', pathMatch: 'full'},
@@ -18,6 +21,9 @@ const routes: Routes = [
   {path : 'bycontext', component: BycontextComponent},
   {path : "addcontext", component: AddcontextComponent},
   {path : "editcontext", component: EditcontextComponent},
+  {path : 'byproject', component: ByprojectComponent},
+  {path : "addproject", component: AddprojectComponent},
+  {path : "editproject", component: EditprojectComponent},
   {path : '**', component: PagenotfoundComponent },
 ];
 

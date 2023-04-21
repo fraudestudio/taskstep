@@ -1,5 +1,5 @@
 import { Context } from "./context";
-
+import { Project } from "./project";
 
 export class FakeDatabase {
 
@@ -23,8 +23,24 @@ export class FakeDatabase {
         context.Id = index;
     }
 
-    static GetIndexOfContext(context : Context) : number {
-        return this.Contexts.indexOf(context);
+    /// Projects
+
+    public static Projects : Project[] = [
+    ];
+
+    static RemoveProject(id : number){
+        this.Projects.splice(id - 1)
     }
+
+    static AddProject(project : Project){
+        this.Projects.push(project);
+        project.Id = this.Projects.length;
+    }
+
+    static ModifyProject(index : number,project : Project){
+        this.Projects[index - 1] = project;
+        project.Id = index;
+    }
+
 
 }

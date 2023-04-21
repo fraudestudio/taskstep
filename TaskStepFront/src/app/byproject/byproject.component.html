@@ -1,0 +1,24 @@
+<app-navigation-bar></app-navigation-bar>
+<div id="content">
+    <div id='editlist'>
+        <h2>{{Title}}</h2>
+        <div *ngIf="message">
+            <div *ngIf='type == "confirmation"' class="confirmation">
+                <p><img src="assets/images/accept.png"/>{{message}}</p>
+            </div>
+            <div *ngIf='type == "warning"' class="warning">
+                <p><img src="assets/images/exclamation.png"/>{{message}}</p>
+            </div>
+        </div>
+        <a class="listlinkssmart" routerLink="/addproject"><img src="assets/images/add.png"/> Ajouter un contexte</a>
+        <div *ngIf="!IsEditing">
+            <a href="" onclick="return false;"  *ngFor="let project of Projects" class="listlinkssmart"><img src="assets/images/project.png"/> {{project.Title}}</a>
+        </div>
+        <div *ngIf="IsEditing">
+            <a href="" onclick="return false;" *ngFor="let project of Projects" class="listlinkssmart" (click)="goEditMode(project)"><img src="assets/images/pencil.png"/> {{project.Title}}</a>
+        </div>
+
+        <a href="" onclick="return false;" *ngIf="!IsEditing" class="listlinkssmart" (click)="setEditMode()"><img src="assets/images/project_edit.png"/> Edtier un contexte</a>
+    </div>
+</div>
+<app-footer></app-footer>

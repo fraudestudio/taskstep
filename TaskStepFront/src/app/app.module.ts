@@ -17,6 +17,9 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { BycontextComponent } from './bycontext/bycontext.component';
 import { AddcontextComponent } from './addcontext/addcontext.component';
 import { EditcontextComponent } from './editcontext/editcontext.component';
+import { ByprojectComponent } from './byproject/byproject.component';
+import { AddprojectComponent } from './addproject/addproject.component';
+import { EditprojectComponent } from './editproject/editproject.component';
 
 registerLocaleData(localeFr);
 
@@ -32,7 +35,10 @@ registerLocaleData(localeFr);
     PagenotfoundComponent,
     BycontextComponent,
     AddcontextComponent,
-    EditcontextComponent
+    EditcontextComponent,
+    ByprojectComponent,
+    AddprojectComponent,
+    EditprojectComponent
   ],
   imports: [
     BrowserModule,

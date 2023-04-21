@@ -1,0 +1,25 @@
+<app-navigation-bar></app-navigation-bar>
+<div id="content">
+    <form #f = "ngForm" (ngSubmit)="submit()">
+        <label>Titre :</label>
+        <input type="text" name = "title" #name = "ngModel" [(ngModel)]="form.title" required/>
+        <br>
+        <div *ngIf="name.errors?.['required']" class="warning">
+            <h2>Un titre est nécessaire.</h2>
+        </div>
+        <br>
+        <input type="checkbox" #check (change)="checkBoxChanged(check.checked)" checked/>
+        <label>Mettre à jour les tâches assaociés ?</label>
+        <br>
+        <br>
+        <input *ngIf="!name.errors?.['required']" input type="submit" value="Modifier le contexte"/>
+    </form>
+
+    <br>
+    <br>
+
+    <button (click)="deleteProject()"><img src="assets/images/bin.png"/> Supprimer le contexte</button>
+
+    
+</div>
+<app-footer></app-footer>
