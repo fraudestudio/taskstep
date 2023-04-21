@@ -29,6 +29,7 @@
 	--button-color : white;
 	--button-text :black;
 	--button-border-color: #ddd;
+	--button-hover-color: #ececef;
 
 	--warning-background-color : rgb(243, 146, 146);
 	--warning-border-color : #ff0000;
@@ -78,6 +79,7 @@
 	--button-color : #1d1d1d;
 	--button-text : white;
 	--button-border-color: #333333;
+	--button-hover-color: #070707;
 
 	--warning-background-color : #5a0000;
 	--warning-border-color : #c00;
@@ -100,8 +102,25 @@ body{
 
 button{
 	background-color: var(--button-color);
+	border : 2px solid var(--button-border-color);
 	color:var(--button-text)
 }
+
+button:hover{
+	background-color: var(--button-hover-color);
+}
+
+
+input[type=submit]{
+	background-color: var(--button-color);
+	border : 2px solid var(--button-border-color);
+	color:var(--button-text)
+}
+
+input[type=submit]:hover{
+	background-color: var(--button-hover-color);
+}
+
 
 #container{
 	min-width:800px;
