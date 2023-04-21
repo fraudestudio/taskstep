@@ -13,6 +13,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class BycontextComponent {
 
   constructor(private route: ActivatedRoute,  private router: Router){  
+    console.log(history.state.data)
   }
 
   get Title() : string {
@@ -32,8 +33,13 @@ export class BycontextComponent {
     return this.isEditing;
   }
 
-  message : string = history.state.data;
+  get message() : string {
+    return history.state.data.message; 
+  }
 
+  get type() : string {
+    return history.state.data.type;
+  }
 
   goEditMode(context : Context){
     this.router.navigate(["editcontext"], {state : {data : context}});

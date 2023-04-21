@@ -39,13 +39,13 @@ export class EditcontextComponent implements OnInit {
 
   deleteContext(){
     FakeDatabase.RemoveContext(this.currentContext.Id);
-    this.router.navigate(["bycontext"], {state : {data : "Votre contexte \""+ this.form.title +"\" a bien été supprimer !"}});    
+    this.router.navigate(["bycontext"], {state : {data : {message : "Votre contexte \""+ this.form.title +"\" a bien été supprimer !", type : "confirmation"}}});    
   }
 
   submit(){
 
     FakeDatabase.ModifyContext(this.currentContext.Id,new Context(this.form.title));
-    this.router.navigate(["bycontext"], {state : {data : "Votre contexte \""+ this.form.title +"\" a bien été modifier !"}});
+    this.router.navigate(["bycontext"], {state : {data : {message : "Votre contexte \""+ this.form.title +"\" a bien été modifier !", type : "confirmation"}}});
   }
   
 }

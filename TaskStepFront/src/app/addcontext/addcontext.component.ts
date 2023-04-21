@@ -23,6 +23,6 @@ export class AddcontextComponent {
 
   submit(){
     FakeDatabase.AddContext(new Context(this.form.title));
-    this.router.navigate(["bycontext"], {state : {data : "Votre contexte \""+ this.form.title +"\" a bien été ajouter !"}});
+    this.router.navigate(["bycontext"], {state : {data : { message : "Votre contexte \""+ this.form.title +"\" a bien été ajouter !", type : "confirmation"}}});
   }
 }
