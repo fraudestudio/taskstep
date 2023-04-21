@@ -13,10 +13,10 @@ export class ByprojectComponent {
 
   get Title() : string {
     if (this.isEditing){
-      return "Choissisez un contexte à modifier ou ajouter un contexte."
+      return "Choissisez un projet à modifier ou ajouter un projet."
     }
     else {
-      return "Choissisez un contexte pour afficher les tâches qui lui sont liés. Vous pouvez aussi ajouter/éditer un contexte."
+      return "Choissisez un projet pour afficher les tâches qui lui sont liés. Vous pouvez aussi ajouter/éditer un projet."
     }
   }
 
