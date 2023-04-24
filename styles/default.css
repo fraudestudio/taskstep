@@ -166,12 +166,12 @@ body{
 	background-color:#ececef;
 }
 
-.noundone{
+.done{
 	color:red;
 	font-size:8pt;
 }
 
-.nodone{
+.undone{
 	color:green;
 	font-size:8pt;
 }
@@ -211,6 +211,14 @@ body{
 .np{
 	padding:5px;
 	margin-bottom:10px;
+}
+
+a.short-url {
+	display: inline-block;
+	max-width: 25ch;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
 }
 
 a img{
@@ -458,7 +466,8 @@ h2{
 
 .null{
 	display:none;
-}
+}
+
 
 .linkback a{
 	text-decoration:underline;
