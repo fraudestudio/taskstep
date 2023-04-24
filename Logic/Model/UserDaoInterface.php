@@ -12,35 +12,52 @@ interface UserDaoInterface
     /**
      * Crée un utilisateur.
      * 
-     * @param $project Le nouvel utilisateur.
+     * @param $login Login du nouvel utilisateur
+     * @param $password Mot de passe du nouveau projet
+     * @param $mail Mail du nouvel utilisateur
+     * @param $CaptchaToken Token du captcha pour vérifier si le nouvel utilisateur n'est pas un robot
+     * 
+     * @return int id duy nouvel utilisateur
      */ 
-    public function create(Project $project);
+    public function SignUp(string $login, string $password, string $mail, string $CaptchaToken) : int;
 
     /**
      * Récupère un projet par son identifiant.
      * 
-     * @param $id L'identifiant du projet à récupérer.
+     * @param $login login de l'utilisateur
+     * @param $assword mot de passe 
+     * 
+     * @return bool Comfirmation de connection
      */
-    public function readById(int $id): Project;
+    public function SignIn(string $login, string $password): bool;
 
-    /**
-     * Récupère tous les projets.
+    /**¨
+     * Change le mot de passe d'un Utilisateur.
+     * 
+     * @param $idUser id de l'utilisateur
+     * @param $mdp mot de passe de l'utilisateur
+     * 
+     * @return bool Confirmation de l'utilisateur
      */
-    public function readAll(): array;
+    public function ChangePassword(int $idUser, string $mdp): bool;
+
 
     /**
      * Mets à jour un projet.
      * 
-     * @param $id L'identifiant du projet à modifier.
+     * @param $idUser L'identifiant du User
      * 
-     * @param $project Le projet modifié.
+     * @param $displayTips Affichage des conseil
+     * @param $style style choisit
      */
-    public function update(int $id, Project $project);
+    public function ChangeSettings(int $idUser, ?bool $displayTips, ?int $style);
 
     /**
-     * Supprime un projet.
+     * Récupere un User liée au token donné
      * 
-     * @param $id L'identifiant du projet à supprimer.
+     * @param $token token récupéré
+     * 
+     * @return User un User
      */
-    public function delete(int $id);
+    public function GetUserByToken(string $token);
 }
