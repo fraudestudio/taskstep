@@ -1,28 +1,50 @@
 <?php
+
 include("includes/header.php");
 
-$sortby = (isset($_GET["sort"])) ? $_GET["sort"] : '';
+use TaskStep\Logic\Data\LegacyMySql\{ContextDao, ProjectDao};
 
-$type = (isset($_GET['type'])) ? $_GET['type'] : '';
+$type = $_GET['type'] ?? '';
 
-//display all the projects/contexts
-$result = $mysqli->query("select * from {$type}s order by title");
-echo "<div id='editlist'>\n<p>".$l_dbp_l1[$type]."</p>";
-
-//display the add project/context link
-echo "<a href='edit_types.php?type=$type&amp;cmd=add' class='listlinkssmart'><img src='images/add.png' alt='' /> ".$l_dbp_add[$type]."</a>";
-
-//run the while loop that grabs all the projects/contexts
-while($r=$result->fetch_array())
-{ 
-	//grab the title and the ID of the project/context
-	$title=$r["title"];
-	$id=$r["id"];
-
-	//make the title a link
-	echo "<a href='display.php?display=$type&amp;tid=$id&amp;sort=date' class='listlinkssmart'><img src='images/$type.png' alt='' /> $title</a>";
+if ($type == 'context')
+{
+	$dao = new ContextDao();
 }
-echo "\n<a href='edit_types.php?type=$type' class='listlinkssmart'><img src='images/{$type}_edit.png' alt='' /> ".$l_dbp_edit[$type]."</a>\n</div>";
+else if ($type == 'project')
+{
+	$dao = new ProjectDao();
+}
+else
+{
+	// pas ouf mais ça fait le travail
+	header('Location: index.php', true, 303);
+	exit("unknown type '$type'");
+}
 
-include('includes/footer.php');
+$categories = $dao->readAll();
+usort($categories, function($a, $b) { return strnatcasecmp($a->title(), $b->title()); });
+
 ?>
+
+<div id='editlist'>
+	<p> <?= l->$type->chooseToList ?> </p>
+	
+	<a href='edit_types.php?type=<?= $type ?>&cmd=add' class='listlinkssmart'>
+		<img src='images/add.png' alt='' />
+		<?= l->$type->add ?>
+	</a>
+
+	<?php foreach ($categories as $category): ?>
+	<a href='display.php?display=<?= $type ?>&tid=<?= $category->id() ?>&sort=date' class='listlinkssmart'>
+		<img src='images/<?= $type ?>.png' alt='' />
+		<?= $category->title() ?>
+	</a>
+	<?php endforeach; ?>
+
+	<a href='edit_types.php?type=<?= $type ?>' class='listlinkssmart'>
+		<img src='images/<?= $type ?>_edit.png' alt='' />
+		<?= l->$type->edit ?>
+	</a>
+</div>
+
+<?php include('includes/footer.php'); ?>
