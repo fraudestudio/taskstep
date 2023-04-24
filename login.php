@@ -35,7 +35,7 @@ else if (isset($_GET["action"]) && $_GET["action"] == "logout")
 	$_SESSION['loggedin'] = false;
 }
 
-$loggedIn = $_SESSION['loggedin'];
+$loggedIn = $_SESSION['loggedin'] ?? false;
 
 ?>
 <!DOCTYPE html>

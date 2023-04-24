@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Data\LegacyMySql;
 
-require_once 'config.php';
-
 use TaskStep\Config;
 use \Exception;
 use \PDO, \PDOException, \PDOStatement;
