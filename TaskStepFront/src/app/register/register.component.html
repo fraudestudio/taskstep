@@ -44,13 +44,10 @@
             </div>
             <br>
 
-            <div class="g-recaptcha" data-sitekey="6LfnKFwiAAAAAPd-9GjoxlDOI36qmaFu8o-Fkuy8" data-theme="dark" data-callback="console
-            .log"></div>
 
             <input *ngIf="!username.errors?.['required'] && !mail.errors?.['required']
             && !mail.errors?.['pattern'] && !password.errors?.['required'] &&
-            !password.errors?.['pattern'] && isPasswordCorrect() && isCaptchaCorrect()"  type="submit" name="submit" value="Créer mon compte"/>
-        
+            !password.errors?.['pattern'] && isPasswordCorrect()"  type="submit" name="submit" value="Créer mon compte"/>
         </form> 
     </div>
 </div>

@@ -20,8 +20,8 @@ import { AddprojectComponent } from './addproject/addproject.component';
 import { EditprojectComponent } from './editproject/editproject.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
-import { RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY } from 'ng-recaptcha';
-import { environment } from 'src/environments/environment';
+import { environment } from '../environments/environment';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 registerLocaleData(localeFr);
 
@@ -48,13 +48,14 @@ registerLocaleData(localeFr);
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    CommonModule,
+    CommonModule,  
     RecaptchaV3Module
   ],
-  providers: [{
+  providers: [
+    {
       provide: RECAPTCHA_V3_SITE_KEY,
       useValue: environment.recaptcha.siteKey,
-    }, 
+    },
   ],
   bootstrap: [AppComponent]
 })
