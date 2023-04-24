@@ -73,7 +73,7 @@ class UserDAO implements UserDaoInterface
         //Création de la date
         $date = new DateTime();
 
-        Database::getInstance()->executeQuery($query,array('token'=> $token,'date'=>$date,'idUser'=>$idUser));
+        Database::getInstance()->executeNonQuery($query,array('token'=> $token,'date'=>$date,'idUser'=>$idUser));
 
         return $token;
     }
@@ -88,7 +88,20 @@ class UserDAO implements UserDaoInterface
      */
     public function ChangePassword(int $idUser, string $mdp): bool
     {
-        return true;
+        //Modification du nouveau mot de passe
+        $query = "update `User` set MDP = :mdp where id = :id";
+        Database::getInstance()->executeNonQuery($query,array('mdp'=>$mdp,'id'=>password_hash($mdp,PASSWORD_BCRYPT)));
+
+        //Récupération du mot de passe fraichement modifié
+        $query = "select MDP from user where id = :id";
+        $data = Database::getInstance()->executeQuery($query,array('id'=>$idUser))->fetch(PDO::FETCH_ASSOC);
+
+        //Réponse au controller
+        if($this->Authentification($data['MDP'],$mdp)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
@@ -102,7 +115,7 @@ class UserDAO implements UserDaoInterface
      */
     public function ChangeSettings(int $idUser, ?bool $displayTips, ?int $style)
     {
-
+        
     }
 
     /**
