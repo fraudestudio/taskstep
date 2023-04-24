@@ -11,6 +11,7 @@ import { EditcontextComponent } from './editcontext/editcontext.component';
 import { ByprojectComponent } from './byproject/byproject.component';
 import { AddprojectComponent } from './addproject/addproject.component';
 import { EditprojectComponent } from './editproject/editproject.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {path : '', redirectTo: '/login', pathMatch: 'full'},
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path : 'byproject', component: ByprojectComponent},
   {path : "addproject", component: AddprojectComponent},
   {path : "editproject", component: EditprojectComponent},
+  {path : "register", component:RegisterComponent},
   {path : '**', component: PagenotfoundComponent },
 ];
 

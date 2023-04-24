@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FakeDatabase } from '../model/FakeDatabase';
 import { Context } from "src/app/model/context";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-editcontext',

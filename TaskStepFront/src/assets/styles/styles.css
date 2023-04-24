@@ -266,7 +266,7 @@ input[type=submit]:hover{
 	font-size:10pt;
 	min-width:560px;
 	max-width:760px;
-	margin-left:730px;
+	margin-left:570px;
 	color:var(--content-color)
 }
 
@@ -422,9 +422,20 @@ a img{
 	color: var(--warning-text-color);
 	background-color: var(--warning-background-color);
 	border: 1px solid var(--warning-border-color);
+	padding: 5px;
 	margin-top: 10px;
 	margin-bottom :20px;
 	margin-right: 250px;
+}
+
+#loginbox .warning{
+	color: var(--warning-text-color);
+	background-color: var(--warning-background-color);
+	border: 1px solid var(--warning-border-color);
+	margin-top: 10px;
+	margin-bottom :20px;
+	padding: 5px;
+	margin-right: 0px;
 }
 
 .confirmation{

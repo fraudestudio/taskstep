@@ -1,0 +1,57 @@
+
+<div id="container">
+    <div id="loginbox">
+        <h1><img src="assets/images/icon.png" alt="" /> TaskStep</h1>
+        <p><img src="assets/images/shield.png" alt="" /> <br>Veuillez saisir vos informations.</p>
+        <form #f = "ngForm" (ngSubmit)="submit()">
+
+            <label>Nom d'utilisateur</label>
+            <br>
+            <input type="text" name = "username" #username = "ngModel" [(ngModel)]="form.username" required/>
+            <br>
+            <div *ngIf="username.errors?.['required']" class="warning">
+                <h2>Un nom d'utilisateur est nécessaire.</h2>
+            </div>
+            <br>
+            <label>Adresse mail</label>
+            <br>
+            <input type="email" name = "mail" #mail = "ngModel" [(ngModel)]="form.mail" required pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"/>
+            <br>
+            <div *ngIf="mail.errors?.['required']" class="warning">
+                <h2>Un email est nécessaire.</h2>
+            </div>
+            <div *ngIf="mail.errors?.['pattern']" class="warning">
+                <h2>Votre email n'est pas correcte.</h2>
+            </div>
+            <br>
+            <label>Mot de passe</label>
+            <br>
+            <input type="password" name = "password" #password = "ngModel" [(ngModel)]="form.password" required pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"/>
+            <br>
+            <div *ngIf="password.errors?.['required']" class="warning">
+                <h2>Un mot de passe est nécessaire.</h2>
+            </div>
+            <div *ngIf="password.errors?.['pattern']" class="warning">
+                <h2>Votre mot de passe doit contenir au minimum 8 lettres avec un caractère, un chiffre et un caractère spéciale</h2>
+            </div>
+            <br>
+            <label>Confirmer le mot de passe</label>
+            <br>
+            <input type="password" name = "confirmpassword" #confirmpassword = "ngModel" [(ngModel)]="form.confirmPassword"/>
+            <br>
+            <div *ngIf="!isPasswordCorrect()" class="warning">
+                <h2>Les mots de passe ne sont pas similaires</h2>
+            </div>
+            <br>
+
+            <div class="g-recaptcha" data-sitekey="6LfnKFwiAAAAAPd-9GjoxlDOI36qmaFu8o-Fkuy8" data-theme="dark" data-callback="console
+            .log"></div>
+
+            <input *ngIf="!username.errors?.['required'] && !mail.errors?.['required']
+            && !mail.errors?.['pattern'] && !password.errors?.['required'] &&
+            !password.errors?.['pattern'] && isPasswordCorrect() && isCaptchaCorrect()"  type="submit" name="submit" value="Créer mon compte"/>
+        
+        </form> 
+    </div>
+</div>
+<app-footer/>

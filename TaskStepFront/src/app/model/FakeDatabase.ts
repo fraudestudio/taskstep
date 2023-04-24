@@ -1,5 +1,6 @@
 import { Context } from "./context";
 import { Project } from "./project";
+import { User } from "./user";
 
 export class FakeDatabase {
 
@@ -42,5 +43,12 @@ export class FakeDatabase {
         project.Id = index;
     }
 
+
+    public static Users : User[] = [];
+
+    public static AddUser(name : string, mail : string, password : string) {
+        FakeDatabase.Users.push(new User(name,mail,password));
+        console.log("add " + name)
+    }
 
 }
