@@ -9,5 +9,5 @@ namespace TaskStep\Logic\Model;
  */
 class User
 {
-
+    
 }

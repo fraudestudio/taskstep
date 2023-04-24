@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_type=1);
+declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
 
 /**
  * Un contexte de tâche.
  */
-class Context extends UserItem
+class Context
 {
 	private int $_id;
 	private string $_title;
@@ -36,15 +36,11 @@ class Context extends UserItem
 	/**
 	 * Crée un contexte.
 	 * 
-	 * @param $user L'utilisateur à qui appartient le contexte.
-	 * 
 	 * @param $id L'identifiant du contexte. Il n'a pas besoin d'être indiqué
 	 *            quand on en crée un nouveau.
 	 */
-	public function __construct(User $user, int $id = -1)
+	public function __construct(int $id = -1)
 	{
-		parent::__construct($user);
-		
-		$this->_id = $id; 
+		$this->_id = $id;
 	}
 }

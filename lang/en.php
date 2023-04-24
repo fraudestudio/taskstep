@@ -47,7 +47,7 @@
 	$l_index_introm = "Good morning";
 	$l_index_introa = "Good afternoon";
 	$l_index_introe = "Good evening";
-	$l_index_introtext = ", and welcome to TaskStep. TaskStep is designed to help you with day-to-day tasks, long-term aims and general lists, vaguely organising them <a href='http://www.davidco.com/'>GTD</a>-style with contexts and projects.</p> <p>For those of you unfamiliar with the idea, anything which requires more than one action/step is a project. A context is where you will be doing the action, for example, at your computer.</p>";
+	$l_index_introtext = ", and welcome to TaskStep. TaskStep is designed to help you with day-to-day tasks, long-term aims and general lists, vaguely organising them <a href='http://www.gettingthingsdone.com/'>GTD</a>-style with contexts and projects.</p> <p>For those of you unfamiliar with the idea, anything which requires more than one action/step is a project. A context is where you will be doing the action, for example, at your computer.</p>";
 	$l_index_1task = "There is currently 1 task left to do.";
 	$l_index_mtasks = "There are currently "; //Start counter
 	$l_index_mtaske = " tasks left to do."; //End counter

@@ -11,7 +11,7 @@ use \DateTime;
 /**
  * Représente une tâche.
  */
-class Item extends UserItem
+class Item
 {
 	private int $_id;
 	private string $_title;
@@ -50,9 +50,45 @@ class Item extends UserItem
 	public function date(): ?DateTime { return $this->_date; }
 
 	/**
+	 * Indique si la tâche est à faire pour aujourd'hui.
+	 * 
+	 * Cette fonction renverra toujours `false` si la tâche n'a pas d'échéance.
+	 */
+	public function dueToday(): bool
+	{
+		if (!is_null($this->_date))
+		{
+			$diff = $this->_date->diff(new DateTime('now'));
+			return $diff->days == 0 and $diff->invert == 0;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Indique si la tâche est en retard.
+	 * 
+	 * Cette fonction renverra toujours `false` si la tâche n'a pas d'échéance.
+	 */
+	public function overdue(): bool
+	{
+		if (!is_null($this->_date))
+		{
+			$diff = $this->_date->diff(new DateTime('now'));
+			return $diff->days > 0 and $diff->invert == 0;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
 	 * Modifie l'échéance de la tâche.
 	 * 
-	 * @param $date La nouvelle échéance, ou null pour l'enlever.
+	 * @param $date La nouvelle échéance, ou `null` pour l'enlever.
 	 */
 	public function setDate(?DateTime $date): Item
 	{
@@ -159,15 +195,19 @@ class Item extends UserItem
 	/**
 	 * Crée une tâche.
 	 * 
-	 * @param $user L'utilisateur à qui appartient la tâche.
-	 * 
 	 * @param $id L'identifiant de la tâche. Il n'a pas besoin d'être indiqué
 	 *            quand on crée une nouvelle tâche.
 	 */
-	public function __construct(User $user, int $id = -1)
+	public function __construct(int $id = -1)
 	{
-		parent::__construct($user);
-
-		$this->_id = $id; 
+		$this->_id = $id;
+		$this->_title = '';
+		$this->_date = null;
+		$this->_notes = '';
+		$this->_url = '';
+		$this->_section = Section::IDEA;
+		$this->_context = new Context();
+		$this->_project = new Project();
+		$this->_done = false;
 	}
 }

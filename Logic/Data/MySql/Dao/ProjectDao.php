@@ -2,11 +2,11 @@
 
 namespace TaskStep\Data\Dao;
 
-use \TaskStep\Data\Database;
+use TaskStep\Data\Database;
 use TaskStep\Logic\Model;
 use TaskStep\Logic\Model\Project;
 use TaskStep\Logic\Model\ProjectDaoInterface;
-use \PDO;
+use PDO;
 
 class ProjectDAO implements ProjectDaoInterface
 {
@@ -33,7 +33,7 @@ class ProjectDAO implements ProjectDaoInterface
     public function Create(Project $project) : int
     {
         $result = -1;
-        $request = "insert into projects(title,user) values (:title,:id);";
+        $request = "INSERT into projects(title,user) values (:title,:id);";
         $query = Database::getInstance()->executeNonQuery($request,array('title'=>$project->title(),'id'=>$project->id()));
 
         $query = Database::getInstance()->executeQuery("Select last_insert_id()");

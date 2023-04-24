@@ -1,44 +1,36 @@
 <?php
-Header('Content-type: text/xml');
 
-//Same as bookmarklet code
-$dirstuff = str_replace(basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']);
-$full = "http://".$_SERVER['HTTP_HOST'].$dirstuff;
-?>
-<?xml version="1.0"?>
+require_once "includes/autoload.php";
+
+use TaskStep\Logic\Data\LegacyMySql\ItemDao;
+
+header('Content-type: text/xml');
+
+$allItems = (new ItemDao)->readAll();
+
+$baseUrl = $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/');
+
+?><?xml version="1.0"?>
 <rss version="2.0">
 	<channel>
 		<title>TaskStep</title>
-		<link><?php echo $full ?></link>
+		<link>http://<?= $baseUrl ?></link>
 		<description>TaskStep Items Feed</description>
 		<language>en-us</language>
 		<generator>IceMelon RSS Feeder</generator>
-<?php
-include("config.php");
-include("includes/functions.php");
 
-connect();
-
-$result = $mysqli->query("SELECT * FROM items");
-
-while ($r=$result->fetch_assoc())
-{
-	$title=htmlentities($r["title"]);
-	$date = ($r["date"] != 00-00-0000) ? $r["date"]." | " : '';
-	$notes=htmlentities($r["notes"]);
-	$url=htmlentities($r["url"]);
-	$done=$r["done"];
-	$id=$r["id"];
-	$context=htmlentities($r["context"]);
-	$project=htmlentities($r["project"]);
-
-	$rssnotes = ($notes != "") ? " | ".$notes : '';
-
-	echo "\t\t<item>\n";
-	echo "\t\t\t<title>".$title."</title>\n";
-	echo "\t\t\t<link>".$full."edit.php?id=".$id."</link>\n";
-	echo "\t\t\t<description>".$date.$project." | ".$context.$rssnotes."</description>\n";
-	echo "\t\t</item>\n";
-}?>
+		<?php foreach ($allItems as $item): ?>
+		<item>
+			<title> <?= $item->title() ?> </title>
+			<link>http://<?= $baseUrl ?>/edit.php?id=<?= $item->id() ?></link>
+			<description>
+				<?= $item->date()?->format('Y-m-d | ') ?? '' ?>
+				<?= $item->project()->title() ?> | 
+				<?= $item->context()->title() ?>
+				<?= $item->notes() !== '' ? ' | '.$item->notes() : '' ?>
+			</description>
+			<guid isPermaLink="false"><?= $item->id() ?>-<?= md5($item->title()) ?></guid>
+		</item>
+		<?php endforeach; ?>
 	</channel>
 </rss>

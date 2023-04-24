@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TaskStep\Data;
 
-use \PDO;
+use PDO;
 use PDOException;
 use PDOStatement;
 
@@ -34,16 +34,9 @@ class Database{
      */
     public static function getInstance() : Database
     {
-        if(is_null(SELF::$instance)){
-            try
-            {
-                Self::$instance = new Database();
-            }
-            catch(PDOException $e)
-            {
-                throw $e;
-            }
-
+        if(is_null(Self::$instance))
+        {
+            Self::$instance = new Database();
         }
         return Self::$instance;
     }
@@ -61,7 +54,7 @@ class Database{
     {
         try
         {
-            $request = Self::getInstance()->data->prepare($query);
+            $request = $this->data->prepare($query);
             $request->execute($param);
         }
         catch(PDOException $e)
@@ -79,19 +72,18 @@ class Database{
      */
     public function executeQuery(string $query, array $param = []) : ?PDOStatement
     {
-        $data = null;
+        $request = null;
         try
         {
-            $request = Self::getInstance()->data->prepare($query);
+            $request = $this->data->prepare($query);
             $request->execute($param);
-            $data  = $request->fetch(PDO::FETCH_ASSOC);
         }
         catch(PDOException $e)
         {
             throw $e;
         }
 
-        return $data;
+        return $request;
     }
 
 

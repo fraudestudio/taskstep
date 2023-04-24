@@ -1,89 +1,187 @@
 <?php
+
 include("includes/header.php");
 
-//This is where all the action happens. Most php files in TaskStep link here in some form or another, so best advice is DON'T CHANGE IT!
+use TaskStep\Logic\Data\LegacyMySql\{ItemDao, ContextDao, ProjectDao};
+use TaskStep\Logic\Model\Section;
+
+$items = new ItemDao();
+$result = [];
 
 if (isset($_GET["cmd"]))
 {
 	$id = $_GET["id"];
+
 	switch ($_GET["cmd"])
 	{
-		case "delete":
-		    $sql = "DELETE FROM items WHERE id=$id";
-		    $result = $mysqli->query($sql);
+	case "delete":
+		$items->delete($id);
 		break;
-		case "do":
-		  	$sql = "UPDATE items SET done=1 WHERE id=$id";
-		  	$result = $mysqli->query($sql);
-		  	echo "<div id='updated' class='fade'><img src='images/accept.png' alt='' /> ".$l_msg_itemdo."</div>";
-		break;
-		case "undo":
-		  	$sql = "UPDATE items SET done=0 WHERE id=$id";
-		  	$result = $mysqli->query($sql);
-		  	echo "<div id='deleted' class='fade'><img src='images/undone.png' alt='' /> ".$l_msg_itemundo."</div>";
-		break;  
-		default:	//Error trap it so that if a dodgy command is given it doesn't drop dead
-			echo "<div class='error'><img src='images/exclamation.png' alt='' /> ".$l_msg_actionerror."</div>";
+	case "do":
+	  	$item = $items->readById($id);
+	  	$item->setDone(true);
+	  	$items->update($id, $item);
+	  	break;
+	case "undo":
+	  	$item = $items->readById($id);
+	  	$item->setDone(false);
+	  	$items->update($id, $item);
+	  	break;
+	default:
+		$errorMessage = l->message->actionError;
 		break;
 	}
 }
 
-//This is the sorting form, as promised
+$display = $_GET["display"] ?? 'all';
+$sortBy = $_GET["sort"] ?? 'date';
+$section = isset($_GET["section"]) ? Section::from($_GET["section"]) : null;
+$typeId = intval($_GET["tid"] ?? '');
 
-$display = (isset($_GET["display"])) ? $_GET["display"] : '';
-$sortby = (isset($_GET["sort"])) ? $_GET["sort"] : 'date';
-$section = (isset($_GET["section"])) ? $_GET["section"] : '';
-$tid = (isset($_GET["tid"])) ? $_GET["tid"] : '';
+$noResultsUrl = '';
+$baseActionUrl = '';
+$printUrl = '';
+$formData = ['display' => $display];
 
 switch ($display)
 {
-	case "section":
-		//Massively cleaned up section which obtains section titles from the language file
-		foreach($l_sectionlist as $key=>$value){
-			if($section==$key){
-				$currentsection = $key;
-				$sectiontitle = $value;
+case "section":
+	$result = $items->readBySection($section);
+
+	$title = l->sections->{$section->value};
+	$noResultsUrl = "?section=$section->value";
+	$printUrl = "?print=section&section=$section->value";
+	$formData['section'] = $section->value;
+	break;
+
+case "project":
+	$project = (new ProjectDao)->readById($typeId);
+	$result = $items->readByProject($project);
+
+	$title = $project->title();
+	$noResultsUrl = "?project=$typeId";
+	$printUrl = "?print=project&id=$typeId";
+	$formData['tid'] = $typeId;
+	break;
+
+case "context":
+	$context = (new ContextDao)->readById($typeId);
+	$result = $items->readByContext($context);
+
+	$title = $context->title();
+	$noResultsUrl = "?context=$typeId";
+	$printUrl = "?print=context&id=$typeId";
+	$formData['tid'] = $typeId;
+	break;
+
+case "all":
+	$result = $items->readAll();
+
+	$title = l->navigation->allItems;
+	$printUrl = '?print=all';
+	break;
+
+case "today":
+	$today = new Datetime('now');
+	$result = $items->readByDate($today);
+
+	$title = sprintf(l->navigation->today, $today->format(l->dateFormat->menu));
+	$printUrl = "?print=today";	
+	break;
+}
+
+switch ($sortBy)
+{
+case 'title':
+	usort($result, function($a, $b) { return strnatcasecmp($a->title(), $b->title()); });
+	break;
+case 'date':
+	usort(
+		$result,
+		function($a, $b) {
+			if (is_null($a->date()))
+			{
+				if (is_null($b->date())) return 0;
+				else return -1;
+			}
+			else
+			{
+				if (is_null($b->date())) return 1;
+				else return $a->date()->getTimestamp() - $b->date()->getTimestamp();
 			}
 		}
-		$result = $mysqli->query("SELECT * FROM items WHERE section='$currentsection' ORDER BY $sortby");
-		echo "<div id='sectiontitle'><h1>$sectiontitle</h1></div>";
-		$noresultsurl = '?section=' . $section;
+	);
 	break;
-	case "project":
-	case "context":
-		$idresult = $mysqli->query("SELECT title FROM {$display}s WHERE id='$tid'");
-		$disptitle = $idresult->fetch_row()[0];
-		$result = $mysqli->query("SELECT * FROM items WHERE $display='$disptitle' ORDER BY $sortby");
-		echo "<div id='sectiontitle'><h1>$disptitle</h1></div>";
-		$noresultsurl = '?tid=' . $tid;
+case 'context':
+	usort($result, function($a, $b) { return strnatcasecmp($a->context()->title(), $b->context()->title()); });
 	break;
-	case "all":
-		$result = $mysqli->query("SELECT * FROM items ORDER BY $sortby");
-		echo "<div id='sectiontitle'><h1>".$l_nav_allitems."</h1></div>";
-		$noresultsurl = '';
+case 'project':
+	usort($result, function($a, $b) { return strnatcasecmp($a->project()->title(), $b->project()->title()); });
 	break;
-	case "today":
-		$today = date("Y-m-d");
-		$todayf = date($menu_date_format);
-		$result = $mysqli->query("SELECT * FROM items WHERE date='$today' ORDER BY $sortby");
-		echo "<div id='sectiontitle'><h1>".$l_nav_today.": $todayf</h1></div>";
-		$noresultsurl = '';
+case 'done':
+	usort($result, function($a, $b) { return $a->done() - $b->done(); });
 	break;
-}
-$numberrows = $result->num_rows;
-sort_form($display, $section, $tid, $sortby);
-if ($numberrows == 0)
-{
-	$message = ( $display == "today" ) ? $l_msg_notoday : $l_msg_noitems;
-	echo "<div class='inform'><img src='images/information.png' alt='' />&nbsp;".$message." <a href='edit.php$noresultsurl'>".$l_msg_addsome."</a></div>";
-}
-else display_items($display, $section, $tid, $sortby);
-
-if(isset($_POST['submit'])) //If submit is hit
-{
-  $section=$_POST['section'];
-  $sortby=$_POST['sort'];
 }
 
-include('includes/footer.php');
+foreach ($formData as $name => $value) $baseActionUrl .= "&$name=$value";
+
+?>
+
+<?php if (isset($errorMessage)): ?>
+<div class='error'>
+	<img src='images/exclamation.png' alt='' /> <?= $errorMessage ?>
+</div>
+<?php endif; ?>
+
+<div class="sectiontitle">
+	<h1> <?= $title ?> </h1>
+</div>
+
+<div class="sortform">
+	<span class='printer'>
+		<a href="print.php<?= $printUrl ?>">
+			<img src='images/printer.png' alt='' />
+			<?= l->items->print ?>
+		</a>
+	</span>
+
+	<form action="display.php" method="get"><div>
+		<?php foreach ($formData as $name => $value): ?>
+		<input type="hidden" name="<?= $name ?>" value="<?= $value ?>" />
+		<?php endforeach; ?>
+
+		<?= l->items->sortText ?>
+
+		<select name="sort">
+			<?php foreach (['title', 'date', 'context', 'project', 'done'] as $sort): if ($sort != $display): ?>
+			<option value="<?= $sort ?>" <?= $sort == $sortBy ? 'selected' : '' ?>>
+				<?= l->items->sort->$sort ?>
+			</option>';
+			<?php endif; endforeach; ?>
+		</select>
+	
+		<input type="submit" value="<?= l->items->sortButton ?>" />
+	</div></form>
+</div>
+
+<?php if (count($result) == 0): ?>
+
+<div class='inform'>
+	<img src='images/information.png' alt='' />
+	<?= $display == 'today' ? l->message->noneToday : l->message->noItems ?>
+	
+	<a href='edit.php<?= $noResultsUrl ?>'> <?= l->message->addSome ?></a>
+</div>
+
+<?php else: 
+
+foreach ($result as $item)
+{
+	include 'includes/item.php';
+}
+
+endif;
+
+include 'includes/footer.php';
+
 ?>

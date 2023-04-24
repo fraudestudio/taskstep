@@ -7,13 +7,13 @@ namespace TaskStep\Logic\Model;
 /**
  * Une section de tâche.
  */
-enum Section
+enum Section : string
 {
-	case IDEA;
-	case TO_BUY;
-	case IMMEDIATE;
-	case WEEK;
-	case MONTH;
-	case YEAR;
-	case LIFETIME;
+	case IDEA = 'ideas';
+	case TO_BUY = 'tobuy';
+	case IMMEDIATE = 'immediate';
+	case WEEK = 'week';
+	case MONTH = 'month';
+	case YEAR = 'year';
+	case LIFETIME = 'lifetime';
 }
