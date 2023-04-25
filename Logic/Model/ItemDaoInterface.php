@@ -87,7 +87,7 @@ interface ItemDaoInterface
 	/**
 	 * Supprime tous les items terminés.
 	 * 
-	 * @return Le nombre d'items supprimés.
+	 * @return int nombre d'items supprimés.
 	 */
 	public function deleteAllDone(): int;
 
