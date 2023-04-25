@@ -22,6 +22,7 @@ class Item
 	private Context $_context;
 	private Project $_project;
 	private bool $_done;
+	private int $_user_id;
 
 	/**
 	 * L'identifiant de la tâche.
@@ -189,6 +190,22 @@ class Item
 	public function setDone(bool $done): Item
 	{
 		$this->_done = $done;
+		return $this;
+	}
+
+	/**
+	 * Indique l'id de l'utilisateur à qui appartient la tache.
+	 */
+	public function user_id(): int {return $this->_user_id;}
+
+	/**
+	 * Modifie l'id de l'utilisateur à qui appartient la tache.
+	 * 
+	 * @param $done Le nouvel état de la tâche.
+	 */
+	public function setUser_Id(int $user_id): Item
+	{
+		this->_user_id = $user_id;
 		return $this;
 	}
 

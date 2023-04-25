@@ -28,14 +28,14 @@ interface ItemDaoInterface
 	/**
 	 * Récupère tous les items.
 	 */
-	public function readAll(): array;
+	public function readAll(User $user): array;
 
 	/**
 	 * Récupère tous les items appartenant à une section.
 	 * 
 	 * @param $section La section des items à récupérer.
 	 */
-	public function readBySection(Section $section): array;
+	public function readBySection(User $user,Section $section): array;
 
 	/**
 	 * Récupère tous les items appartenant à un contexte.
