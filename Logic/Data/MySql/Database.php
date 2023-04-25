@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Data;
+namespace TaskStep\Logic\Data\MySql;
 
 use PDO;
 use PDOException;

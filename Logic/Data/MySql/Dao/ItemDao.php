@@ -1,9 +1,11 @@
 <?php
 
-namespace TaskStep\Logic\Data\Dao;
+namespace TaskStep\Logic\Data\MySql\Dao;
 
 use TaskStep\Logic\Model\{Item, Section, Context, Project, ItemDaoInterface};
-use TaskStep\Logic\Data\Database;
+use TaskStep\Logic\Data\MySql\Database;
+
+use PDO;
 
 class ItemDao implements ItemDaoInterface
 {
@@ -20,7 +22,7 @@ class ItemDao implements ItemDaoInterface
 			context: $item->context()->title(),
 			project: $item->project()->title(),
 			done: $item->done() ? 1 : 0,
-			User: $iem->user_id()
+			User: $item->user_id()
 		);
 	}
 
@@ -117,8 +119,8 @@ class ItemDao implements ItemDaoInterface
 			section: $item->section()->value,
 			context: $item->context()->title(),
 			project: $item->project()->title(),
-			done: $item->done() ? 1 : 0
-			user : $item->user_id();
+			done: $item->done() ? 1 : 0,
+			user : $item->user_id()
 		);
 	}
 
