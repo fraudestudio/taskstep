@@ -44,7 +44,7 @@ export class ChangePasswordComponent {
   submit(){
     if (this.isPasswordCorrect()){
       FakeDatabase.ChangePassword(String(sessionStorage.getItem("User")),this.form.password2)
-      this.router.navigate(['settings']); 
+      this.router.navigate(['settings'],{state : {data : { message : "Votre mot de passe a bien été modifier.", type : "confirmation"}}}); 
     }
     else {
       this.hasError = true;
