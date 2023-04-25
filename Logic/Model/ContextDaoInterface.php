@@ -14,7 +14,7 @@ interface ContextDaoInterface
      * 
      * @param $context Le nouveau contexte.
      */ 
-    public function create(Context $context);
+    public function create(User $user,Context $context): int;
 
     /**
      * Récupère un contexte par son identifiant.
@@ -26,7 +26,7 @@ interface ContextDaoInterface
     /**
      * Récupère tous les contextes.
      */
-    public function readAll(): array;
+    public function readAll(User $user): array;
 
     /**
      * Mets à jour un contexte.
