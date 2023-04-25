@@ -29,7 +29,7 @@ interface UserDaoInterface
      * 
      * @return bool Comfirmation de connection
      */
-    public function SignIn(string $login, string $password): string;
+    public function SignIn(string $login, string $password): ?string;
 
     /**¨
      * Change le mot de passe d'un Utilisateur.
@@ -43,14 +43,22 @@ interface UserDaoInterface
 
 
     /**
-     * Mets à jour un projet.
+     * Mets à jour un conseil
      * 
      * @param $idUser L'identifiant du User
      * 
      * @param $displayTips Affichage des conseil
-     * @param $style style choisit
      */
-    public function ChangeSettings(int $idUser, ?bool $displayTips, ?int $style);
+    public function ChangeTips(int $idUser, bool $displayTips);
+
+    /**
+     * Mets à jour un style
+     * 
+     * @param  $idUser id de l'utilisateur à update
+     * 
+     * @param $style id du style
+     */
+    public function ChangeStyle(int $idUser, int $style);
 
     /**
      * Récupere un User liée au token donné
