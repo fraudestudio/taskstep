@@ -1,6 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { FakeDatabase } from '../model/FakeDatabase';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
 })
 export class RegisterComponent implements AfterViewInit{
 
-  constructor( private recaptchaV3Service: ReCaptchaV3Service){
+  constructor(private recaptchaV3Service: ReCaptchaV3Service, private route: ActivatedRoute,  private router: Router){
 
   }
 
@@ -21,7 +22,6 @@ export class RegisterComponent implements AfterViewInit{
   * Information of the form
   */
   form : any  = {
-      username : null,
       mail : null,
       password : null,
       confirmPassword : null,
@@ -36,8 +36,9 @@ export class RegisterComponent implements AfterViewInit{
   submit(){
     this.recaptchaV3Service.execute('importantAction')
     .subscribe((token: string) => {
-      console.debug(`Token [${token}] generated`);
+      console.log(token);
       FakeDatabase.AddUser(this.form.username,this.form.mail, this.form.password);
+      this.router.navigate(["login"])
     });
 
   }

@@ -16,7 +16,7 @@ export class LoginComponent {
    */
   constructor(private route: ActivatedRoute,  private router: Router) {
     if (sessionStorage.getItem("login") == "true"){
-      this.router.navigate(['index']);
+      //this.router.navigate(['index']);
     }
   }
   

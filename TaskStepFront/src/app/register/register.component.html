@@ -4,15 +4,6 @@
         <h1><img src="assets/images/icon.png" alt="" /> TaskStep</h1>
         <p><img src="assets/images/shield.png" alt="" /> <br>Veuillez saisir vos informations.</p>
         <form #f = "ngForm" (ngSubmit)="submit()">
-
-            <label>Nom d'utilisateur</label>
-            <br>
-            <input type="text" name = "username" #username = "ngModel" [(ngModel)]="form.username" required/>
-            <br>
-            <div *ngIf="username.errors?.['required']" class="warning">
-                <h2>Un nom d'utilisateur est nécessaire.</h2>
-            </div>
-            <br>
             <label>Adresse mail</label>
             <br>
             <input type="email" name = "mail" #mail = "ngModel" [(ngModel)]="form.mail" required pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"/>
@@ -32,7 +23,7 @@
                 <h2>Un mot de passe est nécessaire.</h2>
             </div>
             <div *ngIf="password.errors?.['pattern']" class="warning">
-                <h2>Votre mot de passe doit contenir au minimum 8 lettres avec un caractère, un chiffre et un caractère spéciale</h2>
+                <h2>Votre mot de passe doit contenir au minimum 8 lettres avec une lettre, un chiffre et un caractère spécial</h2>
             </div>
             <br>
             <label>Confirmer le mot de passe</label>
@@ -45,10 +36,15 @@
             <br>
 
 
-            <input *ngIf="!username.errors?.['required'] && !mail.errors?.['required']
+
+            <input *ngIf="!mail.errors?.['required']
             && !mail.errors?.['pattern'] && !password.errors?.['required'] &&
             !password.errors?.['pattern'] && isPasswordCorrect()"  type="submit" name="submit" value="Créer mon compte"/>
         </form> 
+
+        <div>
+            <a href="" onclick="return false;" routerLink="/login" >Vous avez déjà un compte</a>
+        </div>
     </div>
 </div>
 <app-footer/>

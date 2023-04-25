@@ -266,7 +266,7 @@ input[type=submit]:hover{
 	font-size:10pt;
 	min-width:560px;
 	max-width:760px;
-	margin-left:570px;
+	margin-left:310px;
 	color:var(--content-color)
 }
 
@@ -428,15 +428,6 @@ a img{
 	margin-right: 250px;
 }
 
-#loginbox .warning{
-	color: var(--warning-text-color);
-	background-color: var(--warning-background-color);
-	border: 1px solid var(--warning-border-color);
-	margin-top: 10px;
-	margin-bottom :20px;
-	padding: 5px;
-	margin-right: 0px;
-}
 
 .confirmation{
 	color: var(--confirmation-text-color);
@@ -571,7 +562,9 @@ h2{
 
 #loginbox a{
 	color:var(--loginbox-text-color);
-	text-decoration: none;
+	font-size: 15px;
+    margin-left: 60px;
+	text-decoration: underline;
 }
 
 #loginbox h1{
@@ -592,6 +585,23 @@ h2{
 #loginbox p a{
 	color:#555;
 }
+
+
+#loginbox .warning{
+	color: var(--warning-text-color);
+	background-color: var(--warning-background-color);
+	border: 1px solid var(--warning-border-color);
+	margin-top: 10px;
+	margin-bottom :20px;
+	padding: 5px;
+	margin-right: 0px;
+}
+
+#loginbox .warning h2{
+	color: var(--warning-text-color);
+}
+
+
 
 input{
 	background-color: var(--loginbox-input-background);
