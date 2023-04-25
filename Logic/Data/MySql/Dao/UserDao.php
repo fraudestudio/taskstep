@@ -3,12 +3,14 @@
 namespace TaskStep\Data\MySql\Dao;
 
 use DateTime;
-use TaskStep\Data\Database;
+use TaskStep\Logic\Data\MySql\Database;
 use TaskStep\Logic\Model;
 use TaskStep\Logic\Model\User;
 use TaskStep\Logic\Model\UserDaoInterface;
 use PDO;
 use Random\Randomizer;
+use TaskStep\Logic\Exceptions\BadTokenException;
+use TaskStep\Logic\Exceptions\TokenOutOfDateException;
 
 class UserDAO implements UserDaoInterface
 {
@@ -144,6 +146,24 @@ class UserDAO implements UserDaoInterface
      */
     public function GetUserByToken(string $token) : User
     {
-        return new User();
+        $query = "Select u.*,t.* from User as u join Session as t on u.id = t.idUser where t.token = :token";
+        $answer = Database::getInstance()->executeQuery($query,array('token'=>$token))->fetch(PDO::FETCH_ASSOC);
+
+        $dateToken = new DateTime($answer['date']);
+        $result = new User();
+        if(is_null($answer)){
+            throw new BadTokenException();
+        }else if($dateToken->diff(new DateTime())->m > 20){
+            throw new TokenOutOfDateException();
+        }else{
+            $result->SetId($answer["id"]);
+            $result->SetLogin($answer["login"]);
+            $result->SetMail($answer["mail"]);
+            $result->SetPassword($answer["MDP"]);
+            $result->SetStyle($answer["style"]);
+            $result->SetTips($answer["tips"]);
+        }
+
+        return $result;
     }
 }
