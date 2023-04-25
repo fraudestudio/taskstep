@@ -111,11 +111,28 @@ class UserDAO implements UserDaoInterface
      * @param $idUser L'identifiant du User
      * 
      * @param $displayTips Affichage des conseil
-     * @param $style style choisit
      */
-    public function ChangeSettings(int $idUser, ?bool $displayTips, ?int $style)
+    public function ChangeTips(int $idUser, bool $displayTips)
     {
-        
+        if($displayTips){
+            $queryBase = "update `User` set tips = 1 where id = :id ";
+        }else{
+            $queryBase = "update `User` set tips = 0 where id = :id";
+        }
+
+        Database::getInstance()->executeNonQuery($queryBase,array('id'=>$idUser));
+         
+    }
+
+    /**
+     * Mets à jour un projet.
+     * 
+     * @param $idUser L'identifiant du User
+     * 
+     * @param $style style choisit entre 0 et 2
+     */
+    public function ChangeStyle(int $idUser, int $style){
+        Database::getInstance()->executeNonQuery("update `User` set style = :style where id = :id",array('style'=>$style,'id'=>$idUser));
     }
 
     /**
