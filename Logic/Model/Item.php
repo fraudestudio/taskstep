@@ -205,7 +205,7 @@ class Item
 	 */
 	public function setUser_Id(int $user_id): Item
 	{
-		this->_user_id = $user_id;
+		$this->_user_id = $user_id;
 		return $this;
 	}
 

@@ -24,7 +24,7 @@ interface ProjectDaoInterface
     public function readById(User $user, int $id) : Project;
 
     /**
-     * Récupère tous les projets.
+     * Récupère tous les projets d'un utilisateur
      */
     public function readAll(User $user) : array;
 

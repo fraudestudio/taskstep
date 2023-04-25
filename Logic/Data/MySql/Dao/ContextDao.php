@@ -2,16 +2,25 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Logic\Data\Dao;
+namespace TaskStep\Logic\Data\MySql\Dao;
 
-use TaskStep\Logic\Model\{Context, ContextDaoInterface};
-use TaskStep\Logic\Data\Database;
+use TaskStep\Logic\Model\{Context, ContextDaoInterface, User};
+use TaskStep\Logic\Data\MySql\Database;
+
+use PDO;
 
 class ContextDao implements ContextDaoInterface
 {
-    public function create(Context $context)
+    public function create(User $user,Context $context) : int
     {
-        throw new \Exception("TODO!");
+        Database::getInstance()->executeNonQuery(
+            'insert into contexts(title,user) values (:title,:id)',
+            array('title'=>$context->title(),'id'=>$user->GetId())
+        );
+
+        $answer = Database:: getInstance()->executeQuery('select last_insert_id()')->fetch(PDO::FETCH_ASSOC);
+
+        return $answer['id'];
     }
 
     
@@ -21,20 +30,31 @@ class ContextDao implements ContextDaoInterface
     }
 
     
-    public function readAll(): array
+    public function readAll(User $user): array
     {
-        $reader = Database::getInstance()
+        $answer = Database::getInstance()->executeQuery('select c.* from contexts as c where c.User = :id',array('id'=>$user->GetId()));
+        $result = [];
+        $data = $answer->fetch(PDO::FETCH_ASSOC);
+
+        while($data != null){
+            $tmp = new Context($data["id"]);
+            $tmp->setTitle($data["title"]);
+            array_push($result,$tmp);
+            $data = $answer->fetch(PDO::FETCH_ASSOC);
+        }
+        
+        return $result;
     }
 
     
     public function update(int $id, Context $context)
     {
-        throw new \Exception("TODO!");
+        Database::getInstance()->executeNonQuery('update contexts set title = :context where id = :id',array('context'=>$context->title(),'id'=>$id));
     }
 
     
     public function delete(int $id)
     {
-        throw new \Exception("TODO!");
+        Database::getInstance()->executeNonQuery('delete from contexts where id = :id',array('id'=>$id));
     }
 }
