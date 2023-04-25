@@ -8,15 +8,23 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
-use TaskStep\Controllers\TestController;
+use TaskStep\Middleware\{Services, FakeAuthentication};
+use TaskStep\Logic\Data\MySql\Dao\{ProjectDao, UserDao};
+use TaskStep\Controllers\ProjectController;
+
+
+Services::instance()
+    ->add('projectDao', ProjectDao::class);
+
 
 $app = AppFactory::create();
 
-$errorMiddleware = $app->addErrorMiddleware(displayErrorDetails: true, logErrors: true, logErrorDetails: true);
+$app->add(new FakeAuthentication());
+$app->addErrorMiddleware(displayErrorDetails: true, logErrors: true, logErrorDetails: true);
 
 
 $app->group('/api', function ($group) {
-    TestController::register($group);
+    $group->get('/projects', ProjectController::bind('get'));
 });
 
 

@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Data;
+namespace TaskStep\Logic\Data\MySql;
 
+use TaskStep\Config;
 use PDO;
 use PDOException;
 use PDOStatement;
@@ -14,7 +15,7 @@ use PDOStatement;
  */
 class Database{
 
-    private static ?Database $instance;
+    private static ?Database $instance = null;
 
     private PDO $data;
 
@@ -23,7 +24,9 @@ class Database{
      * 
      */
     private function __construct(){
-        Self::$data = new PDO("","","");
+        $config = Config::instance()->currentDatabase();
+
+        $this->data = new PDO($config->dsn(), $config->username(), $config->password());
     }
 
 

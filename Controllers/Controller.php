@@ -6,7 +6,7 @@ namespace TaskStep\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\{HttpBadRequestException, HttpUnauthorizedException};
 use TaskStep\Middleware\{Context, Services};
 use TaskStep\Logic\Model\User;
 
@@ -65,8 +65,13 @@ class Controller
 		return $value;
 	}
 
-	public function user() : User {
+	public function user() : User
+	{
+		$user = $this->_context->request()->getAttribute('user');
 
+		if (is_null($user)) throw new HttpUnauthorizedException($this->_context->request());
+
+		return $user;
 	}
 
 	// -- RÉPONSE --
@@ -74,14 +79,30 @@ class Controller
 	/**
 	 * Écrit une réponse au format texte brut.
 	 * 
-	 * @param $text (optionnel) Le texte à ajouter au corps de la réponse.
+	 * @param $text Le texte à ajouter au corps de la réponse.
+	 * @param $status Le code de statut HTTP.
 	 */
-	public function textResponse(string $text = "") : void {
-		$this->_context->setResponse(function ($response) use ($text) {
+	public function textResponse(string $text = "", int $status = 200) : void {
+		$this->_context->setResponse(function ($response) use ($text, $status) {
 			$response->getBody()->write($text);
 			return $response
 				->withHeader('Content-Type', 'text/plain')
-				->withStatus(200);
+				->withStatus($status);
+		});
+	}
+
+	/**
+	 * Écrit une réponse au format json.
+	 * 
+	 * @param $object L'objet à ajouter au corps de la réponse.
+	 * @param $status Le code de statut HTTP.
+	 */
+	public function jsonResponse(mixed $object, int $status = 200) : void {
+		$this->_context->setResponse(function ($response) use ($object, $status) {
+			$response->getBody()->write(json_encode($object));
+			return $response
+				->withHeader('Content-Type', 'application/json')
+				->withStatus($status);
 		});
 	}
 

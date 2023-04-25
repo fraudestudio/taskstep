@@ -1,6 +1,6 @@
 <?php
 
-namespace TaskStep\Data\MySql\Dao;
+namespace TaskStep\Logic\Data\MySql\Dao;
 
 use DateTime;
 use TaskStep\Data\Database;

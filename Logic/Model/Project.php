@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
 
+use JsonSerializable;
+
 /**
  * Un projet de tâche.
  */
-class Project
+class Project implements JsonSerializable
 {
 	private int $_id;
 	private string $_title;
@@ -42,5 +44,12 @@ class Project
 	public function __construct(int $id = -1)
 	{
 		$this->_id = $id;
+	}
+
+	public function jsonSerialize() : mixed {
+		return [
+			'Id' => $this->_id,
+			'Title' => $this->_title,
+		];
 	}
 }
