@@ -24,9 +24,9 @@ interface ProjectDaoInterface
     public function readById(int $id): Project;
 
     /**
-     * Récupère tous les projets.
+     * Récupère tous les projets d'un utilisateur
      */
-    public function readAll(): array;
+    public function readAll(int $idUser): array;
 
     /**
      * Mets à jour un projet.
@@ -35,7 +35,7 @@ interface ProjectDaoInterface
      * 
      * @param $project Le projet modifié.
      */
-    public function update(int $id, Project $project);
+    public function update(Project $toCopy,int $id);
 
     /**
      * Supprime un projet.
