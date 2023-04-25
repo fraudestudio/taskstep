@@ -1,45 +1,44 @@
 <app-navigation-bar/>
-
-<div id="content">
-    <div class="breaker"></div>
-
-    <div class="settingssection">
-        <h2><b>Display</b></h2>
-        <p>Display tips on the front page: 
-            <input #checkDisplay  name="checkDisplay" (change)="onCheckedChange(checkDisplay.checked)" type="checkbox" *ngIf="!isDisplayChecked"/>
-            <input #checkDisplay  name="checkDisplay" (change)="onCheckedChange(checkDisplay.checked)" type="checkbox" *ngIf="isDisplayChecked" checked/>
-        </p>
-        <h2><b>Thèmes</b></h2>
-        <select #themeList (change)="onThemeChange(themeList.value)">
-            <option value="light" *ngIf='!isCurrentThemeEqual("light")'>Clair</option>
-            <option value="light" *ngIf='isCurrentThemeEqual("light")' selected>Clair</option>
-            <option value="dark" *ngIf='!isCurrentThemeEqual("dark")'>Sombre</option>
-            <option value="dark" *ngIf='isCurrentThemeEqual("dark")' selected>Sombre</option>
-        </select>
+<div id="container">
+    <div id="content">
         <div class="breaker"></div>
-        <h2><b>Mot de passe</b></h2>
-        <button (click)="changePasswordClicked()">Changer de mot de passe</button>
-        <div *ngIf="ChangePasswordConfirmation"  class="warning">
-            <h4><img src="assets/images/exclamation.png"/> Attention ! Vous êtes sur le point de changer de mot de passe.</h4>
-            <p>Confirmer votre action en cliquant de nouveau sur le bouton.</p>
-        </div>
-        <div class="breaker"></div>
-        <h2><b>Outils</b></h2>
-        <button class="purgebutton" (click)="purgeItems()"><img src="assets/images/bomb.png" alt=""/>Détruire toutes les tâches</button>
-        &nbsp;
-        <button class="purgebutton" (click)="exportCSV()"><img src="assets/images/page_white_excel.png" alt=""/>Exporter les tâches en CSV</button>
 
-        <div *ngIf="PurgeItemConfirmation" class="warning">
-            <h4><img src="assets/images/exclamation.png"/> Attention ! Vous êtes sur le point de détruire toutes les tâches.</h4>
-            <p>Confirmer votre action en cliquant de nouveau sur le bouton.</p>
-        </div>
+        <div class="settingssection">
+            <h2><b>Display</b></h2>
+            <p>Display tips on the front page: 
+                <input #checkDisplay  name="checkDisplay" (change)="onCheckedChange(checkDisplay.checked)" type="checkbox" *ngIf="!isDisplayChecked"/>
+                <input #checkDisplay  name="checkDisplay" (change)="onCheckedChange(checkDisplay.checked)" type="checkbox" *ngIf="isDisplayChecked" checked/>
+            </p>
+            <h2><b>Thèmes</b></h2>
+            <select #themeList (change)="onThemeChange(themeList.value)">
+                <option value="light" *ngIf='!isCurrentThemeEqual("light")'>Clair</option>
+                <option value="light" *ngIf='isCurrentThemeEqual("light")' selected>Clair</option>
+                <option value="dark" *ngIf='!isCurrentThemeEqual("dark")'>Sombre</option>
+                <option value="dark" *ngIf='isCurrentThemeEqual("dark")' selected>Sombre</option>
+            </select>
+            <div class="breaker"></div>
+            <h2><b>Mot de passe</b></h2>
+            <button (click)="changePasswordClicked()">Changer de mot de passe</button>
+            <div *ngIf="ChangePasswordConfirmation"  class="warning">
+                <h4><img src="assets/images/exclamation.png"/> Attention ! Vous êtes sur le point de changer de mot de passe.</h4>
+                <p>Confirmer votre action en cliquant de nouveau sur le bouton.</p>
+            </div>
+            <div class="breaker"></div>
+            <h2><b>Outils</b></h2>
+            <button class="purgebutton" (click)="purgeItems()"><img src="assets/images/bomb.png" alt=""/>Détruire toutes les tâches</button>
+            &nbsp;
+            <button class="purgebutton" (click)="exportCSV()"><img src="assets/images/page_white_excel.png" alt=""/>Exporter les tâches en CSV</button>
 
-        <div *ngIf="ExportConfirmation" class="confirmation">
-            <h4><img src="assets/images/accept.png"/> Vos tâches ont bien été exporter en format CSV !</h4>
+            <div *ngIf="PurgeItemConfirmation" class="warning">
+                <h4><img src="assets/images/exclamation.png"/> Attention ! Vous êtes sur le point de détruire toutes les tâches.</h4>
+                <p>Confirmer votre action en cliquant de nouveau sur le bouton.</p>
+            </div>
+
+            <div *ngIf="ExportConfirmation" class="confirmation">
+                <h4><img src="assets/images/accept.png"/> Vos tâches ont bien été exporter en format CSV !</h4>
+            </div>
         </div>
     </div>
-
-
 </div>
 
 <app-footer/>

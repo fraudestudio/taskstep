@@ -12,21 +12,22 @@ import { ByprojectComponent } from './byproject/byproject.component';
 import { AddprojectComponent } from './addproject/addproject.component';
 import { EditprojectComponent } from './editproject/editproject.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  {path : '', redirectTo: '/login', pathMatch: 'full'},
+  {path : '', redirectTo: '/register', pathMatch: 'full'},
   {path : 'login', component: LoginComponent},
-  {path : 'index', component: IndexComponent},
-  {path : 'settings', component: SettingsComponent},
-  {path : 'changePassword', component: ChangePasswordComponent},
-  {path : 'bycontext', component: BycontextComponent},
-  {path : "addcontext", component: AddcontextComponent},
-  {path : "editcontext", component: EditcontextComponent},
-  {path : 'byproject', component: ByprojectComponent},
-  {path : "addproject", component: AddprojectComponent},
-  {path : "editproject", component: EditprojectComponent},
+  {path : 'index', component: IndexComponent, canActivate:[AuthGuard]},
+  {path : 'settings', component: SettingsComponent, canActivate:[AuthGuard]},
+  {path : 'changePassword', component: ChangePasswordComponent, canActivate:[AuthGuard]},
+  {path : 'bycontext', component: BycontextComponent, canActivate:[AuthGuard]},
+  {path : "addcontext", component: AddcontextComponent, canActivate:[AuthGuard]},
+  {path : "editcontext", component: EditcontextComponent, canActivate:[AuthGuard]},
+  {path : 'byproject', component: ByprojectComponent, canActivate:[AuthGuard]},
+  {path : "addproject", component: AddprojectComponent, canActivate:[AuthGuard]},
+  {path : "editproject", component: EditprojectComponent, canActivate:[AuthGuard]},
   {path : "register", component:RegisterComponent},
-  {path : '**', component: PagenotfoundComponent },
+  {path : '**', component: PagenotfoundComponent},
 ];
 
 @NgModule({
