@@ -88,7 +88,7 @@ return [
 		'edit' => "Bearbeite Kontext",
 		'delete' => "Lösche Kontext",
 		'defaultTitle' => "Neuer Kontext",
-	]
+	],
 	'project' => [
 		'chooseToList' => "Wählen Sie ein Projekt aus, für das die Elemente aufgelistet werden sollen. Alternativ können Sie ein neues Projekt hinzufügen.",
 		'chooseToEdit' => "Wählen Sie ein Projekt zum Bearbeiten. Alternativ können Sie ein neues Projekt hinzufügen.",

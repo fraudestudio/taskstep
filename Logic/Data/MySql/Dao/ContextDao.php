@@ -35,6 +35,14 @@ class ContextDao implements ContextDaoInterface
         $answer = Database::getInstance()->executeQuery('select c.* from contexts as c where c.User = :id',array('id'=>$user->GetId()));
         $result = [];
         $data = $answer->fetch(PDO::FETCH_ASSOC);
+
+        while($data != null){
+            $tmp = new Context($data["id"]);
+            $tmp->setTitle($data["title"]);
+            array_push($result,$tmp);
+            $data = $answer->fetch(PDO::FETCH_ASSOC);
+        }
+        
         return $result;
     }
 
