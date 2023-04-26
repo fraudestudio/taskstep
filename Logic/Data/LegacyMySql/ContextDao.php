@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Data\LegacyMySql;
 
-use TaskStep\Logic\Model\{Context, ContextDaoInterface};
+use TaskStep\Logic\Model\{User, Context, ContextDaoInterface};
 
 use \Exception;
 
@@ -13,12 +13,14 @@ use \Exception;
  */
 class ContextDao implements ContextDaoInterface
 {
-    public function create(Context $context)
+    public function create(User $user, Context $context) : int
     {
         Database::instance()->execute(
             'INSERT INTO contexts (title) VALUES (:title)',
             title: $context->title()
         );
+
+        return 0;
     }
     
     public function readById(int $id): Context
@@ -35,7 +37,7 @@ class ContextDao implements ContextDaoInterface
         }
     }
     
-    public function readAll(): array
+    public function readAll(User $user): array
     {
         $statement = Database::instance()->execute('SELECT * FROM contexts');
 

@@ -2,7 +2,7 @@
 
 namespace TaskStep\Logic\Data\LegacyMySql;
 
-use TaskStep\Logic\Model\{Item, Section, Context, Project, ItemDaoInterface};
+use TaskStep\Logic\Model\{Item, USer, Section, Context, Project, ItemDaoInterface};
 use \Exception, \DateTime;
 
 /**
@@ -64,7 +64,7 @@ class ItemDao implements ItemDaoInterface
 		}
 	}
 
-	public function readAll(): array
+	public function readAll(User $user): array
 	{
         $statement = Database::instance()->execute('SELECT * FROM items');
 
@@ -80,7 +80,7 @@ class ItemDao implements ItemDaoInterface
         return $result;
 	}
 
-	public function readBySection(Section $section): array
+	public function readBySection(User $user, Section $section): array
 	{
         $statement = Database::instance()->execute('SELECT * FROM items WHERE section = ?', $section->value);
 
