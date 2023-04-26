@@ -42,5 +42,5 @@ interface ContextDaoInterface
      * 
      * @param $id L'identifiant du contexte à supprimer.
      */
-    public function delete(int $id);
+    public function delete(User $user,int $id);
 }

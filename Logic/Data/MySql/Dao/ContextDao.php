@@ -55,19 +55,21 @@ class ContextDao implements ContextDaoInterface
             array_push($result,$tmp);
             $data = $answer->fetch(PDO::FETCH_ASSOC);
         }
-
+        if($result == []) throw new NotFoundException();
         return $result;
     }
 
     
     public function update(int $id, Context $context)
     {
-        Database::getInstance()->executeNonQuery('update contexts set title = :context where id = :id',array('context'=>$context->title(),'id'=>$id));
+        $rowCount = Database::getInstance()->executeNonQuery('update contexts set title = :context where id = :id',array('context'=>$context->title(),'id'=>$id));
+        if($rowCount = 0) throw new NotFoundException();
     }
 
     
-    public function delete(int $id)
+    public function delete(User $user, int $id)
     {
-        Database::getInstance()->executeNonQuery('delete from contexts where id = :id',array('id'=>$id));
+        $rowCount = Database::getInstance()->executeNonQuery('delete from contexts where id = :id and user = :user',array('id'=>$id,'user'=>$user->id()));
+        if($rowCount = 0) throw new NotFoundException();
     }
 }

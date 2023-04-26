@@ -26,7 +26,12 @@ class ContextController extends Controller
      */
     public function getAll()
     {
-        $this->jsonResponse($this->contextDao->readAll($this->requireUser()));
+        try{
+            $this->jsonResponse($this->contextDao->readAll($this->requireUser()));
+        }
+        catch(NotFoundException){
+            $this->notFound();
+        }
     }
 
     /**
@@ -41,6 +46,10 @@ class ContextController extends Controller
         $this->createdResponse('contexts',['Id' => $id]);
     }
 
+    /**
+     * Récupère un contexte par son id
+     * 
+     */
     public function getById(){
 
         $id = $this->requireInt('id');
@@ -57,4 +66,49 @@ class ContextController extends Controller
 		$this->jsonResponse($project);
 
     }
+
+    /**
+     * Met à jour un context
+     */
+    public function update(){
+
+        $context = $this->requireBodyObject(Contexts::class);
+
+        try
+		{
+			$context = $this->contextDao->update($context->Id,$context);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->okResponse();
+
+        
+    }
+
+    /**
+     * Supprime un context
+     */
+    public function delOne(){
+
+        $id = $this->requireInt('id');
+
+		try
+		{
+			$context = $this->contextDao->delete($this->requireUser(), $id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->okResponse();
+
+    }
+
+
+
+
 }
