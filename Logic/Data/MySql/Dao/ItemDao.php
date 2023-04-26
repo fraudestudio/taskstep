@@ -25,7 +25,7 @@ class ItemDao implements ItemDaoInterface
 			->setUserId($data['user_id']);
 	}
 
-	public function create(Item $item)
+	public function create(Item $item, User $IdUser)
 	{
 		Database::GetInstance()->executeNonQuery(
 			'INSERT into items(`title`,`date`,`notes`,`url`,`done`,`context`,`section`,`project`,`User`) '.
@@ -38,7 +38,7 @@ class ItemDao implements ItemDaoInterface
 			'context'=> $item->context()->title(),
 			'project'=> $item->project()->title(),
 			'done'=> $item->done() ? 1 : 0,
-			'User'=> $item->user_id())
+			'User'=> $IdUser->Id())
 		);
 	}
 
