@@ -23,7 +23,8 @@ class ProjectController extends Controller
 	/**
 	 * Récupère tous les projets de l'utilisateur connecté.
 	 */
-	public function getAll() {
+	public function getAll()
+	{
 		$projects = $this->projectDao->readAll($this->requireUser());
 
 		$this->jsonResponse($projects);
@@ -32,7 +33,8 @@ class ProjectController extends Controller
 	/**
 	 * Crée un projet associé à l'utilisateur connecté.
 	 */
-	public function post() {
+	public function post()
+	{
 		$project = $this->requireBodyObject(Project::class);
 
 		$id = $this->projectDao->create($this->requireUser(), $project);
@@ -43,7 +45,8 @@ class ProjectController extends Controller
 	/**
 	 * Récupère un projet.
 	 */
-	public function getOne() {
+	public function getOne()
+	{
 		$id = $this->requireInt('id');
 
 		try
@@ -56,5 +59,44 @@ class ProjectController extends Controller
 		}
 
 		$this->jsonResponse($project);
+	}
+
+	/**
+	 * Modifie un projet.
+	 */
+	public function putOne()
+	{
+		$id = $this->requireInt('id');
+		$project = $this->requireBodyObject(Project::class);
+		
+		try
+		{
+			$this->projectDao->update($this->requireUser(), $id, $project);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->okResponse();
+	}
+
+	/**
+	 * Supprime un contexte.
+	 */
+	public function deleteOne()
+	{
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$project = $this->projectDao->delete($this->requireUser(), $id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->okResponse();
 	}
 }

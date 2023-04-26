@@ -47,23 +47,29 @@ class Database{
 
 
     /**
-     * Permet d'executer une requete sans retour
+     * Permet d'exécuter une requête sans retour
      * 
+     * @param $query La requête à exécuter
+     * @param $param Les paramètres à insérer dans la requête.
      * 
-     * $query = requette à executer
-     * $param = array de valeur
+     * @return Le nombre de lignes affectées par la requête.
      */
-    public function executeNonQuery(string $query, array $param = [])
+    public function executeNonQuery(string $query, array $param = []) : int
     {
+        $rowCount = 0;
+        
         try
         {
             $request = $this->data->prepare($query);
             $request->execute($param);
+            $rowCount = $request->rowCount();
         }
         catch(PDOException $e)
         {
             throw $e;
         }
+
+        return $rowCount;
     }
 
     /**

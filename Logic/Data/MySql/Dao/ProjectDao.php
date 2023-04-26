@@ -13,7 +13,7 @@ class ProjectDao implements ProjectDaoInterface
     {
         $result = -1;
 
-        $query = Database::getInstance()->executeNonQuery(
+        Database::getInstance()->executeNonQuery(
             "INSERT INTO projects (title, user) VALUES (:title, :user)",
             ['title' => $project->title(), 'user' => $user->id()]
         );
@@ -60,15 +60,21 @@ class ProjectDao implements ProjectDaoInterface
 
     public function update(User $user, int $id, Project $project)
     {
-        Database::getInstance()->executeNonQuery(
+        $rowCount = Database::getInstance()->executeNonQuery(
             "UPDATE projects SET title = :title WHERE id = :id AND user = :user",
             ['title' => $project->title(), 'id' => $id, 'user' => $user->id()]
         );
+
+        if ($rowCount != 1) throw new NotFoundException();
     }
 
     public function delete(User $user, int $id)
     {
-        $request = "DELETE FROM projects WHERE id = :id AND user = :user";
-        Database::getInstance()->executeNonQuery($request, array('id'=>$id, 'user'=>$user->id()));
+        $rowCount = Database::getInstance()->executeNonQuery(
+            "DELETE FROM projects WHERE id = :id AND user = :user",
+            ['id' => $id, 'user' => $user->id()]
+        );
+
+        if ($rowCount != 1) throw new NotFoundException();
     }
 }

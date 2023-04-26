@@ -191,6 +191,18 @@ abstract class Controller
 		});
 	}
 
+	/**
+	 * Écrit une réponse avec un statut 200 « ok ».
+	 */
+	public function okResponse() : void {
+		$this->_context->setResponse(function ($response) {
+			return $response->withStatus(200);
+		});
+	}
+
+	/**
+	 * Lève une exception HttpNotFoundException.
+	 */
 	public function notFound() : void
 	{
 		throw new NotFound($this->_context->request());
