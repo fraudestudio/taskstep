@@ -73,10 +73,11 @@
                         <input type="text" name = "url" #url = "ngModel" [(ngModel)]="form.url" size="60"/>
                     </td>
                 </tr>
+                <br>
+                <br>
                 <tr>
-                    <td></td>
                     <td colspan="3" rowspan="1">
-                        <input *ngIf="!name.errors?.['required']" input type="submit" value="Add Item"/>
+                        <input *ngIf="!name.errors?.['required']" input type="submit" value="Ajouter une tâche"/>
                     </td>
                 </tr>                                  
             </table>
