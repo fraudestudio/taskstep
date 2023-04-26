@@ -4,6 +4,7 @@ import { FakeDatabase } from '../model/FakeDatabase';
 import { Item } from "src/app/model/item";
 import { Context } from "src/app/model/context";
 import { Project } from "src/app/model/project";
+import { SideBarComponent } from '../model/sideBarComponent';
 
 @Component({
     selector: 'app-additem',
@@ -17,8 +18,10 @@ export class AdditemComponent {
 submit() {
     item : Item = new Item(this.form.title, this.form.note, this.form.section, this.form.context, this.form.project, this.form.dueDate, this.form.url);
 }
-    
-private readonly sections : string[] = ["Ideas", "Might Want to Buy", "Immediate", "This week", "this mounth", "this year", "Someday Maybe"];
+ 
+
+
+private sections : SideBarComponent[] = FakeDatabase.GetSideBar();
 
 /**
 * Information of the form
@@ -40,14 +43,14 @@ private readonly sections : string[] = ["Ideas", "Might Want to Buy", "Immediate
      * @returns the name of the section
      */
     protected Section(id :number) : string {
-        return this.sections[id];   
+        return this.sections[id].toString();   
     }
 
     /**
      * Property that returns the sections
      * @returns the sections
      */
-    get Sections() : string[] {  return this.sections;  }
+    get Sections() : SideBarComponent[] { return this.sections;  }
 
     get Contexts() : Context[] {  return FakeDatabase.Contexts;  }
 

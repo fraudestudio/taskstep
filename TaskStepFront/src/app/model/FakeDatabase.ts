@@ -1,6 +1,7 @@
 import { Context } from "./context";
 import { Project } from "./project";
 import { User } from "./user";
+import { SideBarComponent } from "./sideBarComponent";
 
 export class FakeDatabase {
 
@@ -83,5 +84,23 @@ export class FakeDatabase {
         return res;
     }
 
+    /**
+     * Table all of the sidebar componenet of the side
+     * They are requested from the server
+     */
+    private static sideBar : SideBarComponent[] = [ 
+        new SideBarComponent("lightbulb", "Idées",0,0), 
+        new SideBarComponent("cart", "Vous voulez peut être acheter",0,0), 
+        new SideBarComponent("lightning", "Immédiat",0,0),
+        new SideBarComponent("newspaper", "Ce week-end",0,0),
+        new SideBarComponent("calendar", "Ce mois-ci",0,0),
+        new SideBarComponent("world", "Cette année",0,0),
+        new SideBarComponent("user", "Peut-être un jour",0,0)
+    ];
 
+    public static GetSideBar() : SideBarComponent[] {
+        return this.sideBar;
+    }
+
+    
 }

@@ -24,4 +24,8 @@ export class Project{
     set Id(value : number) {
         this.id = value;
     }
+
+    toString(){
+        return this.title;
+    }
 }

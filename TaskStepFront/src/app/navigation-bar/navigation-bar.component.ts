@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component } from '@angular/core';
 import { SideBarComponent } from 'src/app/model/sideBarComponent';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { FakeDatabase } from '../model/FakeDatabase';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -21,26 +22,12 @@ export class NavigationBarComponent {
     return formatDate(this.date,'dd LLLL yyyy', 'fr-Fr');
   }
 
-  /**
-   * Table all of the sidebar componenet of the side
-   * They are requested from the server
-   */
-  private sideBar : SideBarComponent[] = [ 
-    new SideBarComponent("lightbulb", "Idées",0,0), 
-    new SideBarComponent("cart", "Vous voulez peut être acheter",0,0), 
-    new SideBarComponent("lightning", "Immédiat",0,0),
-    new SideBarComponent("newspaper", "Ce week-end",0,0),
-    new SideBarComponent("calendar", "Ce mois-ci",0,0),
-    new SideBarComponent("world", "Cette année",0,0),
-    new SideBarComponent("user", "Peut-être un jour",0,0)
-  ];
-
 
   /**
    * Get all the sidebar component
    */
   get SideBar() : SideBarComponent[]{
-    return this.sideBar;
+    return FakeDatabase.GetSideBar();
   }
 
   /**
