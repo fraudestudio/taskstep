@@ -15,7 +15,7 @@ export class AdditemComponent {
 
 
 submit() {
-    throw new Error('Method not implemented.');
+    item : Item = new Item(this.form.title, this.form.note, this.form.section, this.form.context, this.form.project, this.form.dueDate, this.form.url);
 }
     
 private readonly sections : string[] = ["Ideas", "Might Want to Buy", "Immediate", "This week", "this mounth", "this year", "Someday Maybe"];

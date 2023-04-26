@@ -12,6 +12,8 @@ export class Item{
 
     private project : Project;  
 
+    private section : Section;
+
     private dueDate : Date;
 
     private url : string;
