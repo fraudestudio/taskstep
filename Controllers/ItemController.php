@@ -42,7 +42,7 @@ class ItemController extends Controller
 		$this->createdResponse('item', ['id' => $id]);
 	}
 
-		/**
+	/**
 	 * Récupère un Item.
 	 */
 	public function getOne()
@@ -117,6 +117,24 @@ class ItemController extends Controller
 		}
 
 		$this->okResponse();
+	}
+
+	public function GetAllFromContexte()
+	{
+		$id = $this->requireInt('id');
+		$context = $this->requireBodyObject(Context::class);
+
+		try
+		{
+			$item = $this->itemDao->readByContext($id,$context);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+
 	}
 
 }

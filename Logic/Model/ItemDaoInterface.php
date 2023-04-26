@@ -42,7 +42,7 @@ interface ItemDaoInterface
 	 * 
 	 * @param $section Le contexte des items à récupérer.
 	 */
-	public function readByContext(User $user, Context $context): array;
+	public function readByContext(int $idUser, Context $context): array;
 
 	/**
 	 * Récupère tous les items appartenant à un projet.
