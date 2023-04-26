@@ -15,7 +15,7 @@ class ContextDao implements ContextDaoInterface
     {
         Database::getInstance()->executeNonQuery(
             'insert into contexts(title,user) values (:title,:id)',
-            array('title'=>$context->title(),'id'=>$user->GetId())
+            array('title'=>$context->title(),'id'=>$user->Id())
         );
 
         $answer = Database:: getInstance()->executeQuery('select last_insert_id()')->fetch(PDO::FETCH_ASSOC);
@@ -32,7 +32,7 @@ class ContextDao implements ContextDaoInterface
     
     public function readAll(User $user): array
     {
-        $answer = Database::getInstance()->executeQuery('select c.* from contexts as c where c.User = :id',array('id'=>$user->GetId()));
+        $answer = Database::getInstance()->executeQuery('select c.* from contexts as c where c.User = :id',array('id'=>$user->Id()));
         $result = [];
         $data = $answer->fetch(PDO::FETCH_ASSOC);
 
