@@ -7,6 +7,7 @@ namespace TaskStep\Controllers;
 use TaskStep\Logic\Model\Item;
 use TaskStep\Logic\Model\ItemDaoInterface;
 use TaskStep\Logic\Exceptions\NotFoundException;
+use TaskStep\Logic\Model\Project;
 use TaskStep\Middleware\Helpers\{Context, Services};
 
 class ItemController extends Controller
@@ -127,6 +128,23 @@ class ItemController extends Controller
 		try
 		{
 			$item = $this->itemDao->readByContext($id,$context);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+
+	}
+
+	public function GetAllFromProjet()
+	{
+		$projet = $this->requireBodyObject(Project::class);
+
+		try
+		{
+			$item = $this->itemDao->readByProject($projet);
 		}
 		catch (NotFoundException)
 		{
