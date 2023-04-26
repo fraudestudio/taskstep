@@ -12,6 +12,9 @@
 	--sidebar-text-color:black;
 	--sidebar-background-hover: #ececef;
 
+	--content-color : black;
+	--content-a-color : black;
+
 	--immediate-background-color : #ffa;
 	--immediate-border-color : #cc0;
 
@@ -60,6 +63,7 @@
 	--sidebar-background-hover:#1d1d1d;
 
 	--content-color : white;
+	--content-a-color : white;
 
 	--select-background-color : #1d1d1d;
 	--select-color: white;
@@ -286,7 +290,7 @@ input[type=submit]:hover{
 
 
 #content a{
-	color:#000;
+	color:var(--content-a-color);
 }
 
 .current{
@@ -628,6 +632,10 @@ input{
 }
 ::-ms-reveal{
 	filter: invert(var(--loginbox-eyes));
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(var(--loginbox-eyes));
 }
 
 .securityinfo{

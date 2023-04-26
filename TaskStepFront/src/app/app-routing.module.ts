@@ -27,9 +27,9 @@ const routes: Routes = [
   {path : 'byproject', component: ByprojectComponent, canActivate:[AuthGuard]},
   {path : "addproject", component: AddprojectComponent, canActivate:[AuthGuard]},
   {path : "editproject", component: EditprojectComponent, canActivate:[AuthGuard]},
+  {path : 'additem', component: AdditemComponent, canActivate:[AuthGuard]},
   {path : "register", component:RegisterComponent},
-  {path : 'additem', component: AdditemComponent},
-  {path : '**', component: PagenotfoundComponent },
+  {path : '**', component: PagenotfoundComponent, canActivate:[AuthGuard] },
 ];
 
 @NgModule({
