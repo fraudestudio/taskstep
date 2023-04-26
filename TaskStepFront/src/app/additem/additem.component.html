@@ -1,0 +1,84 @@
+<app-navigation-bar></app-navigation-bar>
+
+<div id = "container">
+    <form #f = "ngForm" (ngSubmit)="submit()">
+        <div>
+        <table>
+            <tr>
+                <td><label>Titre:</label></td>
+                <td colspan="3" rowspan="1"><input type="text" name = "title" #name = "ngModel" [(ngModel)]="form.title" required size="60"/></td>
+            </tr>
+            
+            <tr *ngIf="name.errors?.['required']">
+                <td colspan="4" rowspan="1">
+                    <div class="warning">
+                        <h2>Un titre est nécessaire.</h2>
+                    </div>
+                </td>
+            <tr>
+            
+            <tr>
+                <td><label>Notes :</label></td>
+                <td colspan="3" rowspan="1"><input type="text" name = "notes" #notes = "ngModel" [(ngModel)]="form.notes" size="60"/> </td>
+            </tr>
+            
+            <tr>
+                <td></td>
+                <td><label>Section:</label></td>
+                <td><label>Contexte:</label></td>
+                <td><label>Project:</label></td>
+            </tr>    
+            <tr></tr>  
+            <tr>
+                <td></td>
+                <td>   
+                    <select size="7" name = "section" #section = "ngModel" [(ngModel)]="form.section" required>
+                        <option *ngFor = "let section of Sections" [value]="section">{{section}}</option>     
+                    </select>  
+                </td>
+                <td>
+                    <select size="7" name = "context" #context = "ngModel" [(ngModel)]="form.context" required>
+                        <option *ngFor = "let context of Contexts" [value]="context">{{context}}</option>
+                    </select>
+                </td>
+                <td>
+                    <select size="7" name = "project" #project = "ngModel" [(ngModel)]="form.project" required>
+                        <option *ngFor = "let project of Projects" [value]="project">{{project}}</option>
+                    </select>
+                </td>
+            </tr>    
+            <tr> 
+                <td></td>
+                <td></td>
+                <td>
+                    <span class="listlinkstyle">
+                    <a routerLink="/editcontext"><img src="assets/images/context_edit.png" alt=""/>Edit Context</a>
+                    </span>
+                </td>
+                <td>
+                    <span class="listlinkstyle">
+                        <a routerLink="/editproject"><img src="assets/images/project_edit.png" alt=""/>Edit projects</a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Due Date:</label></td>
+                <td colspan="3" rowspan="1"><input type="date" name = "dueDate" #dueDate = "ngModel" [(ngModel)]="form.dueDate" size="60" required/></td>
+            </tr>
+            <tr>
+                <td><label>Url:</label></td>
+                <td colspan="3" rowspan="1">
+                    <input type="text" name = "url" #url = "ngModel" [(ngModel)]="form.url" size="60"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="3" rowspan="1">
+                    <input *ngIf="!name.errors?.['required']" input type="submit" value="Add Item"/>
+                </td>
+            </tr>                                  
+        </table>
+        </div>
+    </form>
+</div>
+<app-footer></app-footer>

@@ -35,13 +35,13 @@ export class NavigationBarComponent {
     new SideBarComponent("user", "Peut-être un jour",0,0)
   ];
 
+
   /**
    * Get all the sidebar component
    */
   get SideBar() : SideBarComponent[]{
     return this.sideBar;
   }
-
 
   /**
    * User asked to be disconnected
