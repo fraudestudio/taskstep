@@ -10,59 +10,67 @@ namespace TaskStep\Logic\Model;
 interface UserDaoInterface
 {
     /**
-     * Crée un utilisateur.
+     * Enregistre un nouvel utilisateur.
      * 
-     * @param $registration Les informations sur le nouvel utilisateur
+     * @param $registration Les informations sur le nouvel utilisateur.
      * 
-     * @return L'ID du nouvel utilisateur
+     * @return L'ID du nouvel utilisateur.
      */ 
-    public function create(Registration $registration) : int;
+    public function register(Registration $registration) : int;
 
     /**
-     * Récupère un projet par son identifiant.
+     * Récupère un utilisateur par son adresse mail et son mot de passe.
      * 
-     * @param $login login de l'utilisateur
-     * @param $assword mot de passe 
-     * 
-     * @return bool Comfirmation de connection
+     * @param $email L'adresse mail de l'utilisateur
+     * @param $password Son mot de passe
      */
-    public function SignIn(string $login, string $password): ?string;
+    public function readByEmailAndPassword(string $email, string $password) : User;
 
-    /**¨
-     * Change le mot de passe d'un Utilisateur.
+    /**
+     * Récupere un utilisateur depuis un jeton de session
      * 
-     * @param $idUser id de l'utilisateur
-     * @param $mdp mot de passe de l'utilisateur
-     * 
-     * @return bool Confirmation de l'utilisateur
+     * @param $token Le jeton
      */
-    public function ChangePassword(int $idUser, string $mdp): bool;
+    public function readBySessionToken(string $token) : User;
+
+    /**
+     * Ouvre une session pour un utilisateur et renvoie le jeton associé.
+     * 
+     * @param $user L'utilisateur pour lequel ouvrir la session.
+     */
+    public function createSession(User $user) : string;
+
+    /**
+     * Prolonge la durée d'une session donnée.
+     * 
+     * @param $token Le jeton de la session à mettre à jour.
+     */
+    public function refreshSession(string $token) : void;
+
+    /**
+     * Change le mot de passe d'un utilisateur.
+     * 
+     * @param $user L'utilisateur pour lequel changer le mot de passe.
+     * @param $password Le nouveau mot de passe.
+     */
+    public function changePassword(User $user, string $password) : bool;
 
 
     /**
-     * Mets à jour un conseil
+     * Mets à jour le réglage des conseils pour un utilisateur.
      * 
-     * @param $idUser L'identifiant du User
+     * @param $user L'utilisateur concerné.
      * 
-     * @param $displayTips Affichage des conseil
+     * @param $tips Affichage ou non des conseils
      */
-    public function ChangeTips(int $idUser, bool $displayTips);
+    public function updateTips(User $user, bool $tips) : void;
 
     /**
-     * Mets à jour un style
+     * Mets à jour le réglage du style pour un utilisateur.
      * 
-     * @param  $idUser id de l'utilisateur à update
+     * @param $user L'utilisateur concerné
      * 
-     * @param $style id du style
+     * @param $style Le style à utiliser
      */
-    public function ChangeStyle(int $idUser, int $style);
-
-    /**
-     * Récupere un User liée au token donné
-     * 
-     * @param $token token récupéré
-     * 
-     * @return User un User
-     */
-    public function GetUserByToken(string $token) : User;
+    public function updateStyle(User $user, Style $style) : void;
 }

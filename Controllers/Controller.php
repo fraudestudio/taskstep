@@ -207,4 +207,12 @@ abstract class Controller
 	{
 		throw new NotFound($this->_context->request());
 	}
+
+	/**
+	 * Lève une exception HttpBadRequestException.
+	 */
+	public function badRequest(string $message = "Invalid request") : void
+	{
+		throw new BadRequest($this->_context->request(), $message);
+	}
 }

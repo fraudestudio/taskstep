@@ -42,7 +42,7 @@ class UserDAO implements UserDaoInterface
     {
         $query = Database::getInstance()->executeQuery(
             "SELECT idUser, MDP, style, tips FROM User WHERE mail = :mail",
-            ['email' => $email]
+            ['mail' => $email]
         );
 
         if ($data = $query->fetch())
@@ -69,7 +69,7 @@ class UserDAO implements UserDaoInterface
     public function readBySessionToken(string $token) : User
     {
         $query = Database::getInstance()->executeQuery(
-            "SELECT u.idUser, u.mail, u.style, u.tips, t.date " +
+            "SELECT u.idUser, u.mail, u.style, u.tips, t.date ".
             "FROM User as u JOIN Session as t ON u.idUser = t.User WHERE t.token = :token",
             ['token' => $token]
         );
@@ -103,8 +103,8 @@ class UserDAO implements UserDaoInterface
         $now = new DateTime('now');
 
         Database::getInstance()->executeNonQuery(
-            "INSERT INTO `Session` (Token, `date`, `User`) VALUES (:token, :date, :idUser)",
-            ['token' => $token, 'date' => $date, 'User' => $user->id()]
+            "INSERT INTO `Session` (Token, `date`, `User`) VALUES (:token, :date, :user)",
+            ['token' => $token, 'date' => $now->format('Y-m-d H:i:s'), 'user' => $user->id()]
         );
 
         return $token;
@@ -151,7 +151,7 @@ class UserDAO implements UserDaoInterface
      * 
      * @param $tips Affichage ou non des conseils
      */
-    public function updateTips(User $user, bool $tips)
+    public function updateTips(User $user, bool $tips) : void
     {
         if ($tips)
         {
@@ -174,7 +174,7 @@ class UserDAO implements UserDaoInterface
      * 
      * @param $style Le style à utiliser
      */
-    public function updateStyle(User $user, Style $style)
+    public function updateStyle(User $user, Style $style) : void
     {
         $result = Database::getInstance()->executeNonQuery(
             "UPDATE `User` SET style = :style WHERE id = :id",
@@ -191,7 +191,7 @@ class UserDAO implements UserDaoInterface
 
         for($i=0; $i<20; $i++)
         {
-            $token += Self::TOKEN_CHARS[random_int(0, 61)];
+            $token .= Self::TOKEN_CHARS[random_int(0, 61)];
         }
 
         return $token;

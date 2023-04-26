@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
 
+use TaskStep\Middleware\Helpers\JsonSerializable;
+
 /**
  * Un utilisateur de l'application.
  */
-class User
+class User implements JsonSerializable
 {
     private int $_id;
     private string $_email;
@@ -30,6 +32,7 @@ class User
      */
     public function setEmail(string $email) : User {
         $this->_email = $email;
+        return $this;
     }
 
     /**
@@ -47,5 +50,17 @@ class User
     {
         $this->_id = $id;
         $this->_settings = new Settings();
+    }
+
+    public function jsonSerialize() : mixed {
+        return [
+            'Id' => $this->_id,
+            'Email' => $this->_email,
+            'Settings' => $this->_settings,
+        ];
+    }
+
+    public function jsonDeserialize(mixed $value) : void {
+        throw new \Exception("'User' objects shouldn't be received");
     }
 }
