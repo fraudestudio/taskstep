@@ -41,6 +41,11 @@
 
 	--editlist-text-color : black;
 	--editlist-hover-color : #ececef;
+
+	--side-bar-undone-color : rgb(164, 14, 14);
+	--side-bar-done-color : green;
+
+	--footer-color : rgb(107, 104, 104);
 }
 
 [data-theme = "dark"]{
@@ -93,6 +98,10 @@
 	--editlist-text-color : white;
 	--editlist-hover-color : #1d1d1d;
 
+	--side-bar-undone-color : rgb(255, 6, 6);
+	--side-bar-done-color : rgb(0, 202, 0);
+
+	--footer-color : rgb(192, 191, 191); 
 }
 
 body{
@@ -132,7 +141,7 @@ input[type=submit]:hover{
 	padding: 2em 0px;
 	font-size: .7em;
 	text-align: center;
-	color: gray;
+	color: var(--footer-color);
 	clear: both;
 }
 
@@ -156,6 +165,7 @@ input[type=submit]:hover{
 	height:22px;
 	background-color:var(--navbar-background-color);
 	margin-bottom: 14px;
+	padding: 10px;
 }
 
 .subtitle{
@@ -248,12 +258,12 @@ input[type=submit]:hover{
 }
 
 .noundone{
-	color:red;
+	color:var(--side-bar-undone-color);
 	font-size:10pt;
 }
 
 .nodone{
-	color:green;
+	color: var(--side-bar-done-color);
 	font-size:10pt;
 }
 

@@ -4,10 +4,10 @@
         <h1><img src="assets/images/icon.png" alt="" /> TaskStep</h1>
         <div *ngIf="message">
             <div *ngIf='type == "confirmation"' class="confirmation">
-                <p><img src="assets/images/accept.png"/>{{message}}</p>
+                <p><img src="assets/images/accept.png" alt="Icône de confirmation"/>{{message}}</p>
             </div>
             <div *ngIf='type == "warning"' class="warning">
-                <p><img src="assets/images/exclamation.png"/>{{message}}</p>
+                <p><img src="assets/images/exclamation.png" alt="Icône d'alerte"/>{{message}}</p>
             </div>
         </div>
         <p><img src="assets/images/shield.png" alt="" /> <br>Veuillez saisir votre email et votre mot de passe pour vous connecter.</p>
