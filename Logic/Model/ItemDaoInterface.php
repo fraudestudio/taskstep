@@ -42,7 +42,7 @@ interface ItemDaoInterface
 	 * 
 	 * @param $section Le contexte des items à récupérer.
 	 */
-	public function readByContext(Context $context): array;
+	public function readByContext(User $user, Context $context): array;
 
 	/**
 	 * Récupère tous les items appartenant à un projet.
@@ -94,7 +94,7 @@ interface ItemDaoInterface
 	/**
 	 * Compte le nombre total de tâches à faire.
 	 */
-	public function countUndone(): int;
+	public function countUndone(int $id): int;
 
 	/**
 	 * Compte le de tâches finies et à faire pour chaque section.
@@ -102,5 +102,5 @@ interface ItemDaoInterface
 	 * Le tableau associatif renvoyé est indexé par section
 	 * et contient des sous-tableaux avec deux clés : 'done' et 'undone'. 
 	 */
-	public function countBySection(): array;
+	public function countBySection(int $id): array;
 }
