@@ -23,13 +23,6 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
-import { DisplayideasComponent } from './displayideas/displayideas.component';
-import { DisplaybuyingComponent } from './displaybuying/displaybuying.component';
-import { ImmediateComponent } from './immediate/immediate.component';
-import { ThisweekComponent } from './thisweek/thisweek.component';
-import { ThismounthComponent } from './thismounth/thismounth.component';
-import { ThisyearComponent } from './thisyear/thisyear.component';
-import { SomedayComponent } from './someday/someday.component';
 
 registerLocaleData(localeFr);
 
@@ -52,13 +45,6 @@ registerLocaleData(localeFr);
     EditprojectComponent,
     RegisterComponent,
     AdditemComponent,
-    DisplayideasComponent,
-    DisplaybuyingComponent,
-    ImmediateComponent,
-    ThisweekComponent,
-    ThismounthComponent,
-    ThisyearComponent,
-    SomedayComponent
   ],
   imports: [
     BrowserModule,

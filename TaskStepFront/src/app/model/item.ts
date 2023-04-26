@@ -12,17 +12,20 @@ export class Item{
 
     private project : Project;  
 
+    private section : string;
+
     private dueDate : Date;
 
     private url : string;
 
     private id : number = 0;
 
-    constructor(title : string, note : string, context : Context, project : Project, dueDate : Date, url : string){
+    constructor(title : string, note : string, context : Context, project : Project, dueDate : Date, url : string,section:  string){
         
         this.title = title;
         this.note = note;
         this.context = context;
+        this.section = section;
         this.project = project;
         this.dueDate = dueDate;
         this.url = url;
@@ -56,5 +59,9 @@ export class Item{
     get Url() : string {  return this.url;  }
 
     set Url(value : string) {  this.url = value;  }
+
+    get Section() : string {  return this.section;  }
+
+    set Section(value : string) {  this.section = value;  }
 
 }

@@ -13,10 +13,16 @@ import { SideBarComponent } from '../model/sideBarComponent';
 
 export class AdditemComponent {
 
-
+edit: boolean = false;
 
 submit() {
-    throw new Error('Method not implemented.');
+    if(this.edit == false){
+    let item = new Item(this.form.title, this.form.note, this.form.section, this.form.context, this.form.project, this.form.dueDate, this.form.url);
+    FakeDatabase.AddItem(item);
+    }
+    else{
+        throw new Error("Not implemented yet");
+    }
 }
  
 

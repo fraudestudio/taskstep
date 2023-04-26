@@ -9,12 +9,12 @@ import { FakeDatabase } from '../model/FakeDatabase';
   templateUrl :"navigation-bar.component.html"
 })
 export class NavigationBarComponent {
-
+  
   private date : number = Date.now();
-
+  
   constructor(private route: ActivatedRoute,  private router: Router) {
   }
-
+  
   /**
    * Give the today date in french
    */
@@ -32,11 +32,14 @@ export class NavigationBarComponent {
 
   /**
    * User asked to be disconnected
-   */
-  disconnect(){
-    sessionStorage.setItem("login","false");
-    this.router.navigate(["login"]);
+  */
+ disconnect(){
+   sessionStorage.setItem("login","false");
+   this.router.navigate(["login"]);
   }
   
+  redirect(param :string) {
+    this.router.navigate(["displayItemSideBar"], {state : {data : {section : param}}});
+  }
 }
 

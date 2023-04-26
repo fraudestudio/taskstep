@@ -1,14 +1,17 @@
 import { Context } from "./context";
 import { Project } from "./project";
 import { User } from "./user";
+import {Item } from "./item";
 import { SideBarComponent } from "./sideBarComponent";
 
 export class FakeDatabase {
 
+    public static Items : Item[];
     public static Contexts : Context[] = [
     ];
 
     constructor(){
+    
     }
 
     static RemoveContext(id : number){
@@ -102,5 +105,14 @@ export class FakeDatabase {
         return this.sideBar;
     }
 
+    public static AddItem(item : Item){
+        this.Items.push(item);
+    }
+
+    public static RemoveItem(id : number){
+        this.Items.splice(id - 1)
+    }
+
+    
     
 }
