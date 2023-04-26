@@ -17,7 +17,7 @@
                             <h2>Un titre est nécessaire.</h2>
                         </div>
                     </td>
-                <tr>
+                </tr>
                 
                 <tr>
                     <td><label>Notes :</label></td>
@@ -35,32 +35,46 @@
                     <td></td>
                     <td>   
                         <select size="7" name = "section" #section = "ngModel" [(ngModel)]="form.section" required>
-                            <option *ngFor = "let section of Sections" [value]="form.section.toString()">{{section}}</option>     
+                            <option *ngFor = "let sectionObject of Sections" [value]="sectionObject">{{sectionObject.Title}}</option>     
                         </select>  
                     </td>
                     <td>
                         <select size="7" name = "context" #context = "ngModel" [(ngModel)]="form.context" required>
-                            <option *ngFor = "let context of Contexts" [value]="context">{{context}}</option>
+                            <option *ngFor = "let contextObject of Contexts" [value]="contextObject">{{contextObject.Title}}</option>
                         </select>
                     </td>
                     <td>
                         <select size="7" name = "project" #project = "ngModel" [(ngModel)]="form.project" required>
-                            <option *ngFor = "let project of Projects" [value]="project">{{project}}</option>
+                            <option *ngFor = "let projectObject of Projects" [value]="projectObject">{{projectObject.Title}}</option>
                         </select>
                     </td>
-                </tr>    
+                </tr>
                 <tr> 
                     <td></td>
                     <td></td>
                     <td>
                         <span class="listlinkstyle">
-                        <a routerLink="/editcontext"><img src="assets/images/context_edit.png" alt=""/>Edit Context</a>
+                        <a routerLink="/editcontext"><img src="assets/images/context_edit.png" alt=""/>Modifier les contextes</a>
                         </span>
                     </td>
                     <td>
                         <span class="listlinkstyle">
-                            <a routerLink="/editproject"><img src="assets/images/project_edit.png" alt=""/>Edit projects</a>
+                            <a routerLink="/editproject"><img src="assets/images/project_edit.png" alt=""/>Modifier les projets</a>
                         </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="4" rowspan="1">
+                        <div class="warning" *ngIf="context.errors?.['required'] && !project.errors?.['required']">
+                            <h2>Un contexte est nécessaire.</h2>
+                        </div>
+                        <div class="warning" *ngIf="project.errors?.['required'] && !context.errors?.['required']">
+                            <h2>Un projet est nécessaire.</h2>
+                        </div>
+                        <div class="warning" *ngIf="project.errors?.['required'] && context.errors?.['required']">
+                            <h2>Un contexte et un projet est nécessaire.</h2>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -77,7 +91,8 @@
                 <br>
                 <tr>
                     <td colspan="3" rowspan="1">
-                        <input *ngIf="!name.errors?.['required']" input type="submit" value="Ajouter une tâche"/>
+                        <input *ngIf="!name.errors?.['required'] && !section.errors?.['required'] 
+                        && !context.errors?.['required'] && !project.errors?.['required']" input type="submit" value="Ajouter une tâche"/>
                     </td>
                 </tr>                                  
             </table>
