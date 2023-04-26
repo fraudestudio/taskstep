@@ -90,9 +90,9 @@ class ItemDao implements ItemDaoInterface
         return $result;
 	}
 
-	public function readByContext(User $user, Context $context): array
+	public function readByContext(int $user, Context $context): array
 	{
-		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where c.id = ":idC" and i.User = ":idU" ', array('idC'=> $context->id(),'idU'=> $user->id()));
+		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where c.id = ":idC" and i.User = ":idU" ', array('idC'=> $context->id(),'idU'=> $user));
 
         $result = [];
 
@@ -148,10 +148,11 @@ class ItemDao implements ItemDaoInterface
 		);
 	}
 
-	public function deleteAllDone() : int
+	public function deleteAllDone(int $id) : int
 	{
 		Database::GetInstance()->executeNonQuery(
-			'DELETE from items where done = 1',
+			'DELETE from items where done = 1 and User = ":id"',
+			array('id'=>$id)
 		);
 		return 1;
 	}
