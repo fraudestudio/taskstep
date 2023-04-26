@@ -5,7 +5,7 @@ USE taskstep;
 DELETE FROM style WHERE idStyle = 1000;
 
 INSERT INTO style VALUES
-	(1000, 'style');
+	(1000, 'classic');
 
 
 -- USERS
@@ -45,7 +45,7 @@ INSERT INTO contexts VALUES
 DELETE FROM sections WHERE id = 1000;
 
 INSERT INTO sections VALUES
-	(1000, 'Section');
+	(1000, 'ideas');
 
 
 -- ITEMS

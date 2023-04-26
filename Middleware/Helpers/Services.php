@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Middleware;
+namespace TaskStep\Middleware\Helpers;
 
 class Services {
     private static ?Services $_instance = null;
@@ -21,6 +21,11 @@ class Services {
     public function add(string $name, string $class) : Services {
     	$this->_impls[$name] = ['class' => $class];
     	return $this;
+    }
+
+    public function addInstance(string $name, object $object) : Services {
+        $this->_impls[$name] = ['instance' => $object];
+        return $this;
     }
 
     public function get(string $name) : object {

@@ -11,10 +11,7 @@ class User
 {
     private int $_id;
     private string $_email;
-    private string $_password;
-    private string $_mail;
-    private string $_style;
-    private bool $_tips;
+    private Settings $_settings;
 
     /**
      * Récupère l'identifiant de l'utilisateur.
@@ -25,6 +22,7 @@ class User
      * Récupère l'adresse mail de l'utilisateur.
      */
     public function email() : string { return $this->_email; }
+
     /**
      * Change l'adresse mail de l'utilisateur.
      * 
@@ -35,34 +33,9 @@ class User
     }
 
     /**
-     * Password
+     * Récupère les réglages de l'utilisateur.
      */
-    public function GetPassword() : string {return $this->password;}
-    public function SetPassword(string $password) {$this->password = $password;}
-
-    /**
-     * Sel
-     */
-    public function GetSalt() : string {return $this->salt;}
-    public function SetSalt(string $salt){$this->salt = $salt;}
-
-    /**
-     * Mail
-     */
-    public function GetMail() : string {return $this->mail;}
-    public function SetMail(string $mail){$this->mail = $mail;}
-
-    /**
-     * Style
-     */
-    public function GetStyle() : int {return $this->style;}
-    public function SetStyle(int $style){$this->style = $style;}
-
-    /**
-     * Tips
-     */
-    public function GetTips():bool{return $this->tips;}
-    public function SetTips(bool $tips){$this->tips = $tips;}
+    public function settings() : Settings { return $this->_settings; }
 
     /**
      * Crée un nouvel utilisateur.
@@ -73,5 +46,6 @@ class User
     public function __construct(int $id = -1)
     {
         $this->_id = $id;
+        $this->_settings = new Settings();
     }
 }

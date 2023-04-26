@@ -4,6 +4,7 @@ namespace TaskStep\Logic\Data\MySql\Dao;
 
 use TaskStep\Logic\Data\MySql\Database;
 use TaskStep\Logic\Model\{User, Project, ProjectDaoInterface};
+use TaskStep\Logic\Exceptions\NotFoundException;
 use PDO;
 
 class ProjectDao implements ProjectDaoInterface
@@ -12,10 +13,12 @@ class ProjectDao implements ProjectDaoInterface
     {
         $result = -1;
 
-        $request = "INSERT INTO projects (title, user) values (:title, :id)";
-        $query = Database::getInstance()->executeNonQuery($request, array('title'=>$project->title(), 'id'=>$user->id()));
+        $query = Database::getInstance()->executeNonQuery(
+            "INSERT INTO projects (title, user) VALUES (:title, :user)",
+            ['title' => $project->title(), 'user' => $user->id()]
+        );
 
-        $query = Database::getInstance()->executeQuery("Select last_insert_id()");
+        $query = Database::getInstance()->executeQuery("SELECT last_insert_id()");
         $result = $query->fetch()[0];
 
         return $result;
@@ -23,11 +26,19 @@ class ProjectDao implements ProjectDaoInterface
 
     public function readById(User $user, int $id) : Project
     {
-        $request = "SELECT * FROM projects WHERE id = :id AND user = :user";
-        $query = Database::getInstance()->executeQuery($request, array('id'=>$id, 'user'=>$user->id()));
-        $data = $query->fetch();
-
-        return (new Project($data["id"]))->setTitle($data["title"]);
+        $query = Database::getInstance()->executeQuery(
+            "SELECT * FROM projects WHERE id = :id AND user = :user",
+            ['id' => $id, 'user' => $user->id()]
+        );
+        
+        if ($data = $query->fetch())
+        {
+            return (new Project($data["id"]))->setTitle($data["title"]);
+        }
+        else
+        {
+            throw new NotFoundException();
+        }
     }
 
     public function readAll(User $user) : array
@@ -49,9 +60,10 @@ class ProjectDao implements ProjectDaoInterface
 
     public function update(User $user, int $id, Project $project)
     {
-        $request = "UPDATE projects SET title = :title WHERE id = :id AND user = :user";
-        Database::getInstance()
-            ->executeNonQuery($request, array('title'=>$project->title(), 'id'=>$id, 'user'=>$user->id()));
+        Database::getInstance()->executeNonQuery(
+            "UPDATE projects SET title = :title WHERE id = :id AND user = :user",
+            ['title' => $project->title(), 'id' => $id, 'user' => $user->id()]
+        );
     }
 
     public function delete(User $user, int $id)
