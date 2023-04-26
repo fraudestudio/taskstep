@@ -17,7 +17,7 @@ class ContextController extends Controller
 	{
 		parent::__construct($context, $container);
 
-		$this->contextDao = $container->get('ContextDao');
+		$this->contextDao = $container->get('contextDao');
 	}
 
 
@@ -26,10 +26,13 @@ class ContextController extends Controller
      */
     public function getAll()
     {
-        try{
-            $this->jsonResponse($this->contextDao->readAll($this->requireUser()));
+        try
+        {
+        	$contexts = $this->contextDao->readAll($this->requireUser());
+            $this->jsonResponse($contexts);
         }
-        catch(NotFoundException){
+        catch(NotFoundException)
+        {
             $this->notFound();
         }
     }
@@ -41,17 +44,17 @@ class ContextController extends Controller
     {
         $context = $this->requireBodyObject(Contexts::class);
 
-        $id = $this->contextDao->create($this->requireUser(),$context);
+        $id = $this->contextDao->create($this->requireUser(), $context);
 
-        $this->createdResponse('contexts',['Id' => $id]);
+        $this->createdResponse('context', ['id' => $id]);
     }
 
     /**
      * Récupère un contexte par son id
      * 
      */
-    public function getById(){
-
+    public function getById()
+    {
         $id = $this->requireInt('id');
 
 		try
@@ -64,35 +67,33 @@ class ContextController extends Controller
 		}
 
 		$this->jsonResponse($project);
-
     }
 
     /**
      * Met à jour un context
      */
-    public function update(){
-
+    public function update()
+    {
+    	$id = $this->requireInt('id');
         $context = $this->requireBodyObject(Contexts::class);
 
         try
 		{
-			$context = $this->contextDao->update($context->Id,$context);
+			$context = $this->contextDao->update($this->requireUser(), $id, $context);
 		}
 		catch (NotFoundException)
 		{
 			$this->notFound();
 		}
 
-		$this->okResponse();
-
-        
+		$this->okResponse();        
     }
 
     /**
      * Supprime un context
      */
-    public function delOne(){
-
+    public function delOne()
+    {
         $id = $this->requireInt('id');
 
 		try
@@ -105,10 +106,5 @@ class ContextController extends Controller
 		}
 
 		$this->okResponse();
-
     }
-
-
-
-
 }

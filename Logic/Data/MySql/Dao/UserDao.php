@@ -4,166 +4,196 @@ namespace TaskStep\Logic\Data\MySql\Dao;
 
 use DateTime;
 use TaskStep\Logic\Data\MySql\Database;
-use TaskStep\Logic\Model;
-use TaskStep\Logic\Model\User;
+use TaskStep\Logic\Model\{User, Registration, Style};
 use TaskStep\Logic\Model\UserDaoInterface;
 use PDO;
 use Random\Randomizer;
-use TaskStep\Logic\Exceptions\BadTokenException;
-use TaskStep\Logic\Exceptions\TokenOutOfDateException;
+use TaskStep\Logic\Exceptions\{BadTokenException, TokenOutOfDateException, NotFoundException};
 
 class UserDAO implements UserDaoInterface
 {
     /**
-     * Crée un utilisateur.
+     * Enregistre un nouvel utilisateur.
      * 
-     * @param $login Login du nouvel utilisateur
-     * @param $password Mot de passe du nouveau projet
-     * @param $mail Mail du nouvel utilisateur
-     * @param $CaptchaToken Token du captcha pour vérifier si le nouvel utilisateur n'est pas un robot
+     * @param $registration Les informations sur le nouvel utilisateur.
      * 
-     * @return int id duy nouvel utilisateur
+     * @return L'ID du nouvel utilisateur.
      */ 
-    public function SignUp(string $login, string $password, string $mail) : int
+    public function register(Registration $registration) : int
     {
-        $request = "Insert into `User`(login,MDP,salt,mail,style,tips) values (:login,:mdp,'',:mail,0,1);";
-        Database::getInstance()->executeNonQuery($request,array('login'=>htmlspecialchars($login),'mdp'=>password_hash($password,PASSWORD_BCRYPT),'mail'=>$mail));
-        $data = Database::getInstance()->executeQuery("select last_insert_id();")->fetch(PDO::FETCH_ASSOC);
-        return $data['id'];
+        $hash = password_hash($registration->password(), PASSWORD_BCRYPT);
+
+        Database::getInstance()->executeNonQuery(
+            "INSERT INTO `User`(mail, MDP, style, tips, login, salt) VALUES (:mail, :mdp, 0, 1, '', '')",
+            ['mail' => $registration->email(), 'mdp' => $hash]
+        );
+
+        $data = Database::getInstance()->executeQuery("SELECT last_insert_id()")->fetch();
+        return $data[0];
     }
 
     /**
-     * Récupère un projet par son identifiant.
+     * Récupère un utilisateur par son adresse mail et son mot de passe.
      * 
-     * @param $login login de l'utilisateur
-     * @param $assword mot de passe 
-     * 
-     * @return bool Comfirmation de connection
+     * @param $email L'adresse mail de l'utilisateur
+     * @param $password Son mot de passe
      */
-    public function SignIn(string $login, string $password): ?string
+    public function readByEmailAndPassword(string $email, string $password): User
     {
-        $query = "Select id,MDP from User where login = :login";
-        $data = Database::getInstance()->executeQuery($query,array('login'=>$login))->fetch(PDO::FETCH_ASSOC);
-        if($this->Authentification($data['MDP'],$password)){
-            return $this->CreateToken($data['id']);
-        }else{
-            return null;
+        $query = Database::getInstance()->executeQuery(
+            "SELECT idUser, MDP, style, tips FROM User WHERE mail = :mail",
+            ['email' => $email]
+        );
+
+        if ($data = $query->fetch())
+        {
+            if (password_verify($password, $data['MDP']))
+            {
+                $user = new User($data['idUser']);
+                $user->setEmail($email);
+                $user->settings()
+                    ->setStyle(Style::from($data['style']))
+                    ->setTips($data['tips']);
+                return $user;
+            }
         }
+        
+        throw new NotFoundException();
     }
 
     /**
-     * Vérifie si deux mots de passe sont les même
-     */
-    private function Authentification($expectedPass,$actualPass): bool{
-        return password_verify($actualPass,$expectedPass);
-    }
-
-    /**
-     * Créer un token, le rentre en base de données et le renvoie à l'utilisateur
+     * Récupere un utilisateur depuis un jeton de session
      * 
-     * @param $idUser Id de l'utilisateur concerné par ce token
+     * @param $token Le jeton
      */
-    private function CreateToken($idUser):string{
-        $query = "Insert into `Session` (Token,`date`,`User`) values (:token,:date,:idUser)";
+    public function readBySessionToken(string $token) : User
+    {
+        $query = Database::getInstance()->executeQuery(
+            "SELECT u.idUser, u.mail, u.style, u.tips, t.date " +
+            "FROM User as u JOIN Session as t ON u.idUser = t.User WHERE t.token = :token",
+            ['token' => $token]
+        );
 
-        //Création du Token
-        $tableau = "abcdefghijklmnopqrstuvwxyz";
-        $token = "";
-        for($i = 0 ; $i<10; $i++){
-            $token += $tableau[random_int(0,26)];
+        if ($data = $query->fetch())
+        {
+            $tokenLifetime = time() - strtotime($data['date']);
+
+            // plus vieux que 20 minutes
+            if ($tokenLifetime > 1200) throw new TokenOutOfDateException();
+            
+            $user = new User($data['idUser']);
+            $user->setEmail($data['mail']);
+            $user->settings()
+                ->setStyle(Style::from($data['style']))
+                ->setTips($data['tips']);
+            return $user;
         }
-        //Création de la date
-        $date = new DateTime();
+        
+        throw new NotFoundException();
+    }
 
-        Database::getInstance()->executeNonQuery($query,array('token'=> $token,'date'=>$date,'idUser'=>$idUser));
+    /**
+     * Ouvre une session pour un utilisateur et renvoie le jeton associé.
+     * 
+     * @param $user L'utilisateur pour lequel ouvrir la session.
+     */
+    public function createSession(User $user) : string
+    {
+        $token = $this->generateToken();
+        $now = new DateTime('now');
+
+        Database::getInstance()->executeNonQuery(
+            "INSERT INTO `Session` (Token, `date`, `User`) VALUES (:token, :date, :idUser)",
+            ['token' => $token, 'date' => $date, 'User' => $user->id()]
+        );
 
         return $token;
     }
 
-    /**¨
-     * Change le mot de passe d'un Utilisateur.
+    /**
+     * Prolonge la durée d'une session donnée.
      * 
-     * @param $idUser id de l'utilisateur
-     * @param $mdp mot de passe de l'utilisateur
-     * 
-     * @return bool Confirmation de l'utilisateur
+     * @param $token Le jeton de la session à mettre à jour.
      */
-    public function ChangePassword(int $idUser, string $mdp): bool
+    public function refreshSession(string $token) : void
     {
-        //Modification du nouveau mot de passe
-        $query = "update `User` set MDP = :mdp where id = :id";
-        Database::getInstance()->executeNonQuery($query,array('mdp'=>$mdp,'id'=>password_hash($mdp,PASSWORD_BCRYPT)));
+        $now = new DateTime('now');
 
-        //Récupération du mot de passe fraichement modifié
-        $query = "select MDP from user where id = :id";
-        $data = Database::getInstance()->executeQuery($query,array('id'=>$idUser))->fetch(PDO::FETCH_ASSOC);
+        Database::getInstance()->executeNonQuery(
+            "UPDATE `Session` SET `date` = :date WHERE token = :token",
+            ['token' => $token, 'date' => $date]
+        );
+    }
 
-        //Réponse au controller
-        if($this->Authentification($data['MDP'],$mdp)){
-            return true;
-        }else{
-            return false;
-        }
+    /**
+     * Change le mot de passe d'un utilisateur.
+     * 
+     * @param $user L'utilisateur pour lequel changer le mot de passe.
+     * @param $password Le nouveau mot de passe.
+     */
+    public function changePassword(User $user, string $password) : bool
+    {
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+
+        $result = Database::getInstance()->executeNonQuery(
+            "UPDATE `User` SET MDP = :mdp WHERE id = :id",
+            ['mdp' => $hash, 'id' => $user->id()]
+        );
+
+        return $result == 1;
     }
 
 
     /**
-     * Mets à jour un projet.
+     * Mets à jour le réglage des conseils pour un utilisateur.
      * 
-     * @param $idUser L'identifiant du User
+     * @param $user L'utilisateur concerné.
      * 
-     * @param $displayTips Affichage des conseil
+     * @param $tips Affichage ou non des conseils
      */
-    public function ChangeTips(int $idUser, bool $displayTips)
+    public function updateTips(User $user, bool $tips)
     {
-        if($displayTips){
-            $queryBase = "update `User` set tips = 1 where id = :id ";
-        }else{
-            $queryBase = "update `User` set tips = 0 where id = :id";
+        if ($tips)
+        {
+            $query = "UPDATE `User` SET tips = 1 WHERE id = :id";
+        }
+        else
+        {
+            $query = "UPDATE `User` SET tips = 0 WHERE id = :id";
         }
 
-        Database::getInstance()->executeNonQuery($queryBase,array('id'=>$idUser));
-         
+        $result = Database::getInstance()->executeNonQuery($query, ['id' => $user->id()]);
+        
+        if ($result != 1) throw new NotFoundException();         
     }
 
     /**
-     * Mets à jour un projet.
+     * Mets à jour le réglage du style pour un utilisateur.
      * 
-     * @param $idUser L'identifiant du User
+     * @param $user L'utilisateur concerné
      * 
-     * @param $style style choisit entre 0 et 2
+     * @param $style Le style à utiliser
      */
-    public function ChangeStyle(int $idUser, int $style){
-        Database::getInstance()->executeNonQuery("update `User` set style = :style where id = :id",array('style'=>$style,'id'=>$idUser));
+    public function updateStyle(User $user, Style $style)
+    {
+        $result = Database::getInstance()->executeNonQuery(
+            "UPDATE `User` SET style = :style WHERE id = :id",
+            ['style' => $style, 'id' => $user->id()]
+        );
+
+        if ($result != 1) throw new NotFoundException();
     }
 
-    /**
-     * Récupere un User liée au token donné
-     * 
-     * @param $token token récupéré
-     * 
-     * @return User un User
-     */
-    public function GetUserByToken(string $token) : User
-    {
-        $query = "Select u.*,t.* from User as u join Session as t on u.id = t.idUser where t.token = :token";
-        $answer = Database::getInstance()->executeQuery($query,array('token'=>$token))->fetch(PDO::FETCH_ASSOC);
+    private const TOKEN_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-        $dateToken = new DateTime($answer['date']);
-        $result = new User();
-        if(is_null($answer)){
-            throw new BadTokenException();
-        }else if($dateToken->diff(new DateTime())->m > 20){
-            throw new TokenOutOfDateException();
-        }else{
-            $result->SetId($answer["id"]);
-            $result->SetLogin($answer["login"]);
-            $result->SetMail($answer["mail"]);
-            $result->SetPassword($answer["MDP"]);
-            $result->SetStyle($answer["style"]);
-            $result->SetTips($answer["tips"]);
+    private function generateToken() : string {
+        $token = "";
+
+        for($i=0; $i<20; $i++)
+        {
+            $token += Self::TOKEN_CHARS[random_int(0, 61)];
         }
 
-        return $result;
+        return $token;
     }
 }
