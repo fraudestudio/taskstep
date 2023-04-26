@@ -6,7 +6,7 @@
             <div>
             <table>
                 <tr>
-                    <td><label>Titre:</label></td>
+                    <td><label>Titre :</label></td>
                     <td colspan="3" rowspan="1"><input type="text" name = "title" #name = "ngModel" [(ngModel)]="form.title" required size="60"/></td>
                 </tr>
                 
@@ -28,14 +28,14 @@
                     <td></td>
                     <td><label>Section:</label></td>
                     <td><label>Contexte:</label></td>
-                    <td><label>Project:</label></td>
+                    <td><label>Projet:</label></td>
                 </tr>    
                 <tr></tr>  
                 <tr>
                     <td></td>
                     <td>   
                         <select size="7" name = "section" #section = "ngModel" [(ngModel)]="form.section" required>
-                            <option *ngFor = "let section of Sections" [value]="section">{{section}}</option>     
+                            <option *ngFor = "let section of Sections" [value]="form.section.toString()">{{section}}</option>     
                         </select>  
                     </td>
                     <td>
@@ -64,11 +64,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Due Date:</label></td>
+                    <td><label>Date de rendu :</label></td>
                     <td colspan="3" rowspan="1"><input type="date" name = "dueDate" #dueDate = "ngModel" [(ngModel)]="form.dueDate" size="60" required/></td>
                 </tr>
                 <tr>
-                    <td><label>Url:</label></td>
+                    <td><label>Lien :</label></td>
                     <td colspan="3" rowspan="1">
                         <input type="text" name = "url" #url = "ngModel" [(ngModel)]="form.url" size="60"/>
                     </td>
