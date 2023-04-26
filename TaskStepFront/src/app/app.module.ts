@@ -23,6 +23,7 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+import { HttpClientModule } from '@angular/common/http';
 
 registerLocaleData(localeFr);
 
@@ -51,7 +52,8 @@ registerLocaleData(localeFr);
     AppRoutingModule,
     FormsModule,
     CommonModule,  
-    RecaptchaV3Module
+    RecaptchaV3Module,
+    HttpClientModule
   ],
   providers: [
     {

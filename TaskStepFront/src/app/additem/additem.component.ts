@@ -17,7 +17,8 @@ edit: boolean = false;
 
 submit() {
     if(this.edit == false){
-    let item = new Item(this.form.title, this.form.note, this.form.section, this.form.context, this.form.project, this.form.dueDate, this.form.url);
+    let item = new Item(this.form.title, this.form.note, this.form.context, this.form.project, this.form.dueDate, this.form.url,this.form.section);
+    console.log(item);
     FakeDatabase.AddItem(item);
     }
     else{

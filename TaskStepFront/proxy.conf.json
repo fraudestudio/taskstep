@@ -1,0 +1,7 @@
+{
+    "/api": {
+      "target": "http://info-dij-sae001.iut21.u-bourgogne.fr",
+      "secure": false,
+      "changeOrigin": true
+    }
+  }

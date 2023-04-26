@@ -1,14 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Project } from "src/app/model/project";
-import { FakeDatabase } from '../model/FakeDatabase';
+import { ProjectDao } from "src/app/model/project-service";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-byproject',
   templateUrl : 'byproject.component.html'
 })
-export class ByprojectComponent {
-  constructor(private route: ActivatedRoute,  private router: Router){  
+export class ByprojectComponent implements OnInit {
+  constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
+    this.projectDao = new ProjectDao(httpClient);
+  }
+
+  private projectDao : ProjectDao;
+
+  private projects : Project[] = []
+
+  ngOnInit(){
+    this.projectDao.getProjects().subscribe(projects => this.projects = projects);
   }
 
   get Title() : string {
@@ -36,15 +47,15 @@ export class ByprojectComponent {
     return history.state.data?.type;
   }
 
-  goEditMode(project : Project){
-    this.router.navigate(["editproject"], {state : {data : project}});
+  goEditMode(id : number){
+    this.router.navigate(["editproject"], {state : {data : id}});
   }
 
   setEditMode(){
     this.isEditing = true;
   }
 
-  get Projects() : Project[]{
-    return FakeDatabase.Projects;
+  get Projects() : any{
+    return this.projects;
   }
 }

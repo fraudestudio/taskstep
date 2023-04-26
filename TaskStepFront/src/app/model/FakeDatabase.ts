@@ -6,7 +6,7 @@ import { SideBarComponent } from "./sideBarComponent";
 
 export class FakeDatabase {
 
-    public static Items : Item[];
+    public static Items : Item[] = [];
     public static Contexts : Context[] = [
     ];
 
