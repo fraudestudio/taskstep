@@ -25,18 +25,22 @@ class Config
 	// -- CONFIGURATION --
 
 	private LocaleConfig $_locale;
-	private MySqlConfig $_legacyDatabase;
+    private MySqlConfig $_legacyDatabase;
+	private MySqlConfig $_currentDatabase;
 
 	public function locale(): LocaleConfig { return $this->_locale; }
 
 	public function legacyDatabase(): MySqlConfig { return $this->_legacyDatabase; }
+
+    public function currentDatabase(): MySqlConfig { return $this->_currentDatabase; }
 
 	private function __construct()
 	{
 		$configData = parse_ini_file("config.ini", true);
 		
 		$this->_locale = new LocaleConfig($configData['locale']);
-		$this->_legacyDatabase = new MySqlConfig($configData['database:legacy']);
+        $this->_legacyDatabase = new MySqlConfig($configData['database:legacy']);
+		$this->_currentDatabase = new MySqlConfig($configData['database:current']);
 	}
 }
 

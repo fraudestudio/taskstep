@@ -12,14 +12,11 @@ interface UserDaoInterface
     /**
      * Crée un utilisateur.
      * 
-     * @param $login Login du nouvel utilisateur
-     * @param $password Mot de passe du nouveau projet
-     * @param $mail Mail du nouvel utilisateur
-     * @param $CaptchaToken Token du captcha pour vérifier si le nouvel utilisateur n'est pas un robot
+     * @param $registration Les informations sur le nouvel utilisateur
      * 
-     * @return int id duy nouvel utilisateur
+     * @return L'ID du nouvel utilisateur
      */ 
-    public function SignUp(string $login, string $password, string $mail) : int;
+    public function create(Registration $registration) : int;
 
     /**
      * Récupère un projet par son identifiant.
@@ -29,7 +26,7 @@ interface UserDaoInterface
      * 
      * @return bool Comfirmation de connection
      */
-    public function SignIn(string $login, string $password): string;
+    public function SignIn(string $login, string $password): ?string;
 
     /**¨
      * Change le mot de passe d'un Utilisateur.
@@ -43,14 +40,22 @@ interface UserDaoInterface
 
 
     /**
-     * Mets à jour un projet.
+     * Mets à jour un conseil
      * 
      * @param $idUser L'identifiant du User
      * 
      * @param $displayTips Affichage des conseil
-     * @param $style style choisit
      */
-    public function ChangeSettings(int $idUser, ?bool $displayTips, ?int $style);
+    public function ChangeTips(int $idUser, bool $displayTips);
+
+    /**
+     * Mets à jour un style
+     * 
+     * @param  $idUser id de l'utilisateur à update
+     * 
+     * @param $style id du style
+     */
+    public function ChangeStyle(int $idUser, int $style);
 
     /**
      * Récupere un User liée au token donné

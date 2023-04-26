@@ -9,69 +9,43 @@ namespace TaskStep\Logic\Model;
  */
 class User
 {
-    
-    /*
-        Attribut 
-    */
-    private int $id;
-
-    private string $login;
-
-    private string $password;
-
-    private string $salt;
-
-    private string $mail;
-
-    private int $style;
-
-    private bool $tips;
+    private int $_id;
+    private string $_email;
+    private Settings $_settings;
 
     /**
-     * Getter setter
+     * Récupère l'identifiant de l'utilisateur.
      */
-
-     /**
-      * ID
-      */
-    public function GetId(): int {return $this->id; }
-    public function SetId(int $id) {$this->id = $id; }
+    public function id() : int { return $this->_id; }
 
     /**
-     * Login
+     * Récupère l'adresse mail de l'utilisateur.
      */
-    public function GetLogin() : string {return $this->login;}
-    public function SetLogin(string $login) {$this->login = $login;}
+    public function email() : string { return $this->_email; }
 
     /**
-     * Password
+     * Change l'adresse mail de l'utilisateur.
+     * 
+     * @param $email La nouvelle addresse mail.
      */
-    public function GetPassword() : string {return $this->password;}
-    public function SetPassword(string $password) {$this->password = $password;}
+    public function setEmail(string $email) : User {
+        $this->_email = $email;
+    }
 
     /**
-     * Sel
+     * Récupère les réglages de l'utilisateur.
      */
-    public function GetSalt() : string {return $this->salt;}
-    public function SetSalt(string $salt){$this->salt = $salt;}
+    public function settings() : Settings { return $this->_settings; }
 
     /**
-     * Mail
-     */
-    public function GetMail() : string {return $this->mail;}
-    public function SetMail(string $mail){$this->mail = $mail;}
-
-    /**
-     * Style
-     */
-    public function GetStyle() : int {return $this->style;}
-    public function SetStyle(int $style){$this->style = $style;}
-
-    /**
-     * Tips
-     */
-    public function GetTips():bool{return $this->tips;}
-    public function SetTips(bool $tips){$this->tips = $tips;}
-
-
+     * Crée un nouvel utilisateur.
+     * 
+     * @param $id (optionnel) L'identifiant de l'utilisateur. Il n'a pas besoin
+     *            d'être renseigné quand on en crée un nouveau.
+     */ 
+    public function __construct(int $id = -1)
+    {
+        $this->_id = $id;
+        $this->_settings = new Settings();
+    }
 }

@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
 
+use TaskStep\Middleware\Helpers\JsonSerializable;
+use Exception;
+
 /**
  * Un projet de tâche.
  */
-class Project
+class Project implements JsonSerializable
 {
 	private int $_id;
 	private string $_title;
@@ -42,5 +45,20 @@ class Project
 	public function __construct(int $id = -1)
 	{
 		$this->_id = $id;
+	}
+
+	public function jsonSerialize() : mixed {
+		return [
+			'Id' => $this->_id,
+			'Title' => $this->_title,
+		];
+	}
+
+	public function jsonDeserialize(mixed $value) : void {
+		// optionnel
+		if (key_exists('Id', $value)) $this->_id = $value['Id'];
+
+		// requis
+		$this->_title = $value['Title'] ?? throw new Exception("missing 'Title' field in 'Project' object");
 	}
 }

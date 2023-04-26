@@ -1,14 +1,16 @@
 <?php
 
-namespace TaskStep\Data\MySql\Dao;
+namespace TaskStep\Logic\Data\MySql\Dao;
 
 use DateTime;
-use TaskStep\Data\Database;
+use TaskStep\Logic\Data\MySql\Database;
 use TaskStep\Logic\Model;
 use TaskStep\Logic\Model\User;
 use TaskStep\Logic\Model\UserDaoInterface;
 use PDO;
 use Random\Randomizer;
+use TaskStep\Logic\Exceptions\BadTokenException;
+use TaskStep\Logic\Exceptions\TokenOutOfDateException;
 
 class UserDAO implements UserDaoInterface
 {
@@ -73,7 +75,7 @@ class UserDAO implements UserDaoInterface
         //Création de la date
         $date = new DateTime();
 
-        Database::getInstance()->executeQuery($query,array('token'=> $token,'date'=>$date,'idUser'=>$idUser));
+        Database::getInstance()->executeNonQuery($query,array('token'=> $token,'date'=>$date,'idUser'=>$idUser));
 
         return $token;
     }
@@ -88,7 +90,20 @@ class UserDAO implements UserDaoInterface
      */
     public function ChangePassword(int $idUser, string $mdp): bool
     {
-        return true;
+        //Modification du nouveau mot de passe
+        $query = "update `User` set MDP = :mdp where id = :id";
+        Database::getInstance()->executeNonQuery($query,array('mdp'=>$mdp,'id'=>password_hash($mdp,PASSWORD_BCRYPT)));
+
+        //Récupération du mot de passe fraichement modifié
+        $query = "select MDP from user where id = :id";
+        $data = Database::getInstance()->executeQuery($query,array('id'=>$idUser))->fetch(PDO::FETCH_ASSOC);
+
+        //Réponse au controller
+        if($this->Authentification($data['MDP'],$mdp)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
@@ -98,11 +113,28 @@ class UserDAO implements UserDaoInterface
      * @param $idUser L'identifiant du User
      * 
      * @param $displayTips Affichage des conseil
-     * @param $style style choisit
      */
-    public function ChangeSettings(int $idUser, ?bool $displayTips, ?int $style)
+    public function ChangeTips(int $idUser, bool $displayTips)
     {
+        if($displayTips){
+            $queryBase = "update `User` set tips = 1 where id = :id ";
+        }else{
+            $queryBase = "update `User` set tips = 0 where id = :id";
+        }
 
+        Database::getInstance()->executeNonQuery($queryBase,array('id'=>$idUser));
+         
+    }
+
+    /**
+     * Mets à jour un projet.
+     * 
+     * @param $idUser L'identifiant du User
+     * 
+     * @param $style style choisit entre 0 et 2
+     */
+    public function ChangeStyle(int $idUser, int $style){
+        Database::getInstance()->executeNonQuery("update `User` set style = :style where id = :id",array('style'=>$style,'id'=>$idUser));
     }
 
     /**
@@ -114,6 +146,24 @@ class UserDAO implements UserDaoInterface
      */
     public function GetUserByToken(string $token) : User
     {
-        return new User();
+        $query = "Select u.*,t.* from User as u join Session as t on u.id = t.idUser where t.token = :token";
+        $answer = Database::getInstance()->executeQuery($query,array('token'=>$token))->fetch(PDO::FETCH_ASSOC);
+
+        $dateToken = new DateTime($answer['date']);
+        $result = new User();
+        if(is_null($answer)){
+            throw new BadTokenException();
+        }else if($dateToken->diff(new DateTime())->m > 20){
+            throw new TokenOutOfDateException();
+        }else{
+            $result->SetId($answer["id"]);
+            $result->SetLogin($answer["login"]);
+            $result->SetMail($answer["mail"]);
+            $result->SetPassword($answer["MDP"]);
+            $result->SetStyle($answer["style"]);
+            $result->SetTips($answer["tips"]);
+        }
+
+        return $result;
     }
 }
