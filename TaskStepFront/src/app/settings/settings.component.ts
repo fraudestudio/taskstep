@@ -73,6 +73,16 @@ export class SettingsComponent {
     this.changePasswordConfirmation = false;
   }
 
+
+  get message() : string {
+    return history.state.data?.message; 
+  }
+
+  get type() : string {
+    return history.state.data?.type;
+  } 
+
+
   /**
    * Return if the display tips is checked
    */

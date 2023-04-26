@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { FakeDatabase } from '../model/FakeDatabase';
 
 @Component({
   selector: 'app-login',
@@ -15,15 +16,13 @@ export class LoginComponent {
    * @param router 
    */
   constructor(private route: ActivatedRoute,  private router: Router) {
-    if (sessionStorage.getItem("login") == "true"){
-      //this.router.navigate(['index']);
-    }
   }
   
   /**
    * Information of the form
    */
   form : any  = {
+    email : null,
     password : null
   };
 
@@ -34,6 +33,14 @@ export class LoginComponent {
     return this.hasError;
   } 
 
+  get message() : string {
+    return history.state.data?.message; 
+  }
+
+  get type() : string {
+    return history.state.data?.type;
+  }
+
   /**
    * When the connexion button is it
    * if the password is good, we go to the index
@@ -41,9 +48,11 @@ export class LoginComponent {
    */
   submit(){
     // Temporaire
-    if (this.form.password == "taskstep"){
+    if (FakeDatabase.VerifyUser(this.form.email,this.form.password)){
+
       this.router.navigate(['index']);
       sessionStorage.setItem("login","true");
+      sessionStorage.setItem("User",this.form.email)
     } 
     else {
       this.hasError = true;

@@ -2,13 +2,32 @@
 <div id="container">
     <div id="loginbox">
         <h1><img src="assets/images/icon.png" alt="" /> TaskStep</h1>
-        <p><img src="assets/images/shield.png" alt="" /> <br>Veuillez saisir votre mot de passe pour vous connecter.</p>
+        <div *ngIf="message">
+            <div *ngIf='type == "confirmation"' class="confirmation">
+                <p><img src="assets/images/accept.png"/>{{message}}</p>
+            </div>
+            <div *ngIf='type == "warning"' class="warning">
+                <p><img src="assets/images/exclamation.png"/>{{message}}</p>
+            </div>
+        </div>
+        <p><img src="assets/images/shield.png" alt="" /> <br>Veuillez saisir votre email et votre mot de passe pour vous connecter.</p>
         <form #f = "ngForm" (ngSubmit)="submit()">
-            <input type="password" name = "password" #name = "ngModel" [(ngModel)]="form.password"/>
-            &nbsp;
+
+            <label>Adresse mail</label>
+            <br>
+            <input type="email" name = "email" #email = "ngModel" [(ngModel)]="form.email"/>
+            <br>
+            <br>
+            <label>Mot de passe</label>
+            <br>
+            <input type="password" name = "password" #password = "ngModel" [(ngModel)]="form.password"/>
+            <br>
+            <br>
             <input type="submit" name="submit" value="Connexion"/>
         </form> 
-        <p *ngIf="HasError"><img src="assets/images/cross.png" alt=""> Mot de passe incorrecte.</p>
+        <p *ngIf="HasError"><img src="assets/images/cross.png" alt="">Mot de passe ou email incorrecte.</p>
+
+        <p><a href="" onclick="return false;" routerLink="/register" >Je n'ai pas de compte</a></p>
     </div>
 </div>
 <app-footer/>

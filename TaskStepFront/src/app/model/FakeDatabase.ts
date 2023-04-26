@@ -44,11 +44,44 @@ export class FakeDatabase {
     }
 
 
-    public static Users : User[] = [];
+    public static Users : User[] = [
+        new User("test@gmail.com","test"),
+    ];
 
-    public static AddUser(name : string, mail : string, password : string) {
-        FakeDatabase.Users.push(new User(name,mail,password));
-        console.log("add " + name)
+    public static AddUser(mail : string, password : string) {
+        FakeDatabase.Users.push(new User(mail,password));
     }
+
+    public static VerifyUser(mail : string, password : string) : boolean{
+        var res  = false;
+        FakeDatabase.Users.forEach(user => {
+            if (user.mail == mail){
+                if (user.password == password){
+                    res = true;
+                }
+            }
+        });
+        return res;
+    }
+
+    public static ChangePassword(mail : string, password : string){
+        FakeDatabase.Users.forEach(user => {
+            if (user.mail == mail){
+                user.password = password;
+            }
+        });      
+    }
+
+    public static GetPassword(mail :string) : string {
+        var res = ""
+        FakeDatabase.Users.forEach(user => {
+            if (user.mail == mail){
+                res = user.password;
+            }
+        });    
+        
+        return res;
+    }
+
 
 }

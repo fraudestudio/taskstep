@@ -1,10 +1,8 @@
 export class User{
-    public name : string;
     public mail : string; 
     public password : string;
 
-    constructor(name : string, mail : string, password : string){
-        this.name = name;
+    constructor(mail : string, password : string){
         this.mail = mail;
         this.password = password;
     }

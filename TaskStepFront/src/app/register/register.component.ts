@@ -11,7 +11,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class RegisterComponent implements AfterViewInit{
 
   constructor(private recaptchaV3Service: ReCaptchaV3Service, private route: ActivatedRoute,  private router: Router){
-
   }
 
   ngAfterViewInit(): void {
@@ -25,7 +24,6 @@ export class RegisterComponent implements AfterViewInit{
       mail : null,
       password : null,
       confirmPassword : null,
-      captcha : null
   };
   
 
@@ -37,8 +35,9 @@ export class RegisterComponent implements AfterViewInit{
     this.recaptchaV3Service.execute('importantAction')
     .subscribe((token: string) => {
       console.log(token);
-      FakeDatabase.AddUser(this.form.username,this.form.mail, this.form.password);
-      this.router.navigate(["login"])
+      FakeDatabase.AddUser(this.form.mail, this.form.password);
+
+      this.router.navigate(["login"], {state : {data : { message : "Votre compte a bien été créer ! Vous pouvez maintenant vous connectez.", type : "confirmation"}}})
     });
 
   }
