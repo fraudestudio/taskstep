@@ -80,4 +80,23 @@ class ItemController extends Controller
 
 		$this->okResponse();
 	}
+
+	/**
+	 * Supprime un item.
+	 */
+	public function deleteOne()
+	{
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$project = $this->itemDao->delete($id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->okResponse();
+	}
 }
