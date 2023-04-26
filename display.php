@@ -46,7 +46,7 @@ $formData = ['display' => $display];
 switch ($display)
 {
 case "section":
-	$result = $items->readBySection($section);
+	$result = $items->readBySection(USER, $section);
 
 	$title = l->sections->{$section->value};
 	$noResultsUrl = "?section=$section->value";

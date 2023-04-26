@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Data\MySql\Dao;
 
+use TaskStep\Logic\Exceptions\NotFoundException;
 use TaskStep\Logic\Model\{Context, ContextDaoInterface, User};
 use TaskStep\Logic\Data\MySql\Database;
 
@@ -11,50 +12,73 @@ use PDO;
 
 class ContextDao implements ContextDaoInterface
 {
-    public function create(User $user,Context $context) : int
+    public function create(User $user, Context $project) : int
     {
+        $result = -1;
+
         Database::getInstance()->executeNonQuery(
-            'insert into contexts(title,user) values (:title,:id)',
-            array('title'=>$context->title(),'id'=>$user->GetId())
+            "INSERT INTO contexts (title, User) VALUES (:title, :user)",
+            ['title' => $project->title(), 'user' => $user->id()]
         );
 
-        $answer = Database:: getInstance()->executeQuery('select last_insert_id()')->fetch(PDO::FETCH_ASSOC);
+        $query = Database::getInstance()->executeQuery("SELECT last_insert_id()");
+        $result = $query->fetch()[0];
 
-        return $answer['id'];
-    }
-
-    
-    public function readById(int $id): Context
-    {
-        throw new \Exception("TODO!");
-    }
-
-    
-    public function readAll(User $user): array
-    {
-        $answer = Database::getInstance()->executeQuery('select c.* from contexts as c where c.User = :id',array('id'=>$user->GetId()));
-        $result = [];
-        $data = $answer->fetch(PDO::FETCH_ASSOC);
-
-        while($data != null){
-            $tmp = new Context($data["id"]);
-            $tmp->setTitle($data["title"]);
-            array_push($result,$tmp);
-            $data = $answer->fetch(PDO::FETCH_ASSOC);
-        }
-        
         return $result;
     }
 
-    
-    public function update(int $id, Context $context)
+    public function readById(User $user, int $id) : Context
     {
-        Database::getInstance()->executeNonQuery('update contexts set title = :context where id = :id',array('context'=>$context->title(),'id'=>$id));
+        $query = Database::getInstance()->executeQuery(
+            "SELECT * FROM contexts WHERE id = :id AND User = :user",
+            ['id' => $id, 'user' => $user->id()]
+        );
+        
+        if ($data = $query->fetch())
+        {
+            return (new Context($data["id"]))->setTitle($data["title"]);
+        }
+        else
+        {
+            throw new NotFoundException();
+        }
     }
 
-    
-    public function delete(int $id)
+    public function readAll(User $user) : array
     {
-        Database::getInstance()->executeNonQuery('delete from contexts where id = :id',array('id'=>$id));
+        $result = array();
+
+        $request = "SELECT * FROM contexts WHERE User = :user";
+        $query = Database::getInstance()->executeQuery($request, array('user'=>$user->id()));
+
+        while($data = $query->fetch())
+        {
+            array_push(
+                $result,
+                (new Context($data['id']))->setTitle($data['title'])
+            );
+        }
+
+        return $result;
+    }
+
+    public function update(User $user, int $id, Context $project)
+    {
+        $rowCount = Database::getInstance()->executeNonQuery(
+            "UPDATE contexts SET title = :title WHERE id = :id AND User = :user",
+            ['title' => $project->title(), 'id' => $id, 'user' => $user->id()]
+        );
+
+        if ($rowCount != 1) throw new NotFoundException();
+    }
+
+    public function delete(User $user, int $id)
+    {
+        $rowCount = Database::getInstance()->executeNonQuery(
+            "DELETE FROM contexts WHERE id = :id AND user = :user",
+            ['id' => $id, 'user' => $user->id()]
+        );
+
+        if ($rowCount != 1) throw new NotFoundException();
     }
 }

@@ -14,14 +14,14 @@ interface ContextDaoInterface
      * 
      * @param $context Le nouveau contexte.
      */ 
-    public function create(User $user,Context $context): int;
+    public function create(User $user, Context $context): int;
 
     /**
      * Récupère un contexte par son identifiant.
      * 
      * @param $id L'identifiant du contexte à récupérer.
      */
-    public function readById(int $id): Context;
+    public function readById(User $user, int $id): Context;
 
     /**
      * Récupère tous les contextes.
@@ -35,12 +35,12 @@ interface ContextDaoInterface
      * 
      * @param $context Le contexte modifié.
      */
-    public function update(int $id, Context $context);
+    public function update(User $user, int $id, Context $context);
 
     /**
      * Supprime un contexte.
      * 
      * @param $id L'identifiant du contexte à supprimer.
      */
-    public function delete(int $id);
+    public function delete(User $user,int $id);
 }
