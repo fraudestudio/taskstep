@@ -18,7 +18,7 @@
 
     <div id="sidebar">                     
       <ul>
-        <li><a><img src = "assets/images/add.png" alt=""> Ajouter une tâche</a></li>
+        <li><a routerLink="/additem"><img src = "assets/images/add.png" alt=""> Ajouter une tâche</a></li>
         <li *ngFor="let bar of SideBar">
             <a><img src ={{bar.Image}} alt=""/> {{bar.Title}} <span class="noundone">{{bar.Done}}</span><span class="nodone"> {{bar.UnDone}}</span></a>
         </li>

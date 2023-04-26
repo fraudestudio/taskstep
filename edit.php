@@ -131,7 +131,7 @@ if ($clear)	//If 'clear' is true, we set the form values to blank/default values
 </tr>
 <tr>
    <td><?php echo $l_forms_url; ?>:</td>
-   <td colspan="3" rowspan="1">
+   <td>
       <input type='text' name='url' value="<?php echo $url ?>" size="60" />
    </td>
 </tr>
@@ -139,7 +139,7 @@ if ($clear)	//If 'clear' is true, we set the form values to blank/default values
    <td></td>
    <td colspan="3" rowspan="1"><input type="submit" name="submit" value="<?php echo $l_forms_button[$type]; ?>" /></td> 
 </tr>
-</table>
+</table> 
 <input type="hidden" name="id" value="<?php echo $id ?>" />
 </div>
 </form>

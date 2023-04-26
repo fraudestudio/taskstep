@@ -8,12 +8,14 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   selector: 'app-addproject',
   templateUrl : 'addproject.component.html'
 })
+
 export class AddprojectComponent {
   /**
    * Information of the form
    */
   form : any  = {
-    title : null
+    title : null,
+    
   };
 
   constructor(private route: ActivatedRoute,  private router: Router){

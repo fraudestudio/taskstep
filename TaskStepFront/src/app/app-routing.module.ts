@@ -12,6 +12,7 @@ import { ByprojectComponent } from './byproject/byproject.component';
 import { AddprojectComponent } from './addproject/addproject.component';
 import { EditprojectComponent } from './editproject/editproject.component';
 import { RegisterComponent } from './register/register.component';
+import { AdditemComponent } from './additem/additem.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path : "addproject", component: AddprojectComponent, canActivate:[AuthGuard]},
   {path : "editproject", component: EditprojectComponent, canActivate:[AuthGuard]},
   {path : "register", component:RegisterComponent},
-  {path : '**', component: PagenotfoundComponent},
+  {path : 'additem', component: AdditemComponent},
+  {path : '**', component: PagenotfoundComponent },
 ];
 
 @NgModule({

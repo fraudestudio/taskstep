@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AdditemComponent } from './additem/additem.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { LoginComponent } from './login/login.component';
 import { IndexComponent } from './index/index.component';
@@ -27,6 +28,7 @@ registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
+
     AppComponent,
     NavigationBarComponent,
     LoginComponent,
@@ -42,7 +44,7 @@ registerLocaleData(localeFr);
     AddprojectComponent,
     EditprojectComponent,
     RegisterComponent,
-
+    AdditemComponent
   ],
   imports: [
     BrowserModule,
