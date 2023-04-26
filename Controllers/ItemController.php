@@ -51,13 +51,33 @@ class ItemController extends Controller
 
 		try
 		{
-			$project = $this->itemDao->readById($id);
+			$item = $this->itemDao->readById($id);
 		}
 		catch (NotFoundException)
 		{
 			$this->notFound();
 		}
 
-		$this->jsonResponse($project);
+		$this->jsonResponse($item);
+	}
+
+	/**
+	 * Modifie un projet.
+	 */
+	public function putOne()
+	{
+		$id = $this->requireInt('id');
+		$item = $this->requireBodyObject(Item::class);
+		
+		try
+		{
+			$this->itemDao->update($id, $item);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->okResponse();
 	}
 }
