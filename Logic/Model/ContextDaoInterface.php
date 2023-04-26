@@ -21,7 +21,7 @@ interface ContextDaoInterface
      * 
      * @param $id L'identifiant du contexte à récupérer.
      */
-    public function readById(int $id): Context;
+    public function readById(User $user, int $id): Context;
 
     /**
      * Récupère tous les contextes.
