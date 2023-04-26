@@ -1,26 +1,26 @@
 <div id = "container">
     <!--Header-->
     <div id="header"> 
-      <h1><a routerLink="/index"><img src="assets/images/icon.png" alt="" style="vertical-align:middle"/></a>&nbsp;<a routerLink="/index">TaskStep <span class="subtitle">1.2</span></a></h1>
+      <h1><a routerLink="/index"><img src="assets/images/icon.png" alt="Logo de taskstep" style="vertical-align:middle"/></a>&nbsp;<a routerLink="/index">TaskStep <span class="subtitle">1.2</span></a></h1>
     </div>
     <div id="headernav" >
 	    <ul >
-		    <li><a><img src="assets/images/calendar_view_day.png" alt="" /></a><a> Aujourd'hui : {{ Date }}</a></li>
-		    <li><a routerLink="/index"><img src="assets/images/house.png" alt="" /></a><a routerLink="/index"> Accueil</a></li>
-		    <li><a><img src="assets/images/page_white_text.png" alt="" /></a><a> Toutes les tâches</a></li>
-		    <li><a routerLink="/bycontext"><img src="assets/images/context.png" alt="" /></a><a routerLink="/bycontext"> Tous les contextes</a></li>
-		    <li><a routerLink="/byproject"><img src="assets/images/project.png" alt="" /></a><a routerLink="/byproject"> Tous les projets</a></li>
-		    <li><a routerLink="/settings"><img src="assets/images/textfield_rename.png" alt="" /></a><a routerLink="/settings"> Paramètres</a></li>
-		    <li><a href="http://taskstep.com/forum/"><img src="assets/images/help.png" alt="" /></a><a href="http://taskstep.com/forum/"> Aide</a></li>
-		    <li><a href="" onclick="return false;" (click)="disconnect()"><img src="assets/images/door_in.png" alt=""/></a><a href="" onclick="return false;" (click)="disconnect()"> Se déconnecter</a></li>
+		    <li><a><img src="assets/images/calendar_view_day.png" alt="Icône de calendrier" /></a><a> Aujourd'hui : {{ Date }}</a></li>
+		    <li><a routerLink="/index"><img src="assets/images/house.png" alt="Icône de maison" /></a><a routerLink="/index"> Accueil</a></li>
+		    <li><a><img src="assets/images/page_white_text.png" alt="Icône de tâches" /></a><a> Toutes les tâches</a></li>
+		    <li><a routerLink="/bycontext"><img src="assets/images/context.png" alt="Icône de contextes" /></a><a routerLink="/bycontext"> Tous les contextes</a></li>
+		    <li><a routerLink="/byproject"><img src="assets/images/project.png" alt="Icône de projets" /></a><a routerLink="/byproject"> Tous les projets</a></li>
+		    <li><a routerLink="/settings"><img src="assets/images/textfield_rename.png" alt="Icône de paramètre" /></a><a routerLink="/settings"> Paramètres</a></li>
+		    <li><a href="http://taskstep.com/forum/"><img src="assets/images/help.png" alt="Icône d'aide" /></a><a href="http://taskstep.com/forum/"> Aide</a></li>
+		    <li><a href="" onclick="return false;" (click)="disconnect()"><img src="assets/images/door_in.png" alt="Icône de deconnexion"/></a><a href="" onclick="return false;" (click)="disconnect()"> Se déconnecter</a></li>
       </ul>
     </div>
 
     <div id="sidebar">                     
       <ul>
-        <li><a routerLink="/additem"><img src = "assets/images/add.png"> Ajouter une tâche</a></li>
+        <li><a routerLink="/additem"><img src = "assets/images/add.png" alt=""> Ajouter une tâche</a></li>
         <li *ngFor="let bar of SideBar">
-            <a><img src ={{bar.Image}}/> {{bar.Title}} <span class="noundone">{{bar.Done}}</span><span class="nodone"> {{bar.UnDone}}</span></a>
+            <a><img src ={{bar.Image}} alt=""/> {{bar.Title}} <span class="noundone">{{bar.Done}}</span><span class="nodone"> {{bar.UnDone}}</span></a>
         </li>
       </ul>
     </div>

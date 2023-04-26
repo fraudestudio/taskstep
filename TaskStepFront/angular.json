@@ -54,7 +54,10 @@
             "styles": [
               {
                 "input": "src/assets/styles/styles.css",
-                
+                "inject": true
+              },
+              {
+                "input": "src/assets/styles/bootstrap-grid.css",
                 "inject": true
               }
             ],
