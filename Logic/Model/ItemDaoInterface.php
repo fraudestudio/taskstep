@@ -56,7 +56,7 @@ interface ItemDaoInterface
 	 * 
 	 * @param $date La date pour laquelle récupérer les items.
 	 */
-	public function readByDate(DateTime $date): array;
+	public function readByDate(DateTime $date, int $int): array;
 
 	/**
 	 * Récupère les items du jour.
@@ -66,7 +66,7 @@ interface ItemDaoInterface
 	 * 
 	 * @param $day Le jour pour lequel chercher les items.
 	 */
-	public function readDaily(DateTime $day): array;
+	public function readDaily(DateTime $day,int $int): array;
 
 	/**
 	 * Mets à jour un item.
