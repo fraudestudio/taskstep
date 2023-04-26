@@ -30,13 +30,34 @@ class ItemController extends Controller
 		$this->jsonResponse($projects);
 	}
 
+	/**
+	 * Crée un item associé à l'utilisateur connecté 
+	 */
 	public function post()
 	{
-		$project = $this->requireBodyObject(Item::class);
+		$item = $this->requireBodyObject(Item::class);
 
-		$id = $this->itemDao->create($project);
+		$id = $this->itemDao->create($item, $this->requireUser());
 
 		$this->createdResponse('item', ['id' => $id]);
 	}
 
+		/**
+	 * Récupère un Item.
+	 */
+	public function getOne()
+	{
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$project = $this->itemDao->readById($id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($project);
+	}
 }
