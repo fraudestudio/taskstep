@@ -189,5 +189,36 @@ class ItemController extends Controller
 
 		$this->jsonResponse($item);
 	}
+
+	public function countUndone()
+	{
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$item = $this->itemDao->countUndone($id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+	}
 	
+	public function countBySection()
+	{
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$item = $this->itemDao->countBySection($id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+	}
 }
