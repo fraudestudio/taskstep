@@ -21,7 +21,7 @@ else
 	exit("unknown type '$type'");
 }
 
-$categories = $dao->readAll();
+$categories = $dao->readAll(USER);
 usort($categories, function($a, $b) { return strnatcasecmp($a->title(), $b->title()); });
 
 ?>

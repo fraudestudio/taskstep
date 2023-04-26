@@ -58,7 +58,7 @@ class ItemDao implements ItemDaoInterface
         return $result;
 	}
 
-	public function readBySection(User $user,Section $section): array
+	public function readBySection(User $user, Section $section): array
 	{
 		$statement = Database::instance()->execute('SELECT i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where c.id = "?" and i.User = "?" ; ', $section->value, $user->id());
 
@@ -74,7 +74,7 @@ class ItemDao implements ItemDaoInterface
         return $result;
 	}
 
-	public function readByContext(User $user,Context $context): array
+	public function readByContext(User $user, Context $context): array
 	{
 		$statement = Database::instance()->execute('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where c.id = "?" and i.User = "?" ', $context->id(), $user->id());
 

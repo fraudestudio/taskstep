@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Data\LegacyMySql;
 
-use TaskStep\Logic\Model\{Project, ProjectDaoInterface};
+use TaskStep\Logic\Model\{User, Project, ProjectDaoInterface};
 use \Exception;
 
 /**
@@ -12,15 +12,17 @@ use \Exception;
  */
 class ProjectDao implements ProjectDaoInterface
 {
-    public function create(Project $project)
+    public function create(User $user, Project $project) : int
     {
         Database::instance()->execute(
             'INSERT INTO projects (title) VALUES (:title)',
             title: $project->title()
         );
+
+        return 0;
     }
     
-    public function readById(int $id): Project
+    public function readById(User $user, int $id): Project
     {
         $statement = Database::instance()->execute('SELECT * FROM projects WHERE id = ?', $id);
 
@@ -34,7 +36,7 @@ class ProjectDao implements ProjectDaoInterface
         }
     }
     
-    public function readAll(): array
+    public function readAll(User $user): array
     {
         $statement = Database::instance()->execute('SELECT * FROM projects');
 
@@ -76,7 +78,7 @@ class ProjectDao implements ProjectDaoInterface
         return $project;
     }
     
-    public function update(int $id, Project $project)
+    public function update(User $user, int $id, Project $project)
     {
         Database::instance()->execute(
             'UPDATE projects SET title=:title WHERE id=:id',
@@ -85,7 +87,7 @@ class ProjectDao implements ProjectDaoInterface
         );
     }
     
-    public function delete(int $id)
+    public function delete(User $user, int $id)
     {
         throw new \Exception("TODO!");
     }

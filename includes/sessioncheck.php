@@ -11,3 +11,7 @@ if(!$_SESSION['loggedin'])
 	header("Location: http://$host$baseUri/login.php");
 	exit;
 }
+
+require_once "autoload.php";
+
+define('USER', new \TaskStep\Logic\Model\User());
