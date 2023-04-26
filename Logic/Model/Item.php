@@ -22,6 +22,7 @@ class Item
 	private Context $_context;
 	private Project $_project;
 	private bool $_done;
+	private int $_id_user;
 
 	/**
 	 * L'identifiant de la tâche.
@@ -193,6 +194,22 @@ class Item
 	}
 
 	/**
+	 * indique l'utilisateur qui possède la tache
+	 */
+	public function user_id(): int {return $this->_id_user;}
+
+	/**
+	 * modifie l'id de l'utilisateur associé a la tache
+	 * 
+	 * @param $id le nouvelle id
+	 */
+	public function setUserId(int $id): Item
+	{
+		$this->_id_user = $id;
+		return $this;
+	}
+
+	/**
 	 * Crée une tâche.
 	 * 
 	 * @param $id L'identifiant de la tâche. Il n'a pas besoin d'être indiqué
@@ -209,5 +226,6 @@ class Item
 		$this->_context = new Context();
 		$this->_project = new Project();
 		$this->_done = false;
+		$this->_id_user = $id;
 	}
 }

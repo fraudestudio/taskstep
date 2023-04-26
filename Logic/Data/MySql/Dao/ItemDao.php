@@ -22,7 +22,7 @@ class ItemDao implements ItemDaoInterface
 			->setContext($data['context'])
 			->setProject($data['project'])
 			->setDone($data['done'])
-			->setUser_Id($data['user_id']);
+			->setUserId($data['user_id']);
 	}
 
 	public function create(Item $item)
