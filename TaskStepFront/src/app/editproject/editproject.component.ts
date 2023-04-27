@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { FakeDatabase } from '../model/FakeDatabase';
+import { Component, OnInit } from '@angular/core';
+import { ProjectService } from "src/service/project-service";
+import { HttpClient } from '@angular/common/http';
 import { Project } from "src/app/model/project";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -10,10 +11,28 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 
 
-export class EditprojectComponent {
+export class EditprojectComponent implements OnInit {
+
+  
   private checkbox : boolean = true;
 
+
+  constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
+    this.projectDao = new ProjectService(httpClient);
+  }
+
+  private projectDao : ProjectService;
+
   private currentProject : Project = new Project("");
+
+  get CurrentProject() : Project {
+    return this.currentProject;
+  }
+
+  hasReceivedInfo() : boolean{
+    return this.currentProject.Id != -1;
+  }
+
 
   /**
    * Information of the form
@@ -23,30 +42,32 @@ export class EditprojectComponent {
   };
 
 
-  ngOnInit(){
-    this.currentProject.Id = history.state.data.id;
-    this.currentProject.Title = history.state.data.title;
-    this.form.title = this.currentProject.Title;
+  ngOnInit() : void{
+    this.projectDao.getProject(history.state.data).subscribe(project => this.form.title = project.Title);
+    this.projectDao.getProject(history.state.data).subscribe(project => this.currentProject = project);
   }
-
-  constructor(private route: ActivatedRoute,  private router: Router){
-
-  }
-
-  checkBoxChanged(value : boolean){
-    this.checkbox = value;
-  }
-
 
   deleteProject(){
-    FakeDatabase.RemoveProject(this.currentProject.Id);
-    this.router.navigate(["byproject"], {state : {data : {message : "Votre projet \""+ this.form.title +"\" a bien été supprimer !", type : "confirmation"}}});    
+    this.projectDao.deleteProject(history.state.data).subscribe((data) =>
+    {
+      if (!data){
+        this.router.navigate(["byproject"], {state : {data : {message : "Votre projet \""+ this.form.title +"\" a bien été supprimer !", type : "confirmation"}}});       
+      }
+      else {
+        this.router.navigate(["byproject"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});
+      }
+    });  
   }
 
   submit(){
-
-    FakeDatabase.ModifyProject(this.currentProject.Id,new Project(this.form.title));
-    this.router.navigate(["byproject"], {state : {data : {message : "Votre projet \""+ this.form.title +"\" a bien été modifier !", type : "confirmation"}}});
+    this.projectDao.modifyProject(history.state.data, this.form.title).subscribe((data) =>
+    {
+      if (!data){
+        this.router.navigate(["byproject"], {state : {data : {message : "Votre projet \""+ this.form.title +"\" a bien été modifier !", type : "confirmation"}}});       
+      }
+      else {
+        this.router.navigate(["byproject"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});
+      }
+    });  
   }
-  
 }

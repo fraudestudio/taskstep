@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FakeDatabase } from '../model/FakeDatabase';
+import { ContextService } from "src/service/context-service";
+import { HttpClient } from '@angular/common/http';
 import { Context } from "src/app/model/context";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -9,9 +10,20 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class EditcontextComponent implements OnInit {
 
+
+  constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
+    this.contextService = new ContextService(httpClient);
+  }
+  
+  private contextService : ContextService;
+
   private checkbox : boolean = true;
 
   private currentContext : Context = new Context("");
+
+  get CurrentContext() : Context {
+    return this.currentContext;
+  }
 
   /**
    * Information of the form
@@ -22,14 +34,15 @@ export class EditcontextComponent implements OnInit {
 
 
   ngOnInit(){
-    this.currentContext.Id = history.state.data.id;
-    this.currentContext.Title = history.state.data.title;
-    this.form.title = this.currentContext.Title;
+    this.contextService.getContext(history.state.data).subscribe(context => this.form.title = context.Title);
+    this.contextService.getContext(history.state.data).subscribe(context => this.currentContext = context);
   }
 
-  constructor(private route: ActivatedRoute,  private router: Router){
 
+  hasReceivedInfo() : boolean{
+    return this.currentContext.Id != -1;
   }
+
 
   checkBoxChanged(value : boolean){
     this.checkbox = value;
@@ -37,14 +50,27 @@ export class EditcontextComponent implements OnInit {
 
 
   deleteContext(){
-    FakeDatabase.RemoveContext(this.currentContext.Id);
-    this.router.navigate(["bycontext"], {state : {data : {message : "Votre contexte \""+ this.form.title +"\" a bien été supprimer !", type : "confirmation"}}});    
+    this.contextService.deleteContext(history.state.data).subscribe((data) =>
+    {
+      if (!data){
+        this.router.navigate(["bycontext"], {state : {data : {message : "Votre contexte \""+ this.form.title +"\" a bien été supprimer !", type : "confirmation"}}});    
+      }
+      else {
+        this.router.navigate(["bycontext"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});
+      }
+    });  
   }
 
   submit(){
-
-    FakeDatabase.ModifyContext(this.currentContext.Id,new Context(this.form.title));
-    this.router.navigate(["bycontext"], {state : {data : {message : "Votre contexte \""+ this.form.title +"\" a bien été modifier !", type : "confirmation"}}});
+    this.contextService.modifyContext(history.state.data, this.form.title).subscribe((data) =>
+    {
+      if (!data){
+        this.router.navigate(["bycontext"], {state : {data : {message : "Votre contexte \""+ this.form.title +"\" a bien été modifier !", type : "confirmation"}}});
+      }
+      else {
+        this.router.navigate(["bycontext"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});
+      }
+    });  
   }
   
 }

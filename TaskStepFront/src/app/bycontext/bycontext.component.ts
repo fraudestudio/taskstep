@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Context } from "src/app/model/context";
 import { FakeDatabase } from '../model/FakeDatabase';
+import { ContextService } from "src/service/context-service";
+import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -10,9 +12,18 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 
 
-export class BycontextComponent {
+export class BycontextComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,  private router: Router){  
+  constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
+    this.contextService = new ContextService(httpClient);
+  }
+
+  private contextService : ContextService;
+
+  private contexts : Context[] = [];
+
+  ngOnInit(){
+    this.contextService.getContexts().subscribe(contexts => this.contexts = contexts);
   }
 
   get Title() : string {
@@ -40,8 +51,8 @@ export class BycontextComponent {
     return history.state.data?.type;
   }
 
-  goEditMode(context : Context){
-    this.router.navigate(["editcontext"], {state : {data : context}});
+  goEditMode(id : number){
+    this.router.navigate(["editcontext"], {state : {data : id}});
   }
 
   setEditMode(){
@@ -49,6 +60,6 @@ export class BycontextComponent {
   }
 
   get Contexts() : Context[]{
-    return FakeDatabase.Contexts;
+    return this.contexts;
   }
 }
