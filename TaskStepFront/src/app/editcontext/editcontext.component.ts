@@ -44,11 +44,6 @@ export class EditcontextComponent implements OnInit {
   }
 
 
-  checkBoxChanged(value : boolean){
-    this.checkbox = value;
-  }
-
-
   deleteContext(){
     this.contextService.deleteContext(history.state.data).subscribe((data) =>
     {
