@@ -49,6 +49,63 @@
 	--side-bar-done-color : green;
 
 	--footer-color : rgb(107, 104, 104);
+	--container-width : 1000px;
+	--header-nav-size : 22px;
+}
+
+
+[data-theme = "professionnal"]{
+	--background-color: white;
+	--title-color: white;
+	--subtitle-color: white;
+
+	--navbar-background-color:#ececef;
+	--navbar-text-color:black;
+
+	--sidebar-text-color:black;
+	--sidebar-background-hover: #ececef;
+
+	--content-color : black;
+	--content-a-color : black;
+
+	--immediate-background-color : #ffa;
+	--immediate-border-color : #cc0;
+
+	--welcome-background-color : #cfc;
+	--welcome-border-color : #0c0;
+
+	--tips-background-color : #ddf;
+	--tips-border-color : #33d;
+	--tips-text-color: #33d;
+
+	--loginbox-color: #f3f3f3;
+	--loginbox-border-color: #ddd;
+	--loginbox-text-color : #555;
+	
+	--button-color : white;
+	--button-text :black;
+	--button-border-color: #ddd;
+	--button-hover-color: #ececef;
+
+	--warning-background-color : rgb(243, 146, 146);
+	--warning-border-color : #ff0000;
+	--warning-text-color : black;
+
+	--confirmation-background-color : #62e081;
+	--confirmation-border-color : rgb(20, 160, 62);
+	--confirmation-text-color : black;
+
+	--editlist-text-color : black;
+	--editlist-hover-color : #ececef;
+
+	--side-bar-undone-color : rgb(164, 14, 14);
+	--side-bar-done-color : green;
+
+	--footer-color : rgb(107, 104, 104);
+
+	--header-bg : url(src/assets/images/headerback.jpg);
+	--container-width : 800px;
+	--header-nav-size : 40px;
 }
 
 [data-theme = "dark"]{
@@ -106,6 +163,8 @@
 	--side-bar-done-color : rgb(0, 202, 0);
 
 	--footer-color : rgb(192, 191, 191); 
+	--container-width : 1000px;
+	--header-nav-size : 22px;
 }
 
 body{
@@ -137,7 +196,7 @@ input[type=submit]:hover{
 
 #container{
 	min-width:800px;
-	max-width:1000px;
+	max-width:var(--container-width);
 	margin:0 auto;
 }
 
@@ -151,6 +210,7 @@ input[type=submit]:hover{
 
 
 #header{
+	background-image: var(--header-bg);
 	border-bottom:1px solid var(--navbar-background-color);
 }
 
@@ -166,7 +226,7 @@ input[type=submit]:hover{
 }
 
 #headernav{
-	height:22px;
+	height:var(--header-nav-size);
 	background-color:var(--navbar-background-color);
 	margin-bottom: 14px;
 	padding: 10px;
@@ -188,6 +248,7 @@ input[type=submit]:hover{
 #headernav ul{
 	margin:0;
 	padding:0;
+	text-align:center;
 }
 
 #headernav ul li{

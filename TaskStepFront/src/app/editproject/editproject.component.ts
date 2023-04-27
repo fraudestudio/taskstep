@@ -18,10 +18,10 @@ export class EditprojectComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
-    this.projectDao = new ProjectService(httpClient);
+    this.projectService = new ProjectService(httpClient);
   }
 
-  private projectDao : ProjectService;
+  private projectService : ProjectService;
 
   private currentProject : Project = new Project("");
 
@@ -43,12 +43,12 @@ export class EditprojectComponent implements OnInit {
 
 
   ngOnInit() : void{
-    this.projectDao.getProject(history.state.data).subscribe(project => this.form.title = project.Title);
-    this.projectDao.getProject(history.state.data).subscribe(project => this.currentProject = project);
+    this.projectService.getProject(history.state.data).subscribe(project => this.form.title = project.Title);
+    this.projectService.getProject(history.state.data).subscribe(project => this.currentProject = project);
   }
 
   deleteProject(){
-    this.projectDao.deleteProject(history.state.data).subscribe((data) =>
+    this.projectService.deleteProject(history.state.data).subscribe((data) =>
     {
       if (!data){
         this.router.navigate(["byproject"], {state : {data : {message : "Votre projet \""+ this.form.title +"\" a bien été supprimer !", type : "confirmation"}}});       
@@ -60,7 +60,7 @@ export class EditprojectComponent implements OnInit {
   }
 
   submit(){
-    this.projectDao.modifyProject(history.state.data, this.form.title).subscribe((data) =>
+    this.projectService.modifyProject(history.state.data, this.form.title).subscribe((data) =>
     {
       if (!data){
         this.router.navigate(["byproject"], {state : {data : {message : "Votre projet \""+ this.form.title +"\" a bien été modifier !", type : "confirmation"}}});       

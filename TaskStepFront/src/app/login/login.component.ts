@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { FakeDatabase } from '../model/FakeDatabase';
+import { AuthService } from "src/service/auth-service";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +16,11 @@ export class LoginComponent {
    * @param route 
    * @param router 
    */
-  constructor(private route: ActivatedRoute,  private router: Router) {
+  constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient) {
+    this.authService = new AuthService(httpClient);
   }
+
+  private authService : AuthService;
   
   /**
    * Information of the form
@@ -47,8 +51,10 @@ export class LoginComponent {
    * Else we show an error
    */
   submit(){
+    this.authService.connect(this.form.email,this.form.password).subscribe(data => AuthService.token = data );
+    console.log(AuthService.token);
     // Temporaire
-    if (FakeDatabase.VerifyUser(this.form.email,this.form.password)){
+    /*if (FakeDatabase.VerifyUser(this.form.email,this.form.password)){
 
       this.router.navigate(['index']);
       sessionStorage.setItem("login","true");
@@ -56,8 +62,8 @@ export class LoginComponent {
     } 
     else {
       this.hasError = true;
-    }
-  }
+    } */
+  } 
   
 
 }

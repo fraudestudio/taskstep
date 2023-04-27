@@ -1,48 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FakeDatabase } from '../model/FakeDatabase';
 import { Item } from "src/app/model/item";
 import { Context } from "src/app/model/context";
 import { Project } from "src/app/model/project";
+import { ContextService } from "src/service/context-service"
+import { ProjectService } from "src/service/project-service"
 import { SideBarComponent } from '../model/sideBarComponent';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-additem',
     templateUrl : 'additem.component.html'
 })
 
-export class AdditemComponent {
-
-edit: boolean = false;
-
-submit() {
-    if(this.edit == false){
-    let item = new Item(this.form.title, this.form.note, this.form.context, this.form.project, this.form.dueDate, this.form.url,this.form.section);
-    console.log(item);
-    FakeDatabase.AddItem(item);
+export class AdditemComponent implements OnInit {
+    
+    constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){    
+        this.contextService = new ContextService(httpClient)
+        this.projectService = new ProjectService(httpClient)
     }
-    else{
-        throw new Error("Not implemented yet");
+
+    ngOnInit(): void {
+        this.contextService.getContexts().subscribe(projects => this.contexts = projects);
+        this.projectService.getProjects().subscribe(projects => this.projects = projects);
     }
-}
- 
 
+    edit: boolean = false;
 
-private sections : SideBarComponent[] = FakeDatabase.GetSideBar();
+    private contextService : ContextService;
+    private projectService : ProjectService;
 
-/**
-* Information of the form
-*/
-  form : any  = {
-      title : null,
-      note : null,
-      section : this.sections[0],
-      context : null,
-      project : null,
-      dueDate : null,
-      url : null
+    private contexts : Context[] = [];
+    private projects : Project[] = [];
+
+    private sections : SideBarComponent[] = FakeDatabase.GetSideBar();
+
+    /**
+    * Information of the form
+    */
+    form : any  = {
+        title : null,
+        note : null,
+        section : this.sections[0],
+        context : null,
+        project : null,
+        dueDate : null,
+        url : null
   
-  };
+    };
 
     /**
      * method that returns the section 
@@ -59,9 +65,9 @@ private sections : SideBarComponent[] = FakeDatabase.GetSideBar();
      */
     get Sections() : SideBarComponent[] { return this.sections;  }
 
-    get Contexts() : Context[] {  return FakeDatabase.Contexts;  }
+    get Contexts() : Context[] {  return this.contexts }
 
-    get Projects() : Project[] {  return FakeDatabase.Projects;  }
+    get Projects() : Project[] {  return this.projects }
 
     
     editContext(){
@@ -72,11 +78,18 @@ private sections : SideBarComponent[] = FakeDatabase.GetSideBar();
         this.router.navigate(['editproject']);
     }
    
-    constructor(private route: ActivatedRoute,  private router: Router){    
-    
+    submit() {
+        if(this.edit == false){
+        let item = new Item(this.form.title, this.form.note, this.form.context, this.form.project, this.form.dueDate, this.form.url,this.form.section);
+        console.log(item);
+        FakeDatabase.AddItem(item);
+        }
+        else{
+            throw new Error("Not implemented yet");
+        }
     }
-    
-    }
+         
+}
 
     
 
