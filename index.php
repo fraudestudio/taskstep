@@ -2,12 +2,10 @@
 
 include("includes/header.php");
 
-use TaskStep\Logic\Data\LegacyMySql\{ItemDao, SettingsDao};
+use TaskStep\Logic\Data\MySql\Dao\ItemDao;
 
 $items = new ItemDao();
-$dailyItems = $items->readDaily(new DateTime('now'));
-
-$settings = new SettingsDao();
+$dailyItems = $items->readDaily(USER, new DateTime('now'));
 
 $hour = date("H");
 if ($hour <= 11) $intro = l->index->introMorning;
@@ -25,7 +23,7 @@ $intro .= l->index->introText;
 	<p>
 		<img src="images/chart_bar.png" alt="" />&nbsp;
 		<?php
-			$undone = $items->countUndone();
+			$undone = $items->countUndone(USER);
 			if($undone == 1) echo l->index->oneTask;
 			else echo sprintf(l->index->nTasks, $undone);
 		?>
@@ -50,10 +48,10 @@ $intro .= l->index->introText;
 	</div>
 	<?php endforeach; ?>
 
-	<?= empty($dailyItems) ? l->index->noImmediate : '' ?>
+	<?= (count($dailyItems) == 0) ? l->index->noImmediate : '' ?>
 </div>
 
-<?php if ($settings->tips()): ?>
+<?php if (USER->settings()->tips()): ?>
 <div id="tipsbox">
 	<img src="images/information.png" alt="" />&nbsp;<?= l->index->tip ?>:
 	<?= l->tips[rand(0, count(l->tips) - 1)] ?>

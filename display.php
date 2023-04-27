@@ -2,7 +2,7 @@
 
 include("includes/header.php");
 
-use TaskStep\Logic\Data\LegacyMySql\{ItemDao, ContextDao, ProjectDao};
+use TaskStep\Logic\Data\MySql\Dao\{ItemDao, ContextDao, ProjectDao};
 use TaskStep\Logic\Model\Section;
 
 $items = new ItemDao();
@@ -15,17 +15,17 @@ if (isset($_GET["cmd"]))
 	switch ($_GET["cmd"])
 	{
 	case "delete":
-		$items->delete($id);
+		$items->delete(USER, $id);
 		break;
 	case "do":
-	  	$item = $items->readById($id);
+	  	$item = $items->readById(USER, $id);
 	  	$item->setDone(true);
-	  	$items->update($id, $item);
+	  	$items->update(USER, $id, $item);
 	  	break;
 	case "undo":
-	  	$item = $items->readById($id);
+	  	$item = $items->readById(USER, $id);
 	  	$item->setDone(false);
-	  	$items->update($id, $item);
+	  	$items->update(USER, $id, $item);
 	  	break;
 	default:
 		$errorMessage = l->message->actionError;
@@ -55,7 +55,7 @@ case "section":
 	break;
 
 case "project":
-	$project = (new ProjectDao)->readById($typeId);
+	$project = (new ProjectDao)->readById(USER, $typeId);
 	$result = $items->readByProject($project);
 
 	$title = $project->title();
@@ -65,7 +65,7 @@ case "project":
 	break;
 
 case "context":
-	$context = (new ContextDao)->readById($typeId);
+	$context = (new ContextDao)->readById(USER, $typeId);
 	$result = $items->readByContext($context);
 
 	$title = $context->title();
@@ -75,7 +75,7 @@ case "context":
 	break;
 
 case "all":
-	$result = $items->readAll();
+	$result = $items->readAll(USER);
 
 	$title = l->navigation->allItems;
 	$printUrl = '?print=all';
@@ -83,7 +83,7 @@ case "all":
 
 case "today":
 	$today = new Datetime('now');
-	$result = $items->readByDate($today);
+	$result = $items->readByDate(USER, $today);
 
 	$title = sprintf(l->navigation->today, $today->format(l->dateFormat->menu));
 	$printUrl = "?print=today";	

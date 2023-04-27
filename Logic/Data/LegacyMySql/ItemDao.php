@@ -32,7 +32,7 @@ class ItemDao implements ItemDaoInterface
 			->setDone($data['done']);
 	}
 
-	public function create(Item $item)
+	public function create(User $user, Item $item)
 	{
 		Database::instance()->execute(
 			'INSERT INTO items (title, `date`, notes, url, section, context, project, done) '.
@@ -48,7 +48,7 @@ class ItemDao implements ItemDaoInterface
 		);
 	}
 
-	public function readById(int $id): Item
+	public function readById(User $user, int $id): Item
 	{
 		$statement = Database::instance()->execute('SELECT * FROM items WHERE id = ?', $id);
 
@@ -96,7 +96,7 @@ class ItemDao implements ItemDaoInterface
         return $result;
 	}
 
-	public function readByContext(Context $context): array
+	public function readByContext(User $user, Context $context): array
 	{
         $statement = Database::instance()->execute('SELECT * FROM items WHERE context = ?', $context->title());
 
@@ -166,7 +166,7 @@ class ItemDao implements ItemDaoInterface
 		return $result;
 	}
 
-	public function update(int $id, Item $item)
+	public function update(User $user, int $id, Item $item)
 	{
 		Database::instance()->execute(
 			'UPDATE items SET title=:title, `date`=:date, notes=:notes, url=:url, '.
@@ -183,18 +183,18 @@ class ItemDao implements ItemDaoInterface
 		);
 	}
 
-	public function delete(int $id)
+	public function delete(User $user, int $id)
 	{
 		Database::instance()->execute('DELETE FROM items WHERE id = ?', $id);
 	}
 
-	public function deleteAllDone(): int
+	public function deleteAllDone(int $id): int
 	{
 		$statement = Database::instance()->execute('DELETE FROM items WHERE done = 1');
 		return $statement->rowCount();
 	}
 
-	public function countUndone(): int
+	public function countUndone(int $id): int
 	{
 		$statement = Database::instance()
 			->execute('SELECT COUNT(*) FROM items WHERE done = 0');
@@ -209,7 +209,7 @@ class ItemDao implements ItemDaoInterface
 		}
 	}
 
-	public function countBySection(): array
+	public function countBySection(int $id): array
 	{
 		$statement = Database::instance()->execute(
 			'SELECT sections.title AS section, SUM(IF(done=0, 1, 0)) AS undone, SUM(IF(done = 1, 1, 0)) AS done '.

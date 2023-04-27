@@ -3,7 +3,7 @@
 include("includes/header.php");
 
 use TaskStep\Logic\Model\{Context, Project};
-use TaskStep\Logic\Data\LegacyMySql\{ContextDao, ProjectDao};
+use TaskStep\Logic\Data\MySql\Dao\{ContextDao, ProjectDao};
 
 $type = $_GET['type'] ?? '';
 $getCommand = $_GET['cmd'] ?? '';
@@ -38,7 +38,7 @@ if ($postCommand == "edit" && isset($_POST["submit"]))
 	$newTitle = $_POST["title"];
 
 	$category = (new $model)->setTitle($newTitle);
-	$dao->update($id, $category);
+	$dao->update(USER, $id, $category);
 
 	$messageBoxIcon = 'pencil_go.png';
 	$messageBoxText = l->message->$type->updated;
@@ -51,7 +51,7 @@ else if ($postCommand == 'add' && isset($_POST['add']))
 	$newTitle = $_POST["newtitle"];
 
 	$category = (new $model)->setTitle($newTitle);
-	$dao->create($category);
+	$dao->create(USER, $category);
 
 	$messageBoxIcon = 'add.png';
 	$messageBoxText = l->message->$type->added;
@@ -63,7 +63,7 @@ else if ($getCommand == "delete")
 {
     $id = $_GET['id'];
 
-	$dao->delete($id);
+	$dao->delete(USER, $id);
 
 	$messageBoxIcon = 'bin.png';
 	$messageBoxText = l->message->$type->deleted;
@@ -79,7 +79,7 @@ else if ($getCommand == 'edit')
 	}
 	else
 	{
-		$category = $dao->readById(intval($_GET['id']));
+		$category = $dao->readById(USER, intval($_GET['id']));
 		$panel = 'edit';
 	}
 }
@@ -92,7 +92,7 @@ else if ($getCommand == 'add')
 
 if ($panel == 'list')
 {
-	$categories = $dao->readAll();
+	$categories = $dao->readAll(USER);
 	usort($categories, function($a, $b) { return strnatcmp($a->title(), $b->title()); });
 }
 

@@ -4,8 +4,9 @@ include("includes/sessioncheck.php");
 
 require_once "includes/autoload.php";
 
-use TaskStep\Logic\Data\LegacyMySql\{ItemDao, ProjectDao, ContextDao};
+use TaskStep\Logic\Data\MySql\Dao\{ItemDao, ProjectDao, ContextDao};
 use TaskStep\Locale\Locale;
+use TaskStep\Logic\Model\Section;
 
 Locale::load();
 
@@ -19,7 +20,7 @@ case "section":
 	try
 	{
 		$section = Section::from($_GET['section'] ?? '');
-		$result = $items->readBySection($section);
+		$result = $items->readBySection(USER, $section);
 
 		$title = l->sections->{$section->value};
 	}
@@ -30,28 +31,28 @@ case "section":
 	break;
 
 case "project":
-	$project = (new ProjectDao)->readById(intval($_GET['tid']));
+	$project = (new ProjectDao)->readById(USER, intval($_GET['tid']));
 	$result = $items->readByProject($project);
 
 	$title = $project->title();
 	break;
 
 case "context":
-	$context = (new ContextDao)->readById(intval($_GET['tid']));
+	$context = (new ContextDao)->readById(USER, intval($_GET['tid']));
 	$result = $items->readByContext($context);
 
 	$title = $context->title();
 	break;
 
 case "all":
-	$result = $items->readAll();
+	$result = $items->readAll(USER);
 
 	$title = l->print->allTasks;
 	break;
 
 case "today":
 	$today = new Datetime('now');
-	$result = $items->readByDate($today);
+	$result = $items->readByDate(USER, $today);
 
 	$title = sprintf(l->print->today, $today->format(l->dateFormat->menu));
 	break;

@@ -1,5 +1,7 @@
 <?php
 
+require_once "autoload.php";
+
 session_start();  
 header("Cache-control: private");
 
@@ -12,6 +14,4 @@ if(!$_SESSION['loggedin'])
 	exit;
 }
 
-require_once "autoload.php";
-
-define('USER', new \TaskStep\Logic\Model\User());
+define('USER', $_SESSION['user']);
