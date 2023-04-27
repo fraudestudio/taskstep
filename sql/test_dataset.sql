@@ -2,10 +2,10 @@ USE taskstep;
 
 -- STYLES
 
-DELETE FROM style WHERE idStyle = 1000;
+DELETE FROM style WHERE idStyle = 1000 OR idStyle = 0;
 
 INSERT INTO style VALUES
-	(1000, 'classic');
+	(0, 'classic');
 
 
 -- USERS

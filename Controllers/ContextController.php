@@ -4,25 +4,24 @@ declare(strict_types=1);
 
 namespace TaskStep\Controllers;
 
-use TaskStep\Logic\Model\Context as contexts;
+use TaskStep\Logic\Model\Context;
 use TaskStep\Logic\Model\ContextDaoInterface;
 use TaskStep\Logic\Exceptions\NotFoundException;
-use TaskStep\Middleware\Helpers\{Context, Services};
+use TaskStep\Middleware\Helpers;
 
 class ContextController extends Controller
 {
 	private ContextDaoInterface $contextDao;
 
-	public function __construct(Context $context, Services $container)
+	public function __construct(Helpers\Context $context, Helpers\Services $container)
 	{
 		parent::__construct($context, $container);
 
 		$this->contextDao = $container->get('contextDao');
 	}
 
-
     /**
-     * Récupere tout les contexts d'un utilisateur
+     * Récupere tout les contextes d'un utilisateur
      */
     public function getAll()
     {
@@ -42,7 +41,7 @@ class ContextController extends Controller
      */
     public function post()
     {
-        $context = $this->requireBodyObject(Contexts::class);
+        $context = $this->requireBodyObject(Context::class);
 
         $id = $this->contextDao->create($this->requireUser(), $context);
 
@@ -75,7 +74,7 @@ class ContextController extends Controller
     public function update()
     {
     	$id = $this->requireInt('id');
-        $context = $this->requireBodyObject(Contexts::class);
+        $context = $this->requireBodyObject(Context::class);
 
         try
 		{

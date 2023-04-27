@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TaskStep\Controllers;
 
+use DateTime;
 use TaskStep\Logic\Model\Item;
 use TaskStep\Logic\Model\ItemDaoInterface;
 use TaskStep\Logic\Exceptions\NotFoundException;
@@ -18,7 +19,7 @@ class ItemController extends Controller
 	{
 		parent::__construct($context, $container);
 
-		$this->itemDao = $container->get('ItemDao');
+		$this->itemDao = $container->get('itemDao');
 	}
 
 	/**
@@ -38,7 +39,7 @@ class ItemController extends Controller
 	{
 		$item = $this->requireBodyObject(Item::class);
 
-		$id = $this->itemDao->create($item, $this->requireUser());
+		$id = $this->itemDao->create($this->requireUser(), $item);
 
 		$this->createdResponse('item', ['id' => $id]);
 	}
@@ -52,7 +53,7 @@ class ItemController extends Controller
 
 		try
 		{
-			$item = $this->itemDao->readById($id);
+			$item = $this->itemDao->readById($this->requireUser(), $id);
 		}
 		catch (NotFoundException)
 		{
@@ -72,7 +73,7 @@ class ItemController extends Controller
 		
 		try
 		{
-			$this->itemDao->update($id, $item);
+			$this->itemDao->update($this->requireUser(), $id, $item);
 		}
 		catch (NotFoundException)
 		{
@@ -91,7 +92,7 @@ class ItemController extends Controller
 
 		try
 		{
-			$project = $this->itemDao->delete($id);
+			$project = $this->itemDao->delete($this->requireUser(), $id);
 		}
 		catch (NotFoundException)
 		{
@@ -155,4 +156,69 @@ class ItemController extends Controller
 
 	}
 
+	public function Readbydate()
+	{
+		$date = $this->requireBodyObject(DateTime::class);
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$item = $this->itemDao->readByDate($date,$id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+	}
+
+	public function ReadDaily()
+	{
+		$date = $this->requireBodyObject(DateTime::class);
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$item = $this->itemDao->readDaily($date,$id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+	}
+
+	public function countUndone()
+	{
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$item = $this->itemDao->countUndone($id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+	}
+	
+	public function countBySection()
+	{
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$item = $this->itemDao->countBySection($id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+	}
 }

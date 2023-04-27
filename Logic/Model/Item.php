@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
 
+use TaskStep\Middleware\Helpers\JsonSerializable;
 use TaskStep\Logic\Model\{Context, Project};
 use \DateTime;
-
 
 /**
  * Représente une tâche.
  */
-class Item
+class Item implements JsonSerializable
 {
 	private int $_id;
 	private string $_title;
@@ -22,7 +22,6 @@ class Item
 	private Context $_context;
 	private Project $_project;
 	private bool $_done;
-	private int $_id_user;
 
 	/**
 	 * L'identifiant de la tâche.
@@ -194,22 +193,6 @@ class Item
 	}
 
 	/**
-	 * indique l'utilisateur qui possède la tache
-	 */
-	public function user_id(): int {return $this->_id_user;}
-
-	/**
-	 * modifie l'id de l'utilisateur associé a la tache
-	 * 
-	 * @param $id le nouvelle id
-	 */
-	public function setUserId(int $id): Item
-	{
-		$this->_id_user = $id;
-		return $this;
-	}
-
-	/**
 	 * Crée une tâche.
 	 * 
 	 * @param $id L'identifiant de la tâche. Il n'a pas besoin d'être indiqué
@@ -226,6 +209,46 @@ class Item
 		$this->_context = new Context();
 		$this->_project = new Project();
 		$this->_done = false;
-		$this->_id_user = $id;
 	}
+
+    public function jsonSerialize() : mixed {
+        return [
+            'Id' => $this->_id,
+            'Title' => $this->_title,
+            'Date' => $this->_date?->format('Y-m-d'),
+            'Notes' => $this->_notes,
+            'Url' => $this->_url,
+            'Section' => $this->_section->value,
+            'Context' => $this->_context,
+            'Project' => $this->_project,
+            'Done' => $this->_done,
+
+        ];
+    }
+
+    public function jsonDeserialize(mixed $value) : void {
+		$this->_title = $value['Title']
+			?? throw new \Exception("missing 'Id' field in 'Item' object");
+
+		if (!key_exists('Date', $value)) throw new \Exception("missing 'Date' field in 'Item' object");
+		$this->_date = is_null($value['Date']) ? null : new DateTime($value['Date']);
+
+		$this->_notes = $value['Notes']
+			?? throw new \Exception("missing 'Notes' field in 'Item' object");
+
+		$this->_url = $value['Url']
+			?? throw new \Exception("missing 'Url' field in 'Item' object");
+
+		$this->_section = Section::from($value['Section'])
+			?? throw new \Exception("missing 'Section' field in 'Item' object");
+
+		if (!key_exists('Context', $value)) throw new \Exception("missing 'Context' field in 'Item' object");
+		$this->_context->jsonDeserialize($value['Context']);
+
+		if (!key_exists('Project', $value)) throw new \Exception("missing 'Project' field in 'Item' object");
+		$this->_project->jsonDeserialize($value['Project']);
+
+		$this->_done = $value['Done']
+			?? throw new \Exception("missing 'Done' field in 'Item' object");
+    }
 }

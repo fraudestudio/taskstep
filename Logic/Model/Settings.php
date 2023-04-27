@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
 
-class Settings
+use TaskStep\Middleware\Helpers\JsonSerializable;
+
+class Settings implements JsonSerializable
 {
 	private Style $_style;
 	private bool $_tips;
@@ -40,4 +42,19 @@ class Settings
 		$this->_tips = $tips;
 		return $this;
 	}
+
+    public function jsonSerialize() : mixed {
+        return [
+            'Style' => $this->_style,
+            'Tips' => $this->_tips,
+        ];
+    }
+
+    public function jsonDeserialize(mixed $value) : void {
+		$this->_style = $value['Style']
+			?? throw new \Exception("missing 'Style' field in 'Settings' object");
+
+		$this->_tips = $value['Tips']
+			?? throw new \Exception("missing 'Tips' field in 'Settings' object");
+    }
 }
