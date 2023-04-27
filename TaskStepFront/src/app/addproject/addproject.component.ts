@@ -19,14 +19,14 @@ export class AddprojectComponent {
   };
 
   constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
-    this.projectDao = new ProjectService(httpClient);
+    this.projectService = new ProjectService(httpClient);
   }
 
-  private projectDao : ProjectService;
+  private projectService : ProjectService;
 
 
   submit(){
-    this.projectDao.addProject(this.form.title).subscribe((data) =>
+    this.projectService.addProject(this.form.title).subscribe((data) =>
       {
         if (data != null){
           this.router.navigate(["byproject"], {state : {data : { message : "Votre projet \""+ this.form.title +"\" a bien été ajouter !", type : "confirmation"}}});     

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Context } from '../app/model/context';
+import { Item } from '../app/model/item';
 import { Observable, throwError, catchError, of, tap} from 'rxjs';
+import { AuthService } from './auth-service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +18,11 @@ export class ContextService {
    * @returns the contexts of the user
    */
   getContexts() : Observable<Context[]> {
-    return this.httpClient.get<Context[]>("api/contexts").pipe(
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
+    };
+    return this.httpClient.get<Context[]>("api/contexts", httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -30,7 +36,8 @@ export class ContextService {
    */
   addContext(title : string) : Observable<null> {
     const httpOptions = {
-      headers : new HttpHeaders({'Content-Type' : 'application/json'})
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
     };
 
     return this.httpClient.post("api/contexts", { Title : title },httpOptions).pipe(
@@ -42,10 +49,15 @@ export class ContextService {
   /**
    * Get a context by it's id
    * @param id id of the project
+   * 
    * @returns the project
    */
   getContext(id : number) : Observable<Context> {
-    return this.httpClient.get<Context>("api/contexts/" + id).pipe(
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
+    };
+    return this.httpClient.get<Context>("api/contexts/" + id, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -57,7 +69,11 @@ export class ContextService {
    * @returns null
    */
   deleteContext(id : number) : Observable<null> {
-    return this.httpClient.delete<Context>("api/contexts/" + id).pipe(
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
+    };
+    return this.httpClient.delete<Context>("api/contexts/" + id,httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -70,7 +86,11 @@ export class ContextService {
    * @returns null
    */
   modifyContext(id : number, title : string) : Observable<null> {
-    return this.httpClient.put<Context>("api/contexts/" + id, { Title : title}).pipe(
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
+    };
+    return this.httpClient.put<Context>("api/contexts/" + id, { Title : title}, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )

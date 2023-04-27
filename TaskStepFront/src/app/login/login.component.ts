@@ -51,8 +51,9 @@ export class LoginComponent {
    * Else we show an error
    */
   submit(){
-    this.authService.connect(this.form.email,this.form.password).subscribe(data => AuthService.token = data );
+    this.authService.signin(this.form.email,this.form.password).subscribe(data => AuthService.token = data );
     console.log(AuthService.token);
+
     // Temporaire
     /*if (FakeDatabase.VerifyUser(this.form.email,this.form.password)){
 

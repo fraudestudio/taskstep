@@ -11,15 +11,15 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class ByprojectComponent implements OnInit {
   constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
-    this.projectDao = new ProjectService(httpClient);
+    this.projectService = new ProjectService(httpClient);
   }
 
-  private projectDao : ProjectService;
+  private projectService : ProjectService;
 
   private projects : Project[] = []
 
   ngOnInit(){
-    this.projectDao.getProjects().subscribe(projects => this.projects = projects);
+    this.projectService.getProjects().subscribe(projects => this.projects = projects);
   }
 
   get Title() : string {

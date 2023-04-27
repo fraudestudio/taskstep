@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Project } from '../app/model/project';
+import { Item } from '../app/model/item';
 import { Observable, throwError, catchError, of, tap} from 'rxjs';
+import { AuthService } from './auth-service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +18,11 @@ export class ProjectService {
    * @returns the projects of the user
    */
   getProjects() : Observable<Project[]> {
-    return this.httpClient.get<Project[]>("api/projects").pipe(
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
+    };
+    return this.httpClient.get<Project[]>("api/projects", httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -30,9 +36,9 @@ export class ProjectService {
    */
   addProject(title : string) : Observable<null> {
     const httpOptions = {
-      headers : new HttpHeaders({'Content-Type' : 'application/json'})
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
     };
-
     return this.httpClient.post("api/projects", { Title : title },httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
@@ -45,7 +51,11 @@ export class ProjectService {
    * @returns the project
    */
   getProject(id : number) : Observable<Project> {
-    return this.httpClient.get<Project>("api/projects/" + id).pipe(
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
+    };
+    return this.httpClient.get<Project>("api/projects/" + id, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -57,7 +67,11 @@ export class ProjectService {
    * @returns null
    */
   deleteProject(id : number) : Observable<null> {
-    return this.httpClient.delete<Project>("api/projects/" + id).pipe(
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
+    };
+    return this.httpClient.delete<Project>("api/projects/" + id, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -70,7 +84,11 @@ export class ProjectService {
    * @returns null
    */
   modifyProject(id : number, title : string) : Observable<null> {
-    return this.httpClient.put<Project>("api/projects/" + id, { Title : title}).pipe(
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
+    };
+    return this.httpClient.put<Project>("api/projects/" + id, { Title : title}, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
