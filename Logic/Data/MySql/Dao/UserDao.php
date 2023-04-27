@@ -148,7 +148,7 @@ class UserDAO implements UserDaoInterface
 
         Database::getInstance()->executeNonQuery(
             "UPDATE `Session` SET `date` = :date WHERE token = :token",
-            ['token' => $token, 'date' => $date]
+            ['token' => $token, 'date' => $now]
         );
     }
 
