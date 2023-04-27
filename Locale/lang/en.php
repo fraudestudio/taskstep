@@ -15,7 +15,7 @@ return [
     // Login
     'login' => [
         'button' => "Login",
-        'prompt' => "Please enter your password to login",
+        'prompt' => "Please enter your email and password to login",
         'incorrect' => "Incorrect password.",
         'alreadyLoggedIn' => "You're already logged in! Either <a href='?action=logout'>logout</a> or continue to the <a href='index.php'>main page.</a>"
     ],
