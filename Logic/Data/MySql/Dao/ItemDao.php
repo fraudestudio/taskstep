@@ -1,17 +1,16 @@
 <?php
 
-namespace TaskStep\Logic\Data\Dao;
+namespace TaskStep\Logic\Data\MySql\Dao;
 
 use DateTime;
-use TaskStep\Logic\Model\{Item, Section, Context, Project, ItemDaoInterface,User};
+use TaskStep\Logic\Model\{Item, Section, Context, Project, ItemDaoInterface, User};
+use TaskStep\Logic\Exceptions\NotFoundException;
 use TaskStep\Logic\Data\MySql\Database;
 
-
-use Exception;
 class ItemDao implements ItemDaoInterface
 {
 
-	public function hydrate(Item &$item, array $data)
+	public function hydrate(Item $item, array $data)
 	{
 		$item
 			->setTitle($data['title'])
@@ -19,32 +18,38 @@ class ItemDao implements ItemDaoInterface
 			->setNotes($data['notes'])
 			->setUrl($data['url'])
 			->setSection(Section::from($data['section']))
-			->setContext($data['context'])
-			->setProject($data['project'])
-			->setDone($data['done'])
-			->setUserId($data['user_id']);
+			->setContext((new Context($data['cid']))->setTitle($data['ctitle']))
+			->setProject((new Project($data['pid']))->setTitle($data['ptitle']))
+			->setDone($data['done']);
 	}
 
-	public function create(Item $item, User $IdUser)
+	public function create(User $user, Item $item)
 	{
 		Database::GetInstance()->executeNonQuery(
 			'INSERT into items(`title`,`date`,`notes`,`url`,`done`,`context`,`section`,`project`,`User`) '.
-			'VALUES (:title,:date,:notes,:url,:done,:done,:context,:section,:project,:User)',
-			array('title'=> $item->title(),
-			'date'=> $item->date()?->format('Y-m-d'),
-			'notes'=> $item->notes(),
-			'url'=> $item->url(),
-			'section'=> $item->section()->value,
-			'context'=> $item->context()->title(),
-			'project'=> $item->project()->title(),
-			'done'=> $item->done() ? 1 : 0,
-			'User'=> $IdUser->Id())
+			'VALUES (:title,:date,:notes,:url,:done,:context,(SELECT id FROM sections WHERE title = :section),:project,:User)',
+			[
+				'title' => $item->title(),
+				'date' => $item->date()?->format('Y-m-d H:i:s') ?? '0001-01-01',
+				'notes' => $item->notes(),
+				'url' => $item->url(),
+				'section' => $item->section()->value,
+				'context' => $item->context()->id(),
+				'project' => $item->project()->id(),
+				'done' => $item->done() ? 1 : 0,
+				'User' => $user->Id()
+			]
 		);
 	}
 
-	public function readById(int $id): Item
+	public function readById(User $user, int $id): Item
 	{
-		$statement = Database::GetInstance()->executeQuery('SELECT i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where i.id = :id ',array('id'=> $id));
+		$statement = Database::GetInstance()->executeQuery(
+			'SELECT i.id, i.title, i.date, i.notes, i.url, i.done, c.id as cid, c.title as ctitle, s.title as section, p.id as pid, p.title as ptitle '.
+			'FROM items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id '.
+			'JOIN projects as p on i.project=p.id where i.User = :user AND i.id = :id',
+			['id' => $id, 'user' => $user->id()]
+		);
 
 		if ($row = $statement->fetch())
 		{
@@ -54,19 +59,24 @@ class ItemDao implements ItemDaoInterface
 		}
 		else
 		{
-			throw new Exception("Item not found");
+			throw new NotFoundException;
 		}
 	}
 
 	public function readAll(User $user): array
 	{
-		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id natural join sessions where User = ":id"',array('id'=> $user->id()));
+		$statement = Database::GetInstance()->executeQuery(
+			'SELECT i.id, i.title, i.date, i.notes, i.url, i.done, c.id as cid, c.title as ctitle, s.title as section, p.id as pid, p.title as ptitle '.
+			'FROM items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id '.
+			'JOIN projects as p on i.project=p.id where i.User = :id',
+			['id' => $user->id()]
+		);
 
         $result = [];
 
         while ($row = $statement->fetch())
         {
-        	$item = new Item($row['id']);
+        	$item = new Item($row[0]);
         	$this->hydrate($item, $row);
             array_push($result, $item);
         }
@@ -90,7 +100,7 @@ class ItemDao implements ItemDaoInterface
         return $result;
 	}
 
-	public function readByContext(int $user, Context $context): array
+	public function readByContext(User $user, Context $context): array
 	{
 		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where c.id = ":idC" and i.User = ":idU" ', array('idC'=> $context->id(),'idU'=> $user));
 
@@ -122,30 +132,35 @@ class ItemDao implements ItemDaoInterface
         return $result;
 	}
 
-	public function update(int $id, Item $item)
+	public function update(User $user, int $id, Item $item)
 	{
-		Database::GetInstance()->executeNonQuery(
-			'UPDATE items SET title=:title, `date`=:date, notes=:notes, url=:url, '.
-			'section=:section, context=:context, project=:project, done=:done, User=:user WHERE id=:id',
-			array('id'=> $id,
-			'title'=> $item->title(),
-			'date' => $item->date()?->format('Y-m-d') ?? '0001-01-01',
-			'notes' => $item->notes(),
-			'url' => $item->url(),
-			'section' => $item->section()->value,
-			'context' => $item->context()->title(),
-			'project' => $item->project()->title(),
-			'done' => $item->done() ? 1 : 0,
-			'user' => $item->user_id())
+		$result = Database::GetInstance()->executeNonQuery(
+			'UPDATE items SET title=:title, `date`=:date, notes=:notes, url=:url, section=(SELECT id FROM sections WHERE title = :section), context=:context, project=:project, done=:done WHERE id=:id AND User=:user',
+			[
+				'id'=> $id,
+				'title'=> $item->title(),
+				'date' => $item->date()?->format('Y-m-d') ?? '0001-01-01',
+				'notes' => $item->notes(),
+				'url' => $item->url(),
+				'section' => $item->section()->value,
+				'context' => $item->context()->id(),
+				'project' => $item->project()->id(),
+				'done' => $item->done() ? 1 : 0,
+				'user' => $user->id()
+			]
 		);
+
+		if ($result != 1) throw new NotFoundException();
 	}
 
-	public function delete(int $id)
+	public function delete(User $user, int $id)
 	{
-		Database::GetInstance()->executeNonQuery(
-			'DELETE from items where id = ":id"',
-			array('id'=>$id)
+		$result = Database::GetInstance()->executeNonQuery(
+			'DELETE from items where id = :id AND user = :user',
+			array('id'=>$id, 'user'=>$user->id())
 		);
+		
+		if ($result != 1) throw new NotFoundException();
 	}
 
 	public function deleteAllDone(int $id) : int

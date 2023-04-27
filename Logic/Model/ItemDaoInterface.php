@@ -16,14 +16,14 @@ interface ItemDaoInterface
 	 * 
 	 * @param $item Le nouvel item.
 	 */ 
-	public function create(Item $item, User $user);
+	public function create(User $user, Item $item);
 
 	/**
 	 * Récupère un item par son identifiant.
 	 * 
 	 * @param $id L'identifiant de l'item à récupérer.
 	 */
-	public function readById(int $id): Item;
+	public function readById(User $user, int $id): Item;
 
 	/**
 	 * Récupère tous les items.
@@ -42,7 +42,7 @@ interface ItemDaoInterface
 	 * 
 	 * @param $section Le contexte des items à récupérer.
 	 */
-	public function readByContext(int $idUser, Context $context): array;
+	public function readByContext(User $user, Context $context): array;
 
 	/**
 	 * Récupère tous les items appartenant à un projet.
@@ -75,14 +75,14 @@ interface ItemDaoInterface
 	 * 
 	 * @param $item L'item modifié.
 	 */
-	public function update(int $id, Item $item);
+	public function update(User $user, int $id, Item $item);
 
 	/**
 	 * Supprime un item.
 	 * 
 	 * @param $id L'identifiant de l'item à supprimer.
 	 */
-	public function delete(int $id);
+	public function delete(User $user, int $id);
 
 	/**
 	 * Supprime tous les items terminés.

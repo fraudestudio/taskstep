@@ -18,7 +18,7 @@ class ItemController extends Controller
 	{
 		parent::__construct($context, $container);
 
-		$this->itemDao = $container->get('ItemDao');
+		$this->itemDao = $container->get('itemDao');
 	}
 
 	/**
@@ -38,7 +38,7 @@ class ItemController extends Controller
 	{
 		$item = $this->requireBodyObject(Item::class);
 
-		$id = $this->itemDao->create($item, $this->requireUser());
+		$id = $this->itemDao->create($this->requireUser(), $item);
 
 		$this->createdResponse('item', ['id' => $id]);
 	}
@@ -52,7 +52,7 @@ class ItemController extends Controller
 
 		try
 		{
-			$item = $this->itemDao->readById($id);
+			$item = $this->itemDao->readById($this->requireUser(), $id);
 		}
 		catch (NotFoundException)
 		{
@@ -72,7 +72,7 @@ class ItemController extends Controller
 		
 		try
 		{
-			$this->itemDao->update($id, $item);
+			$this->itemDao->update($this->requireUser(), $id, $item);
 		}
 		catch (NotFoundException)
 		{
@@ -91,7 +91,7 @@ class ItemController extends Controller
 
 		try
 		{
-			$project = $this->itemDao->delete($id);
+			$project = $this->itemDao->delete($this->requireUser(), $id);
 		}
 		catch (NotFoundException)
 		{

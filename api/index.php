@@ -11,15 +11,16 @@ use Slim\Factory\AppFactory;
 use TaskStep\Middleware\Helpers\Services;
 use TaskStep\Middleware\Authentication\
     {BearerAuthentication, BasicAuthentication};
-use TaskStep\Logic\Data\MySql\Dao\{ProjectDao, UserDao, ContextDao};
+use TaskStep\Logic\Data\MySql\Dao\{ProjectDao, UserDao, ContextDao, ItemDao};
 use TaskStep\Controllers\
-    {ProjectController, ContextController, AccountController};
+    {ProjectController, ContextController, AccountController, ItemController};
 
 
 $services = Services::instance()
     ->add('projectDao', ProjectDao::class)
     ->add('contextDao', ContextDao::class)
-    ->add('userDao', UserDao::class);
+    ->add('userDao', UserDao::class)
+    ->add('itemDao', ItemDao::class);
 
 $app = AppFactory::create();
 
@@ -40,6 +41,12 @@ $app->group('/api', function ($group) {
 
 // Authentification par jeton
 $app->group('/api', function ($group) {
+    $group->get('/items', ItemController::bind('getAll'));
+    $group->post('/items', ItemController::bind('post'));
+    $group->get('/items/{id}', ItemController::bind('getOne'))->setName('item');
+    $group->put('/items/{id}', ItemController::bind('putOne'));
+    $group->delete('/items/{id}', ItemController::bind('deleteOne'));
+
     $group->get('/projects', ProjectController::bind('getAll'));
     $group->post('/projects', ProjectController::bind('post'));
     $group->get('/projects/{id}', ProjectController::bind('getOne'))->setName('project');

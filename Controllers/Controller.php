@@ -104,28 +104,36 @@ abstract class Controller
 	 * 
 	 * @param $class La classe attendue.
 	 */
-	public function requireBodyObject(string $class) : object {
-		$value = new $class;
+	public function requireBodyObject(?string $class = null) : object {
 		$body = $this->_context->request()->getParsedBody();
-		
-		if (is_array($body))
+
+		if (is_null($class))
 		{
-			try
-			{
-				$value->jsonDeserialize($body);
-			}
-			catch (Exception $error)
-			{
-				throw new BadRequest($this->_context->request(), $error->getMessage());
-			}
+			return $body;
 		}
 		else
 		{
-			$type = gettype($body);
-			throw new BadRequest($this->_context->request(), "expected object body, got '$type'");
-		}
+			$value = new $class;
+			
+			if (is_array($body))
+			{
+				try
+				{
+					$value->jsonDeserialize($body);
+				}
+				catch (Exception $error)
+				{
+					throw new BadRequest($this->_context->request(), $error->getMessage());
+				}
+			}
+			else
+			{
+				$type = gettype($body);
+				throw new BadRequest($this->_context->request(), "expected object body, got '$type'");
+			}
 
-		return $value;
+			return $value;
+		}
 	}
 
 	/**
