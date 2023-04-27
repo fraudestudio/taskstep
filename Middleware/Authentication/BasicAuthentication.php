@@ -15,8 +15,7 @@ class BasicAuthentication
 	public function __invoke(Request $request, RequestHandler $handler) : Response
     {
         $failed = (new \Slim\Psr7\Response())
-            ->withStatus(401)
-            ->withHeader('WWW-Authenticate', 'Basic');
+            ->withStatus(401);
 
         $authHeader = $request->getHeader('Authorization');
 

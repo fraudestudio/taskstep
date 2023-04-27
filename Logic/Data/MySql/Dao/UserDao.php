@@ -41,7 +41,8 @@ class UserDAO implements UserDaoInterface
     public function readByEmailAndPassword(string $email, string $password): User
     {
         $query = Database::getInstance()->executeQuery(
-            "SELECT idUser, MDP, style, tips FROM User WHERE mail = :mail",
+            "SELECT u.idUser, u.MDP, u.mail, u.tips, s.style ".
+            "FROM User as u JOIN style as s ON u.style = s.idStyle WHERE u.mail = :mail",
             ['mail' => $email]
         );
 
@@ -69,8 +70,8 @@ class UserDAO implements UserDaoInterface
     public function readBySessionToken(string $token) : User
     {
         $query = Database::getInstance()->executeQuery(
-            "SELECT u.idUser, u.mail, u.style, u.tips, t.date ".
-            "FROM User as u JOIN Session as t ON u.idUser = t.User WHERE t.token = :token",
+            "SELECT u.idUser, u.mail, u.tips, t.date, s.style ".
+            "FROM User as u JOIN Session as t ON u.idUser = t.User JOIN style as s ON u.style = s.idStyle WHERE t.token = :token",
             ['token' => $token]
         );
 
@@ -83,6 +84,32 @@ class UserDAO implements UserDaoInterface
             
             $user = new User($data['idUser']);
             $user->setEmail($data['mail']);
+            $user->settings()
+                ->setStyle(Style::from($data['style']))
+                ->setTips($data['tips']);
+            return $user;
+        }
+        
+        throw new NotFoundException();
+    }
+
+    /**
+     * Récupère un utilisateur par son adresse mail uniquement.
+     * 
+     * @param $email L'adresse mail de l'utilisateur
+     */
+    public function readByEmail(string $email): User
+    {
+        $query = Database::getInstance()->executeQuery(
+            "SELECT u.idUser, u.mail, u.tips, s.style ".
+            "FROM User as u JOIN style as s ON u.style = s.idStyle WHERE u.mail = :mail",
+            ['mail' => $email]
+        );
+
+        if ($data = $query->fetch())
+        {
+            $user = new User($data['idUser']);
+            $user->setEmail($email);
             $user->settings()
                 ->setStyle(Style::from($data['style']))
                 ->setTips($data['tips']);
@@ -177,8 +204,8 @@ class UserDAO implements UserDaoInterface
     public function updateStyle(User $user, Style $style) : void
     {
         $result = Database::getInstance()->executeNonQuery(
-            "UPDATE `User` SET style = :style WHERE id = :id",
-            ['style' => $style, 'id' => $user->id()]
+            "UPDATE `User` SET style = (SELECT idStyle FROM style WHERE style = :style) WHERE id = :id",
+            ['style' => $style->value, 'id' => $user->id()]
         );
 
         if ($result != 1) throw new NotFoundException();

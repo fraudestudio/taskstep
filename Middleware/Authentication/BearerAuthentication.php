@@ -30,6 +30,7 @@ class BearerAuthentication
         try
         {
             $user = $userDao->readBySessionToken($authData);
+            $userDao->refreshSession($authData);
 
             $request = $request->withAttribute('user', $user);
             return $handler->handle($request);

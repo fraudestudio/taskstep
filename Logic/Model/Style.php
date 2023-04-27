@@ -7,7 +7,7 @@ namespace TaskStep\Logic\Model;
 /**
  * Les différents styles de l'application.
  */
-enum Style : int
+enum Style : string
 {
-	case CLASSIC = 0;
+	case CLASSIC = 'classic';
 }

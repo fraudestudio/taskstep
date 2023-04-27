@@ -2,11 +2,25 @@
 
 require_once "includes/autoload.php";
 
-use TaskStep\Logic\Data\LegacyMySql\ItemDao;
+use TaskStep\Logic\Data\MySql\Dao\{ItemDao, UserDao};
+use TaskStep\Config;
 
 header('Content-type: text/xml');
 
-$allItems = (new ItemDao)->readAll();
+function base64_url_decode($string) {
+    return base64_decode(str_replace(['-','_'], ['+','/'], $string));
+}
+
+$auth = explode(':', base64_url_decode($_GET['channel'] ?? ''), 2);
+if (count($auth) != 2) exit;
+
+list($email, $signature) = $auth;
+if ($signature !== hash('sha256', $email . Config::instance()->rssSecret())) exit;
+
+try { $user = (new UserDao)->readByEmail($email); }
+catch (Exception) { exit; }
+
+$allItems = (new ItemDao)->readAll($user);
 
 $baseUrl = $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/');
 

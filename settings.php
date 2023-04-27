@@ -7,6 +7,7 @@
 use TaskStep\Logic\Data\MySql\Dao\{ItemDao, UserDao};
 use TaskStep\Logic\Exceptions\NotFoundException;
 use TaskStep\Logic\Model\Style;
+use TaskStep\Config;
 
 $users = new UserDao();
 $items = new ItemDao();
@@ -116,6 +117,9 @@ else
 
 $baseUrl = $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/');
 
+$signature = hash('sha256', USER->email() . Config::instance()->rssSecret());
+$rss_channel = str_replace(['+','/','='], ['-','_',''], base64_encode(USER->email() . ':' . $signature));
+
 ?>
 
 <div id="bookmarklet">
@@ -206,6 +210,11 @@ $baseUrl = $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/');
 		<?php else: ?>
 			<a href="settings.php?export=csv"> <?= l->settings->tools->export ?> </a>
 		<?php endif; ?>
+	</span>
+	&ensp;
+	<span class="purgebutton">
+		<img src="images/rss.png" alt=""/>
+		<a href="rss.php?channel=<?= $rss_channel ?>">RSS feed</a>
 	</span>
 </div>
 
