@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SignInModel } from './model/signin-model';
 import { Observable, throwError, catchError, of, tap, from} from 'rxjs';
+import { User } from 'src/app/model/user';
+import { Buffer } from 'buffer'
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +13,7 @@ export class AuthService {
 
     constructor(private httpClient: HttpClient) {}
 
-    static token : string = "12345678901234567890";
+    static token : string = "";
 
     /**
      * Sign in a user
@@ -18,14 +21,14 @@ export class AuthService {
      * @param password the password of the user
      * @returns the token of the user
      */
-    signin(email : string, password : string) : Observable<string> {
+    signin(email : string, password : string) : Observable<SignInModel> {
         const httpOptions = {
-                headers : new HttpHeaders({'Content-Type' : 'application/json',
-                'Authorization':'Basic'+btoa(email+':'+password)
+                headers : new HttpHeaders({
+                'Authorization':'Basic ' + Buffer.from(email + ':' + password).toString('base64')
             })
         };
 
-        return this.httpClient.post<string>("api/signin",httpOptions).pipe(
+        return this.httpClient.post<SignInModel>("api/signin",{},httpOptions).pipe(
             tap((response) => console.table(response)),
             catchError((error) => this.handleError(error,null))
         )

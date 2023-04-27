@@ -21,9 +21,27 @@ export class AdditemComponent implements OnInit {
         this.projectService = new ProjectService(httpClient)
     }
 
+
+
+    private dataIsLoad : boolean[] = [
+        false,
+        false
+    ]
+
+
+    isDataIsLoad() : boolean{
+        return this.dataIsLoad[0] && this.dataIsLoad[1];
+    }
+
     ngOnInit(): void {
-        this.contextService.getContexts().subscribe(projects => this.contexts = projects);
-        this.projectService.getProjects().subscribe(projects => this.projects = projects);
+        this.contextService.getContexts().subscribe((projects) => { 
+            this.contexts = projects;
+            this.dataIsLoad[0] = true;
+        });
+        this.projectService.getProjects().subscribe((projects) => {
+            this.projects = projects
+            this.dataIsLoad[1] = true;
+        });
     }
 
     edit: boolean = false;
@@ -71,7 +89,8 @@ export class AdditemComponent implements OnInit {
 
     
     editContext(){
-        this.router.navigate(["editcontext"]);
+        console.log(this.form.context);
+        this.router.navigate(["editcontext"], {state : {data : this.form.context.Id}});
     }
     
     editProject(){

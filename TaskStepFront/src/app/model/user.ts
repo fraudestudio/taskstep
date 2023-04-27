@@ -1,9 +1,16 @@
-export class User{
-    public mail : string; 
-    public password : string;
+import { Settings } from "./settings";
 
-    constructor(mail : string, password : string){
-        this.mail = mail;
-        this.password = password;
+export class User{
+    public Id : number;
+    public Email : string;
+    public password : string;
+    public Settings : Settings;
+
+    constructor(Id : number, Email : string , password : string, Settings : Settings){
+        this.Id = Id;
+        this.Email = Email;
+        this.password = password
+        this.Settings = Settings
     }
+
 }

@@ -1,7 +1,7 @@
 /* Standard Stylesheet for TaskStep */
 /* Created by Loco 2006 */
 
-[data-theme = "light"]{
+[data-theme = "classic"]{
 	--background-color: white;
 	--title-color: #333;
 	--subtitle-color: #333;

@@ -48,7 +48,7 @@ export class FakeDatabase {
     }
 
 
-    public static Users : User[] = [
+    /*public static Users : User[] = [
         new User("test@gmail.com","test"),
     ];
 
@@ -86,7 +86,7 @@ export class FakeDatabase {
         
         return res;
     }
-
+*/
     /**
      * Table all of the sidebar componenet of the side
      * They are requested from the server
