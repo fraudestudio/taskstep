@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TaskStep\Controllers;
 
+use DateTime;
 use TaskStep\Logic\Model\Item;
 use TaskStep\Logic\Model\ItemDaoInterface;
 use TaskStep\Logic\Exceptions\NotFoundException;
@@ -155,4 +156,69 @@ class ItemController extends Controller
 
 	}
 
+	public function Readbydate()
+	{
+		$date = $this->requireBodyObject(DateTime::class);
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$item = $this->itemDao->readByDate($date,$id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+	}
+
+	public function ReadDaily()
+	{
+		$date = $this->requireBodyObject(DateTime::class);
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$item = $this->itemDao->readDaily($date,$id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+	}
+
+	public function countUndone()
+	{
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$item = $this->itemDao->countUndone($id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+	}
+	
+	public function countBySection()
+	{
+		$id = $this->requireInt('id');
+
+		try
+		{
+			$item = $this->itemDao->countBySection($id);
+		}
+		catch (NotFoundException)
+		{
+			$this->notFound();
+		}
+
+		$this->jsonResponse($item);
+	}
 }

@@ -202,9 +202,9 @@ class ItemDao implements ItemDaoInterface
 		}
 	}
 
-	public function readByDate(DateTime $date): array
+	public function readByDate(DateTime $date,int $user): array
 	{
-		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i where i.date = ":date"',array('date'=>$date));
+		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i where i.date = ":date" and i.User = ":user"',array('date'=>$date,'user'=>$user));
 
         $result = [];
 
@@ -218,9 +218,9 @@ class ItemDao implements ItemDaoInterface
         return $result;
 	}
 
-	public function readDaily(DateTime $day): array
+	public function readDaily(DateTime $day,int $user): array
 	{
-		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where i.date = ":date" and s.title = "immediate" ',array('date'=>$day));
+		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where i.date = ":date" and s.title = "immediate" and i.User = ":user" ',array('date'=>$day, 'user'=>$user));
 
         $result = [];
 
