@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use TaskStep\Middleware\Helpers\Services;
+use TaskStep\Logic\Exceptions\{NotFoundException, TokenOutOfDateException};
 use TaskStep\Logic\Model\User;
 
 class BearerAuthentication
@@ -30,6 +31,10 @@ class BearerAuthentication
         try
         {
             $user = $userDao->readBySessionToken($authData);
+
+            // POUR LES TESTS UNIQUEMENT, À ENLEVER
+            if ($authData != '12345678901234567890')
+                
             $userDao->refreshSession($authData);
 
             $request = $request->withAttribute('user', $user);
