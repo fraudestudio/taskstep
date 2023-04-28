@@ -17,27 +17,30 @@ export class DisplayItemSideBarComponent {
     this.section = history.state.data.section;
    }
 
-doneItem(selectedItem: Item) {
-      selectedItem.Done = true;
-      FakeDatabase.ModifyItem(selectedItem);
-}
-editItem(selectedItem: Item) {
-     this.router.navigate(['/additem'], { state: { data: { item: selectedItem } } });
-}
-deleteItem(selectedItem: Item) {
-     FakeDatabase.RemoveItem(selectedItem);
-}
 
- 
+  Print(){
+    throw new Error("Method not implemented.");
+  }
 
-  
+  doneItem(selectedItem: Item) {
+        if(selectedItem.Done == false){
+          selectedItem.Done = true;   
+        }
+        else{
+          selectedItem.Done = false;
+        }
+        FakeDatabase.ModifyItem(selectedItem);
+  }
+
+  editItem(selectedItem: Item) {
+      this.router.navigate(['/additem'], { state: { data: { item: selectedItem } } });
+  }
+
+  deleteItem(selectedItem: Item) {
+      FakeDatabase.RemoveItem(selectedItem);
+  }
 
   protected ListItems : Item[] = FakeDatabase.GetAllItems();
-
-
-
-
-
 
 }
 
