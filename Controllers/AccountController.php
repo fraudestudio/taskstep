@@ -28,15 +28,21 @@ class AccountController extends Controller
 	{
 		$registration = $this->requireBodyObject(Registration::class);
 
-		trigger_error('TODO : VÉRIFIER LE CAPTCHA !', E_USER_WARNING);
-
-		try
+		if ($registration->captchaToken()->verify())
 		{
-			$this->userDao->register($registration);
+			try
+			{
+				$this->userDao->register($registration);
+				$this->okResponse();
+			}
+			catch (DuplicateException)
+			{
+				$this->textResponse('ERR_EMAIL_ARLEADY_TAKEN', 400);
+			}
 		}
-		catch (DuplicateException)
+		else
 		{
-			$this->badRequest('ERR_EMAIL_ARLEADY_TAKEN');
+			$this->textResponse('ERR_CAPTCHA_INVALID', 400);
 		}
 	}
 
