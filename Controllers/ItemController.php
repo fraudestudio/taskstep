@@ -7,7 +7,7 @@ namespace TaskStep\Controllers;
 use DateTime;
 use TaskStep\Logic\Model\ItemDaoInterface;
 use TaskStep\Logic\Exceptions\NotFoundException;
-use TaskStep\Logic\Model\{Item, Project, Section, Context};
+use TaskStep\Logic\Model\{Item, Project, Section, Context, Compare};
 use TaskStep\Middleware\Helpers;
 
 class ItemController extends Controller
@@ -26,6 +26,7 @@ class ItemController extends Controller
 	 */
 	public function getAll()
 	{
+		// sélection des items. tous les filtres sont exclusifs
 		if ($this->getString('section', $section))
 		{
 			$section = Section::from($section);
@@ -41,9 +42,35 @@ class ItemController extends Controller
 			$context = new Context($context);
 			$items = $this->itemDao->readByContext($this->requireUser(), $context);
 		}
+		else if ($this->getString('date', $date))
+		{
+			$date = new DateTime($date);
+			$items = $this->itemDao->readByDate($this->requireUser(), $date);
+		}
 		else
 		{
 			$items = $this->itemDao->readAll($this->requireUser());
+		}
+
+		// tri des items
+		$this->getString('sort', $sort);
+		switch ($sort)
+		{
+		case 'title':
+			usort($items, Compare::BY_TITLE);
+			break;
+		case 'date':
+			usort($items, Compare::BY_DATE);
+			break;
+		case 'context':
+			usort($items, Compare::BY_CONTEXT);
+			break;
+		case 'project':
+			usort($items, Compare::BY_PROJECT);
+			break;
+		case 'done':
+			usort($items, Compare::UNDONE_FIRST);
+			break;
 		}
 
 		$this->jsonResponse($items);

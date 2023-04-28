@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TaskStep\Controllers;
 
-use TaskStep\Logic\Model\Context;
+use TaskStep\Logic\Model\{Context, Compare};
 use TaskStep\Logic\Model\ContextDaoInterface;
 use TaskStep\Logic\Exceptions\NotFoundException;
 use TaskStep\Middleware\Helpers;
@@ -25,15 +25,10 @@ class ContextController extends Controller
      */
     public function getAll()
     {
-        try
-        {
-        	$contexts = $this->contextDao->readAll($this->requireUser());
-            $this->jsonResponse($contexts);
-        }
-        catch(NotFoundException)
-        {
-            $this->notFound();
-        }
+    	$contexts = $this->contextDao->readAll($this->requireUser());
+        usort($contexts, Compare::BY_TITLE);
+
+        $this->jsonResponse($contexts);
     }
 
     /**

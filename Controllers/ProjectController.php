@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TaskStep\Controllers;
 
-use TaskStep\Logic\Model\Project;
+use TaskStep\Logic\Model\{Project, Compare};
 use TaskStep\Logic\Model\ProjectDaoInterface;
 use TaskStep\Logic\Exceptions\NotFoundException;
 use TaskStep\Middleware\Helpers\{Context, Services};
@@ -26,6 +26,7 @@ class ProjectController extends Controller
 	public function getAll()
 	{
 		$projects = $this->projectDao->readAll($this->requireUser());
+        usort($contexts, Compare::BY_TITLE);
 
 		$this->jsonResponse($projects);
 	}
