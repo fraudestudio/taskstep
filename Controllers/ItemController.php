@@ -209,18 +209,9 @@ class ItemController extends Controller
 
 	public function countUndone()
 	{
-		$id = $this->requireInt('id');
+		$undone = $this->itemDao->countUndone($this->requireUser());
 
-		try
-		{
-			$item = $this->itemDao->countUndone($id);
-		}
-		catch (NotFoundException)
-		{
-			$this->notFound();
-		}
-
-		$this->jsonResponse($item);
+		$this->jsonResponse($undone);
 	}
 	
 	public function countBySection()
@@ -229,7 +220,7 @@ class ItemController extends Controller
 
 		try
 		{
-			$item = $this->itemDao->countBySection($id);
+			$item = $this->itemDao->countBySection();
 		}
 		catch (NotFoundException)
 		{
