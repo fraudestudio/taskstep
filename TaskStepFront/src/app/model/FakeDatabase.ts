@@ -6,7 +6,7 @@ import { SideBarComponent } from "./sideBarComponent";
 
 export class FakeDatabase {
 
-    public static Items : Item[] = [new Item(0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test"),new Item(0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test"),new Item(0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test")];
+    public static Items : Item[] = [new Item(false,0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test"),new Item(false,0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test"),new Item(false,0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test")];
     public static Contexts : Context[] = [];
     
 
@@ -109,11 +109,17 @@ export class FakeDatabase {
         this.Items.push(item);
     }
 
-    public static RemoveItem(id : number){
-        this.Items.splice(id - 1)
-    }
+    public static RemoveItem(item: Item) {
+        const  index= this.Items.indexOf(item);
+        if (index > -1) {
+          this.Items.splice(index, 1);
+        }
+      }
 
-    public static ModifyItem(index : number,item : Item){
+    public static ModifyItem(item : Item){
+        let index = this.Items.indexOf(item);
+        this.Items[index] = item;
+        
     }
 
     public static GetAllItems() : Item[] {

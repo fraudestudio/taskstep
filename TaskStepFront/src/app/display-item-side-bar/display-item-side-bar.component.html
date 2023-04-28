@@ -23,12 +23,19 @@
                         <input type="submit" value="Sort"/>
                     </form>
                 
-                    <div *ngFor="let item of ListItems">
-                        <span> 
-                            {{item.Title}}  <span *ngIf="item.DueDate != null" {{item.DueDate}}> | {{item.Context}} | {{item.Project}}</span> 
-                            <p *ngIf="item.Note != null"> {{item.Note}}</p>
-                            <p *ngIf="item.Url != null "> {{ item.Url }} </p> 
-                        </span>
+                    <div *ngFor="let item of ListItems"> 
+                        {{item.Title}
+                        <span *ngIf="item.DueDate != null"> | {{item.DueDate.toDateString()}} </span>
+                        <span > | {{item.Context}}  </span>
+                        <span > | {{item.Project}}  </span>
+                        <p *ngIf="item.Note != null">{{item.Note}}</p>                             
+                        <p *ngIf="item.Url != null">{{item.Url}}</p>
+
+                        <a (click)="deleteItem(item)"></a>
+                        <a (click)="editItem(item)"></a>
+                        <a (click)="doneItem(item)"></a>
+
+                        
                     </div>
                 
                     

@@ -98,7 +98,7 @@ export class AdditemComponent implements OnInit {
    
     submit() {
         if(this.edit == false){
-        let item = new Item(0,this.form.title, this.form.note, this.form.context, this.form.project, this.form.dueDate, this.form.url,this.form.section);
+        let item = new Item(false, 0 ,this.form.title, this.form.note, this.form.context, this.form.project, this.form.dueDate, this.form.url,this.form.section);
         console.log(item);
         FakeDatabase.AddItem(item);
         }

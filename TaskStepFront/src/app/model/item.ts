@@ -18,7 +18,9 @@ export class Item{
 
     private id : number = 0 ;
 
-    constructor(id : number, title : string, note : string, context : Context, project : Project, dueDate : Date, url : string,section:  string){
+    private done : boolean = false;
+
+    constructor(done: boolean,id : number, title : string, note : string, context : Context, project : Project, dueDate : Date, url : string, section:  string){
 
             this.title = title;
             this.note = note;
@@ -28,6 +30,7 @@ export class Item{
             this.dueDate = dueDate;
             this.url = url;
             this.id = id;
+            this.done = done;
 
     }
 
@@ -64,5 +67,9 @@ export class Item{
     get Section() : string {  return this.section;  }
 
     set Section(value : string) {  this.section = value;  }
+
+    get Done() : boolean {  return this.done;  }
+
+    set Done(value : boolean) {  this.done = value;  }
 
 }

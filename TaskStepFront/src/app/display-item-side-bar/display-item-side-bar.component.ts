@@ -12,10 +12,25 @@ import { SideBarComponent } from '../model/sideBarComponent';
 export class DisplayItemSideBarComponent {
 
   protected section : string;
-
-  constructor() {
+  
+  constructor(private route: ActivatedRoute,  private router: Router) {
     this.section = history.state.data.section;
    }
+
+doneItem(selectedItem: Item) {
+      selectedItem.Done = true;
+      FakeDatabase.ModifyItem(selectedItem);
+}
+editItem(selectedItem: Item) {
+     this.router.navigate(['/additem'], { state: { data: { item: selectedItem } } });
+}
+deleteItem(selectedItem: Item) {
+     FakeDatabase.RemoveItem(selectedItem);
+}
+
+ 
+
+  
 
   protected ListItems : Item[] = FakeDatabase.GetAllItems();
 
