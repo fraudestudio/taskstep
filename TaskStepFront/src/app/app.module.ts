@@ -22,6 +22,7 @@ import { EditprojectComponent } from './editproject/editproject.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
+import { DisplayItemSideBarComponent } from './display-item-side-bar/display-item-side-bar.component';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -46,6 +47,7 @@ registerLocaleData(localeFr);
     EditprojectComponent,
     RegisterComponent,
     AdditemComponent,
+    DisplayItemSideBarComponent
   ],
   imports: [
     BrowserModule,

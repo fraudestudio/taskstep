@@ -1,7 +1,41 @@
-<header></header>
+<app-navigation-bar></app-navigation-bar>
+
     <div id="container">
         <div id="content">
             <div id="sectiontitle"><h1> {{section}} </h1></div>
+                <div class="sortform">
+                    <p>
+                        <span class="printer">
+                            <a >
+
+                            </a>
+                        </span>
+                    </p>
+                    <form>
+                        Sort items by:
+                        <select>
+                            <option value="title">Title</option>
+                            <option value ="date">Date</option>
+                            <option value="context">Context</option>
+                            <option value="project">Project</option>
+                            <option value="Done">Done</option>
+                        </select>
+                        <input type="submit" value="Sort"/>
+                    </form>
+                
+                    <div *ngFor="let item of ListItems">
+                        <span> 
+                            {{item.Title}}  <span *ngIf="item.DueDate != null" {{item.DueDate}}> | {{item.Context}} | {{item.Project}}</span> 
+                            <p *ngIf="item.Note != null"> {{item.Note}}</p>
+                            <p *ngIf="item.Url != null "> {{ item.Url }} </p> 
+                        </span>
+                    </div>
+                
+                    
+                </div>
+            <div>
+
+            </div>
         </div>
     </div>
-<footer></footer>
+<app-footer></app-footer>

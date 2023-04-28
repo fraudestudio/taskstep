@@ -6,8 +6,6 @@ export class Item{
 
     private note : string;
 
-    // private section : string;
-    
     private context : Context;
 
     private project : Project;  
@@ -18,19 +16,22 @@ export class Item{
 
     private url : string;
 
-    private id : number = 0;
+    private id : number = 0 ;
 
-    constructor(title : string, note : string, context : Context, project : Project, dueDate : Date, url : string,section:  string){
-        
-        this.title = title;
-        this.note = note;
-        this.context = context;
-        this.section = section;
-        this.project = project;
-        this.dueDate = dueDate;
-        this.url = url;
+    constructor(id : number, title : string, note : string, context : Context, project : Project, dueDate : Date, url : string,section:  string){
+
+            this.title = title;
+            this.note = note;
+            this.context = context;
+            this.section = section;
+            this.project = project;
+            this.dueDate = dueDate;
+            this.url = url;
+            this.id = id;
 
     }
+
+    
 
     get Title() : string {  return this.title;  }
 

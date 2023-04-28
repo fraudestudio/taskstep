@@ -14,6 +14,7 @@ import { EditprojectComponent } from './editproject/editproject.component';
 import { RegisterComponent } from './register/register.component';
 import { AdditemComponent } from './additem/additem.component';
 import { AuthGuard } from './auth.guard';
+import { DisplayItemSideBarComponent} from './display-item-side-bar/display-item-side-bar.component';
 
 const routes: Routes = [
   {path : '', redirectTo: '/register', pathMatch: 'full'},
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path : "editproject", component: EditprojectComponent, canActivate:[AuthGuard]},
   {path : 'additem', component: AdditemComponent, canActivate:[AuthGuard]},
   {path : "register", component:RegisterComponent},
+  {path : "displayItemSideBar", component:DisplayItemSideBarComponent, canActivate:[AuthGuard]},
   {path : '**', component: PagenotfoundComponent, canActivate:[AuthGuard] },
 ];
 

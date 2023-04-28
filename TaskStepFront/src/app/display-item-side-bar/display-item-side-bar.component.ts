@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Item } from '../model/item';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { FakeDatabase } from '../model/FakeDatabase';
+import { SideBarComponent } from '../model/sideBarComponent';
 
 
 @Component({
@@ -12,6 +16,13 @@ export class DisplayItemSideBarComponent {
   constructor() {
     this.section = history.state.data.section;
    }
+
+  protected ListItems : Item[] = FakeDatabase.GetAllItems();
+
+
+
+
+
 
 }
 

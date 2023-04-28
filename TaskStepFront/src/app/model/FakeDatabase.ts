@@ -6,9 +6,9 @@ import { SideBarComponent } from "./sideBarComponent";
 
 export class FakeDatabase {
 
-    public static Items : Item[] = [];
-    public static Contexts : Context[] = [
-    ];
+    public static Items : Item[] = [new Item(0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test"),new Item(0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test"),new Item(0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test")];
+    public static Contexts : Context[] = [];
+    
 
     constructor(){
     
@@ -113,6 +113,12 @@ export class FakeDatabase {
         this.Items.splice(id - 1)
     }
 
+    public static ModifyItem(index : number,item : Item){
+    }
+
+    public static GetAllItems() : Item[] {
+        return this.Items;
+    }
     
     
 }
