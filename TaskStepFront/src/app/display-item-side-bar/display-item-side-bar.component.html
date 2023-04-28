@@ -3,63 +3,76 @@
     <div id="container">
         <div id="content">
 
-            <div *ngIf="message">
-                <div *ngIf='type == "confirmation"' class="confirmation">
-                    <p><img src="assets/images/accept.png" alt="Icône confirmation"/>{{message}}</p>
+            <div *ngIf="!IsDataLoad">
+                <h2>Chargement des données...</h2>
+            </div>
+
+            <div *ngIf="IsDataLoad">
+                <div *ngIf="message">
+                    <div *ngIf='type == "confirmation"' class="confirmation">
+                        <p><img src="assets/images/accept.png" alt="Icône confirmation"/>{{message}}</p>
+                    </div>
+                    <div *ngIf='type == "warning"' class="warning">
+                        <p><img src="assets/images/exclamation.png" alt="Icône alerte"/>{{message}}</p>
+                    </div>
                 </div>
-                <div *ngIf='type == "warning"' class="warning">
-                    <p><img src="assets/images/exclamation.png" alt="Icône alerte"/>{{message}}</p>
+    
+                <div id="sectiontitle"><h1> {{Section}} </h1></div>
+                    <div class="sortform">
+                        <p>
+                            <span class="printer">
+                                <a href="" onclick="return false;" (click)="Print()"><img src="assets/images/printer.png"/> Imprimer les tâches</a>
+                            </span>
+                        </p>
+                        <form class="sortform" #f = "ngForm" (ngSubmit)="submit()">
+                            Tier les tâches par : 
+                            <select #sort (change)="sortChange(sort.value)">
+                                <option *ngIf='CurrentSort == "title"' value="title" selected>Titre</option>
+                                <option *ngIf='CurrentSort != "title"' value="title">Titre</option>
+                                <option *ngIf='CurrentSort == "date"' value ="date" selected>Date</option>
+                                <option *ngIf='CurrentSort != "date"' value ="date">Date</option>
+                                <option *ngIf='CurrentSort == "context"' value="context" selected>Context</option>
+                                <option *ngIf='CurrentSort != "context"' value="context">Context</option>
+                                <option *ngIf='CurrentSort == "project"' value="project" selected>Projet</option>
+                                <option *ngIf='CurrentSort != "project"' value="project">Projet</option>
+                                <option *ngIf='CurrentSort == "done"' value="done" selected>Fait</option>
+                                <option *ngIf='CurrentSort != "done"' value="done">Fait</option>
+                            </select>
+                            <input type="submit" value="Sort"/>
+                        </form>
+                        <br>
+                        <div class="inform" *ngFor="let item of ListItems">
+                            <img src='assets/images/information.png' alt='' /> 
+                            {{item.Title}}
+                            <div *ngIf="item.Done" style="text-decoration:line-through;">
+                                <span *ngIf="item.Date != null"> | {{item.Date.toDateString()}} </span>
+                                <span > | {{item.Context.Title}}  </span>
+                                <span > | {{item.Project.Title}}  </span>
+                                <a href="" onclick="return false;" class = "actionicon" (click)="deleteItem(item)"><img src="assets/images/bin_empty.png"/></a>
+                                <a href="" onclick="return false;" class = "actionicon" (click)="editItem(item)"><img src="assets/images/pencil.png"/></a>
+                                <a href="" onclick="return false;" *ngIf="!item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/undone.png"/></a>
+                                <a href="" onclick="return false;" *ngIf="item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/accept.png"/></a>
+                                <p *ngIf="item.Notes != null">{{item.Notes}}</p>                             
+                                <p *ngIf="item.Url != null">{{item.Url}}</p>
+                            </div>
+                            <div *ngIf="!item.Done">
+                                <span *ngIf="item.Date != null"> | {{item.Date}}</span>
+                                <span > | {{item.Context.Title}}  </span>
+                                <span > | {{item.Project.Title}}  </span>
+                                <a href="" onclick="return false;" class = "actionicon" (click)="deleteItem(item)"><img src="assets/images/bin_empty.png"/></a>
+                                <a href="" onclick="return false;" class = "actionicon" (click)="editItem(item)"><img src="assets/images/pencil.png"/></a>
+                                <a href="" onclick="return false;" *ngIf="!item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/undone.png"/></a>
+                                <a href="" onclick="return false;" *ngIf="item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/accept.png"/></a>
+                                <p *ngIf="item.Notes != null">{{item.Notes}}</p>                             
+                                <p *ngIf="item.Url != null"><a [href]="item.Url">{{item.Url}}</a></p>
+                            </div>
+                        </div>           
+                    </div>
+                <div>
                 </div>
             </div>
 
-            <div id="sectiontitle"><h1> {{Section}} </h1></div>
-                <div class="sortform">
-                    <p>
-                        <span class="printer">
-                            <a (click)="Print()" > </a>
-                        </span>
-                    </p>
-                    <form class="sortform">
-                        Sort items by:
-                        <select>
-                            <option value="title">Title</option>
-                            <option value ="date">Date</option>
-                            <option value="context">Context</option>
-                            <option value="project">Project</option>
-                            <option value="Done">Done</option>
-                        </select>
-                        <input type="submit" value="Sort"/>
-                    </form>
-                    <br>
-                    <div class="inform" *ngFor="let item of ListItems">
-                        <img src='assets/images/information.png' alt='' /> 
-                        {{item.Title}}
-                        <div *ngIf="item.Done" style="text-decoration:line-through;">
-                            <span *ngIf="item.DueDate != null"> | {{item.DueDate.toDateString()}} </span>
-                            <span > | {{item.Context.Title}}  </span>
-                            <span > | {{item.Project.Title}}  </span>
-                            <a href="" onclick="return false;" class = "actionicon" (click)="deleteItem(item)"><img src="assets/images/bin_empty.png"/></a>
-                            <a href="" onclick="return false;" class = "actionicon" (click)="editItem(item)"><img src="assets/images/pencil.png"/></a>
-                            <a href="" onclick="return false;" *ngIf="!item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/undone.png"/></a>
-                            <a href="" onclick="return false;" *ngIf="item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/accept.png"/></a>
-                            <p *ngIf="item.Note != null">{{item.Note}}</p>                             
-                            <p *ngIf="item.Url != null">{{item.Url}}</p>
-                        </div>
-                        <div *ngIf="!item.Done">
-                            <span *ngIf="item.DueDate != null"> | {{item.DueDate.toDateString()}} </span>
-                            <span > | {{item.Context.Title}}  </span>
-                            <span > | {{item.Project.Title}}  </span>
-                            <a href="" onclick="return false;" class = "actionicon" (click)="deleteItem(item)"><img src="assets/images/bin_empty.png"/></a>
-                            <a href="" onclick="return false;" class = "actionicon" (click)="editItem(item)"><img src="assets/images/pencil.png"/></a>
-                            <a href="" onclick="return false;" *ngIf="!item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/undone.png"/></a>
-                            <a href="" onclick="return false;" *ngIf="item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/accept.png"/></a>
-                            <p *ngIf="item.Note != null">{{item.Note}}</p>                             
-                            <p *ngIf="item.Url != null">{{item.Url}}</p>
-                        </div>
-                    </div>           
-                </div>
-            <div>
-            </div>
+
         </div>
     </div>
 

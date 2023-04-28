@@ -22,6 +22,10 @@ export class NavigationBarComponent {
     return formatDate(this.date,'dd LLLL yyyy', 'fr-Fr');
   }
 
+  get RawDate() : string{
+    return this.date.toString();
+  }
+
 
   /**
    * Get all the sidebar component
@@ -39,8 +43,22 @@ export class NavigationBarComponent {
    this.router.navigate(["login"]);
   }
   
-  redirect(param :string) {
-    this.router.navigate(["displayItemSideBar"], { queryParams: { section : param},  state : {data : {section : param}}});
+  redirectSection(title : string, section : string) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(["displayItemSideBar"], { state : {data : { title : title, section : section }}});
+  }
+
+  redirectDate(date : string){
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(["displayItemSideBar"], { state : {data : { title : "Tâches d'aujourd'hui", date : date }}});
+  }
+
+  redirect(){
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(["displayItemSideBar"], { state : {data : { title : "Toutes les tâches" }}});
   }
 }
 

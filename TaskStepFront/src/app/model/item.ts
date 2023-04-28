@@ -4,7 +4,7 @@ import { Project } from "./project";
 export class Item{
     private title : string;
 
-    private note : string;
+    private notes : string;
 
     private context : Context;
 
@@ -12,7 +12,7 @@ export class Item{
 
     private section : string;
 
-    private dueDate : Date;
+    private date : Date;
 
     private url : string;
 
@@ -20,14 +20,14 @@ export class Item{
 
     private done : boolean = false;
 
-    constructor(done: boolean,id : number, title : string, note : string, context : Context, project : Project, dueDate : Date, url : string, section:  string){
+    constructor(done: boolean,id : number, title : string, notes : string, context : Context, project : Project, dueDate : Date, url : string, section:  string){
 
             this.title = title;
-            this.note = note;
+            this.notes = notes;
             this.context = context;
             this.section = section;
             this.project = project;
-            this.dueDate = dueDate;
+            this.date = dueDate;
             this.url = url;
             this.id = id;
             this.done = done;
@@ -44,9 +44,9 @@ export class Item{
 
     set Id(value : number) {  this.id = value;  }
 
-    get Note() : string {  return this.note;  }
+    get Notes() : string { return this.notes; }
 
-    set Note(value : string) {  this.note = value;  }
+    set Notes(value : string) {  this.notes = value;  }
 
     get Context() : Context {  return this.context;  }
 
@@ -56,11 +56,18 @@ export class Item{
 
     set Project(value : Project) {  this.project = value;  }
 
-    get DueDate() : Date {  return this.dueDate;  }
+    get Date() : Date { return this.date;  }
 
-    set DueDate(value : Date) {  this.dueDate = value;  }
+    set Date(value : Date) {  this.date = value;  }
 
-    get Url() : string {  return this.url;  }
+    get Url() : string {
+        if (this.url){
+            return this.url;  
+        }  
+        else {
+            return ""
+        }
+    }
 
     set Url(value : string) {  this.url = value;  }
 

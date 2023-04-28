@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-register',
   templateUrl: 'register.component.html'
 })
-export class RegisterComponent implements AfterViewInit{
+export class RegisterComponent {
 
   constructor(private recaptchaV3Service: ReCaptchaV3Service, private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){
     this.authService = new AuthService(httpClient);
@@ -19,14 +19,7 @@ export class RegisterComponent implements AfterViewInit{
 
 
   private authService : AuthService;
-  
-  ngAfterViewInit(): void {
 
-  }
-
-
-
-  
   /**
   * Information of the form
   */

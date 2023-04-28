@@ -15,19 +15,72 @@ export class ItemService {
 
 
     /**
-    * Get all the item of the user
-    * @returns the item of the user
-    */
-    getItems() : Observable<Item[]> {
+     * Get all the item wanted
+     * @param section the section wanted
+     * @param sort the sort wanted
+     * @returns 
+     */
+    getItemsSection(section : string, sort : string) : Observable<Item[]> {
         const httpOptions = {
         headers : new HttpHeaders({'Content-Type' : 'application/json',
             'Authorization': 'Bearer ' +  AuthService.token})
         };
-        return this.httpClient.get<Item[]>("api/items", httpOptions).pipe(
+        return this.httpClient.get<Item[]>("api/items?section="+section+"&sort="+sort, httpOptions).pipe(
         tap((response) => console.table(response)),
         catchError((error) => this.handleError(error,[]))
         )
     }
+
+
+    /**
+     * Get all the item wanted
+     * @param date the date wanted
+     * @param sort the sort wanted
+     * @returns 
+     */
+    getItemsDate(date : string, sort : string) : Observable<Item[]> {
+        const httpOptions = {
+        headers : new HttpHeaders({'Content-Type' : 'application/json',
+            'Authorization': 'Bearer ' +  AuthService.token})
+        };
+        return this.httpClient.get<Item[]>("api/items?date="+date+"&sort="+sort, httpOptions).pipe(
+        tap((response) => console.table(response)),
+        catchError((error) => this.handleError(error,[]))
+      )
+    }
+
+    /**
+     * Get all the item wanted
+     * @param context the context wanted
+     * @param sort the sort wanted
+     * @returns 
+     */
+    getItemsContext(context : number, sort : string) : Observable<Item[]> {
+      const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+          'Authorization': 'Bearer ' +  AuthService.token})
+      };
+      return this.httpClient.get<Item[]>("api/items?context="+context+"&sort="+sort, httpOptions).pipe(
+      tap((response) => console.table(response)),
+      catchError((error) => this.handleError(error,[]))
+    )
+  }
+
+    /**
+     * Get all the item wanted
+     * @returns 
+    */
+    getItemsAll(sort : string) : Observable<Item[]> {
+      const httpOptions = {
+        headers : new HttpHeaders({'Content-Type' : 'application/json',
+          'Authorization': 'Bearer ' +  AuthService.token})
+        };
+        return this.httpClient.get<Item[]>("api/items?sort="+sort, httpOptions).pipe(
+        tap((response) => console.table(response)),
+        catchError((error) => this.handleError(error,[]))
+        )
+    }
+  
 
 
   /**
@@ -44,8 +97,8 @@ export class ItemService {
 
     return this.httpClient.post("api/items", {
       Title : item.Title,
-      Date : item.DueDate,
-      Notes : item.Note,
+      Date : item.Date,
+      Notes : item.Notes,
       Url : item.Url,
       Done : item.Done,
       Context : {
@@ -65,9 +118,9 @@ export class ItemService {
   }
 
   /**
-   * Get a project by it's id
-   * @param id id of the project
-   * @returns the project
+   * Get an item by it's id
+   * @param id id of the item
+   * @returns the item
    */
   getItem(id : number) : Observable<Item> {
     const httpOptions = {
@@ -81,11 +134,11 @@ export class ItemService {
   }
 
   /**
-   * delete a project by it's id 
-   * @param id id of the project
+   * delete an item by it's id 
+   * @param id id of the item
    * @returns null
    */
-  deleteProject(id : number) : Observable<null> {
+  deleteItem(id : number) : Observable<null> {
     const httpOptions = {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
@@ -97,9 +150,9 @@ export class ItemService {
   }
 
   /**
-   * Modify a project 
-   * @param id of the project
-   * @param title of the project 
+   * Modify an item 
+   * @param id of the item
+   * @param title of the item 
    * @returns null
    */
   modifyItem(item : Item) : Observable<null> {
@@ -107,10 +160,10 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.put<Item>("api/items/" + item.Id, { 
+    return this.httpClient.put("api/items/" + item.Id, { 
       Title : item.Title,
-      Date : item.DueDate,
-      Notes : item.Note,
+      Date : item.Date,
+      Notes : item.Notes,
       Url : item.Url,
       Done : item.Done,
       Context : {

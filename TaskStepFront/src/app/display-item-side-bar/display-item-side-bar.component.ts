@@ -21,6 +21,17 @@ export class DisplayItemSideBarComponent implements OnInit {
 
   private listItems : Item[] = [];
   
+  private isDataLoad : boolean = false;
+
+  private currentSort : string = "title";
+
+  get CurrentSort() : string {
+    return this.currentSort;
+  }
+
+  get IsDataLoad() : boolean{
+    return this.isDataLoad;
+  }
 
   get message() : string {
     return history.state.data?.message; 
@@ -31,7 +42,46 @@ export class DisplayItemSideBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemService.getItems().subscribe(items => this.listItems = items)
+    
+    if (history.state.data?.sort){
+      this.currentSort = history.state.data?.sort;
+    }
+
+    
+
+    if (history.state.data?.section){
+      this.itemService.getItemsSection(history.state.data?.section,this.currentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
+    }
+    else if (history.state.data?.date){
+      this.itemService.getItemsDate(history.state.data?.date,this.CurrentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
+    }
+    else if (history.state.data?.context) {
+      this.itemService.getItemsContext(history.state.data?.context,this.currentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
+    }
+    else {
+      this.itemService.getItemsAll(this.CurrentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
+    }
+  }
+
+
+  submit(){
+    if (history.state.data?.section){
+      this.router.navigate(["displayItemSideBar"], { state : {data : { title : this.Section, section : history.state.data?.section, sort : this.currentSort }}});
+    }
+    else if (history.state.data?.date) {
+      this.router.navigate(["displayItemSideBar"], { state : {data : { title : this.Section, date : history.state.data?.date, sort : this.currentSort }}});
+    }
+    else if (history.state.data?.context) {
+      this.router.navigate(["displayItemSideBar"], { state : {data : { title : this.Section, context : history.state.data?.context, sort : this.currentSort }}});
+    }
+    else {
+      this.router.navigate(["displayItemSideBar"], { state : {data : { title : this.Section, sort : this.currentSort }}});
+    }
+
+  }
+
+  sortChange(value : string){
+    this.currentSort = value;
   }
 
   Print(){
@@ -39,7 +89,7 @@ export class DisplayItemSideBarComponent implements OnInit {
   }
 
   get Section() {
-    return history.state.data.section;
+    return history.state.data.title;
   }
 
   doneItem(selectedItem: Item) {
@@ -52,14 +102,40 @@ export class DisplayItemSideBarComponent implements OnInit {
         this.itemService.modifyItem(selectedItem).subscribe((data) =>{
           this.router.routeReuseStrategy.shouldReuseRoute = () => false;
           this.router.onSameUrlNavigation = 'reload';
-          if (data){
-              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâches est mise comme faite !", type : "confirmation"}}});
+          if (!data){
+            if (history.state.data?.section){
+              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, section : history.state.data?.section, sort : this.currentSort}}});
+            }
+            else if (history.state.data?.date){
+              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, date : history.state.data?.date, sort : this.currentSort}}});
+            }
+            else if (history.state.data?.context) {
+              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, context : history.state.data?.context, sort : this.currentSort}}});
+            }
+            else {
+              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, sort : this.currentSort}}});
+            }
           }
           else {
-              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Une erreur est survenue", type : "warning"}}});
+            this.showError()
           }
-
       })
+  }
+
+
+  showError(){
+    if (history.state.data?.section){
+      this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Une erreur est survenue", type : "warning", title : this.Section, section : history.state.data?.section, sort : this.currentSort}}});
+    }
+    else if (history.state.data?.date){
+      this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Une erreur est survenue", type : "warning", title : this.Section, date : history.state.data?.date, sort : this.currentSort}}});
+    }
+    else if (history.state.data?.context) {
+      this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Une erreur est survenue", type : "warning", title : this.Section, context : history.state.data?.context, sort : this.currentSort}}});
+    }
+    else {
+      this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Une erreur est survenue", type : "warning", title : this.Section, sort : this.currentSort}}});
+    }
   }
 
   editItem(selectedItem: Item) {
@@ -67,7 +143,27 @@ export class DisplayItemSideBarComponent implements OnInit {
   }
 
   deleteItem(selectedItem: Item) {
-      FakeDatabase.RemoveItem(selectedItem);
+    this.itemService.deleteItem(selectedItem.Id).subscribe((data) =>{
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      if (!data){
+        if (history.state.data?.section){
+          this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche a été supprimer !", type : "confirmation", title : this.Section, section : history.state.data?.section, sort : this.currentSort}}});
+        }
+        else if (history.state.data?.date){
+          this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche a été supprimer !", type : "confirmation", title : this.Section, date : history.state.data?.date, sort : this.currentSort}}});
+        }
+        else if (history.state.data?.context) {
+          this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche a été supprimer !", type : "confirmation", title : this.Section, context : history.state.data?.context, sort : this.currentSort}}});
+        }
+        else {
+          this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche a été supprimer !", type : "confirmation", title : this.Section, sort : this.currentSort}}});
+        }
+      }
+      else {
+        this.showError()
+      }
+    })
   }
 
   get ListItems() : Item[]{

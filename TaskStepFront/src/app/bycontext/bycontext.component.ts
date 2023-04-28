@@ -55,6 +55,11 @@ export class BycontextComponent implements OnInit {
     this.router.navigate(["editcontext"], {state : {data : id}});
   }
 
+
+  goItem(id : number, title : string){
+    this.router.navigate(["displayItemSideBar"], { state : {data : { title : title, context : id }}});
+  }
+
   setEditMode(){
     this.isEditing = true;
   }

@@ -13,7 +13,7 @@
             </div>
             <a class="listlinkssmart" routerLink="/addcontext"><img src="assets/images/add.png" alt=""/> Ajouter un contexte</a>
             <div *ngIf="!IsEditing">
-                <a href="" onclick="return false;"  *ngFor="let context of Contexts" class="listlinkssmart"><img src="assets/images/context.png" alt=""/> {{context.Title}}</a>
+                <a href="" onclick="return false;" (click)="goItem(context.Id, context.Title)" *ngFor="let context of Contexts" class="listlinkssmart"><img src="assets/images/context.png" alt=""/> {{context.Title}}</a>
             </div>
             <div *ngIf="IsEditing">
                 <a href="" onclick="return false;" *ngFor="let context of Contexts" class="listlinkssmart" (click)="goEditMode(context.Id)"><img src="assets/images/pencil.png" alt=""/> {{context.Title}}</a>
