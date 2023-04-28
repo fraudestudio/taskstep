@@ -26,7 +26,7 @@ class ProjectController extends Controller
 	public function getAll()
 	{
 		$projects = $this->projectDao->readAll($this->requireUser());
-        usort($contexts, Compare::BY_TITLE);
+        usort($projects, Compare::BY_TITLE);
 
 		$this->jsonResponse($projects);
 	}
