@@ -41,6 +41,11 @@ class ItemController extends Controller
 			$context = new Context($context);
 			$items = $this->itemDao->readByContext($this->requireUser(), $context);
 		}
+		else if ($this->getString('date', $date))
+		{
+			$date = new DateTime($date);
+			$items = $this->itemDao->readByDate($this->requireUser(), $date);
+		}
 		else
 		{
 			$items = $this->itemDao->readAll($this->requireUser());
