@@ -25,15 +25,10 @@ class ContextController extends Controller
      */
     public function getAll()
     {
-        try
-        {
-        	$contexts = $this->contextDao->readAll($this->requireUser());
-            $this->jsonResponse($contexts);
-        }
-        catch(NotFoundException)
-        {
-            $this->notFound();
-        }
+    	$contexts = $this->contextDao->readAll($this->requireUser());
+        usort($contexts, function($a, $b) { return strnatcasecmp($a->title(), $b->title()); });
+
+        $this->jsonResponse($contexts);
     }
 
     /**

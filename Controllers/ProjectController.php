@@ -26,6 +26,7 @@ class ProjectController extends Controller
 	public function getAll()
 	{
 		$projects = $this->projectDao->readAll($this->requireUser());
+        usort($contexts, function($a, $b) { return strnatcasecmp($a->title(), $b->title()); });
 
 		$this->jsonResponse($projects);
 	}
