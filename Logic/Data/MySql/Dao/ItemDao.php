@@ -217,8 +217,6 @@ class ItemDao implements ItemDaoInterface
 		return 1;
 	}
 
-
-
 	public function countUndone(User $user) : int
 	{
 		$statement = Database::GetInstance()->executeQuery(
