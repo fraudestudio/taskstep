@@ -11,7 +11,7 @@
                     <p><img src="assets/images/exclamation.png"/>{{message}}</p>
                 </div>
             </div>
-            <a class="listlinkssmart" routerLink="/addproject"><img src="assets/images/add.png" alt=""/> Ajouter un contexte</a>
+            <a class="listlinkssmart" routerLink="/addproject"><img src="assets/images/add.png" alt=""/> Ajouter un projet</a>
             <div *ngIf="!IsEditing">
                 <a href="" onclick="return false;"  *ngFor="let project of Projects" class="listlinkssmart"><img src="assets/images/project.png" alt=""/> {{project.Title}}</a>
             </div>
@@ -19,7 +19,7 @@
                 <a href="" onclick="return false;" *ngFor="let project of Projects" class="listlinkssmart" (click)="goEditMode(project.Id)"><img src="assets/images/pencil.png" alt=""/> {{project.Title}}</a>
             </div>
 
-            <a href="" onclick="return false;" *ngIf="!IsEditing" class="listlinkssmart" (click)="setEditMode()"><img src="assets/images/project_edit.png" alt=""/> Edtier un contexte</a>
+            <a href="" onclick="return false;" *ngIf="!IsEditing" class="listlinkssmart" (click)="setEditMode()"><img src="assets/images/project_edit.png" alt=""/> Edtier un projet</a>
         </div>
     </div>
 </div>
