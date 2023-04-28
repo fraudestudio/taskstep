@@ -56,7 +56,7 @@ case "section":
 
 case "project":
 	$project = (new ProjectDao)->readById(USER, $typeId);
-	$result = $items->readByProject($project);
+	$result = $items->readByProject(USER, $project);
 
 	$title = $project->title();
 	$noResultsUrl = "?project=$typeId";
@@ -66,7 +66,7 @@ case "project":
 
 case "context":
 	$context = (new ContextDao)->readById(USER, $typeId);
-	$result = $items->readByContext($context);
+	$result = $items->readByContext(USER, $context);
 
 	$title = $context->title();
 	$noResultsUrl = "?context=$typeId";
