@@ -5,14 +5,14 @@ include "sessioncheck.php";
 require_once "autoload.php";
 
 use TaskStep\Locale\Locale;
-use TaskStep\Logic\Data\LegacyMySql\{ItemDao, SettingsDao};
+use TaskStep\Logic\Data\MySql\Dao\{ItemDao, UserDao};
 use TaskStep\Logic\Model\Section;
 
 Locale::load();
 
-$style = (new SettingsDao)->style();
+$style = USER->settings()->style()->value;
 
-$sectionItemsCount = (new ItemDao)->countBySection();
+$sectionItemsCount = (new ItemDao)->countBySection(USER);
 
 ?>
 

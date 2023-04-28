@@ -13,17 +13,17 @@ include("includes/header.php"); ?>
 <?php
 
 use TaskStep\Logic\Model\{Item, User, Section, Context, Project};
-use TaskStep\Logic\Data\LegacyMySql\{ItemDao, ContextDao, ProjectDao};
+use TaskStep\Logic\Data\MySql\Dao\{ItemDao, ContextDao, ProjectDao};
 
 $itemDao = new ItemDao();
 $item = new Item();
 $itemId;
 
 $contextDao = new ContextDao();
-$contexts = $contextDao->readAll();
+$contexts = $contextDao->readAll(USER);
 
 $projectDao = new ProjectDao();
-$projects = $projectDao->readAll();
+$projects = $projectDao->readAll(USER);
 
 $showSuccessMessage = false;
 
@@ -32,7 +32,7 @@ $showSuccessMessage = false;
 if (isset($_GET['id']))
 {
 	$itemId = $_GET['id'];
-	$item = $itemDao->readById($itemId);
+	$item = $itemDao->readById(USER, $itemId);
 }
 // Otherwise, if the user has submitted a form, grab the rest of the form data
 else if (isset($_POST["submit"]))
@@ -48,17 +48,17 @@ else if (isset($_POST["submit"]))
 		->setNotes($_POST['notes'] ?? '')
 		->setUrl($_POST['url'] ?? '')
 		->setSection(Section::from($_POST['section']))
-		->setContext($contextDao->readById(intval($_POST['context'])))
-		->setProject($projectDao->readById(intval($_POST['project'])))
+		->setContext($contextDao->readById(USER, intval($_POST['context'])))
+		->setProject($projectDao->readById(USER, intval($_POST['project'])))
 		->setDone(false);
 
 	if (isset($itemId))
 	{
-		$itemDao->update($itemId, $item);
+		$itemDao->update(USER, $itemId, $item);
 	}
 	else
 	{
-		$itemDao->create($item);
+		$itemDao->create(USER, $item);
 		$item = new Item();
 	}
 	$showSuccessMessage = true;
@@ -67,8 +67,8 @@ else
 {
 	$item->setTitle(l->items->defaultTitle);
 	if (isset($_GET['section'])) $item->setSection(Section::from($_GET['section']));
-	if (isset($_GET['context'])) $item->setContext($contextDao->readById($_GET['context']));
-	if (isset($_GET['project'])) $item->setProject($projectDao->readById($_GET['project']));
+	if (isset($_GET['context'])) $item->setContext($contextDao->readById(USER, $_GET['context']));
+	if (isset($_GET['project'])) $item->setProject($projectDao->readById(USER, $_GET['project']));
 	if (isset($_GET['url'])) $item->setUrl($_GET['url']);
 }
 

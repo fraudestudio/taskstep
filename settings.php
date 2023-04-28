@@ -4,15 +4,17 @@
 
 <?php
 
-use TaskStep\Logic\Data\LegacyMySql\{ItemDao, SettingsDao};
-use TaskStep\Styles;
+use TaskStep\Logic\Data\MySql\Dao\{ItemDao, UserDao};
+use TaskStep\Logic\Exceptions\NotFoundException;
+use TaskStep\Logic\Model\Style;
+use TaskStep\Config;
 
-$settings = new SettingsDao();
+$users = new UserDao();
 $items = new ItemDao();
-$styles = Styles::available();
+$styles = Style::cases();
 
-$showTips = $settings->tips();
-$currentStyle = $settings->style();
+$showTips = USER->settings()->tips();
+$currentStyle = USER->settings()->style();
 
 // Display settings
 if (isset($_POST["submit"]))
@@ -20,14 +22,14 @@ if (isset($_POST["submit"]))
 	$settingsStatus = [];
 	
 	$tips = isset($_POST['tips']);
-	$settings->setTips($tips);
+	$users->updateTips(USER, $tips);
 	if ($tips) array_push($settingsStatus, l->settings->display->tipsOn);
 	else array_push($settingsStatus, l->settings->display->tipsOff);
 
 	$style = $_POST['style'];
 	if (in_array($style, $styles))
 	{
-		$settings->setStyle($style);
+		$users->updateStyle(USER, $style);
 		array_push($settingsStatus, sprintf(l->settings->display->usingStyle, $style));
 	}
 }
@@ -42,21 +44,25 @@ if (isset($_POST["passchanges"]))
 	{
 		$passwordMessage = l->settings->password->noMatch;
 	}
-	else if(!$settings->checkPassword($_POST['currentpass']))
+	else 
 	{
-		$passwordMessage = l->settings->password->incorrect;
-	}
-	else
-	{
-		$settings->setPassword($newPassword);
-		$passwordMessage = l->settings->password->updated;
+		try 
+		{
+			$user = $users->readByEmailAndPassword(USER->email(), $_POST['currentpass']);
+			$users->changePassword($user, $newPassword);
+			$passwordMessage = l->settings->password->updated;
+		}
+		catch (NotFoundException)
+		{
+			$passwordMessage = l->settings->password->incorrect;
+		}
 	}
 }
 
 // Purge tool
 if (isset($_GET['delete'])) 
 {
-	$purged = $items->deleteAllDone();
+	$purged = $items->deleteAllDone(USER);
 }
 else
 {
@@ -77,7 +83,7 @@ if(isset($_GET['export']))
 		$exported = false;
 	}
 
-	$allItems = $items->readAll();
+	$allItems = $items->readAll(USER);
 
 	foreach ($allItems as $item)
 	{
@@ -111,6 +117,9 @@ else
 
 $baseUrl = $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/');
 
+$signature = hash('sha256', USER->email() . Config::instance()->rssSecret());
+$rss_channel = str_replace(['+','/','='], ['-','_',''], base64_encode(USER->email() . ':' . $signature));
+
 ?>
 
 <div id="bookmarklet">
@@ -140,7 +149,7 @@ $baseUrl = $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/');
 			<?= l->settings->display->css ?><br />
 			<select name="style">
 				<?php foreach ($styles as $style): ?>
-				<option value='<?= $style ?>' <?= $style == $currentStyle ? 'selected' : '' ?> ><?= $style ?></option>
+				<option value='<?= $style->value ?>' <?= $style == $currentStyle ? 'selected' : '' ?> ><?= $style->value ?></option>
 				<?php endforeach; ?>
 			</select><br />
 			<br />
@@ -201,6 +210,11 @@ $baseUrl = $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/');
 		<?php else: ?>
 			<a href="settings.php?export=csv"> <?= l->settings->tools->export ?> </a>
 		<?php endif; ?>
+	</span>
+	&ensp;
+	<span class="purgebutton">
+		<img src="images/rss.png" alt=""/>
+		<a href="rss.php?channel=<?= $rss_channel ?>">RSS feed</a>
 	</span>
 </div>
 

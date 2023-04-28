@@ -49,14 +49,14 @@ interface ItemDaoInterface
 	 * 
 	 * @param $section Le projet des items à récupérer.
 	 */
-	public function readByProject(Project $project): array;
+	public function readByProject(User $user, Project $project): array;
 
 	/**
 	 * Récupère les items avec une échéance particulière.
 	 * 
 	 * @param $date La date pour laquelle récupérer les items.
 	 */
-	public function readByDate(DateTime $date, int $int): array;
+	public function readByDate(User $user, DateTime $date): array;
 
 	/**
 	 * Récupère les items du jour.
@@ -66,7 +66,7 @@ interface ItemDaoInterface
 	 * 
 	 * @param $day Le jour pour lequel chercher les items.
 	 */
-	public function readDaily(DateTime $day,int $int): array;
+	public function readDaily(User $user, DateTime $day): array;
 
 	/**
 	 * Mets à jour un item.
@@ -89,12 +89,12 @@ interface ItemDaoInterface
 	 * 
 	 * @return int nombre d'items supprimés.
 	 */
-	public function deleteAllDone(int $id): int;
+	public function deleteAllDone(User $id): int;
 
 	/**
 	 * Compte le nombre total de tâches à faire.
 	 */
-	public function countUndone(int $id): int;
+	public function countUndone(User $user): int;
 
 	/**
 	 * Compte le de tâches finies et à faire pour chaque section.
@@ -102,5 +102,5 @@ interface ItemDaoInterface
 	 * Le tableau associatif renvoyé est indexé par section
 	 * et contient des sous-tableaux avec deux clés : 'done' et 'undone'. 
 	 */
-	public function countBySection(int $id): array;
+	public function countBySection(User $user): array;
 }

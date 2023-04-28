@@ -86,7 +86,20 @@ class ItemDao implements ItemDaoInterface
 
 	public function readBySection(User $user, Section $section): array
 	{
-		$statement = Database::GetInstance()->executeQuery('SELECT i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where s.title = ":title" and i.User = ":id" ; ', array('title'=> $section->value, 'id'=> $user->id()));
+		$statement = Database::GetInstance()->executeQuery(
+			<<<'SQL'
+				SELECT i.id, i.title, i.date, i.notes, i.url, i.done,
+					c.id as cid, c.title as ctitle,
+					s.title as section,
+					p.id as pid, p.title as ptitle
+				FROM items as i
+					JOIN contexts as c on i.context=c.id
+					JOIN sections as s on i.section=s.id
+					JOIN projects as p on i.project=p.id
+				WHERE s.title = :title AND i.User = :id
+			SQL,
+			['title'=> $section->value, 'id'=> $user->id()]
+		);
 
         $result = [];
 
@@ -116,7 +129,7 @@ class ItemDao implements ItemDaoInterface
         return $result;
 	}
 
-	public function readByProject(Project $project): array
+	public function readByProject(User $user, Project $project): array
 	{
 		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where p.id = ":id"', array('id'=>$project->id()));
 
@@ -163,24 +176,27 @@ class ItemDao implements ItemDaoInterface
 		if ($result != 1) throw new NotFoundException();
 	}
 
-	public function deleteAllDone(int $id) : int
+	public function deleteAllDone(User $user) : int
 	{
 		Database::GetInstance()->executeNonQuery(
-			'DELETE from items where done = 1 and User = ":id"',
-			array('id'=>$id)
+			'DELETE from items where done = 1 and User = :id',
+			array('id'=>$user->id())
 		);
 		return 1;
 	}
 
 
 
-	public function countUndone(int $id): int
+	public function countUndone(User $user) : int
 	{
-		$statement = Database::GetInstance()->executeQuery('select COUNT(*) from item where done = 0 and User = ":id"',array('id'=> $id));
+		$statement = Database::GetInstance()->executeQuery(
+			'SELECT COUNT(id) FROM items WHERE done = 0 and User = :id',
+			['id'=> $user->id()]
+		);
 
 		if ($row = $statement->fetch())
 		{
-			return $row;
+			return $row[0];
 		}
 		else
 		{
@@ -188,23 +204,40 @@ class ItemDao implements ItemDaoInterface
 		}
 	}
 
-	public function countBySection(int $id): array
+	public function countBySection(User $user): array
 	{
-		$statement = Database::GetInstance()->executeQuery('select COUNT(*) from item where done = 0 and User = ":id" order by section',array('id'=> $id));
+		$statement = Database::GetInstance()->executeQuery(
+			'SELECT sections.title AS section, SUM(IF(done=0, 1, 0)) AS undone, SUM(IF(done = 1, 1, 0)) AS done '.
+			'FROM (SELECT * FROM items WHERE User = :user) as i RIGHT JOIN sections ON section = sections.id GROUP BY sections.id',
+			['user' => $user->id()]
+		);
 
-		if ($row = $statement->fetch())
+		$result = [];
+
+		while ($row = $statement->fetch())
 		{
-			return $row;
+			$result[$row['section']] = ['done' => $row['done'], 'undone' => $row['undone']];
 		}
-		else
-		{
-			throw new Exception("Item not found");
-		}
+
+		return $result;
 	}
 
-	public function readByDate(DateTime $date,int $user): array
+	public function readByDate(User $user, DateTime $date): array
 	{
-		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i where i.date = ":date" and i.User = ":user"',array('date'=>$date,'user'=>$user));
+		$statement = Database::GetInstance()->executeQuery(
+			<<<'SQL'
+				SELECT i.id, i.title, i.`date`, i.notes, i.url, i.done,
+					c.id as cid, c.title as ctitle,
+					s.title as section,
+					p.id as pid, p.title as ptitle
+				FROM items as i
+					JOIN contexts as c on i.context=c.id
+					JOIN sections as s on i.section=s.id
+					JOIN projects as p on i.project=p.id
+				WHERE i.`date` = :date and i.User = :user
+			SQL,
+			['date' => $date->format('Y-m-d'), 'user' => $user->id()]
+		);
 
         $result = [];
 
@@ -218,9 +251,22 @@ class ItemDao implements ItemDaoInterface
         return $result;
 	}
 
-	public function readDaily(DateTime $day,int $user): array
+	public function readDaily(User $user, DateTime $day): array
 	{
-		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where i.date = ":date" and s.title = "immediate" and i.User = ":user" ',array('date'=>$day, 'user'=>$user));
+		$statement = Database::GetInstance()->executeQuery(
+			<<<'SQL'
+				SELECT i.id, i.title, i.`date`, i.notes, i.url, i.done,
+					c.id AS cid, c.title AS ctitle,
+					s.title AS section,
+					p.id AS pid, p.title AS ptitle
+				FROM items AS i
+					JOIN contexts AS c on i.context=c.id
+					JOIN sections AS s on i.section=s.id
+					JOIN projects AS p on i.project=p.id
+				WHERE (i.`date` <= :date OR s.title = 'immediate') AND i.User = :user AND i.done = 0
+			SQL,
+			['date'=>$day->format('Y-m-d'), 'user'=>$user->id()]
+		);
 
         $result = [];
 

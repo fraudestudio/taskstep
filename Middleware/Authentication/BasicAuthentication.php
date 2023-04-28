@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use TaskStep\Middleware\Helpers\Services;
+use TaskStep\Logic\Exceptions\NotFoundException;
 use TaskStep\Logic\Model\User;
 
 class BasicAuthentication
@@ -15,8 +16,7 @@ class BasicAuthentication
 	public function __invoke(Request $request, RequestHandler $handler) : Response
     {
         $failed = (new \Slim\Psr7\Response())
-            ->withStatus(401)
-            ->withHeader('WWW-Authenticate', 'Basic');
+            ->withStatus(401);
 
         $authHeader = $request->getHeader('Authorization');
 

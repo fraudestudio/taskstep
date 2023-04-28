@@ -2,7 +2,7 @@
 
 include("includes/header.php");
 
-use TaskStep\Logic\Data\LegacyMySql\{ContextDao, ProjectDao};
+use TaskStep\Logic\Data\MySql\Dao\{ContextDao, ProjectDao};
 
 $type = $_GET['type'] ?? '';
 
