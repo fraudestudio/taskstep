@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Project } from '../app/model/project';
 import { Item } from '../app/model/item';
 import { Observable, throwError, catchError, of, tap} from 'rxjs';
 import { AuthService } from './auth-service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { AuthService } from './auth-service';
 
 export class ProjectService {
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router : Router) {}
 
   /**
    * Get all the projects of the user
@@ -105,7 +106,11 @@ export class ProjectService {
    * @param errorValue the value of the error
    * @returns table of the value of the error
    */
-  private handleError(error : Error, errorValue : any){
+  private handleError(error : HttpErrorResponse, errorValue : any){
+    if (error.status == 401) {
+      AuthService.token = "";
+      this.router.navigate(['register']);
+    }
     console.error(error);
     return of(errorValue);
   }

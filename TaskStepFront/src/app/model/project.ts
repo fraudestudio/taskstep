@@ -25,7 +25,4 @@ export class Project{
         this.id = value;
     }
 
-    toString(){
-        return this.title;
-    }
 }

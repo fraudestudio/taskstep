@@ -18,7 +18,7 @@ export class EditprojectComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
-    this.projectService = new ProjectService(httpClient);
+    this.projectService = new ProjectService(httpClient, router);
   }
 
   private projectService : ProjectService;

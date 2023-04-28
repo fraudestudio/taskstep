@@ -59,12 +59,13 @@ export class LoginComponent {
         ThemeService.setTheme(data.User.Settings.Style);
         sessionStorage.setItem("isCheckedDisplay", String(data.User.Settings.Tips));
         this.router.navigate(['index']);
+        console.log(AuthService.token);
       }
       else {
         this.hasError = true;
       }
     });
-    console.log(AuthService.token);
+
   } 
   
 

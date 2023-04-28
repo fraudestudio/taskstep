@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { SignInModel } from './model/signin-model';
 import { Observable, throwError, catchError, of, tap, from} from 'rxjs';
 import { User } from 'src/app/model/user';
@@ -48,7 +48,7 @@ export class AuthService {
             })
         };
 
-        return this.httpClient.post("api/signin", { Email : email, Password : password, Token : token },httpOptions).pipe(
+        return this.httpClient.post("api/signup", { Email : email, Password : password, CaptchaToken : token },httpOptions).pipe(
             tap((response) => console.table(response)),
             catchError((error) => this.handleError(error,null))
         )
@@ -66,7 +66,7 @@ export class AuthService {
      * @param errorValue the value of the error
      * @returns table of the value of the error
     */
-    private handleError(error : Error, errorValue : any){
+    private handleError(error : HttpErrorResponse, errorValue : any){
         console.error(error);
         return of(errorValue);
     }

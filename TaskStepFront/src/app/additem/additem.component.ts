@@ -17,8 +17,8 @@ import { HttpClient } from '@angular/common/http';
 export class AdditemComponent implements OnInit {
     
     constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){    
-        this.contextService = new ContextService(httpClient)
-        this.projectService = new ProjectService(httpClient)
+        this.contextService = new ContextService(httpClient, router)
+        this.projectService = new ProjectService(httpClient, router)
     }
 
 

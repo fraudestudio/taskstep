@@ -6,7 +6,7 @@ import { SideBarComponent } from "./sideBarComponent";
 
 export class FakeDatabase {
 
-    public static Items : Item[] = [new Item(false,0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test"),new Item(false,0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test"),new Item(false,0,"test","test",new Context("test"),new Project("test"),new Date(),"test","test")];
+    public static Items : Item[] = [new Item(false,0,"test","test","test","test",new Date(),"test","test"),new Item(false,0,"test","test","test","test",new Date(),"test","test"),new Item(false,0,"test","test","test","test",new Date(),"test","test")];
     public static Contexts : Context[] = [];
     
 

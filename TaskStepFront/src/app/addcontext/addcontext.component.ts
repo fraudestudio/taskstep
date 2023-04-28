@@ -18,7 +18,7 @@ export class AddcontextComponent {
   };
 
   constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
-    this.contextService = new ContextService(httpClient);
+    this.contextService = new ContextService(httpClient, router);
   }
 
   private contextService : ContextService;
