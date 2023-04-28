@@ -51,6 +51,61 @@ abstract class Controller
 	// -- REQUÊTE --
 
 	/**
+	 * Essaie de récupérer un argument depuis l'URL de type chaîne de caractères.
+	 * 
+	 * @param $arg Le nom de l'argument à récupérer
+	 * @param $out La variable dans laquelle écrire le résultat.
+	 * 
+	 * @return `true` si l'argument a été trouvé. 
+	 */
+	public function getString(string $arg, string &$out) : bool {
+		$value = $this->_context->urlArg($arg);
+		
+		if (is_null($value)) {
+			$value = $this->_context->request()->getQueryParams()[$arg] ?? null;
+		}
+
+		if (is_null($value))
+		{
+			return false;
+		}
+		else
+		{
+			$out = $value;
+			return true;
+		}
+	}
+
+	/**
+	 * Essaie de récupérer un argument depuis l'URL de type entier.
+	 * 
+	 * @param $arg Le nom de l'argument à récupérer
+	 * @param $out La variable dans laquelle écrire le résultat.
+	 * 
+	 * @return `true` si l'argument a été trouvé. 
+	 */
+	public function getInt(string $arg, int &$out) : bool {
+		$value = $this->_context->urlArg($arg);
+		
+		if (is_null($value)) {
+			$value = $this->_context->request()->getQueryParams()[$arg] ?? null;
+		}
+
+		if (is_null($value)) {
+			return false;
+		}
+		else
+		{
+			if (!is_numeric($value)) {
+				throw new BadRequest($this->_context->request(), "argument '$arg' was expected to be an integer");
+			}
+
+			$out = intval($value);
+			return true;
+		}
+	}
+
+	/**
 	 * Récupère un argument depuis l'URL de type chaîne de caractères.
 	 * 
 	 * Si l'argument n'est pas trouvé, une HttpBadRequestException sera levée.
