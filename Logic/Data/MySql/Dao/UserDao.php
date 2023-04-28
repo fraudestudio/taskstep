@@ -68,18 +68,20 @@ class UserDAO implements UserDaoInterface
      */
     public function readBySessionToken(string $token) : User
     {
+        $now = new DateTime('now');
+
         $query = Database::getInstance()->executeQuery(
-            "SELECT u.idUser, u.mail, u.style, u.tips, t.date ".
-            "FROM User as u JOIN Session as t ON u.idUser = t.User WHERE t.token = :token",
-            ['token' => $token]
+            <<<'SQL'
+                SELECT u.idUser, u.mail, u.tips, TIMESTAMPDIFF(MINUTE, t.date, :now) as lifetime, s.style
+                FROM User as u JOIN Session as t ON u.idUser = t.User JOIN style as s ON u.style = s.idStyle
+                WHERE t.token = :token
+            SQL,
+            ['token' => $token, 'now' => $now->format('Y-m-d H:i:s')]
         );
 
         if ($data = $query->fetch())
         {
-            $tokenLifetime = time() - strtotime($data['date']);
-
-            // plus vieux que 20 minutes
-            if ($tokenLifetime > 1200) throw new TokenOutOfDateException();
+            if ($data['lifetime'] > 20) throw new TokenOutOfDateException();
             
             $user = new User($data['idUser']);
             $user->setEmail($data['mail']);
@@ -122,6 +124,21 @@ class UserDAO implements UserDaoInterface
         Database::getInstance()->executeNonQuery(
             "UPDATE `Session` SET `date` = :date WHERE token = :token",
             ['token' => $token, 'date' => $date]
+        );
+    }
+
+    /**
+     * Oublie les sessions expirées d'un utilisateur.
+     * 
+     * @param $user L'utilisateur concerné.
+     */
+    public function cleanSessions(User $user) : void
+    {
+        $now = new DateTime('now');
+
+        Database::getInstance()->executeNonQuery(
+            "DELETE FROM Session WHERE User = :user AND TIMESTAMPDIFF(MINUTE, date, :now) > 20",
+            ['user' => $user->id(), 'now' => $now->format('Y-m-d H:i:s')]
         );
     }
 

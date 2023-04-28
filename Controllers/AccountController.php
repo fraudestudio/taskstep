@@ -49,6 +49,7 @@ class AccountController extends Controller
 
 		try
 		{
+            $this->userDao->cleanSessions($user);
 			$token = $this->userDao->createSession($user);
 		}
 		catch (PDOException $err)
