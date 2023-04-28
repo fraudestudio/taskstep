@@ -15,7 +15,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class BycontextComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
-    this.contextService = new ContextService(httpClient);
+    this.contextService = new ContextService(httpClient, router);
   }
 
   private contextService : ContextService;

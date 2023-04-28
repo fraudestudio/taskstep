@@ -6,9 +6,9 @@ export class Item{
 
     private note : string;
 
-    private context : Context;
+    private context : string;
 
-    private project : Project;  
+    private project : string;  
 
     private section : string;
 
@@ -20,7 +20,7 @@ export class Item{
 
     private done : boolean = false;
 
-    constructor(done: boolean,id : number, title : string, note : string, context : Context, project : Project, dueDate : Date, url : string, section:  string){
+    constructor(done: boolean,id : number, title : string, note : string, context : string, project : string, dueDate : Date, url : string, section:  string){
 
             this.title = title;
             this.note = note;
@@ -48,13 +48,13 @@ export class Item{
 
     set Note(value : string) {  this.note = value;  }
 
-    get Context() : Context {  return this.context;  }
+    get Context() : string {  return this.context;  }
 
-    set Context(value : Context) {  this.context = value;  }
+    set Context(value : string) {  this.context = value;  }
 
-    get Project() : Project {  return this.project;  }
+    get Project() : string {  return this.project;  }
 
-    set Project(value : Project) {  this.project = value;  }
+    set Project(value : string) {  this.project = value;  }
 
     get DueDate() : Date {  return this.dueDate;  }
 

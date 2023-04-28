@@ -40,17 +40,17 @@
                     <td></td>
                     <td>   
                         <select size="7" name = "section" #section = "ngModel" [(ngModel)]="form.section" required>
-                            <option *ngFor = "let sectionObject of Sections" [value]="sectionObject">{{sectionObject.Title}}</option>     
+                            <option *ngFor = "let sectionObject of Sections" value="{{sectionObject}}">{{sectionObject.Title}}</option>     
                         </select>  
                     </td>
                     <td>
                         <select size="7" name = "context" #context = "ngModel" [(ngModel)]="form.context" required>
-                            <option *ngFor = "let contextObject of Contexts" [value]="contextObject">{{contextObject.Title}}</option>
+                            <option *ngFor = "let contextObject of Contexts" value="{{contextObject}}">{{contextObject.Title}}</option>
                         </select>
                     </td>
                     <td>
                         <select size="7" name = "project" #project = "ngModel" [(ngModel)]="form.project" required>
-                            <option *ngFor = "let projectObject of Projects" [value]="projectObject">{{projectObject.Title}}</option>
+                            <option *ngFor = "let projectObject of Projects" value="{{projectObject}}">{{projectObject.Title}}</option>
                         </select>
                     </td>
                 </tr>

@@ -42,8 +42,4 @@ export class SideBarComponent{
   get UnDone() : string {
     return "(" + this.undone + ")";
   }
-
-  toString(){
-    return this.title;
-  }
 }
