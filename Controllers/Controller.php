@@ -58,7 +58,7 @@ abstract class Controller
 	 * 
 	 * @return `true` si l'argument a été trouvé. 
 	 */
-	public function getString(string $arg, string &$out) : bool {
+	public function getString(string $arg, ?string &$out) : bool {
 		$value = $this->_context->urlArg($arg);
 		
 		if (is_null($value)) {
@@ -84,7 +84,7 @@ abstract class Controller
 	 * 
 	 * @return `true` si l'argument a été trouvé. 
 	 */
-	public function getInt(string $arg, int &$out) : bool {
+	public function getInt(string $arg, ?int &$out) : bool {
 		$value = $this->_context->urlArg($arg);
 		
 		if (is_null($value)) {

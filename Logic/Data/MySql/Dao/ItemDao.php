@@ -23,8 +23,10 @@ class ItemDao implements ItemDaoInterface
 			->setDone($data['done']);
 	}
 
-	public function create(User $user, Item $item)
+	public function create(User $user, Item $item): int
 	{
+		$result = -1;
+
 		Database::GetInstance()->executeNonQuery(
 			'INSERT into items(`title`,`date`,`notes`,`url`,`done`,`context`,`section`,`project`,`User`) '.
 			'VALUES (:title,:date,:notes,:url,:done,:context,(SELECT id FROM sections WHERE title = :section),:project,:User)',
@@ -37,9 +39,14 @@ class ItemDao implements ItemDaoInterface
 				'context' => $item->context()->id(),
 				'project' => $item->project()->id(),
 				'done' => $item->done() ? 1 : 0,
-				'User' => $user->Id()
+				'User' => $user->id()
 			]
 		);
+
+        $query = Database::getInstance()->executeQuery("SELECT last_insert_id()");
+        $result = $query->fetch()[0];
+
+        return $result;
 	}
 
 	public function readById(User $user, int $id): Item
@@ -115,7 +122,19 @@ class ItemDao implements ItemDaoInterface
 
 	public function readByContext(User $user, Context $context): array
 	{
-		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where c.id = ":idC" and i.User = ":idU" ', array('idC'=> $context->id(),'idU'=> $user));
+		$statement = Database::GetInstance()->executeQuery(
+			<<<'SQL'
+				SELECT i.id, i.title, i.date, i.notes, i.url, i.done,
+					c.id as cid, c.title as ctitle,
+					s.title as section,
+					p.id as pid, p.title as ptitle
+				from items as i
+					join contexts as c on i.context=c.id
+					join sections as s on i.section=s.id
+					join projects as p on i.project=p.id
+				where c.id = :idC and i.User = :idU
+			SQL,
+			array('idC'=> $context->id(),'idU'=> $user->id()));
 
         $result = [];
 
@@ -131,7 +150,20 @@ class ItemDao implements ItemDaoInterface
 
 	public function readByProject(User $user, Project $project): array
 	{
-		$statement = Database::GetInstance()->executeQuery('select i.id,i.title,i.date,i.notes,i.done,c.id,c.title,s.id,s.title,p.id,p.title from items as i join contexts as c on i.context=c.id join sections as s on i.section=s.id join projects as p on i.project=p.id where p.id = ":id"', array('id'=>$project->id()));
+		$statement = Database::GetInstance()->executeQuery(
+			<<<'SQL'
+				SELECT i.id, i.title, i.date, i.notes, i.url, i.done,
+					c.id as cid, c.title as ctitle,
+					s.title as section,
+					p.id as pid, p.title as ptitle
+				FROM items as i
+					join contexts as c on i.context=c.id
+					join sections as s on i.section=s.id
+					join projects as p on i.project=p.id
+				where p.id = :idP AND i.User :idU
+			SQL,
+			array('idP'=>$project->id(), 'idU'=>$user->id())
+		);
 
         $result = [];
 
@@ -184,8 +216,6 @@ class ItemDao implements ItemDaoInterface
 		);
 		return 1;
 	}
-
-
 
 	public function countUndone(User $user) : int
 	{

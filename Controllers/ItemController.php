@@ -138,59 +138,7 @@ class ItemController extends Controller
 		$this->okResponse();
 	}
 
-	public function GetAllFromContexte()
-	{
-		$id = $this->requireInt('id');
-		$context = $this->requireBodyObject(Context::class);
-
-		try
-		{
-			$item = $this->itemDao->readByContext($id,$context);
-		}
-		catch (NotFoundException)
-		{
-			$this->notFound();
-		}
-
-		$this->jsonResponse($item);
-
-	}
-
-	public function GetAllFromProjet()
-	{
-		$projet = $this->requireBodyObject(Project::class);
-
-		try
-		{
-			$item = $this->itemDao->readByProject($projet);
-		}
-		catch (NotFoundException)
-		{
-			$this->notFound();
-		}
-
-		$this->jsonResponse($item);
-
-	}
-
-	public function Readbydate()
-	{
-		$date = $this->requireBodyObject(DateTime::class);
-		$id = $this->requireInt('id');
-
-		try
-		{
-			$item = $this->itemDao->readByDate($date,$id);
-		}
-		catch (NotFoundException)
-		{
-			$this->notFound();
-		}
-
-		$this->jsonResponse($item);
-	}
-
-	public function ReadDaily()
+	public function readDaily()
 	{
 		$date = $this->requireBodyObject(DateTime::class);
 		$id = $this->requireInt('id');
@@ -209,33 +157,15 @@ class ItemController extends Controller
 
 	public function countUndone()
 	{
-		$id = $this->requireInt('id');
+		$undone = $this->itemDao->countUndone($this->requireUser());
 
-		try
-		{
-			$item = $this->itemDao->countUndone($id);
-		}
-		catch (NotFoundException)
-		{
-			$this->notFound();
-		}
-
-		$this->jsonResponse($item);
+		$this->jsonResponse($undone);
 	}
 	
 	public function countBySection()
 	{
-		$id = $this->requireInt('id');
+		$sections = $this->itemDao->countBySection($this->requireUser());
 
-		try
-		{
-			$item = $this->itemDao->countBySection($id);
-		}
-		catch (NotFoundException)
-		{
-			$this->notFound();
-		}
-
-		$this->jsonResponse($item);
+		$this->jsonResponse($sections);
 	}
 }

@@ -16,7 +16,7 @@ interface ItemDaoInterface
 	 * 
 	 * @param $item Le nouvel item.
 	 */ 
-	public function create(User $user, Item $item);
+	public function create(User $user, Item $item): int;
 
 	/**
 	 * Récupère un item par son identifiant.
