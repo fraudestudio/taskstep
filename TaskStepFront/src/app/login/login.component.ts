@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { FakeDatabase } from '../model/FakeDatabase';
+import { AuthService } from "src/service/auth-service";
+import { HttpClient } from '@angular/common/http';
+import { ThemeService } from '../theme/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +17,11 @@ export class LoginComponent {
    * @param route 
    * @param router 
    */
-  constructor(private route: ActivatedRoute,  private router: Router) {
+  constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient) {
+    this.authService = new AuthService(httpClient);
   }
+
+  private authService : AuthService;
   
   /**
    * Information of the form
@@ -47,17 +52,20 @@ export class LoginComponent {
    * Else we show an error
    */
   submit(){
-    // Temporaire
-    if (FakeDatabase.VerifyUser(this.form.email,this.form.password)){
-
-      this.router.navigate(['index']);
-      sessionStorage.setItem("login","true");
-      sessionStorage.setItem("User",this.form.email)
-    } 
-    else {
-      this.hasError = true;
-    }
-  }
+    this.authService.signin(this.form.email,this.form.password).subscribe((data) => {
+      if (data != null){
+        AuthService.token = data.Token;
+        sessionStorage.setItem("token",data.Token)
+        ThemeService.setTheme(data.User.Settings.Style);
+        sessionStorage.setItem("isCheckedDisplay", String(data.User.Settings.Tips));
+        this.router.navigate(['index']);
+      }
+      else {
+        this.hasError = true;
+      }
+    });
+    console.log(AuthService.token);
+  } 
   
 
 }

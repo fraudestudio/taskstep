@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from "src/app/model/project";
-import { ProjectDao } from "src/app/model/project-service";
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ProjectService } from "src/service/project-service";
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 
 @Component({
   selector: 'app-byproject',
@@ -11,15 +11,15 @@ import { Observable } from 'rxjs';
 })
 export class ByprojectComponent implements OnInit {
   constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
-    this.projectDao = new ProjectDao(httpClient);
+    this.projectService = new ProjectService(httpClient);
   }
 
-  private projectDao : ProjectDao;
+  private projectService : ProjectService;
 
   private projects : Project[] = []
 
   ngOnInit(){
-    this.projectDao.getProjects().subscribe(projects => this.projects = projects);
+    this.projectService.getProjects().subscribe(projects => this.projects = projects);
   }
 
   get Title() : string {

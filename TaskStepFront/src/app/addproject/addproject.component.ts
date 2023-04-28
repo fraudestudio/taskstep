@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FakeDatabase } from '../model/FakeDatabase';
-import { Project } from "src/app/model/project";
+import { ProjectService } from "src/service/project-service";
+import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 
@@ -18,13 +18,23 @@ export class AddprojectComponent {
     
   };
 
-  constructor(private route: ActivatedRoute,  private router: Router){
-    
+  constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
+    this.projectService = new ProjectService(httpClient);
   }
+
+  private projectService : ProjectService;
 
 
   submit(){
-    FakeDatabase.AddProject(new Project(this.form.title));
-    this.router.navigate(["byproject"], {state : {data : { message : "Votre projet \""+ this.form.title +"\" a bien été ajouter !", type : "confirmation"}}});
+    this.projectService.addProject(this.form.title).subscribe((data) =>
+      {
+        if (data != null){
+          this.router.navigate(["byproject"], {state : {data : { message : "Votre projet \""+ this.form.title +"\" a bien été ajouter !", type : "confirmation"}}});     
+        }
+        else {
+          this.router.navigate(["byproject"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});
+        }
+      }
+    );
   }
 }

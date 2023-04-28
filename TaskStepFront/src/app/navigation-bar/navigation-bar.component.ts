@@ -35,6 +35,7 @@ export class NavigationBarComponent {
   */
  disconnect(){
    sessionStorage.setItem("login","false");
+   sessionStorage.setItem("token","");
    this.router.navigate(["login"]);
   }
   

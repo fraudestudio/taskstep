@@ -9,7 +9,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class ChangePasswordComponent {
 
   constructor(private route: ActivatedRoute,  private router: Router){
-    this.currentPassword = FakeDatabase.GetPassword(String(sessionStorage.getItem("User")));
+    this.currentPassword = "";//FakeDatabase.GetPassword(String(sessionStorage.getItem("User")));
   }
 
   private currentPassword : string;
@@ -43,7 +43,7 @@ export class ChangePasswordComponent {
   
   submit(){
     if (this.isPasswordCorrect()){
-      FakeDatabase.ChangePassword(String(sessionStorage.getItem("User")),this.form.password2)
+      //FakeDatabase.ChangePassword(String(sessionStorage.getItem("User")),this.form.password2)
       this.router.navigate(['settings'],{state : {data : { message : "Votre mot de passe a bien été modifier.", type : "confirmation"}}}); 
     }
     else {

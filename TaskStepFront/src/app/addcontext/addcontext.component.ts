@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FakeDatabase } from '../model/FakeDatabase';
+import { ContextService } from "src/service/context-service";
+import { HttpClient } from '@angular/common/http';
 import { Context } from "src/app/model/context";
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -16,13 +17,23 @@ export class AddcontextComponent {
     title : null
   };
 
-  constructor(private route: ActivatedRoute,  private router: Router){
-    
+  constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
+    this.contextService = new ContextService(httpClient);
   }
+
+  private contextService : ContextService;
 
 
   submit(){
-    FakeDatabase.AddContext(new Context(this.form.title));
-    this.router.navigate(["bycontext"], {state : {data : { message : "Votre contexte \""+ this.form.title +"\" a bien été ajouter !", type : "confirmation"}}});
+    this.contextService.addContext(this.form.title).subscribe((data) =>
+      {
+        if (data != null){
+          this.router.navigate(["bycontext"], {state : {data : { message : "Votre contexte \""+ this.form.title +"\" a bien été ajouter !", type : "confirmation"}}});     
+        }
+        else {
+          this.router.navigate(["bycontext"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});
+        }
+      }
+    );
   }
 }
