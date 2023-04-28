@@ -3,13 +3,13 @@
     <div id="container">
         <div id="content">
             <div id="sectiontitle"><h1> {{section}} </h1></div>
-                <div class="sortform">
+                <div >
                     <p>
                         <span class="printer">
                             <a (click)="Print()" > </a>
                         </span>
                     </p>
-                    <form>
+                    <form class="sortform">
                         Sort items by:
                         <select>
                             <option value="title">Title</option>
@@ -20,27 +20,26 @@
                         </select>
                         <input type="submit" value="Sort"/>
                     </form>
-                
-                    <div *ngFor="let item of ListItems"> 
-                        {{item.Title}
-                        <span *ngIf="item.DueDate != null"> | {{item.DueDate.toDateString()}} </span>
-                        <span > | {{item.Context}}  </span>
-                        <span > | {{item.Project}}  </span>
-                        <p *ngIf="item.Note != null">{{item.Note}}</p>                             
-                        <p *ngIf="item.Url != null">{{item.Url}}</p>
+                    <br><br/>
+                    <div class="np" *ngFor="let item of ListItems"> 
+                       <span>
+                        {{item.Title}} 
+                        <span *ngIf="item.DueDate"> | {{item.DueDate.toDateString()}} </span>
+                        <span> | {{item.Context}} </span>
+                        <span> | {{item.Project}} </span>  
+                    </span>               
+                        <a class="actionicon" (click)="deleteItem(item)"> <img src="assets/images/bin.png"  alt="Edit Image"/></a>
+                        <a class="actionicon" (click)="editItem(item)"> <img src="assets/images/pencil.png"  alt="Edit Image"/> </a>
+                        <a class="actionicon" (click)="doneItem(item)"></a>
+                        <p *ngIf="!!item.Note">{{item.Note}}</p>                             
+                        <p *ngIf="item.Url">{{item.Url}}</p>     
 
-                        <a (click)="deleteItem(item)"></a>
-                        <a (click)="editItem(item)"></a>
-                        <a (click)="doneItem(item)"></a>
-
+                        <div class="breaker"> </div>
+                        <br><br>
                         
-                    </div>
-                
-                    
-                </div>
-            <div>
-
+                </div>           
             </div>
         </div>
     </div>
+
 <app-footer></app-footer>
