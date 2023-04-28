@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace TaskStep\Controllers;
 
 use DateTime;
-use TaskStep\Logic\Model\Item;
 use TaskStep\Logic\Model\ItemDaoInterface;
 use TaskStep\Logic\Exceptions\NotFoundException;
-use TaskStep\Logic\Model\Project;
-use TaskStep\Middleware\Helpers\{Context, Services};
+use TaskStep\Logic\Model\{Item, Project, Section, Context};
+use TaskStep\Middleware\Helpers;
 
 class ItemController extends Controller
 {
 	private ItemDaoInterface $itemDao;
 
-	public function __construct(Context $context, Services $container)
+	public function __construct(Helpers\Context $context, Helpers\Services $container)
 	{
 		parent::__construct($context, $container);
 
@@ -27,9 +26,27 @@ class ItemController extends Controller
 	 */
 	public function getAll()
 	{
-		$projects = $this->itemDao->readAll($this->requireUser());
+		if ($this->getString('section', $section))
+		{
+			$section = Section::from($section);
+			$items = $this->itemDao->readBySection($this->requireUser(), $section);
+		}
+		else if ($this->getInt('project', $project))
+		{
+			$project = new Project($project);
+			$items = $this->itemDao->readByProject($this->requireUser(), $project);
+		}
+		else if ($this->getInt('context', $context))
+		{
+			$context = new Context($context);
+			$items = $this->itemDao->readByContext($this->requireUser(), $context);
+		}
+		else
+		{
+			$items = $this->itemDao->readAll($this->requireUser());
+		}
 
-		$this->jsonResponse($projects);
+		$this->jsonResponse($items);
 	}
 
 	/**
