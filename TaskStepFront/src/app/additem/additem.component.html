@@ -6,7 +6,17 @@
         <h2>Chargement des données...</h2>
     </div>
     
+
+
     <div *ngIf="isDataIsLoad()" id = "content">
+        <div *ngIf="message">
+            <div *ngIf='type == "confirmation"' class="confirmation">
+                <p><img src="assets/images/accept.png" alt="Icône confirmation"/>{{message}}</p>
+            </div>
+            <div *ngIf='type == "warning"' class="warning">
+                <p><img src="assets/images/exclamation.png" alt="Icône alerte"/>{{message}}</p>
+            </div>
+        </div>
         <form #f = "ngForm" (ngSubmit)="submit()">
             <div>
             <table>
@@ -26,7 +36,7 @@
                 
                 <tr>
                     <td><label>Notes :</label></td>
-                    <td colspan="3" rowspan="1"><input type="text" name = "notes" #notes = "ngModel" [(ngModel)]="form.notes" size="60"/> </td>
+                    <td colspan="3" rowspan="1"><input type="text" name = "notes" #notes = "ngModel" [(ngModel)]="form.note" size="60"/> </td>
                 </tr>
                 
                 <tr>
@@ -40,17 +50,17 @@
                     <td></td>
                     <td>   
                         <select size="7" name = "section" #section = "ngModel" [(ngModel)]="form.section" required>
-                            <option *ngFor = "let sectionObject of Sections" value="{{sectionObject}}">{{sectionObject.Title}}</option>     
+                            <option *ngFor = "let sectionObject of Sections" [value]="sectionObject.Database">{{sectionObject.Title}}</option>     
                         </select>  
                     </td>
                     <td>
                         <select size="7" name = "context" #context = "ngModel" [(ngModel)]="form.context" required>
-                            <option *ngFor = "let contextObject of Contexts" value="{{contextObject}}">{{contextObject.Title}}</option>
+                            <option *ngFor = "let contextObject of Contexts" [value]="contextObject.Id">{{contextObject.Title}}</option>
                         </select>
                     </td>
                     <td>
                         <select size="7" name = "project" #project = "ngModel" [(ngModel)]="form.project" required>
-                            <option *ngFor = "let projectObject of Projects" value="{{projectObject}}">{{projectObject.Title}}</option>
+                            <option *ngFor = "let projectObject of Projects"[value]="projectObject.Id">{{projectObject.Title}}</option>
                         </select>
                     </td>
                 </tr>

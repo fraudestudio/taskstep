@@ -6,9 +6,7 @@ import { SideBarComponent } from "./sideBarComponent";
 
 export class FakeDatabase {
 
-
-    public static Items : Item[] = [new Item(false,0,"test","test","test","test",new Date(),"test","test"),new Item(false,0,"test","test","test","test",new Date(),"test","test"),new Item(false,0,"test","test","test","test",new Date(),"test","test")];
-
+    //public static Items : Item[] = [new Item(true,0,"test","test",1,1,new Date(),"test","test"),new Item(false,0,"test","test",1,1,new Date(),"test","test"),new Item(false,0,"test","test","test","test",new Date(),"test","test")];
     public static Contexts : Context[] = [];
     
 
@@ -94,13 +92,13 @@ export class FakeDatabase {
      * They are requested from the server
      */
     private static sideBar : SideBarComponent[] = [ 
-        new SideBarComponent("lightbulb", "Idées",0,0), 
-        new SideBarComponent("cart", "Vous voulez peut être acheter",0,0), 
-        new SideBarComponent("lightning", "Immédiat",0,0),
-        new SideBarComponent("newspaper", "Ce week-end",0,0),
-        new SideBarComponent("calendar", "Ce mois-ci",0,0),
-        new SideBarComponent("world", "Cette année",0,0),
-        new SideBarComponent("user", "Peut-être un jour",0,0)
+        new SideBarComponent("lightbulb", "Idées",0,0,"ideas"), 
+        new SideBarComponent("cart", "Vous voulez peut être acheter",0,0,"tobuy"), 
+        new SideBarComponent("lightning", "Immédiat",0,0,"immediate"),
+        new SideBarComponent("newspaper", "Ce week-end",0,0,"week"),
+        new SideBarComponent("calendar", "Ce mois-ci",0,0,"month"),
+        new SideBarComponent("world", "Cette année",0,0,"year"),
+        new SideBarComponent("user", "Peut-être un jour",0,0,"lifetime")
     ];
 
     public static GetSideBar() : SideBarComponent[] {
@@ -108,24 +106,24 @@ export class FakeDatabase {
     }
 
     public static AddItem(item : Item){
-        this.Items.push(item);
+        //this.Items.push(item);
     }
 
     public static RemoveItem(item: Item) {
-        const  index= this.Items.indexOf(item);
+        /*const  index= this.Items.indexOf(item);
         if (index > -1) {
           this.Items.splice(index, 1);
-        }
+        }*/
       }
 
     public static ModifyItem(item : Item){
-        let index = this.Items.indexOf(item);
-        this.Items[index] = item;
+        /*let index = this.Items.indexOf(item);
+        this.Items[index] = item;*/
         
     }
 
     public static GetAllItems() : Item[] {
-        return this.Items;
+        return [];
     }
     
     

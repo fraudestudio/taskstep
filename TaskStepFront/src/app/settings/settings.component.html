@@ -11,8 +11,8 @@
             </label>
             <h2><b>Thèmes</b></h2>
             <select #themeList (change)="onThemeChange(themeList.value)">
-                <option value="light" *ngIf='!isCurrentThemeEqual("light")'>Clair</option>
-                <option value="light" *ngIf='isCurrentThemeEqual("light")' selected>Clair</option>
+                <option value="classic" *ngIf='!isCurrentThemeEqual("light")'>Clair</option>
+                <option value="classic" *ngIf='isCurrentThemeEqual("light")' selected>Clair</option>
                 <option value="dark" *ngIf='!isCurrentThemeEqual("dark")'>Sombre</option>
                 <option value="dark" *ngIf='isCurrentThemeEqual("dark")' selected>Sombre</option>
                 <option value="professionnal" *ngIf='!isCurrentThemeEqual("professionnal")'>Professionnelle</option>

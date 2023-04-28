@@ -19,7 +19,7 @@ export class EditcontextComponent implements OnInit {
 
   private checkbox : boolean = true;
 
-  private currentContext : Context = new Context("");
+  private currentContext : Context = new Context("",-1);
 
   get CurrentContext() : Context {
     return this.currentContext;

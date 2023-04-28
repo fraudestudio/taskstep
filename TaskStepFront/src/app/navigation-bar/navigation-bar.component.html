@@ -20,7 +20,7 @@
       <ul>
         <li><a routerLink="/additem"><img src = "assets/images/add.png" alt=""> Ajouter une tâche</a></li>
         <li *ngFor="let bar of SideBar">
-            <a (click)="redirect(bar.toString())"><img src ={{bar.Image}} alt=""/> {{bar.Title}} <span class="noundone">{{bar.Done}}</span><span class="nodone"> {{bar.UnDone}}</span></a>
+            <a (click)="redirect(bar.Title)"><img src ={{bar.Image}} alt=""/> {{bar.Title}} <span class="noundone">{{bar.Done}}</span><span class="nodone"> {{bar.UnDone}}</span></a>
         </li>
       </ul>
     </div>

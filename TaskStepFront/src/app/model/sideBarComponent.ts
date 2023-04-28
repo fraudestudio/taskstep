@@ -18,13 +18,14 @@ export class SideBarComponent{
    */
   private undone : number;
   
+  private database : string;
   
-  
-  constructor(image : string, title : string, done : number, undone : number){
+  constructor(image : string, title : string, done : number, undone : number, database : string){
     this.image = image;
     this.title = title;
     this.done = done;
     this.undone = undone;
+    this.database = database;
   }
   
   get Image() : string {
@@ -41,5 +42,9 @@ export class SideBarComponent{
   
   get UnDone() : string {
     return "(" + this.undone + ")";
+  }
+
+  get Database() : string {
+    return this.database;
   }
 }

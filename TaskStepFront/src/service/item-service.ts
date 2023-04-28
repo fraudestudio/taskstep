@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Item } from '../app/model/item';
 import { Observable, throwError, catchError, of, tap, from} from 'rxjs';
 import { AuthService } from './auth-service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,8 @@ import { AuthService } from './auth-service';
 
 export class ItemService {
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient, private router : Router ) {}
+
 
     /**
     * Get all the item of the user
@@ -38,21 +40,25 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.post("api/projects", 
-    { 
-        Title : item.Title,
-        Date : item.DueDate,
-        Notes : item.Note,
-        Url : item.Url,
-        Done : item.Done,
-        Context : {
-            Title : item.Context
-        },
-        Section : item.Section,
-        Project : {
-          Title :item.Project
-        }
-    },httpOptions).pipe(
+
+
+    return this.httpClient.post("api/items", {
+      Title : item.Title,
+      Date : item.DueDate,
+      Notes : item.Note,
+      Url : item.Url,
+      Done : item.Done,
+      Context : {
+        Id : item.Context.Id,
+        Title : ""
+      },
+      Section : item.Section,
+      Project : {
+        Id : item.Project.Id,
+        Title :""
+      }
+    } 
+    ,httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -68,7 +74,7 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get<Item>("api/projects/" + id, httpOptions).pipe(
+    return this.httpClient.get<Item>("api/items/" + id, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -84,7 +90,7 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.delete<Item>("api/projects/" + id, httpOptions).pipe(
+    return this.httpClient.delete<Item>("api/items/" + id, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -96,12 +102,27 @@ export class ItemService {
    * @param title of the project 
    * @returns null
    */
-  modifyProject(id : number, title : string) : Observable<null> {
+  modifyItem(item : Item) : Observable<null> {
     const httpOptions = {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.put<Item>("api/projects/" + id, { Title : title}, httpOptions).pipe(
+    return this.httpClient.put<Item>("api/items/" + item.Id, { 
+      Title : item.Title,
+      Date : item.DueDate,
+      Notes : item.Note,
+      Url : item.Url,
+      Done : item.Done,
+      Context : {
+        Id : item.Context.Id,
+        Title : ""
+      },
+      Section : item.Section,
+      Project : {
+        Id : item.Project.Id,
+        Title :""
+      }
+    }, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -114,15 +135,19 @@ export class ItemService {
     }
 
 
-    /**
-     * print the error in the console
-     * @param error the error
-     * @param errorValue the value of the error
-     * @returns table of the value of the error
-    */
-    private handleError(error : HttpErrorResponse, errorValue : any){
-        console.error(error);
-        return of(errorValue);
+  /**
+   * print the error in the console
+   * @param error the error
+   * @param errorValue the value of the error
+   * @returns table of the value of the error
+   */
+  private handleError(error : HttpErrorResponse, errorValue : any){
+    if (error.status == 401) {
+      AuthService.token = "";
+      this.router.navigate(['register']);
     }
+    console.error(error);
+    return of(errorValue);
+  }
 }
   

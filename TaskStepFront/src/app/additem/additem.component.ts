@@ -6,6 +6,7 @@ import { Context } from "src/app/model/context";
 import { Project } from "src/app/model/project";
 import { ContextService } from "src/service/context-service"
 import { ProjectService } from "src/service/project-service"
+import { ItemService } from "src/service/item-service"
 import { SideBarComponent } from '../model/sideBarComponent';
 import { HttpClient } from '@angular/common/http';
 
@@ -19,14 +20,31 @@ export class AdditemComponent implements OnInit {
     constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){    
         this.contextService = new ContextService(httpClient, router)
         this.projectService = new ProjectService(httpClient, router)
+        this.itemService = new ItemService(httpClient, router)
     }
 
+    edit: boolean = false;
+    private contextService : ContextService;
+    private projectService : ProjectService;
+    private itemService : ItemService;
+
+    private contexts : Context[] = [];
+    private projects : Project[] = [];
+
+    private sections : SideBarComponent[] = FakeDatabase.GetSideBar();
 
     private dataIsLoad : boolean[] = [
         false,
         false
     ]
 
+    get message() : string {
+        return history.state.data?.message; 
+      }
+    
+    get type() : string {
+      return history.state.data?.type;
+    }
 
     isDataIsLoad() : boolean{
         return this.dataIsLoad[0] && this.dataIsLoad[1];
@@ -43,27 +61,19 @@ export class AdditemComponent implements OnInit {
         });
     }
 
-    edit: boolean = false;
 
-    private contextService : ContextService;
-    private projectService : ProjectService;
-
-    private contexts : Context[] = [];
-    private projects : Project[] = [];
-
-    private sections : SideBarComponent[] = FakeDatabase.GetSideBar();
 
     /**
     * Information of the form
     */
     form : any  = {
         title : null,
-        note : null,
-        section : this.sections[0],
+        note : "",
+        section : this.sections[0].Database,
         context : null,
         project : null,
         dueDate : null,
-        url : null
+        url : ""
   
     };
 
@@ -98,13 +108,22 @@ export class AdditemComponent implements OnInit {
    
     submit() {
         if(this.edit == false){
-        let item = new Item(false, 0 ,this.form.title, this.form.note, this.form.context, this.form.project, this.form.dueDate, this.form.url,this.form.section);
-        console.log(item);
-        FakeDatabase.AddItem(item);
+            let item = new Item(false, 0 ,this.form.title, this.form.note, new Context("",Number(this.form.context)), new Project("",Number(this.form.project)), this.form.dueDate, this.form.url,this.form.section);
+            this.itemService.addItem(item).subscribe((data) =>{
+                this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+                this.router.onSameUrlNavigation = 'reload';
+                if (data){
+                    this.router.navigateByUrl('/additem', {state : {data : {message : "Votre tâches a bien été ajouter !", type : "confirmation"}}});
+                }
+                else {
+                    this.router.navigateByUrl('/additem', {state : {data : {message : "Une erreur est survenue", type : "warning"}}});
+                }
+
+            })
         }
-        else{
-            throw new Error("Not implemented yet");
-        }
+
+
+
     }
          
 }

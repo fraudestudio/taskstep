@@ -3,8 +3,9 @@ export class Project{
 
     private id : number  = -1;
 
-    constructor(title : string){
+    constructor(title : string, id : number){
         this.title = title;
+        this.id = id;
     }
 
 

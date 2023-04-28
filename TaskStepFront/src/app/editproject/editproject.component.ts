@@ -23,7 +23,7 @@ export class EditprojectComponent implements OnInit {
 
   private projectService : ProjectService;
 
-  private currentProject : Project = new Project("");
+  private currentProject : Project = new Project("",-1);
 
   get CurrentProject() : Project {
     return this.currentProject;

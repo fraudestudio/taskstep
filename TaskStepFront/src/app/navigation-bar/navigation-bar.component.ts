@@ -40,7 +40,7 @@ export class NavigationBarComponent {
   }
   
   redirect(param :string) {
-    this.router.navigate(["displayItemSideBar"], {state : {data : {section : param}}});
+    this.router.navigate(["displayItemSideBar"], { queryParams: { section : param},  state : {data : {section : param}}});
   }
 }
 
