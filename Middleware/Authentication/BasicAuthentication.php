@@ -34,11 +34,12 @@ class BasicAuthentication
             $user = $userDao->readByEmailAndPassword($email, $password);
 
             $request = $request->withAttribute('user', $user);
-            return $handler->handle($request);
         }
         catch (NotFoundException)
         {
             return $failed;
         }
+        
+        return $handler->handle($request);
     }
 }

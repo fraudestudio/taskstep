@@ -38,11 +38,12 @@ class BearerAuthentication
             $userDao->refreshSession($authData);
 
             $request = $request->withAttribute('user', $user);
-            return $handler->handle($request);
         }
         catch (NotFoundException|TokenOutOfDateException)
         {
             return $failed;
         }
+        
+        return $handler->handle($request);
     }
 }

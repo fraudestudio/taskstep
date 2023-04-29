@@ -35,7 +35,8 @@ $app->group('/api', function ($group) {
 
 // Authentification par mot de passe
 $app->group('/api', function ($group) {
-    $group->post('/signin', AccountController::bind('signin'));
+    $group->post('/signin', AccountController::bind('signin'));    
+    $group->put('/account/password', AccountController::bind('changePassword'));
 })
 ->add(new BasicAuthentication());
 
@@ -60,6 +61,8 @@ $app->group('/api', function ($group) {
     $group->get('/contexts/{id}', ContextController::bind('getById'))->setName('context');
     $group->put('/contexts/{id}', ContextController::bind('update'));
     $group->delete('/contexts/{id}', ContextController::bind('delOne'));
+
+    $group->put('/account/settings', AccountController::bind('updateSettings'));
 })
 ->add(new BearerAuthentication());
 
