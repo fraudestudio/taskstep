@@ -180,7 +180,7 @@ class UserDAO implements UserDaoInterface
         $hash = password_hash($password, PASSWORD_BCRYPT);
 
         $result = Database::getInstance()->executeNonQuery(
-            "UPDATE `User` SET MDP = :mdp WHERE id = :id",
+            "UPDATE `User` SET MDP = :mdp WHERE idUser = :id",
             ['mdp' => $hash, 'id' => $user->id()]
         );
 
@@ -199,16 +199,14 @@ class UserDAO implements UserDaoInterface
     {
         if ($tips)
         {
-            $query = "UPDATE `User` SET tips = 1 WHERE id = :id";
+            $query = "UPDATE `User` SET tips = 1 WHERE idUser = :id";
         }
         else
         {
-            $query = "UPDATE `User` SET tips = 0 WHERE id = :id";
+            $query = "UPDATE `User` SET tips = 0 WHERE idUser = :id";
         }
 
-        $result = Database::getInstance()->executeNonQuery($query, ['id' => $user->id()]);
-        
-        if ($result != 1) throw new NotFoundException();         
+        Database::getInstance()->executeNonQuery($query, ['id' => $user->id()]);
     }
 
     /**
@@ -220,12 +218,10 @@ class UserDAO implements UserDaoInterface
      */
     public function updateStyle(User $user, Style $style) : void
     {
-        $result = Database::getInstance()->executeNonQuery(
-            "UPDATE `User` SET style = (SELECT idStyle FROM style WHERE style = :style) WHERE id = :id",
+        Database::getInstance()->executeNonQuery(
+            "UPDATE `User` SET style = (SELECT idStyle FROM style WHERE style = :style) WHERE idUser = :id",
             ['style' => $style->value, 'id' => $user->id()]
         );
-
-        if ($result != 1) throw new NotFoundException();
     }
 
     private const TOKEN_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

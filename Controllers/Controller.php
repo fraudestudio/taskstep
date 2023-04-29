@@ -192,6 +192,13 @@ abstract class Controller
 	}
 
 	/**
+	 * Récupère le corps de la requête sous forme de texte brut.
+	 */
+	public function requireBodyText() : string {
+		return $this->_context->request()->getBody()->getContents();
+	}
+
+	/**
 	 * Récupère l'utilisateur qui a émis la requête courante.
 	 * 
 	 * Si aucun utilisateur n'est associé à la requête, une HttpUnauthorizedException sera levée.
