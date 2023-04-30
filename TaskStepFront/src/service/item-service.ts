@@ -229,15 +229,49 @@ export class ItemService {
     )
   }
 
+
+  /**
+   * Print all the item
+   * @returns 
+   */
+  printAll(){
+    return "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=all";
+  }
+
   /**
    * Print a section
    * @param section section to print
    * @returns 
    */
   printSection(section : string) : string {
-    return "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=section&section=" + section
+    return "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=section&section=" + section;
   }
 
+  /**
+   * Print the today section
+   * @returns 
+   */
+  printToday(){
+    return "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=today";
+  }
+
+  /**
+   * Print the given context
+   * @param id if of the context
+   * @returns 
+   */
+  printContext(id : number){
+    return "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=context&id="+id;
+  }
+  
+  /**
+   * Print the given project
+   * @param id if of the context
+   * @returns 
+   */
+  printProject(id : number){
+    return "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=project&id="+id;
+  }
 
   /**
    * print the error in the console

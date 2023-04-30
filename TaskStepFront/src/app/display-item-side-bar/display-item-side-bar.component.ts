@@ -132,6 +132,18 @@ export class DisplayItemSideBarComponent implements OnInit {
     if (history.state.data?.section){
       window.location.href = this.itemService.printSection(history.state.data?.section);
     }
+    else if (history.state.data?.date){
+      window.location.href = this.itemService.printToday();
+    }
+    else if (history.state.data?.context){
+      window.location.href = this.itemService.printContext(history.state.data?.context);
+    }
+    else if (history.state.data?.project){
+      window.location.href = this.itemService.printContext(history.state.data?.project);
+    }
+    else {
+      window.location.href = this.itemService.printAll();
+    }
   }
 
   /**
