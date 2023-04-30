@@ -10,7 +10,15 @@ import { ThemeService } from '../theme/theme.service';
 })
 export class LoginComponent {
   
+
   private hasError : boolean = false;
+
+    /**
+   * Get if an error as to be shown
+   */
+    get HasError() : boolean{
+      return this.hasError;
+    } 
 
   /**
    * Check if the user is log in
@@ -21,6 +29,9 @@ export class LoginComponent {
     this.authService = new AuthService(httpClient);
   }
 
+  /**
+   * Communication with the api thanks to AuthService
+   */
   private authService : AuthService;
   
   /**
@@ -31,17 +42,18 @@ export class LoginComponent {
     password : null
   };
 
-  /**
-   * Get if an error as to be shown
-   */
-  get HasError() : boolean{
-    return this.hasError;
-  } 
 
+  /**
+   * Message to display if there is one
+   */
   get message() : string {
     return history.state.data?.message; 
   }
 
+
+  /**
+   * Type of the message to display if there is one
+   */
   get type() : string {
     return history.state.data?.type;
   }

@@ -1,12 +1,94 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Item } from '../model/item';
+import { ItemService } from 'src/service/item-service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-index',
   templateUrl :"index.component.html"
 })
 
-export class IndexComponent {
+export class IndexComponent implements OnInit {
+  
+  constructor(private router: Router, private httpClient : HttpClient){  
+    this.itemService = new ItemService(httpClient, router);
+    this.taskLeft = 0;
+  }
+
+  /**
+   * Get all the infromation
+   */
+  ngOnInit(): void {
+    this.itemService.getItemsSection("immediate","title").subscribe((items) => {this.immediateItem = items; this.isDataLoad[0] = true});
+    this.itemService.getItemsDate(formatDate(Date.now(),"dd-MM-yyy","fr-Fr"),"title").subscribe((items) => {this.todayItem = items; this.isDataLoad[1] = true});
+    this.itemService.getUndone().subscribe((data) => this.taskLeft = data );
+  }
+
+
   private taskLeft : number;
+
+  /**
+   * return the number of task left
+   * @returns number of task left
+   */
+  get TaskLeft() : number{
+    return this.taskLeft;
+  }
+
+  /**
+   * Communication with the api thanks to ItemService
+   */
+  private itemService : ItemService;
+
+  /**
+   * Sotre if all the data are load
+   */
+  private isDataLoad : boolean[] = [
+    false,
+    false
+  ]
+
+  /**
+   * Return if all the data are load
+   * @returns the response of the verification
+   */
+  DataIsLoad(){
+    return (this.isDataLoad[0] && this.isDataLoad[1]);
+  }
+
+  /**
+   * Return if the tips can be showed
+   * @returns boolean 
+  */
+  get ShowTips() : boolean{   
+    return sessionStorage.getItem("isCheckedDisplay") == "true";
+  }
+  
+  
+  /**
+   * Return a random tips of the tips array
+   * @returns string of the tips
+  */
+  get Tips() : string {
+    return this.getRandomElement(this.tips)
+  }
+
+  /**
+   * Get the number of immediate data
+   */
+  get DataNumber() : number {
+    let total = 0;
+    this.AllItem.forEach(element => {
+      if (!element.Done){
+        total++
+      }
+    });
+    return total;
+  }
+
+
 
   /**
    * Array of all the tips that can be displayed
@@ -19,35 +101,87 @@ export class IndexComponent {
     'Vous pouvez maintenant sélectionner la date à partir d\'un calendrier. Cliquez simplement dans la case de la date comme si vous étiez en train de taper.',
   ]
 
-
   /**
-   * Return if the tips can be showed
-   * @returns boolean 
+   * Message to display if there is any
    */
-  get ShowTips() : boolean{   
-    return sessionStorage.getItem("isCheckedDisplay") == "true";
-  }
-
-
-  /**
-   * Return a random tips of the tips array
-   * @returns string of the tips
-   */
-  get Tips() : string {
-    return this.getRandomElement(this.tips)
+  get message() : string {
+    return history.state.data?.message; 
   }
 
   /**
-   * return the number of task left
-   * @returns number of task left
+   * Type of the message to display if there is any
    */
-  get TaskLeft() : number{
-    return this.taskLeft;
+  get type() : string {
+    return history.state.data?.type;
   }
 
-  constructor(){
-    // Temporaire
-    this.taskLeft = 0;
+  /**
+   * The item in the immediateSection
+   */
+  private immediateItem : Item[] = []
+
+  get ImmediateItem() : Item[]{
+    return this.immediateItem;
+  }
+
+  /**
+   * The item of today 
+   */
+  private todayItem : Item[] = []
+
+  get TodayItem() : Item[]{
+    return this.todayItem;
+  }
+
+  /**
+   * Get all the item needed for immediate task
+   */
+  get AllItem() : Item[]{
+    let items : Item[] = [];
+    this.immediateItem.forEach(element => {
+      if (!items.includes(element)){
+        items.push(element)
+      }
+    });
+    this.todayItem.forEach(element => {
+      if (!items.includes(element)){
+        items.push(element)
+      }
+    });
+
+    return items;
+
+  }
+
+/**
+ * Go to the edit page for the selected item
+ * @param selectedItem the selected item
+ */
+editItem(selectedItem: Item) {
+    this.router.navigate(['/additem'],  { state: { data: { item: selectedItem } } });
+}
+
+/**
+ * Mark the selected item as done
+ * @param selectedItem the selected item
+ */
+doneItem(selectedItem : Item){
+    if(!selectedItem.Done){
+      selectedItem.Done = true;   
+    }
+    else{
+      selectedItem.Done = false;
+    }
+    this.itemService.modifyItem(selectedItem).subscribe((data) =>{
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      if (!data){
+        this.router.navigate(["index"], {state : {data : { message : "La tâche \""+selectedItem.Title+"\" est faite !", type:"confirmation"}}});     
+      }
+      else {
+        this.router.navigate(["index"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});
+      }
+    })
   }
 
 

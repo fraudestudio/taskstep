@@ -47,6 +47,11 @@ export class ByprojectComponent implements OnInit {
     return history.state.data?.type;
   }
 
+  goItem(id : number, title : string){
+    this.router.navigate(["displayItemSideBar"], { state : {data : { title : title, project : id }}});
+  }
+
+
   goEditMode(id : number){
     this.router.navigate(["editproject"], {state : {data : id}});
   }

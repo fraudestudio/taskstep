@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ThemeService } from '../theme/theme.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ItemService } from 'src/service/item-service';
+import { AuthService } from 'src/service/auth-service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-settings',
@@ -18,7 +21,15 @@ export class SettingsComponent {
   */
   private purgeItemConfirmation : boolean;
 
+  /**
+   * Says if the csv is being sent
+   */
   private exportConfirmation : boolean;
+
+  /**
+   * Communication to api with the auth service
+   */
+  private authService : AuthService;
 
   get ChangePasswordConfirmation() : boolean{
     return this.changePasswordConfirmation;
@@ -34,7 +45,8 @@ export class SettingsComponent {
 
 
 
-  constructor(private route: ActivatedRoute,  private router: Router){
+  constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){
+    this.authService = new AuthService(httpClient)
     this.changePasswordConfirmation = false;
     this.purgeItemConfirmation = false;
     this.exportConfirmation = false;
@@ -56,10 +68,12 @@ export class SettingsComponent {
     }
   }
 
-
+  /**
+   * Delete all the items that are done if the user confirmed it
+   */
   purgeItems(){
     if (this.purgeItemConfirmation){
-      // A implémanter
+
     }
     else {
       this.purgeItemConfirmation = true;
@@ -67,17 +81,26 @@ export class SettingsComponent {
       this.exportConfirmation = false;
     }
   }
+
+  /**
+   * Redirect to a csv download page
+   */
   exportCSV(){
     this.exportConfirmation = true;
     this.purgeItemConfirmation = false;
     this.changePasswordConfirmation = false;
   }
 
-
+  /**
+   * Message to display if there is one
+   */
   get message() : string {
     return history.state.data?.message; 
   }
 
+  /**
+   * Type of the messsage if there is one
+   */
   get type() : string {
     return history.state.data?.type;
   } 
@@ -96,6 +119,7 @@ export class SettingsComponent {
    */
   onCheckedChange(value : boolean) {
     sessionStorage.setItem("isCheckedDisplay", String(value));
+    this.authService.updateSettings(ThemeService.getStoredTheme(),value);
   }
 
   /**
@@ -112,5 +136,6 @@ export class SettingsComponent {
    */
   onThemeChange(value : string){
     ThemeService.setTheme(value);
+    this.authService.updateSettings(ThemeService.getStoredTheme(),Boolean(sessionStorage.getItem("isCheckedDisplay")));
   }
 }

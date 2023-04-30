@@ -10,5 +10,4 @@ export class AppComponent {
   constructor(){
     ThemeService.setInitialTheme();
   }
-  title = 'TaskStep';
 }

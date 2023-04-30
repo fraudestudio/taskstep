@@ -1,7 +1,14 @@
 export class Context{
-    private title : string;
 
+    /**
+     * Id of the context
+     */
     private id : number  = -1;
+
+    /**
+     * Title of the context
+     */
+    private title : string;
 
     constructor(title : string, id : number){
         this.title = title;

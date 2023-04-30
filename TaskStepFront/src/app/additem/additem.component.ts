@@ -55,8 +55,11 @@ export class AdditemComponent implements OnInit {
         }
     }
 
-    edit: boolean;
+    private edit: boolean;
 
+    get Edit() : boolean{
+        return this.edit;
+    }
 
     private contextService : ContextService;
     private projectService : ProjectService;

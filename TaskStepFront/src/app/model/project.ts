@@ -1,7 +1,14 @@
 export class Project{
+
+    /**
+     * Id of the project
+     */
+    private id : number  = -1;
+    /**
+     * Title of the project
+     */
     private title : string;
 
-    private id : number  = -1;
 
     constructor(title : string, id : number){
         this.title = title;

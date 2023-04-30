@@ -18,6 +18,9 @@ export class SideBarComponent{
    */
   private undone : number;
   
+  /**
+   * The name of the sidebar in database
+   */
   private database : string;
   
   constructor(image : string, title : string, done : number, undone : number, database : string){

@@ -54,6 +54,24 @@ export class AuthService {
         )
     }
 
+    /**
+     * Update the settings of the user
+     * @param theme theme of the user
+     * @param tips tips of the user
+     * @returns 
+     */
+    updateSettings(theme : string, tips : boolean) : Observable<null>{
+        const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+            'Authorization': 'Bearer ' + AuthService.token})
+        };
+
+        return this.httpClient.put("api/account/settings", { Style : theme, Tips : tips },httpOptions).pipe(
+            tap((response) => console.table(response)),
+            catchError((error) => this.handleError(error,null))
+        )
+    }
+
 
     private log(reponse : any){
         console.table(reponse);

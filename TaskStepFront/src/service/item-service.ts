@@ -68,6 +68,23 @@ export class ItemService {
 
     /**
      * Get all the item wanted
+     * @param context the context wanted
+     * @param sort the sort wanted
+     * @returns 
+     */
+    getItemsProject(context : number, sort : string) : Observable<Item[]> {
+      const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+          'Authorization': 'Bearer ' +  AuthService.token})
+      };
+      return this.httpClient.get<Item[]>("api/items?project="+context+"&sort="+sort, httpOptions).pipe(
+      tap((response) => console.table(response)),
+      catchError((error) => this.handleError(error,[]))
+    )
+  }
+
+    /**
+     * Get all the item wanted
      * @returns 
     */
     getItemsAll(sort : string) : Observable<Item[]> {
@@ -181,11 +198,45 @@ export class ItemService {
     )
   }
 
+  /**
+   * Get the number of task that are not done
+   * @returns the number of task that are not done
+   */
+  getUndone() : Observable<number> {
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
+    };
+    return this.httpClient.get<number>("api/items/count/undone", httpOptions).pipe(
+      tap((response) => console.table(response)),
+      catchError((error) => this.handleError(error,null))
+    )
+  }
 
-    
-    private log(reponse : Item[]|Item|undefined){
-        console.table(reponse);
-    }
+
+  /**
+   * Get all the done information the sections
+   * @returns 
+   */
+  getDoneSection() : Observable<number> {
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json',
+      'Authorization': 'Bearer ' + AuthService.token})
+    };
+    return this.httpClient.get<number>("api/items/count/undone", httpOptions).pipe(
+      tap((response) => console.table(response)),
+      catchError((error) => this.handleError(error,null))
+    )
+  }
+
+  /**
+   * Print a section
+   * @param section section to print
+   * @returns 
+   */
+  printSection(section : string) : string {
+    return "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=section&section=" + section
+  }
 
 
   /**

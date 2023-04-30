@@ -2,22 +2,49 @@ import { Context } from "./context";
 import { Project } from "./project";
 
 export class Item{
+    /**
+     * Title of the item
+     */
     private title : string;
 
+    /**
+     * Notes of the item
+     */
     private notes : string;
 
+    /**
+     * Context of the item
+     */
     private context : Context;
 
+    /**
+     * Project of the item
+     */
     private project : Project;  
 
+    /**
+     * Section of the item
+     */
     private section : string;
 
+    /**
+     * date of the item
+     */
     private date : Date;
 
+    /**
+     * Url of the item
+     */
     private url : string;
 
+    /**
+     * Id of the item 
+     */
     private id : number;
 
+    /**
+     * if the item is done or not
+     */
     private done : boolean = false;
 
     constructor(done: boolean,id : number, title : string, notes : string, context : Context, project : Project, dueDate : Date, url : string, section:  string){

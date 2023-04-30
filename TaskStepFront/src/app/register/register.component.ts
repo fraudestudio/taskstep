@@ -17,7 +17,9 @@ export class RegisterComponent {
   }
 
 
-
+  /**
+   * Communication to the api with the auth service
+   */
   private authService : AuthService;
 
   /**
@@ -29,11 +31,17 @@ export class RegisterComponent {
       confirmPassword : null,
   };
   
-
+  /**
+   * Check if the confirmed password if the same that the password
+   * @returns the result of the verification
+   */
   isPasswordCorrect() : boolean{
     return this.form.password == this.form.confirmPassword;
   }
 
+  /**
+   * When submit, the captcha sent a token and create an account
+   */
   submit(){
     this.recaptchaV3Service.execute('importantAction')
     .subscribe((token: string) => {

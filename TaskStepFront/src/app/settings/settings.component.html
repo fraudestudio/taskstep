@@ -35,12 +35,12 @@
             </div>
             <div class="breaker"></div>
             <h2><b>Outils</b></h2>
-            <button class="purgebutton" (click)="purgeItems()"><img src="assets/images/bomb.png" alt="Icône bombe"/>Détruire toutes les tâches</button>
+            <button class="purgebutton" (click)="purgeItems()"><img src="assets/images/bomb.png" alt="Icône bombe"/> Détruire toutes les tâches faites</button>
             &nbsp;
-            <button class="purgebutton" (click)="exportCSV()"><img src="assets/images/page_white_excel.png" alt="Icône CSV"/>Exporter les tâches en CSV</button>
+            <button class="purgebutton" (click)="exportCSV()"><img src="assets/images/page_white_excel.png" alt="Icône CSV"/> Exporter les tâches en CSV</button>
 
             <div *ngIf="PurgeItemConfirmation" class="warning">
-                <h4><img src="assets/images/exclamation.png"/> Attention ! Vous êtes sur le point de détruire toutes les tâches.</h4>
+                <h4><img src="assets/images/exclamation.png"/> Attention ! Vous êtes sur le point de détruire toutes les tâches faites.</h4>
                 <p>Confirmer votre action en cliquant de nouveau sur le bouton.</p>
             </div>
 

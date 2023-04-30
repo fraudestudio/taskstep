@@ -15,7 +15,27 @@
             <p><img src="assets/images/chart_bar.png" alt="Icône de graphique"/> Il y a actuellement {{TaskLeft}} tâches restantes.</p>
         </div>
         <div id="immediateblock">
-            <h2><img src="assets/images/lightning.png" alt="Icône d'éclair" /> Immédiat()</h2>
+            <div *ngIf="!DataIsLoad()">
+                <h2>Chargement des données...</h2>
+            </div>
+            <div *ngIf="DataIsLoad()">
+                <h2><img src="assets/images/lightning.png" alt="Icône d'éclair" /> Immédiat ({{DataNumber}})</h2>
+                <div *ngFor="let item of AllItem" class="immediateitem">
+                    <div *ngIf="!item.Done">
+                        <a href="" onclick="return false;" (click)="doneItem(item)"><img class="valign" src="assets/images/undone.png"/></a>
+                        <a href="" onclick="return false;" (click)="editItem(item)">{{item.Title}}</a>
+                        | {{item.Date}} | {{item.Context.Title}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="message">
+            <div *ngIf='type == "confirmation"' class="confirmation">
+                <p><img src="assets/images/accept.png" alt="Icône de confirmation"/>{{message}}</p>
+            </div>
+            <div *ngIf='type == "warning"' class="warning" alt="Icône d'alerte">
+                <p><img src="assets/images/exclamation.png"/>{{message}}</p>
+            </div>
         </div>
         <div  *ngIf="ShowTips" id="tipsbox">
             <h2><img src="assets/images/information.png" alt="Icône information"/> Conseil :</h2>

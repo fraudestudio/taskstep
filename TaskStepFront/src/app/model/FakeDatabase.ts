@@ -6,90 +6,8 @@ import { SideBarComponent } from "./sideBarComponent";
 
 export class FakeDatabase {
 
-    //public static Items : Item[] = [new Item(true,0,"test","test",1,1,new Date(),"test","test"),new Item(false,0,"test","test",1,1,new Date(),"test","test"),new Item(false,0,"test","test","test","test",new Date(),"test","test")];
-    public static Contexts : Context[] = [];
-    
-
-    constructor(){
-    
-    }
-
-    static RemoveContext(id : number){
-        this.Contexts.splice(id - 1)
-    }
-
-    static AddContext(context : Context){
-        this.Contexts.push(context);
-        context.Id = this.Contexts.length;
-    }
-
-    static ModifyContext(index : number,context : Context){
-        this.Contexts[index - 1] = context;
-        context.Id = index;
-    }
-
-    /// Projects
-
-    public static Projects : Project[] = [
-    ];
-
-    static RemoveProject(id : number){
-        this.Projects.splice(id - 1)
-    }
-
-    static AddProject(project : Project){
-        this.Projects.push(project);
-        project.Id = this.Projects.length;
-    }
-
-    static ModifyProject(index : number,project : Project){
-        this.Projects[index - 1] = project;
-        project.Id = index;
-    }
-
-
-    /*public static Users : User[] = [
-        new User("test@gmail.com","test"),
-    ];
-
-    public static AddUser(mail : string, password : string) {
-        FakeDatabase.Users.push(new User(mail,password));
-    }
-
-    public static VerifyUser(mail : string, password : string) : boolean{
-        var res  = false;
-        FakeDatabase.Users.forEach(user => {
-            if (user.mail == mail){
-                if (user.password == password){
-                    res = true;
-                }
-            }
-        });
-        return res;
-    }
-
-    public static ChangePassword(mail : string, password : string){
-        FakeDatabase.Users.forEach(user => {
-            if (user.mail == mail){
-                user.password = password;
-            }
-        });      
-    }
-
-    public static GetPassword(mail :string) : string {
-        var res = ""
-        FakeDatabase.Users.forEach(user => {
-            if (user.mail == mail){
-                res = user.password;
-            }
-        });    
-        
-        return res;
-    }
-*/
     /**
-     * Table all of the sidebar componenet of the side
-     * They are requested from the server
+     * All the side bar component
      */
     private static sideBar : SideBarComponent[] = [ 
         new SideBarComponent("lightbulb", "Idées",0,0,"ideas"), 
@@ -101,30 +19,11 @@ export class FakeDatabase {
         new SideBarComponent("user", "Peut-être un jour",0,0,"lifetime")
     ];
 
+    /**
+     * Get the side bar components
+     * @returns the side bar components
+     */
     public static GetSideBar() : SideBarComponent[] {
         return this.sideBar;
-    }
-
-    public static AddItem(item : Item){
-        //this.Items.push(item);
-    }
-
-    public static RemoveItem(item: Item) {
-        /*const  index= this.Items.indexOf(item);
-        if (index > -1) {
-          this.Items.splice(index, 1);
-        }*/
-      }
-
-    public static ModifyItem(item : Item){
-        /*let index = this.Items.indexOf(item);
-        this.Items[index] = item;*/
-        
-    }
-
-    public static GetAllItems() : Item[] {
-        return [];
-    }
-    
-    
+    }   
 }

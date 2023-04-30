@@ -58,6 +58,9 @@ export class DisplayItemSideBarComponent implements OnInit {
     else if (history.state.data?.context) {
       this.itemService.getItemsContext(history.state.data?.context,this.currentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
     }
+    else if (history.state.data?.project) {
+      this.itemService.getItemsProject(history.state.data?.project,this.currentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
+    }
     else {
       this.itemService.getItemsAll(this.CurrentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
     }
@@ -74,6 +77,9 @@ export class DisplayItemSideBarComponent implements OnInit {
     else if (history.state.data?.context) {
       this.router.navigate(["displayItemSideBar"], { state : {data : { title : this.Section, context : history.state.data?.context, sort : this.currentSort }}});
     }
+    else if (history.state.data?.project) {
+      this.router.navigate(["displayItemSideBar"], { state : {data : { title : this.Section, project : history.state.data?.project, sort : this.currentSort }}});
+    }
     else {
       this.router.navigate(["displayItemSideBar"], { state : {data : { title : this.Section, sort : this.currentSort }}});
     }
@@ -85,7 +91,9 @@ export class DisplayItemSideBarComponent implements OnInit {
   }
 
   Print(){
-    throw new Error("Method not implemented.");
+    if (history.state.data?.section){
+      window.location.href = this.itemService.printSection(history.state.data?.section);
+    }
   }
 
   get Section() {
@@ -112,6 +120,9 @@ export class DisplayItemSideBarComponent implements OnInit {
             else if (history.state.data?.context) {
               this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, context : history.state.data?.context, sort : this.currentSort}}});
             }
+            else if (history.state.data?.project) {
+              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, project : history.state.data?.project, sort : this.currentSort}}});
+            }
             else {
               this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, sort : this.currentSort}}});
             }
@@ -132,6 +143,9 @@ export class DisplayItemSideBarComponent implements OnInit {
     }
     else if (history.state.data?.context) {
       this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Une erreur est survenue", type : "warning", title : this.Section, context : history.state.data?.context, sort : this.currentSort}}});
+    }
+    else if (history.state.data?.project) {
+      this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Une erreur est survenue", type : "warning", title : this.Section, project : history.state.data?.project, sort : this.currentSort}}});
     }
     else {
       this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Une erreur est survenue", type : "warning", title : this.Section, sort : this.currentSort}}});
