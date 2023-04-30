@@ -15,14 +15,29 @@ export class DisplayItemSideBarComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient) {
       this.itemService = new ItemService(httpClient, router)  
-   }
+  }
 
+  /**
+   * Communication with api thanks to the item service
+   */
   private itemService : ItemService
 
+  /**
+   * List of the item to display
+   */
   private listItems : Item[] = [];
-  
+
+  get ListItems() : Item[]{
+    return this.listItems;
+  }
+  /**
+   * Tells if the data is load
+   */
   private isDataLoad : boolean = false;
 
+  /**
+   * The current way to sort items
+   */
   private currentSort : string = "title";
 
   get CurrentSort() : string {
@@ -33,40 +48,56 @@ export class DisplayItemSideBarComponent implements OnInit {
     return this.isDataLoad;
   }
 
+  /**
+   * Message to display if there is any
+   */
   get message() : string {
     return history.state.data?.message; 
   }
 
+  /**
+   * Type of the message to display if there is any
+   */
   get type() : string {
     return history.state.data?.type;
   }
 
+  /**
+   * Init the data
+   */
   ngOnInit(): void {
     
+    // Check the sort 
     if (history.state.data?.sort){
       this.currentSort = history.state.data?.sort;
     }
 
     
-
+    // Check if we need to display a section
     if (history.state.data?.section){
       this.itemService.getItemsSection(history.state.data?.section,this.currentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
     }
+    // Check if we need to display a date
     else if (history.state.data?.date){
       this.itemService.getItemsDate(history.state.data?.date,this.CurrentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
     }
+    // Check if we need to display a context
     else if (history.state.data?.context) {
       this.itemService.getItemsContext(history.state.data?.context,this.currentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
     }
+    // Check if we need to display a project
     else if (history.state.data?.project) {
       this.itemService.getItemsProject(history.state.data?.project,this.currentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
     }
+    // if it is neither of that, we display all the items
     else {
       this.itemService.getItemsAll(this.CurrentSort).subscribe((items) => {this.listItems = items; this.isDataLoad = true})
     }
   }
 
-
+  /**
+   * Submit the changement of sort 
+   */
   submit(){
     if (history.state.data?.section){
       this.router.navigate(["displayItemSideBar"], { state : {data : { title : this.Section, section : history.state.data?.section, sort : this.currentSort }}});
@@ -86,28 +117,43 @@ export class DisplayItemSideBarComponent implements OnInit {
 
   }
 
+  /**
+   * Change the current sort
+   * @param value the sort to apply
+   */
   sortChange(value : string){
     this.currentSort = value;
   }
 
+  /**
+   * Print the current items
+   */
   Print(){
     if (history.state.data?.section){
       window.location.href = this.itemService.printSection(history.state.data?.section);
     }
   }
 
+  /**
+   * Get the title of the page
+   */
   get Section() {
     return history.state.data.title;
   }
 
+  /**
+   * Set the selected item to done
+   * @param selectedItem the selected item to set to done
+   */
   doneItem(selectedItem: Item) {
-        if(selectedItem.Done == false){
+        if(!selectedItem.Done){
           selectedItem.Done = true;   
         }
         else{
           selectedItem.Done = false;
         }
         this.itemService.modifyItem(selectedItem).subscribe((data) =>{
+          // Force a realod of the same page
           this.router.routeReuseStrategy.shouldReuseRoute = () => false;
           this.router.onSameUrlNavigation = 'reload';
           if (!data){
@@ -133,7 +179,9 @@ export class DisplayItemSideBarComponent implements OnInit {
       })
   }
 
-
+  /**
+   * Display the error message
+   */
   showError(){
     if (history.state.data?.section){
       this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Une erreur est survenue", type : "warning", title : this.Section, section : history.state.data?.section, sort : this.currentSort}}});
@@ -152,12 +200,21 @@ export class DisplayItemSideBarComponent implements OnInit {
     }
   }
 
+  /**
+   * Go the edit page for the selected item
+   * @param selectedItem the item to edit
+   */
   editItem(selectedItem: Item) {
       this.router.navigate(['/additem'],  { state: { data: { item: selectedItem } } });
   }
 
+  /**
+   * Delete the selected item
+   * @param selectedItem the item to delete
+   */
   deleteItem(selectedItem: Item) {
     this.itemService.deleteItem(selectedItem.Id).subscribe((data) =>{
+      // Froce a reload
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
       if (!data){
@@ -180,9 +237,7 @@ export class DisplayItemSideBarComponent implements OnInit {
     })
   }
 
-  get ListItems() : Item[]{
-    return this.listItems;
-  }
+
 
 }
 

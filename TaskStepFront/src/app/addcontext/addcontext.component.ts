@@ -21,9 +21,14 @@ export class AddcontextComponent {
     this.contextService = new ContextService(httpClient, router);
   }
 
+  /**
+   * Comunication with the api thanks to the context service
+   */
   private contextService : ContextService;
 
-
+  /**
+   * Add a context with the given informations
+   */
   submit(){
     this.contextService.addContext(this.form.title).subscribe((data) =>
       {

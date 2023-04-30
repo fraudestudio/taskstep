@@ -22,9 +22,15 @@ export class AddprojectComponent {
     this.projectService = new ProjectService(httpClient, router);
   }
 
+  /**
+   * Communication to the api thanks to the project service
+   */
   private projectService : ProjectService;
 
 
+  /**
+   * Add a project with the given information
+   */
   submit(){
     this.projectService.addProject(this.form.title).subscribe((data) =>
       {

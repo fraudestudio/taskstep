@@ -15,10 +15,14 @@ export class EditcontextComponent implements OnInit {
     this.contextService = new ContextService(httpClient, router);
   }
   
+  /**
+   * Communiction to the API thank to the context service
+   */
   private contextService : ContextService;
 
-  private checkbox : boolean = true;
-
+  /**
+   * The current context to edit
+   */
   private currentContext : Context = new Context("",-1);
 
   get CurrentContext() : Context {
@@ -32,18 +36,27 @@ export class EditcontextComponent implements OnInit {
     title : null
   };
 
-
+  /**
+   * Init the data
+   */
   ngOnInit(){
-    this.contextService.getContext(history.state.data).subscribe(context => this.form.title = context.Title);
-    this.contextService.getContext(history.state.data).subscribe(context => this.currentContext = context);
+    this.contextService.getContext(history.state.data).subscribe((context) => {
+      this.form.title = context.Title;
+      this.currentContext = context;
+    });
   }
 
-
+  /**
+   * Check if the info has been received
+   * @returns result of the verfication
+   */
   hasReceivedInfo() : boolean{
     return this.currentContext.Id != -1;
   }
 
-
+  /**
+   * Delete the current context
+   */
   deleteContext(){
     this.contextService.deleteContext(history.state.data).subscribe((data) =>
     {
@@ -56,6 +69,9 @@ export class EditcontextComponent implements OnInit {
     });  
   }
 
+  /**
+   * Submit the modification of the current context
+   */
   submit(){
     this.contextService.modifyContext(history.state.data, this.form.title).subscribe((data) =>
     {

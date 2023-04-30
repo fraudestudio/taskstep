@@ -17,6 +17,10 @@ import { HttpClient } from '@angular/common/http';
 
 export class AdditemComponent implements OnInit {
     
+    /**
+     * Init the service 
+     * Init the form information if there is an item to edit
+     */
     constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){    
         this.contextService = new ContextService(httpClient, router)
         this.projectService = new ProjectService(httpClient, router)
@@ -55,21 +59,61 @@ export class AdditemComponent implements OnInit {
         }
     }
 
+    /**
+     * Init data
+     */
+    ngOnInit(): void {
+        this.contextService.getContexts().subscribe((projects) => { 
+            this.contexts = projects;
+            this.dataIsLoad[0] = true;
+        });
+        this.projectService.getProjects().subscribe((projects) => {
+            this.projects = projects
+            this.dataIsLoad[1] = true;
+        });
+    }
+
+    /**
+     * Tells if the page is in edit mode
+     */
     private edit: boolean;
 
     get Edit() : boolean{
         return this.edit;
     }
 
+    /**
+     * Communication with the API for the context thanks to the context service
+     */
     private contextService : ContextService;
+    
+    /**
+     * Communication with the API for the project thanks to the context service
+     */
     private projectService : ProjectService;
+    
+    /**
+     * Communication with the API for the item thanks to the context service
+     */
     private itemService : ItemService;
 
+    /**
+     * Context to display
+     */
     private contexts : Context[] = [];
+    /**
+     * Project to display
+     */
     private projects : Project[] = [];
 
+    /**
+     * Sections to display
+     */
     private sections : SideBarComponent[] = FakeDatabase.GetSideBar();
 
+    /**
+     * Store the loaded data
+     */
     private dataIsLoad : boolean[] = [
         false,
         false
@@ -90,31 +134,27 @@ export class AdditemComponent implements OnInit {
   
     };
 
+    /**
+     * Message to display if there is any
+     */
     get message() : string {
         return history.state.data?.message; 
-      }
+    }
     
+    /**
+     * Type of the message to display if there is any
+     */
     get type() : string {
       return history.state.data?.type;
     }
 
+    /**
+     * Check if all the data is loaded
+     * @returns the result of the verification
+     */
     isDataIsLoad() : boolean{
         return this.dataIsLoad[0] && this.dataIsLoad[1];
     }
-
-    ngOnInit(): void {
-        this.contextService.getContexts().subscribe((projects) => { 
-            this.contexts = projects;
-            this.dataIsLoad[0] = true;
-        });
-        this.projectService.getProjects().subscribe((projects) => {
-            this.projects = projects
-            this.dataIsLoad[1] = true;
-        });
-    }
-
-
-
 
     /**
      * method that returns the section 
@@ -136,19 +176,29 @@ export class AdditemComponent implements OnInit {
     get Projects() : Project[] {  return this.projects }
 
     
+    /**
+     * edit the selected context
+     */
     editContext(){
-        console.log(this.form.context);
-        this.router.navigate(["editcontext"], {state : {data : this.form.context.Id}});
+        this.router.navigate(["editcontext"], {state : {data : Number(this.form.context)}});
     }
     
+    /**
+     * Edit the selected project
+     */
     editProject(){
-        this.router.navigate(['editproject']);
+        this.router.navigate(["editproject"], {state : {data : Number(this.form.project)}});
     }
    
+    /**
+     * If in edit mode, send the changes with given information
+     * If not, add item with the given information
+     */
     submit() {
         if(this.edit == false){
             let item = new Item(false, 0 ,this.form.title, this.form.note, new Context("",Number(this.form.context)), new Project("",Number(this.form.project)), this.form.dueDate, this.form.url,this.form.section);
             this.itemService.addItem(item).subscribe((data) =>{
+                // Force reload of the page
                 this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                 this.router.onSameUrlNavigation = 'reload';
                 if (data){
@@ -163,6 +213,7 @@ export class AdditemComponent implements OnInit {
         else {
             let item = new Item(false,history.state.data?.item.Id,this.form.title, this.form.note, new Context("",Number(this.form.context)), new Project("",Number(this.form.project)), this.form.dueDate, this.form.url,this.form.section);
             this.itemService.modifyItem(item).subscribe((data) =>{
+                // Force reload of the page
                 this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                 this.router.onSameUrlNavigation = 'reload';
                 if (!data){

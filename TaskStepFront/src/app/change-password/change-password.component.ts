@@ -14,6 +14,9 @@ export class ChangePasswordComponent {
 
   private currentPassword : string;
 
+  /**
+   * Tell if there is an error
+   */
   private hasError : boolean = false;
 
   get HasError() : boolean{
@@ -33,10 +36,16 @@ export class ChangePasswordComponent {
     return this.form.password1 == this.currentPassword;
   }
 
+  /**
+   * Message to display if there is one
+   */
   get message() : string {
     return history.state.data?.message; 
   }
   
+  /**
+   * Type of the message to display if there is one 
+  */
   get type() : string {
     return history.state.data?.type;
   }

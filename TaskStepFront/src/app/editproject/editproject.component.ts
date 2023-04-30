@@ -13,22 +13,28 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 export class EditprojectComponent implements OnInit {
 
-  
-  private checkbox : boolean = true;
-
-
   constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){  
     this.projectService = new ProjectService(httpClient, router);
   }
 
+  /**
+   * The communication with the api thanks to the project service
+   */
   private projectService : ProjectService;
 
+  /**
+   * The current project to edit
+   */
   private currentProject : Project = new Project("",-1);
 
   get CurrentProject() : Project {
     return this.currentProject;
   }
 
+  /**
+   * Check if the info has been sent
+   * @returns the result of the verification
+   */
   hasReceivedInfo() : boolean{
     return this.currentProject.Id != -1;
   }
@@ -41,12 +47,19 @@ export class EditprojectComponent implements OnInit {
     title : null
   };
 
-
+  /**
+   * Init the projects
+   */
   ngOnInit() : void{
-    this.projectService.getProject(history.state.data).subscribe(project => this.form.title = project.Title);
-    this.projectService.getProject(history.state.data).subscribe(project => this.currentProject = project);
+    this.projectService.getProject(history.state.data).subscribe((project) =>{
+      this.form.title = project.Title;
+      this.currentProject = project;
+    });
   }
 
+  /**
+   * Delete the current project 
+   */
   deleteProject(){
     this.projectService.deleteProject(history.state.data).subscribe((data) =>
     {
@@ -59,6 +72,9 @@ export class EditprojectComponent implements OnInit {
     });  
   }
 
+  /**
+   * Submit the modification of the current project
+   */
   submit(){
     this.projectService.modifyProject(history.state.data, this.form.title).subscribe((data) =>
     {
