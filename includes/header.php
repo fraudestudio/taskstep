@@ -38,6 +38,10 @@ $sectionItemsCount = (new ItemDao)->countBySection(USER);
 
 	<!-- Header -->
 	<div id="header">
+		<div class="newapp-link inform">
+			Vous êtes sur l'ancienne interface de TaskStep.<br>
+			<a href="/app/login">Retourner à l'application</a>
+		</div>
 		<h1>
 			<img src="images/icon.png" alt="" style="vertical-align:middle"/>&nbsp;<a href="index.php">
 				TaskStep <span class="subtitle">2.0</span>

@@ -472,3 +472,13 @@ h2{
 .linkback a{
 	text-decoration:underline;
 }
+
+.newapp-link {
+	float: right;
+	font-size: 10pt;
+	text-align: right;
+	background-image: url(images/information.png);
+	background-repeat: no-repeat;
+	background-position: 5px 4px;
+	padding-left: 25px;
+}
