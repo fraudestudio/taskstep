@@ -4,11 +4,11 @@ namespace TaskStep\Logic\Data\MySql\Dao;
 
 use DateTime;
 use TaskStep\Logic\Data\MySql\Database;
-use TaskStep\Logic\Model\{User, Registration, Style};
+use TaskStep\Logic\Model\{User, Registration, Style, Context, Project};
 use TaskStep\Logic\Model\UserDaoInterface;
-use PDO;
+use PDO, PDOException;
 use Random\Randomizer;
-use TaskStep\Logic\Exceptions\{BadTokenException, TokenOutOfDateException, NotFoundException};
+use TaskStep\Logic\Exceptions\{BadTokenException, TokenOutOfDateException, NotFoundException, DuplicateException};
 
 class UserDAO implements UserDaoInterface
 {
@@ -23,13 +23,38 @@ class UserDAO implements UserDaoInterface
     {
         $hash = password_hash($registration->password(), PASSWORD_BCRYPT);
 
+        try
+        {
+            Database::getInstance()->executeNonQuery(
+                "INSERT INTO `User`(mail, MDP, style, tips, login, salt) VALUES (:mail, :mdp, 0, 1, '', '')",
+                ['mail' => $registration->email(), 'mdp' => $hash]
+            );
+        }
+        catch (PDOException $e)
+        {
+            if ($e->errorInfo[1] == 1062)
+            {
+                throw new DuplicateException;
+            }
+            else
+            {
+                throw $e;
+            }
+        }
+
+        $id = Database::getInstance()->executeQuery("SELECT last_insert_id()")->fetch()[0];
+
         Database::getInstance()->executeNonQuery(
-            "INSERT INTO `User`(mail, MDP, style, tips, login, salt) VALUES (:mail, :mdp, 0, 1, '', '')",
-            ['mail' => $registration->email(), 'mdp' => $hash]
+            "INSERT INTO contexts (title, User) VALUES ('Sample context', :user)",
+            ['user' => $id]
         );
 
-        $data = Database::getInstance()->executeQuery("SELECT last_insert_id()")->fetch();
-        return $data[0];
+        Database::getInstance()->executeNonQuery(
+            "INSERT INTO projects (title, User) VALUES ('Sample project', :user)",
+            ['user' => $id]
+        );
+
+        return $id;
     }
 
     /**

@@ -52,7 +52,7 @@ class ReCaptchaToken
 			/* DÉCOMMENTER SI LE CAPTCHA PÊTE SON CRÂNE *
 			if (in_array('invalid-input-response', $result['error-codes'] ?? []))
 			{
-				echo 'WARN_INVALID_RESPONSE_IGNORED';
+				echo "WARN_INVALID_RESPONSE_IGNORED\n";
 				return true;
 			}
 			//*/
