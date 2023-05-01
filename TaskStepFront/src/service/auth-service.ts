@@ -62,7 +62,7 @@ export class AuthService {
      */
     updateSettings(theme : string, tips : boolean) : Observable<null>{
         const httpOptions = {
-      headers : new HttpHeaders({'Content-Type' : 'application/json',
+        headers : new HttpHeaders({'Content-Type' : 'application/json',
             'Authorization': 'Bearer ' + AuthService.token})
         };
 
@@ -72,6 +72,19 @@ export class AuthService {
         )
     }
 
+
+    updatePassword(password : string,newPassword : string){
+        const httpOption = {
+            headers : new HttpHeaders({'Content-Type' : 'text/plain',
+            'Authorization':'Basic ' + Buffer.from(sessionStorage.getItem("mail") + ':' + password).toString('base64')
+            }) 
+        };
+
+        return this.httpClient.put("api/account/password", newPassword, httpOption).pipe(
+            tap((response) => console.table(response)),
+            catchError((error) => of(false))
+        )        
+    }
 
     private log(reponse : any){
         console.table(reponse);

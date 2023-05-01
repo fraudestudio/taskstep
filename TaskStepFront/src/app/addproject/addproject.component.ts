@@ -35,7 +35,7 @@ export class AddprojectComponent {
     this.projectService.addProject(this.form.title).subscribe((data) =>
       {
         if (data != null){
-          this.router.navigate(["byproject"], {state : {data : { message : "Votre projet \""+ this.form.title +"\" a bien été ajouter !", type : "confirmation"}}});     
+          this.router.navigate(["byproject"], {state : {data : { message : "Votre projet \""+ this.form.title +"\" a bien été ajouté !", type : "confirmation"}}});     
         }
         else {
           this.router.navigate(["byproject"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});

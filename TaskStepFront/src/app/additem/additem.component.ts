@@ -22,9 +22,11 @@ export class AdditemComponent implements OnInit {
      * Init the form information if there is an item to edit
      */
     constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){    
-        this.contextService = new ContextService(httpClient, router)
-        this.projectService = new ProjectService(httpClient, router)
-        this.itemService = new ItemService(httpClient, router)
+        this.contextService = new ContextService(httpClient, router);
+        this.projectService = new ProjectService(httpClient, router);
+        this.itemService = new ItemService(httpClient, router);
+        this.sections = FakeDatabase.GetSideBar();
+        this.form.section = this.sections[0].Database;
 
         if (history.state.data?.item){
             this.edit = true;
@@ -109,7 +111,7 @@ export class AdditemComponent implements OnInit {
     /**
      * Sections to display
      */
-    private sections : SideBarComponent[] = FakeDatabase.GetSideBar();
+    private sections : SideBarComponent[];
 
     /**
      * Store the loaded data
@@ -126,7 +128,7 @@ export class AdditemComponent implements OnInit {
     form : any  = {
         title : null,
         note : "",
-        section : this.sections[0].Database,
+        section : null,
         context : null,
         project : null,
         dueDate : null,
@@ -202,7 +204,7 @@ export class AdditemComponent implements OnInit {
                 this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                 this.router.onSameUrlNavigation = 'reload';
                 if (data){
-                    this.router.navigateByUrl('/additem', {state : {data : {message : "Votre tâches a bien été ajouter !", type : "confirmation"}}});
+                    this.router.navigateByUrl('/additem', {state : {data : {message : "Votre tâches a bien été ajoutée !", type : "confirmation"}}});
                 }
                 else {
                     this.router.navigateByUrl('/additem', {state : {data : {message : "Une erreur est survenue", type : "warning"}}});
@@ -217,13 +219,15 @@ export class AdditemComponent implements OnInit {
                 this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                 this.router.onSameUrlNavigation = 'reload';
                 if (!data){
-                    this.router.navigateByUrl('/additem', {state : {data : {message : "Votre tâches a bien été modifier !", type : "confirmation"}}});
+                    this.router.navigateByUrl('/additem', {state : {data : {message : "Votre tâches a bien été modifiée !", type : "confirmation"}}});
                 }
                 else {
                     this.router.navigateByUrl('/additem', {state : {data : {message : "Une erreur est survenue", type : "warning"}}});
                 }
             })
         }
+
+        FakeDatabase.UpdateSideBar(this.itemService);
 
 
 

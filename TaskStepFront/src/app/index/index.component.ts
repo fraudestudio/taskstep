@@ -4,6 +4,7 @@ import { ItemService } from 'src/service/item-service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
+import { FakeDatabase } from '../model/FakeDatabase';
 
 @Component({
   selector: 'app-index',
@@ -21,8 +22,7 @@ export class IndexComponent implements OnInit {
    * Get all the infromation
    */
   ngOnInit(): void {
-    this.itemService.getItemsSection("immediate","title").subscribe((items) => {this.immediateItem = items; this.isDataLoad[0] = true});
-    this.itemService.getItemsDate(formatDate(Date.now(),"dd-MM-yyy","fr-Fr"),"title").subscribe((items) => {this.todayItem = items; this.isDataLoad[1] = true});
+    this.itemService.getItemBeforeToday(formatDate(Date.now(),"dd-MM-yyy","fr-Fr")).subscribe((items) => {this.allItem = items; this.isDataLoad = true});
     this.itemService.getUndone().subscribe((data) => this.taskLeft = data );
   }
 
@@ -45,17 +45,13 @@ export class IndexComponent implements OnInit {
   /**
    * Sotre if all the data are load
    */
-  private isDataLoad : boolean[] = [
-    false,
-    false
-  ]
-
+  private isDataLoad : boolean = false
   /**
    * Return if all the data are load
    * @returns the response of the verification
    */
   DataIsLoad(){
-    return (this.isDataLoad[0] && this.isDataLoad[1]);
+    return this.isDataLoad;
   }
 
   /**
@@ -97,7 +93,7 @@ export class IndexComponent implements OnInit {
     'Des problèmes ? essayez la section <a href="">Aide</a>',
     'Vous pouvez lister tous les tâches par contexte ou par projet.',
     'L\'impression est conçue pour des fiches 3x5, mais vous pouvez imprimer au format A4 en allant dans Fichier->Imprimer dans votre navigateur.',
-    'Sur cette page, cliquez sur une tâche de la liste immédiate pour la modifier.',
+    'Sur cette page, cliquez sur une tâche de la liste « immédiat » pour la modifier.',
     'Vous pouvez maintenant sélectionner la date à partir d\'un calendrier. Cliquez simplement dans la case de la date comme si vous étiez en train de taper.',
   ]
 
@@ -116,40 +112,15 @@ export class IndexComponent implements OnInit {
   }
 
   /**
-   * The item in the immediateSection
+   * All the item to display
    */
-  private immediateItem : Item[] = []
-
-  get ImmediateItem() : Item[]{
-    return this.immediateItem;
-  }
-
-  /**
-   * The item of today 
-   */
-  private todayItem : Item[] = []
-
-  get TodayItem() : Item[]{
-    return this.todayItem;
-  }
+  private allItem : Item[] = []
 
   /**
    * Get all the item needed for immediate task
    */
   get AllItem() : Item[]{
-    let items : Item[] = [];
-    this.immediateItem.forEach(element => {
-      if (!items.includes(element)){
-        items.push(element)
-      }
-    });
-    this.todayItem.forEach(element => {
-      if (!items.includes(element)){
-        items.push(element)
-      }
-    });
-
-    return items;
+    return this.allItem;
 
   }
 

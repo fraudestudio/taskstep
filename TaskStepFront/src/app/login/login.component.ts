@@ -69,6 +69,7 @@ export class LoginComponent {
         AuthService.token = data.Token;
         sessionStorage.setItem("token",data.Token)
         ThemeService.setTheme(data.User.Settings.Style);
+        sessionStorage.setItem("mail",data.User.Email);
         sessionStorage.setItem("isCheckedDisplay", String(data.User.Settings.Tips));
         this.router.navigate(['index']);
         console.log(AuthService.token);

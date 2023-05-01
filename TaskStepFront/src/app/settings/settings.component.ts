@@ -11,6 +11,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SettingsComponent {
 
+
+  private numberPurged = 0;
+
   /**
    * Says if the button change password has been it once
    */
@@ -26,10 +29,14 @@ export class SettingsComponent {
    */
   private exportConfirmation : boolean;
 
+  private itemPurged : boolean = false;
+
   /**
    * Communication to api with the auth service
    */
   private authService : AuthService;
+
+  private itemService : ItemService;
 
   get ChangePasswordConfirmation() : boolean{
     return this.changePasswordConfirmation;
@@ -43,10 +50,18 @@ export class SettingsComponent {
     return this.exportConfirmation;
   }
 
+  get ItemPurged() : boolean {
+    return this.itemPurged;
+  }
+
+  get NumberPurged() : number{
+    return this.numberPurged;
+  }
 
 
   constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){
-    this.authService = new AuthService(httpClient)
+    this.authService = new AuthService(httpClient);
+    this.itemService = new ItemService(httpClient,router);
     this.changePasswordConfirmation = false;
     this.purgeItemConfirmation = false;
     this.exportConfirmation = false;
@@ -65,6 +80,7 @@ export class SettingsComponent {
       this.changePasswordConfirmation = true;
       this.purgeItemConfirmation = false;
       this.exportConfirmation = false;
+      this.itemPurged = false;
     }
   }
 
@@ -73,12 +89,17 @@ export class SettingsComponent {
    */
   purgeItems(){
     if (this.purgeItemConfirmation){
-
+      this.itemService.deleteDoneItem().subscribe((data) => {
+        this.numberPurged = data;
+        this.itemPurged = true;
+        this.purgeItemConfirmation = false;
+      })
     }
     else {
       this.purgeItemConfirmation = true;
       this.changePasswordConfirmation = false;
       this.exportConfirmation = false;
+      this.itemPurged = false;
     }
   }
 
@@ -86,9 +107,11 @@ export class SettingsComponent {
    * Redirect to a csv download page
    */
   exportCSV(){
+    this.itemService.getCSV();
     this.exportConfirmation = true;
     this.purgeItemConfirmation = false;
     this.changePasswordConfirmation = false;
+    this.itemPurged = false;
   }
 
   /**
@@ -119,7 +142,7 @@ export class SettingsComponent {
    */
   onCheckedChange(value : boolean) {
     sessionStorage.setItem("isCheckedDisplay", String(value));
-    this.authService.updateSettings(ThemeService.getStoredTheme(),value);
+    this.authService.updateSettings(ThemeService.getStoredTheme(),value).subscribe();
   }
 
   /**
@@ -136,6 +159,6 @@ export class SettingsComponent {
    */
   onThemeChange(value : string){
     ThemeService.setTheme(value);
-    this.authService.updateSettings(ThemeService.getStoredTheme(),Boolean(sessionStorage.getItem("isCheckedDisplay")));
+    this.authService.updateSettings(ThemeService.getStoredTheme(),this.isDisplayChecked).subscribe();
   }
 }

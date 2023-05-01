@@ -45,12 +45,11 @@ export class RegisterComponent {
   submit(){
     this.recaptchaV3Service.execute('importantAction')
     .subscribe((token: string) => {
-      console.log(token);
       //FakeDatabase.AddUser(this.form.mail, this.form.password);
       
       this.authService.signup(this.form.mail, this.form.password,token).subscribe((data => {
-        if (data != null) {
-          this.router.navigate(["login"], {state : {data : { message : "Votre compte a bien été créer ! Vous pouvez maintenant vous connectez.", type : "confirmation"}}})
+        if (data == null) {
+          this.router.navigate(["login"], {state : {data : { message : "Votre compte a bien été créé ! Vous pouvez maintenant vous connectez.", type : "confirmation"}}})
         }
         else {
           

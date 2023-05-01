@@ -17,6 +17,10 @@ export class DisplayItemSideBarComponent implements OnInit {
       this.itemService = new ItemService(httpClient, router)  
   }
 
+  verifyDate(date : Date){
+    return Number(date) <= Date.now();
+  }
+
   /**
    * Communication with api thanks to the item service
    */
@@ -114,7 +118,6 @@ export class DisplayItemSideBarComponent implements OnInit {
     else {
       this.router.navigate(["displayItemSideBar"], { state : {data : { title : this.Section, sort : this.currentSort }}});
     }
-
   }
 
   /**
@@ -130,19 +133,19 @@ export class DisplayItemSideBarComponent implements OnInit {
    */
   Print(){
     if (history.state.data?.section){
-      window.location.href = this.itemService.printSection(history.state.data?.section);
+      this.itemService.printSection(history.state.data?.section);
     }
     else if (history.state.data?.date){
-      window.location.href = this.itemService.printToday();
+      this.itemService.printToday();
     }
     else if (history.state.data?.context){
-      window.location.href = this.itemService.printContext(history.state.data?.context);
+      this.itemService.printContext(history.state.data?.context);
     }
     else if (history.state.data?.project){
-      window.location.href = this.itemService.printContext(history.state.data?.project);
+      this.itemService.printProject(history.state.data?.project);
     }
     else {
-      window.location.href = this.itemService.printAll();
+      this.itemService.printAll();
     }
   }
 
@@ -158,37 +161,42 @@ export class DisplayItemSideBarComponent implements OnInit {
    * @param selectedItem the selected item to set to done
    */
   doneItem(selectedItem: Item) {
+        let msg;
         if(!selectedItem.Done){
-          selectedItem.Done = true;   
+          selectedItem.Done = true;
+          msg = "Votre tâche est marquée comme faite !";
         }
         else{
           selectedItem.Done = false;
+          msg = "Votre tâche est marquée comme à faire !";
         }
-        this.itemService.modifyItem(selectedItem).subscribe((data) =>{
+        this.itemService.modifyItem(selectedItem).subscribe((data) => {
           // Force a realod of the same page
           this.router.routeReuseStrategy.shouldReuseRoute = () => false;
           this.router.onSameUrlNavigation = 'reload';
           if (!data){
             if (history.state.data?.section){
-              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, section : history.state.data?.section, sort : this.currentSort}}});
+              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : msg, type : "confirmation", title : this.Section, section : history.state.data?.section, sort : this.currentSort}}});
             }
             else if (history.state.data?.date){
-              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, date : history.state.data?.date, sort : this.currentSort}}});
+              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : msg, type : "confirmation", title : this.Section, date : history.state.data?.date, sort : this.currentSort}}});
             }
             else if (history.state.data?.context) {
-              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, context : history.state.data?.context, sort : this.currentSort}}});
+              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : msg, type : "confirmation", title : this.Section, context : history.state.data?.context, sort : this.currentSort}}});
             }
             else if (history.state.data?.project) {
-              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, project : history.state.data?.project, sort : this.currentSort}}});
+              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : msg, type : "confirmation", title : this.Section, project : history.state.data?.project, sort : this.currentSort}}});
             }
             else {
-              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : "Votre tâche est mise comme faite !", type : "confirmation", title : this.Section, sort : this.currentSort}}});
+              this.router.navigateByUrl('/displayItemSideBar', {state : {data : {message : msg, type : "confirmation", title : this.Section, sort : this.currentSort}}});
             }
           }
           else {
             this.showError()
           }
       })
+
+      FakeDatabase.UpdateSideBar(this.itemService);
   }
 
   /**
@@ -247,6 +255,8 @@ export class DisplayItemSideBarComponent implements OnInit {
         this.showError()
       }
     })
+
+    FakeDatabase.UpdateSideBar(this.itemService);
   }
 
 
