@@ -21,7 +21,7 @@
                     <div class="sortform">
                         <p>
                             <span class="printer">
-                                <a href="" onclick="return false;" (click)="Print()"><img src="assets/images/printer.png"/> Imprimer les tâches</a>
+                                <a href="" onclick="return false;" (click)="Print()"><img src="assets/images/printer.png" alt="SexyBox"/> Imprimer les tâches</a>
                             </span>
                         </p>
                         <form class="sortform" #f = "ngForm" (ngSubmit)="submit()">
@@ -42,16 +42,16 @@
                         </form>
                         <br>
                         <div class="inform" *ngFor="let item of ListItems">
-                            <img src='assets/images/information.png' alt='' /> 
+                            <img src='assets/images/information.png' alt='Images d information' /> 
                             {{item.Title}}
                             <div *ngIf="item.Done" style="text-decoration:line-through;">
                                 <span *ngIf="item.Date != null"> | {{item.Date}}</span>
                                 <span > | {{item.Context.Title}}  </span>
                                 <span > | {{item.Project.Title}}  </span>
-                                <a href="" onclick="return false;" class = "actionicon" (click)="deleteItem(item)"><img src="assets/images/bin_empty.png"/></a>
-                                <a href="" onclick="return false;" class = "actionicon" (click)="editItem(item)"><img src="assets/images/pencil.png"/></a>
-                                <a href="" onclick="return false;" *ngIf="!item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/undone.png"/></a>
-                                <a href="" onclick="return false;" *ngIf="item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/accept.png"/></a>
+                                <a href="" onclick="return false;" class = "actionicon" (click)="deleteItem(item)"><img src="assets/images/bin_empty.png" alt="Images poubelle vide"/></a>
+                                <a href="" onclick="return false;" class = "actionicon" (click)="editItem(item)"><img src="assets/images/pencil.png" alt="images crayon"></a>
+                                <a href="" onclick="return false;" *ngIf="!item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/undone.png" alt="Image tache non faite"/></a>
+                                <a href="" onclick="return false;" *ngIf="item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/accept.png" alt="Image tache faite"/></a>
                                 <p *ngIf="item.Notes != null">{{item.Notes}}</p>                             
                                 <p *ngIf="item.Url != null"><a [href]="item.Url">{{item.Url}}</a></p>
                             </div>
@@ -59,10 +59,10 @@
                                 <span *ngIf="item.Date != null"> | {{item.Date}}</span>
                                 <span > | {{item.Context.Title}}  </span>
                                 <span > | {{item.Project.Title}}  </span>
-                                <a href="" onclick="return false;" class = "actionicon" (click)="deleteItem(item)"><img src="assets/images/bin_empty.png"/></a>
-                                <a href="" onclick="return false;" class = "actionicon" (click)="editItem(item)"><img src="assets/images/pencil.png"/></a>
-                                <a href="" onclick="return false;" *ngIf="!item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/undone.png"/></a>
-                                <a href="" onclick="return false;" *ngIf="item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/accept.png"/></a>
+                                <a href="" onclick="return false;" class = "actionicon" (click)="deleteItem(item)"><img src="assets/images/bin_empty.png" alt="images poubelle vide"/></a>
+                                <a href="" onclick="return false;" class = "actionicon" (click)="editItem(item)"><img src="assets/images/pencil.png" alt="images crayon"/></a>
+                                <a href="" onclick="return false;" *ngIf="!item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/undone.png"alt="Image tache non faite"/></a>
+                                <a href="" onclick="return false;" *ngIf="item.Done" class = "actionicon" (click)="doneItem(item)"><img src="assets/images/accept.png" alt="Image tache faite"/></a>
                                 <p *ngIf="item.Notes != null">{{item.Notes}}</p>                             
                                 <p *ngIf="item.Url != null"><a [href]="item.Url">{{item.Url}}</a></p>
                             </div>

@@ -18,7 +18,7 @@
 
     <div id="sidebar">                     
       <ul>
-        <li><a routerLink="/additem"><img src = "assets/images/add.png" alt=""> Ajouter une tâche</a></li>
+        <li><a routerLink="/additem"><img src = "assets/images/add.png" alt="SexyBG"> Ajouter une tâche</a></li>
         <li *ngFor="let bar of SideBar">
             <a href="" onclick="return false;" (click)="redirectSection(bar.Title,bar.Database)"><img src ={{bar.Image}} alt=""/> {{bar.Title}} <span class="noundone">{{bar.Done}}</span><span class="nodone"> {{bar.UnDone}}</span></a>
         </li>

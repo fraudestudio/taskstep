@@ -23,14 +23,14 @@
             <button (click)="changePasswordClicked()">Changer de mot de passe</button>
             <div *ngIf="message">
                 <div *ngIf='type == "confirmation"' class="confirmation">
-                    <p><img src="assets/images/accept.png"/>{{message}}</p>
+                    <p><img src="assets/images/accept.png" alt="icone d''acceptation"/>{{message}}</p>
                 </div>
                 <div *ngIf='type == "warning"' class="warning">
-                    <p><img src="assets/images/exclamation.png"/>{{message}}</p>
+                    <p><img src="assets/images/exclamation.png" alt="Icone d'exclamation"/>{{message}}</p>
                 </div>
             </div>
             <div *ngIf="ChangePasswordConfirmation"  class="warning">
-                <h4><img src="assets/images/exclamation.png"/> Attention ! Vous êtes sur le point de changer de mot de passe.</h4>
+                <h4><img src="assets/images/exclamation.png" alt="Icone d''exclamation"/> Attention ! Vous êtes sur le point de changer de mot de passe.</h4>
                 <p>Confirmer votre action en cliquant de nouveau sur le bouton.</p>
             </div>
             <div class="breaker"></div>
@@ -40,12 +40,12 @@
             <button class="purgebutton" (click)="exportCSV()"><img src="assets/images/page_white_excel.png" alt="Icône CSV"/> Exporter les tâches en CSV</button>
 
             <div *ngIf="PurgeItemConfirmation" class="warning">
-                <h4><img src="assets/images/exclamation.png"/> Attention ! Vous êtes sur le point de détruire toutes les tâches faites.</h4>
+                <h4><img src="assets/images/exclamation.png" alt="Icone d''exclamation"/> Attention ! Vous êtes sur le point de détruire toutes les tâches faites.</h4>
                 <p>Confirmer votre action en cliquant de nouveau sur le bouton.</p>
             </div>
 
             <div *ngIf="ExportConfirmation" class="confirmation">
-                <h4><img src="assets/images/accept.png"/> Vos tâches ont bien été exporter en format CSV !</h4>
+                <h4><img src="assets/images/accept.png" alt="icone d''acceptation"/> Vos tâches ont bien été exporter en format CSV !</h4>
             </div>
         </div>
     </div>
