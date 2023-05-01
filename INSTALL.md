@@ -1,5 +1,7 @@
 # Installation
 
+Vous aurez besoin du [dernier build de l'application](https://github.com/fraudestudio/taskstep/releases/latest) (`taskstep2-dist.zip`)
+
 ## Serveur
 
 TaskStep nécéssite un serveur avec :
