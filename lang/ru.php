@@ -1,169 +1,202 @@
 <?php
 
-	// Russian Language File - Compiled by Cord 2007
-	//
-	// The language system uses variables for every sentence that needs to be translated.
-	// If you want to contribute a translation, just replace each sentence accordingly.
-	// Please do consider submitting translations to the forums.
-	// http://taskstep.com/forum/
-	//
-	// Longer sections which include paragraphs include HTML. Single words or sentences do not.
-	// Just edit the bits in quotes to change what appears as text.
+/* Fichier de traduction (russe) *
 
+Le texte à été repris tel quel du fichier originalement compilé par Cord en 2007.
+
+NOTE: Voir `en.php` pour les notes sur la migration 
+
+*/
+
+return [
 	// Login
-	$l_login_button = "Войти";
-	$l_login_l1 = "Пожалуйста, введите пароль.";
-	$l_login_l2 = "Пароль принят.";
-	$l_login_l3 = "Нажмите сюда для перехода к списку задач.";
-	$l_login_l4 = "Неверный пароль.";
-	$l_login_l5 = "Защита паролем была отключена. Это небезопасно, поэтому, если TaskStep размещен на публичном сервере, то активизируйте защиту.";
+	'login' => [
+		'button' => "Войти",
+		'prompt' => "Пожалуйста, введите пароль.",
+		'incorrect' => "Неверный пароль.",
+		'alreadyLoggedIn' => "Вы уже вошли! <a href='?action=logout'>Выйдите из системы</a> или перейдите на <a href='index.php'>главную страницу</a>.",
+	],
 
 	// Navigation
-	$l_nav_today = "Сегодня";
-	$l_nav_home = "Главная";
-	$l_nav_context = "Разделы";
-	$l_nav_project = "Проекты";
-	$l_nav_settings = "Настройки";
-	$l_nav_help = "Помощь";
-	$l_nav_logout = "Выйти";
+	'navigation' => [
+		'today' => "Сегодня: %s",
+		'home' => "Главная",
+		'allItems' => "Все задачи",
+		'context' => "Разделы",
+		'project' => "Проекты",
+		'settings' => "Настройки",
+		'help' => "Помощь",
+		'logout' => "Выйти",
+	],
 
 	// Sidebar
-	$l_side_add = "Новая задача";
+	'sidebar' => [
+		'add' => "Новая задача",
+	],
 
-	//Sections
-		//This is stored in an array to overcome list problems
-	$l_sectionlist = array('ideas' => "Идеи",
-	'tobuy' => "Покупки",
-	'immediate' => "Неотложное",
-	'week' => "На этой неделе",
-	'month' => "В этом месяце",
-	'year' => "В этом году",
-	'lifetime' => "Когда-нибудь");
+	// Sections
+	'sections' => [
+		'ideas' => "Идеи",
+		'tobuy' => "Покупки",
+		'immediate' => "Неотложное",
+		'week' => "На этой неделе",
+		'month' => "В этом месяце",
+		'year' => "В этом году",
+		'lifetime' => "Когда-нибудь",
+	],
 
 	// Front page
-	$l_index_welcome = "Добро пожаловать в TaskStep";
-	$l_index_tip = "Совет";
-	$l_index_noimmediate = "Неотложных задач нет! <a href='edit.php'>Новая задача</a>.";
-	$l_index_introm = "Доброе утро";
-	$l_index_introa = "Добрый день";
-	$l_index_introe = "Добрый вечер";
-	$l_index_introtext = "! Вы находитесь в TaskStep. TaskStep создан для того,
-    чтобы помогать вам работать с каждодневными задачами, долгосрочными целями
-    и управлять вашим временем. TaskStep размещает информацию в <a href='http://www.davidco.com/'>GTD-стиле</a>,
-    разбивая ее на разделы и проекты.</p>
-    <p>Под проектом следует понимать все, что требует больше одного действия либо шага.</p>";
-	$l_index_1task = "Осталась одна задача.";
-	$l_index_mtasks = "Осталось задач: "; //Start counter
-	$l_index_mtaske = "."; //End counter
+	'index' => [
+		'welcome' => "Добро пожаловать в TaskStep",
+		'tip' => "Совет",
+		'noImmediate' => "Неотложных задач нет! <a href='edit.php'>Новая задача</a>.",
+		'introMorning' => "Доброе утро",
+		'introAfternoon' => "Добрый день",
+		'introEvening' => "Добрый вечер",
+		'introText' => "! Вы находитесь в TaskStep. TaskStep создан для того,
+		    чтобы помогать вам работать с каждодневными задачами, долгосрочными целями
+		    и управлять вашим временем. TaskStep размещает информацию в <a href='http://www.davidco.com/'>GTD-стиле</a>,
+		    разбивая ее на разделы и проекты.</p>
+		    <p>Под проектом следует понимать все, что требует больше одного действия либо шага.</p>",
+		'oneTask' => "Осталась одна задача.",
+		'nTasks' => "Осталось задач: %d."
+	],
 
-	//Items
-	$l_items_do = "Пометить как сделанную";
-	$l_items_undo = "Пометить как несделанную";
-	$l_items_edit = "Изменить";
-	$l_items_del = "Удалить";
-	$l_items_print = "Распечатать список 3 x 5";
-	$l_items_sort = array('title' => "Названию", //Another array for list purposes
-	'date' => "Дате",
-	'context' => "Разделу",
-	'project' => "Проекту",
-	'done' => "Статусу");
-	$l_items_sorttext = "Сортировать по:";
-	$l_items_sortbutton = "Отсортировать";
+	// Items
+	'items' => [
+		'do' => "Пометить как сделанную",
+		'undo' => "Пометить как несделанную",
+		'edit' => "Изменить",
+		'delete' => "Удалить",
+		'print' => "Распечатать список 3 x 5",
+		'sort' => [
+			'title' => "Названию",
+			'date' => "Дате",
+			'context' => "Разделу",
+			'project' => "Проекту",
+			'done' => "Статусу"
+		],
+		'sortText' => "Сортировать по:",
+		'sortButton' => "Отсортировать",
+    	'defaultTitle' => "Название задачи или шага",
+	],
 
-	//"Display by" pages
-	$l_dbp_l1['context'] = "Выберите раздел, чтобы вывести все задачи, размещенные в нем.
-	Либо добавьте новый раздел.";
-	$l_dbp_l1['project'] = "Выберите проект, чтобы вывести все задачи, размещенные в нем.
-	Либо добавьте новый проект.";
-	$l_dbp_l2['context'] = "Выберите раздел для изменения.
-	Либо добавьте новый раздел.";
-	$l_dbp_l2['project'] = "Выберите проект для изменения.
-	Либо добавьте новый проект.";
-	$l_dbp_add['context'] = "Добавить раздел";
-	$l_dbp_add['project'] = "Добавить проект";
-	$l_dbp_edit['context'] = "Изменить раздел";
-	$l_dbp_edit['project'] = "Изменить проект";
-	$l_dbp_del['context'] = "Удалить раздел";
-	$l_dbp_del['project'] = "Удалить проект";
-	$l_dbp_new['context'] = "НовыйРаздел";
-	$l_dbp_new['project'] = "НовыйПроект";
+	// "Display by" pages
+	'context' => [
+		'chooseToList' => "Выберите раздел, чтобы вывести все задачи, размещенные в нем. Либо добавьте новый раздел.",
+		'chooseToEdit' => "Выберите раздел для изменения. Либо добавьте новый раздел.",
+		'add' => "Добавить раздел",
+		'edit' => "Изменить раздел",
+		'delete' => "Удалить раздел",
+		'defaultTitle' => "НовыйРаздел",
+	],
+	'project' => [
+		'chooseToList' => "Выберите проект, чтобы вывести все задачи, размещенные в нем. Либо добавьте новый проект.",
+		'chooseToEdit' => "Выберите проект для изменения. Либо добавьте новый проект.",
+		'add' => "Добавить проект",
+		'edit' => "Изменить проект",
+		'delete' => "Удалить проект",
+		'defaultTitle' => "НовыйПроект",
+	],
 
 	//Forms (add, edit etc.)
-	$l_forms_title = "Название";
-	$l_forms_notes = "Замечания";
-	$l_forms_section = "Категория";
-	$l_forms_context = "Раздел";
-	$l_forms_project = "Проект";
-	$l_forms_contexte = "Управление разделами";
-	$l_forms_projecte = "Управление проектами";
-	$l_forms_date = "Дедлайн";
-	$l_forms_url = "URL";
-	$l_forms_button['add'] = "Добавить задачу";
-	$l_forms_button['edit'] = "Изменить задачу";
+	'forms' => [
+		'title' => "Название",
+		'notes' => "Замечания",
+		'section' => "Категория",
+		'context' => "Раздел",
+		'project' => "Проект",
+		'editContexts' => "Управление разделами",
+		'editProjects' => "Управление проектами",
+		'date' => "Дедлайн",
+		'url' => "URL",
+		'addButton' => "Добавить задачу",
+		'editButton' => "Изменить задачу",
+	],
 
-	//Messages
-	$l_msg_noitems = "В этой категории нет задач!";
-	$l_msg_addsome = "Новая задача!";
-	$l_msg_notoday = "На сегодня задач нет! Либо ничего делать не нужно, либо вам следует";
-	$l_msg_itemedit = "Задача обновлена!";
-	$l_msg_itemadd = "Задача добавлена!";
-	$l_msg_itemdel = "Задача удалена!";
-	$l_msg_itemdo = "Помечена как выполненная";
-	$l_msg_itemundo = "Помечена как невыполненная";
-	$l_msg_actionerror = "Неверная команда или действия";
-	$l_msg_unspecific = "Извините, но вам нужно нужно указать категорию, раздел и проект.";
-	$l_msg_updated['context'] = "Раздел обновлен";
-	$l_msg_updated['project'] = "Проект обновлен";
-	$l_msg_added['context'] = "Раздел добавлен";
-	$l_msg_added['project'] = "Проект добавлен";
-	$l_msg_deleted['context'] = "Раздел удален";
-	$l_msg_deleted['project'] = "Проект удален.";
-	$l_msg_noid = "Извините, но в URL имеет ошибка. Параметр id должен быть определен.";
+	// Messages
+	'message' => [
+		'noItems' => "В этой категории нет задач!",
+		'addSome' => "Новая задача!",
+		'noneToday' => "На сегодня задач нет! Либо ничего делать не нужно, либо вам следует",
+		'actionError' => "Неверная команда или действия",
+		'unspecific' => "Извините, но вам нужно нужно указать категорию, раздел и проект.",
+		'noId' => "Извините, но в URL имеет ошибка. Параметр id должен быть определен.",
+		'exportedTo' => "Экспортировано в",
+		'item' => [
+			'updated' => "Задача обновлена!",
+			'added' => "Задача добавлена!",
+			'deleted' => "Задача удалена!",
+			'done' => "Помечена как выполненная",
+			'undone' => "Помечена как невыполненная",
+		],
+		'context' => [
+			'updated' => "Раздел обновлен",
+			'added' => "Раздел добавлен",
+			'deleted' => "Раздел удален",
+		],
+		'project' => [
+			'updated' => "Проект обновлен",
+			'added' => "Проект добавлен",
+			'deleted' => "Проект удален.",
+		]
+	],
 
 	//Settings
-	$l_cp_bookmarklettext = "Перетащите изображение, размещенное ниже, для создания закладки.";
-	$l_cp_bookmarklet = "Добавить в TaskStep";
-	$l_cp_display_title = "Интерфейс";
-	$l_cp_display_tips = "Отображать советы на главной странице";
-	$l_cp_display_css = "стили";
-	$l_cp_display_nocss = "Нет";
-	$l_cp_display_button = "Обновить настройки";
-	$l_cp_display_settingsupdated = "Настройки обновлены";
-	$l_cp_display_tipson = "Советы отображаются";
-	$l_cp_display_tipsoff = "Советы не отображаются";
-	$l_cp_display_defaultcss = "Стиль по умолчанию выбран";
+	'settings' => [
+		'bookmarklet' => [
+			'text' => "Перетащите изображение, размещенное ниже, для создания закладки.",
+			'link' => "Добавить в TaskStep",
+		],
+		'display' => [
+			'title' => "Интерфейс",
+			'tips' => "Отображать советы на главной странице",
+			'css' => "стили",
+			'noCss' => "Нет",
+			'button' => "Обновить настройки",
+			'settingsUpdated' => "Настройки обновлены",
+			'tipsOn' => "Советы отображаются",
+			'tipsOff' => "Советы не отображаются",
+			'usingStyle' => '"%s" стиль'
+		],
+		'password' => [
+			'title' => "Пароль",
+			'current' => "Текущий пароль",
+			'new' => "Новый пароль",
+			'newAgain' => "Повторите новый пароль",
+			'use' => "Использовать пароли и сессии (рекомендуется)",
+			'requiredFields' => "Поля, помеченныые %s, являются обязательными.",
+			'button' => "Обновить пароль",
+			'incorrect' => "Неверный пароль!",
+			'noMatch' => "Пароли не совпадают!",
+			'updated' => "Обновление прошло успешно!",
+		],
+		'tools' => [
+			'title' => "Сервис",
+			'purge' => "Удалить все выполненые задачи",
+			'update' => "Выполнить файл обновления",
+			'export' => "Экспортировать в <acronym title='Comma Separated Values'>CSV</acronym>",
+			'purged' => "%d задач(а, и) удалено.",
+			'purgeCheck' => "Вы уверены, что вы хотите удалить все выполненные задачи?",
+		]
+	],
+	
+	'print' => [
+	    'commonTitle' => "Печать",
+	    'allTasks' => "Задачи",
+	    'today' => "Сегодня",
+	    'sectionNotFound' => "Категория не найдена!",
+	],
 
-	$l_cp_password_title = "Пароль";
-	$l_cp_password_current = "Текущий пароль";
-	$l_cp_password_new1 = "Новый пароль";
-	$l_cp_password_new2 = "Повторите новый пароль";
-	$l_cp_password_use = "Использовать пароли и сессии (рекомендуется)";
-	$l_cp_password_fieldss = "Поля, помеченныые";
-	$l_cp_password_fieldse = ", являются обязательными.";
-	$l_cp_password_button = "Обновить пароль";
-	$l_cp_password_incorrect = "Неверный пароль!";
-	$l_cp_password_nomatch = "Пароли не совпадают!";
-	$l_cp_password_updated = "Обновление прошло успешно!";
-
-	$l_cp_tools_title = "Сервис";
-	$l_cp_tools_purge = "Удалить все выполненые задачи";
-	$l_cp_tools_update = "Выполнить файл обновления";
-	$l_cp_tools_export = "Экспортировать в <acronym title=\"Comma Separated Values\">CSV</acronym>";
-		//NB The HTML for the acronym has been included for the sake of completeness, but make sure you leave the slashes before the quotes or TaskStep will break!
-	$l_cp_tools_purged = " задач(а, и) удалено.";
-	$l_cp_tools_purgecheck = "Вы уверены, что вы хотите удалить все выполненные задачи?";
-
-	//Insert updated parts after this point
-	//--1/4/07--
-	$l_nav_allitems = "Все задачи";
-
-    //--28/8/07--
-    $l_forms_titledefval = "Название задачи или шага";
-    $l_msg_updateassoctasks = "Обновить связанные задачи";
-    $l_print_commontitle = "Печать";
-    $l_print_printalltasks = "Задачи";
-    $l_print_printtoday = "Сегодня";
-    $l_print_sectionnotfound = "Категория не найдена!";
-    $l_msg_exportedto="Экспортировано в";
-	//Insert updated parts before this point
-?>
+    'tips' => [
+    	'Кликните на дату для вывода задач на сегодня.',
+    	'Все маленькие иконки с сайта <a href="http://www.famfamfam.com">famfamfam.com</a>.',
+    	'Вы можете вывести все задачи по проекту или по разделу целиком - воспользуйтесь для этого главным меню. ',
+		'Не используйте на публичном сервере. ',
+		'Вы можете печатать не только на карточках 3x5, используйте функцию печати браузера.',
+		'Проблемы? Смотрите помощь.',
+		'Нажмите на главной странице (вы на ней) на список неотложных задач для изменений.',
+		'Кликните по полю во время ввода для вывода календаря.',
+		'Календарь с сайта <a href="http://www.garrett.nildram.co.uk/calendar/jacs.htm">Anthony Garrett</a>.'
+    ],
+];
