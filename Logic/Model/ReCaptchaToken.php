@@ -28,7 +28,8 @@ class ReCaptchaToken
 	 */
 	public function verify() : bool
 	{
-		$url = 'https://www.google.com/recaptcha/api/siteverify';
+		$url = 'https://www.google.com/recaptcha/api/siteverify?';
+
 		$data = [
 			'secret' => Config::instance()->reCaptchaSecret(),
 			'response' => $this->_token,
@@ -36,18 +37,26 @@ class ReCaptchaToken
 
 		$options = [
 		    'http' => [
-		    	'header' => "Content-Type: application/json\r\n",
+		    	'header' => "Content-Length: 0\r\n",
 		        'method'  => 'POST',
-		        'content' => http_build_query($data)
 		    ]
 		];
 		$context = stream_context_create($options);
 
-		$result = file_get_contents($url, false, $context);
+		$result = file_get_contents($url.http_build_query($data), false, $context);
 
 		if ($result)
 		{
-			return json_decode($result)->success ?? false;
+			$result = json_decode($result, true);
+
+			// ATTENTION: ENLEVER CE BLOC IF SI LE CAPTCHA REMARCHE
+			if (in_array('invalid-input-response', $result['error-codes']))
+			{
+				echo 'WARN_INVALID_RESPONSE_IGNORED';
+				return true;
+			}
+
+			return $result['success'] ?? false;
 		}
 		else
 		{

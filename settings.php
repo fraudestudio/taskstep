@@ -6,7 +6,7 @@
 
 use TaskStep\Logic\Data\MySql\Dao\{ItemDao, UserDao};
 use TaskStep\Logic\Exceptions\NotFoundException;
-use TaskStep\Logic\Model\Style;
+use TaskStep\Logic\Model\{Style, Export};
 use TaskStep\Config;
 
 $users = new UserDao();
@@ -117,8 +117,7 @@ else
 
 $baseUrl = $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/');
 
-$signature = hash('sha256', USER->email() . Config::instance()->rssSecret());
-$rss_channel = str_replace(['+','/','='], ['-','_',''], base64_encode(USER->email() . ':' . $signature));
+$rss_channel = Export::generateToken(USER);
 
 ?>
 
@@ -214,7 +213,7 @@ $rss_channel = str_replace(['+','/','='], ['-','_',''], base64_encode(USER->emai
 	&ensp;
 	<span class="purgebutton">
 		<img src="images/rss.png" alt=""/>
-		<a href="rss.php?channel=<?= $rss_channel ?>">RSS feed</a>
+		<a href="rss.php?channel=<?= $rss_channel ?>" onclick="copylink(event)">RSS feed</a>
 	</span>
 </div>
 

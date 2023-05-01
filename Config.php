@@ -25,18 +25,18 @@ class Config
 	// -- CONFIGURATION --
 
 	private LocaleConfig $_locale;
-    private MySqlConfig $_legacyDatabase;
+    private ?MySqlConfig $_legacyDatabase = null;
 	private MySqlConfig $_currentDatabase;
-    private string $_rssSecret;
+    private string $_exportSecret;
     private string $_reCaptchaSecret;
 
 	public function locale(): LocaleConfig { return $this->_locale; }
 
-	public function legacyDatabase(): MySqlConfig { return $this->_legacyDatabase; }
+	public function legacyDatabase(): ?MySqlConfig { return $this->_legacyDatabase; }
 
     public function currentDatabase(): MySqlConfig { return $this->_currentDatabase; }
 
-    public function rssSecret(): string { return $this->_rssSecret; }
+    public function exportSecret(): string { return $this->_exportSecret; }
 
     public function reCaptchaSecret(): string { return $this->_reCaptchaSecret; }
 
@@ -45,9 +45,9 @@ class Config
 		$configData = parse_ini_file("config.ini", true);
 		
 		$this->_locale = new LocaleConfig($configData['locale']);
-        $this->_legacyDatabase = new MySqlConfig($configData['database:legacy']);
+        if (isset($configData['database:legacy'])) $this->_legacyDatabase = new MySqlConfig($configData['database:legacy']);
         $this->_currentDatabase = new MySqlConfig($configData['database:current']);
-        $this->_rssSecret = $configData['rss']['secret'];
+        $this->_exportSecret = $configData['export']['secret'];
 		$this->_reCaptchaSecret = $configData['recaptcha']['secret'];
 	}
 }

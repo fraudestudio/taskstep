@@ -17,6 +17,7 @@ if (isset($_POST["submit"]))
 {
 	$email = $_POST["email"];
 	$password = $_POST["password"];
+	$redirect = $_POST["redirect"];
 
 	try
 	{
@@ -26,7 +27,7 @@ if (isset($_POST["submit"]))
 		$host  = $_SERVER['HTTP_HOST'];
 		$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/');
 		session_write_close();
-		header("Location: http://$host$uri/index.php");
+		header("Location: http://$host$uri/$redirect");
 		exit;
 	}
 	catch (NotFoundException)
@@ -41,6 +42,8 @@ else if (isset($_GET["action"]) && $_GET["action"] == "logout")
 }
 
 $loggedIn = $_SESSION['loggedin'] ?? false;
+
+$redirect = $_GET['then'] ?? 'index.php';
 
 $style = $loggedIn ? $_SESSION['user']?->settings()->style()->value : 'classic'; 
 
@@ -64,6 +67,7 @@ $style = $loggedIn ? $_SESSION['user']?->settings()->style()->value : 'classic';
 		</p>
 
 		<form action="login.php" method="post"><p>
+			<input type="hidden" name="redirect" value="<?= addslashes($redirect) ?>"/>
 			<input type="email" name="email" <?= $loggedIn ? 'disabled' : '' ?> required placeholder="example@mail.com"/>
 			<br/><br/>
 			<input type="password" name="password" autocomplete="current-password" <?= $loggedIn ? 'disabled' : '' ?> required/>
