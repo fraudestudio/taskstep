@@ -229,7 +229,10 @@ export class ItemService {
     )
   }
 
-
+  /**
+   * Get token for print and csv
+   * @returns 
+   */
   getToken() : Observable<null>{
       const httpOptions = {
         headers : new HttpHeaders({'Content-Type' : 'text/plain',
@@ -248,7 +251,7 @@ export class ItemService {
    */
   printAll() {
     this.getToken().subscribe((data) => {
-      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=all?for=" + data;
+      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=all&user=" + data;
     });
   }
 
@@ -259,7 +262,7 @@ export class ItemService {
    */
   printSection(section : string) {
     this.getToken().subscribe((data) => {
-      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=section&section=" + section +"?for=" + data;
+      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=section&section=" + section +"&user=" + data;
     });
   }
 
@@ -269,7 +272,7 @@ export class ItemService {
    */
   printToday(){
     this.getToken().subscribe((data) => {
-      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=today?for=" + data;
+      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=today&user=" + data;
     });
   }
 
@@ -280,7 +283,7 @@ export class ItemService {
    */
   printContext(id : number){
     this.getToken().subscribe((data) => {
-      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=context&tid="+id+"?for=" + data;
+      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=context&tid="+id+"&user=" + data;
     });
   }
   
@@ -291,7 +294,7 @@ export class ItemService {
    */
   printProject(id : number){
     this.getToken().subscribe((data) => {
-      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=project&tid="+id+"?for=" + data;
+      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=project&tid="+id+"&user=" + data;
     });
   }
 
@@ -300,12 +303,12 @@ export class ItemService {
    * Get the item of today and before today
    * @returns 
    */
-  getItemBeforeToday(){
+  getItemBeforeToday(date : string) : Observable<Item[]>{
     const httpOptions = {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get("api/items/today", httpOptions).pipe(
+    return this.httpClient.get<Item[]>("api/items/daily/"+date, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )        
@@ -315,12 +318,12 @@ export class ItemService {
    * Delete all the done items
    * @returns 
    */
-  deleteDoneItem(){
+  deleteDoneItem() : Observable<number>{
     const httpOptions = {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get("api/items/done", httpOptions).pipe(
+    return this.httpClient.delete<number>("api/items/done", httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )    

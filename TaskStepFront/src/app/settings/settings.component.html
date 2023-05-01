@@ -38,12 +38,15 @@
             <button class="purgebutton" (click)="purgeItems()"><img src="assets/images/bomb.png" alt="Icône bombe"/> Détruire toutes les tâches faites</button>
             &nbsp;
             <button class="purgebutton" (click)="exportCSV()"><img src="assets/images/page_white_excel.png" alt="Icône CSV"/> Exporter les tâches en CSV</button>
-            &nbsp;
-            <button class="purgebutton" (click)="fluxRSS()"><img src="assets/images/rss.png" alt="Icône RSS"/>Flux RSS</button>
 
             <div *ngIf="PurgeItemConfirmation" class="warning">
                 <h4><img src="assets/images/exclamation.png"/> Attention ! Vous êtes sur le point de détruire toutes les tâches faites.</h4>
                 <p>Confirmer votre action en cliquant de nouveau sur le bouton.</p>
+            </div>
+
+            <div *ngIf="ItemPurged" class="confirmation">
+                <h4 *ngIf="NumberPurged > 1"><img src="assets/images/accept.png"/> {{NumberPurged}} tâches ont été supprimer.</h4>
+                <h4 *ngIf="NumberPurged <= 1"><img src="assets/images/accept.png"/> {{NumberPurged}} tâche a été supprimer.</h4>
             </div>
 
             <div *ngIf="ExportConfirmation" class="confirmation">
