@@ -14,7 +14,7 @@ class ItemDao implements ItemDaoInterface
 	{
 		$item
 			->setTitle($data['title'])
-			->setDate($data['date'] == '0001-01-01' ? null : new DateTime($data['date']))
+			->setDate(is_null($data['date']) ? null : new DateTime($data['date']))
 			->setNotes($data['notes'])
 			->setUrl($data['url'])
 			->setSection(Section::from($data['section']))
@@ -32,7 +32,7 @@ class ItemDao implements ItemDaoInterface
 			'VALUES (:title,:date,:notes,:url,:done,:context,(SELECT id FROM sections WHERE title = :section),:project,:User)',
 			[
 				'title' => $item->title(),
-				'date' => $item->date()?->format('Y-m-d H:i:s') ?? '0001-01-01',
+				'date' => $item->date()?->format('Y-m-d'),
 				'notes' => $item->notes(),
 				'url' => $item->url(),
 				'section' => $item->section()->value,
@@ -184,7 +184,7 @@ class ItemDao implements ItemDaoInterface
 			[
 				'id'=> $id,
 				'title'=> $item->title(),
-				'date' => $item->date()?->format('Y-m-d') ?? '0001-01-01',
+				'date' => $item->date()?->format('Y-m-d'),
 				'notes' => $item->notes(),
 				'url' => $item->url(),
 				'section' => $item->section()->value,
