@@ -2,6 +2,8 @@
 
 Groupe C1 / FraudeStudio : Alexandre ANSTETT, Louis DEVIE, Marc GRANDVINCENT, Matéo FAVARD, Lucas PIRES
 
+### Voir [INSTALL.md](INSTALL.md) pour l'installation
+
 ## TaskStep - Todo list manager for local PHP servers
 
 ### Features
