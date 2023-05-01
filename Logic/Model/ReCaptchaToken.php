@@ -49,12 +49,13 @@ class ReCaptchaToken
 		{
 			$result = json_decode($result, true);
 
-			// ATTENTION: ENLEVER CE BLOC IF SI LE CAPTCHA REMARCHE
+			/* DÉCOMMENTER SI LE CAPTCHA PÊTE SON CRÂNE *
 			if (in_array('invalid-input-response', $result['error-codes'] ?? []))
 			{
 				echo 'WARN_INVALID_RESPONSE_IGNORED';
 				return true;
 			}
+			//*/
 
 			return $result['success'] ?? false;
 		}

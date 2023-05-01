@@ -46,6 +46,7 @@ $app->group('/api', function ($group) {
     $group->get('/items', ItemController::bind('getAll'));
     $group->post('/items', ItemController::bind('post'));
     $group->delete('/items/done', ItemController::bind('deleteAllDone'));
+    $group->get('/items/daily/{date}', ItemController::bind('getDaily'));
     $group->get('/items/count/undone', ItemController::bind('countUndone'));
     $group->get('/items/count/by-section', ItemController::bind('countBySection'));
     $group->get('/items/{id}', ItemController::bind('getOne'))->setName('item');

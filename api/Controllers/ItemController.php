@@ -156,21 +156,12 @@ class ItemController extends Controller
 		$this->jsonResponse($count);
 	}
 
-	public function readDaily()
+	public function getDaily()
 	{
-		$date = $this->requireBodyObject(DateTime::class);
-		$id = $this->requireInt('id');
+		$date = new DateTime($this->requireString('date'));
 
-		try
-		{
-			$item = $this->itemDao->readDaily($date,$id);
-		}
-		catch (NotFoundException)
-		{
-			$this->notFound();
-		}
-
-		$this->jsonResponse($item);
+		$daily = $this->itemDao->readDaily($this->requireUser(), $date);
+		$this->jsonResponse($daily);
 	}
 
 	public function countUndone()
