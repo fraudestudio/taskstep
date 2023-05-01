@@ -8,6 +8,7 @@ vendor/
 .htaccess
 composer.*
 config.ini
+app
 
 # User-specific files
 *.rsuser
