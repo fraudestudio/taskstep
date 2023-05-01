@@ -49,7 +49,7 @@ export class RegisterComponent {
       
       this.authService.signup(this.form.mail, this.form.password,token).subscribe((data => {
         if (data == null) {
-          this.router.navigate(["login"], {state : {data : { message : "Votre compte a bien été créer ! Vous pouvez maintenant vous connectez.", type : "confirmation"}}})
+          this.router.navigate(["login"], {state : {data : { message : "Votre compte a bien été créé ! Vous pouvez maintenant vous connectez.", type : "confirmation"}}})
         }
         else {
           

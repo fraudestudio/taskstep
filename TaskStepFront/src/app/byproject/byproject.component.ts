@@ -42,10 +42,10 @@ export class ByprojectComponent implements OnInit {
    */
   get Title() : string {
     if (this.isEditing){
-      return "Choissisez un projet à modifier ou ajouter un projet."
+      return "Choisissez un projet à modifier ou ajouter un projet."
     }
     else {
-      return "Choissisez un projet pour afficher les tâches qui lui sont liés. Vous pouvez aussi ajouter/éditer un projet."
+      return "Choisissez un projet pour afficher les tâches qui lui sont liées. Vous pouvez aussi ajouter/éditer un projet."
     }
   }
 

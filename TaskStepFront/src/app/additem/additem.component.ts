@@ -204,7 +204,7 @@ export class AdditemComponent implements OnInit {
                 this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                 this.router.onSameUrlNavigation = 'reload';
                 if (data){
-                    this.router.navigateByUrl('/additem', {state : {data : {message : "Votre tâches a bien été ajouter !", type : "confirmation"}}});
+                    this.router.navigateByUrl('/additem', {state : {data : {message : "Votre tâches a bien été ajoutée !", type : "confirmation"}}});
                 }
                 else {
                     this.router.navigateByUrl('/additem', {state : {data : {message : "Une erreur est survenue", type : "warning"}}});
@@ -219,7 +219,7 @@ export class AdditemComponent implements OnInit {
                 this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                 this.router.onSameUrlNavigation = 'reload';
                 if (!data){
-                    this.router.navigateByUrl('/additem', {state : {data : {message : "Votre tâches a bien été modifier !", type : "confirmation"}}});
+                    this.router.navigateByUrl('/additem', {state : {data : {message : "Votre tâches a bien été modifiée !", type : "confirmation"}}});
                 }
                 else {
                     this.router.navigateByUrl('/additem', {state : {data : {message : "Une erreur est survenue", type : "warning"}}});

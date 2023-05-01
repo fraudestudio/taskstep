@@ -54,7 +54,7 @@ export class ChangePasswordComponent {
   submit(){
     this.authService.updatePassword(this.form.password1,this.form.password2).subscribe((data) => {
       if (data != false){
-        this.router.navigate(['settings'],{state : {data : { message : "Votre mot de passe a bien été modifier.", type : "confirmation"}}}); 
+        this.router.navigate(['settings'],{state : {data : { message : "Votre mot de passe a bien été modifié.", type : "confirmation"}}}); 
       }
       else {
         this.hasError = true;

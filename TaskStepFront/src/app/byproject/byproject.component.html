@@ -19,7 +19,7 @@
                 <a href="" onclick="return false;" *ngFor="let project of Projects" class="listlinkssmart" (click)="goEditMode(project.Id)"><img src="assets/images/pencil.png" alt=""/> {{project.Title}}</a>
             </div>
 
-            <a href="" onclick="return false;" *ngIf="!IsEditing" class="listlinkssmart" (click)="setEditMode()"><img src="assets/images/project_edit.png" alt=""/> Edtier un projet</a>
+            <a href="" onclick="return false;" *ngIf="!IsEditing" class="listlinkssmart" (click)="setEditMode()"><img src="assets/images/project_edit.png" alt=""/> Editer un projet</a>
         </div>
     </div>
 </div>

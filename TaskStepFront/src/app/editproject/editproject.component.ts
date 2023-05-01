@@ -64,7 +64,7 @@ export class EditprojectComponent implements OnInit {
     this.projectService.deleteProject(history.state.data).subscribe((data) =>
     {
       if (!data){
-        this.router.navigate(["byproject"], {state : {data : {message : "Votre projet \""+ this.form.title +"\" a bien été supprimer !", type : "confirmation"}}});       
+        this.router.navigate(["byproject"], {state : {data : {message : "Votre projet \""+ this.form.title +"\" a bien été supprimé !", type : "confirmation"}}});       
       }
       else {
         this.router.navigate(["byproject"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});
@@ -79,7 +79,7 @@ export class EditprojectComponent implements OnInit {
     this.projectService.modifyProject(history.state.data, this.form.title).subscribe((data) =>
     {
       if (!data){
-        this.router.navigate(["byproject"], {state : {data : {message : "Votre projet \""+ this.form.title +"\" a bien été modifier !", type : "confirmation"}}});       
+        this.router.navigate(["byproject"], {state : {data : {message : "Votre projet \""+ this.form.title +"\" a bien été modifié !", type : "confirmation"}}});       
       }
       else {
         this.router.navigate(["byproject"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});
