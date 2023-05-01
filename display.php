@@ -60,7 +60,7 @@ case "project":
 
 	$title = $project->title();
 	$noResultsUrl = "?project=$typeId";
-	$printUrl = "?print=project&id=$typeId";
+	$printUrl = "?print=project&tid=$typeId";
 	$formData['tid'] = $typeId;
 	break;
 
@@ -70,7 +70,7 @@ case "context":
 
 	$title = $context->title();
 	$noResultsUrl = "?context=$typeId";
-	$printUrl = "?print=context&id=$typeId";
+	$printUrl = "?print=context&tid=$typeId";
 	$formData['tid'] = $typeId;
 	break;
 

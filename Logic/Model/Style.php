@@ -10,4 +10,6 @@ namespace TaskStep\Logic\Model;
 enum Style : string
 {
 	case CLASSIC = 'classic';
+    case DARK = 'dark';
+    case PROFESSIONAL = 'professional';
 }

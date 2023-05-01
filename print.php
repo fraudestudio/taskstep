@@ -32,14 +32,14 @@ case "section":
 
 case "project":
 	$project = (new ProjectDao)->readById(USER, intval($_GET['tid']));
-	$result = $items->readByProject($project);
+	$result = $items->readByProject(USER, $project);
 
 	$title = $project->title();
 	break;
 
 case "context":
 	$context = (new ContextDao)->readById(USER, intval($_GET['tid']));
-	$result = $items->readByContext($context);
+	$result = $items->readByContext(USER, $context);
 
 	$title = $context->title();
 	break;
