@@ -10,7 +10,8 @@ use TaskStep\Logic\Model\Section;
 
 Locale::load();
 
-$style = USER->settings()->style()->value;
+// les autres styles ne sont plus compatibles
+$style = 'classic'; // USER->settings()->style()->value;
 
 $sectionItemsCount = (new ItemDao)->countBySection(USER);
 
