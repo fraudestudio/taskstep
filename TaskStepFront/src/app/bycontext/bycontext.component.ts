@@ -44,10 +44,10 @@ export class BycontextComponent implements OnInit {
    */
   get Title() : string {
     if (this.isEditing){
-      return "Choissisez un contexte à modifier ou ajouter un contexte."
+      return "Choisissez un contexte à modifier ou ajouter un contexte."
     }
     else {
-      return "Choissisez un contexte pour afficher les tâches qui lui sont liés. Vous pouvez aussi ajouter/éditer un contexte."
+      return "Choisissez un contexte pour afficher les tâches qui lui sont liées. Vous pouvez aussi ajouter/éditer un contexte."
     }
   }
 

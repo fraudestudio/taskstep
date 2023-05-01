@@ -61,7 +61,7 @@ export class EditcontextComponent implements OnInit {
     this.contextService.deleteContext(history.state.data).subscribe((data) =>
     {
       if (!data){
-        this.router.navigate(["bycontext"], {state : {data : {message : "Votre contexte \""+ this.form.title +"\" a bien été supprimer !", type : "confirmation"}}});    
+        this.router.navigate(["bycontext"], {state : {data : {message : "Votre contexte \""+ this.form.title +"\" a bien été supprimé !", type : "confirmation"}}});    
       }
       else {
         this.router.navigate(["bycontext"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});
@@ -76,7 +76,7 @@ export class EditcontextComponent implements OnInit {
     this.contextService.modifyContext(history.state.data, this.form.title).subscribe((data) =>
     {
       if (!data){
-        this.router.navigate(["bycontext"], {state : {data : {message : "Votre contexte \""+ this.form.title +"\" a bien été modifier !", type : "confirmation"}}});
+        this.router.navigate(["bycontext"], {state : {data : {message : "Votre contexte \""+ this.form.title +"\" a bien été modifié !", type : "confirmation"}}});
       }
       else {
         this.router.navigate(["bycontext"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});

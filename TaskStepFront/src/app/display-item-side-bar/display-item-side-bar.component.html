@@ -25,7 +25,7 @@
                             </span>
                         </p>
                         <form class="sortform" #f = "ngForm" (ngSubmit)="submit()">
-                            Tier les tâches par : 
+                            Trier les tâches par : 
                             <select #sort (change)="sortChange(sort.value)">
                                 <option *ngIf='CurrentSort == "title"' value="title" selected>Titre</option>
                                 <option *ngIf='CurrentSort != "title"' value="title">Titre</option>

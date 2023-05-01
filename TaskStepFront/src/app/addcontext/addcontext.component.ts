@@ -33,7 +33,7 @@ export class AddcontextComponent {
     this.contextService.addContext(this.form.title).subscribe((data) =>
       {
         if (data != null){
-          this.router.navigate(["bycontext"], {state : {data : { message : "Votre contexte \""+ this.form.title +"\" a bien été ajouter !", type : "confirmation"}}});     
+          this.router.navigate(["bycontext"], {state : {data : { message : "Votre contexte \""+ this.form.title +"\" a bien été ajouté !", type : "confirmation"}}});     
         }
         else {
           this.router.navigate(["bycontext"], {state : {data : { message : "Une erreur est survenue.", type : "warning"}}});
