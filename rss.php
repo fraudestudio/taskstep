@@ -2,23 +2,14 @@
 
 require_once "includes/autoload.php";
 
-use TaskStep\Logic\Data\MySql\Dao\{ItemDao, UserDao};
+use TaskStep\Logic\Data\MySql\Dao\ItemDao;
+use TaskStep\Logic\Model\Export;
 use TaskStep\Config;
 
 header('Content-type: text/xml');
 
-function base64_url_decode($string) {
-    return base64_decode(str_replace(['-','_'], ['+','/'], $string));
-}
-
-$auth = explode(':', base64_url_decode($_GET['channel'] ?? ''), 2);
-if (count($auth) != 2) exit;
-
-list($email, $signature) = $auth;
-if ($signature !== hash('sha256', $email . Config::instance()->rssSecret())) exit;
-
-try { $user = (new UserDao)->readByEmail($email); }
-catch (Exception) { exit; }
+$user = Export::verifyToken($_GET['channel'] ?? '');
+if (is_null($user)) exit;
 
 $allItems = (new ItemDao)->readAll($user);
 
