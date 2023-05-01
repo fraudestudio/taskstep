@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Controllers;
+namespace TaskStepApi\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Exception\HttpUnauthorizedException as Unauthorized;
 use Slim\Exception\HttpNotFoundException as NotFound;
-use TaskStep\Middleware\Helpers\Exceptions\HttpBadRequestException as BadRequest;
-use TaskStep\Middleware\Helpers\{Context, Services};
+use TaskStepApi\Middleware\Helpers\Exceptions\HttpBadRequestException as BadRequest;
+use TaskStepApi\Middleware\Helpers\{Context, Services};
 use TaskStep\Logic\Model\User;
 use Exception;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
 
-use TaskStep\Middleware\Helpers\JsonSerializable;
+use TaskStepApi\Middleware\Helpers\JsonSerializable;
 use Exception;
 
 /**

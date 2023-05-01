@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Controllers;
+namespace TaskStepApi\Controllers;
 
 use DateTime;
 use TaskStep\Logic\Model\ItemDaoInterface;
 use TaskStep\Logic\Exceptions\NotFoundException;
 use TaskStep\Logic\Model\{Item, Project, Section, Context, Compare};
-use TaskStep\Middleware\Helpers;
+use TaskStepApi\Middleware\Helpers;
 
 class ItemController extends Controller
 {

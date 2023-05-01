@@ -3,16 +3,17 @@
 declare(strict_types=1);
 
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../includes/autoload.php';
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
-use TaskStep\Middleware\Helpers\Services;
-use TaskStep\Middleware\Authentication\
+use TaskStepApi\Middleware\Helpers\Services;
+use TaskStepApi\Middleware\Authentication\
     {BearerAuthentication, BasicAuthentication};
 use TaskStep\Logic\Data\MySql\Dao\{ProjectDao, UserDao, ContextDao, ItemDao};
-use TaskStep\Controllers\
+use TaskStepApi\Controllers\
     {ProjectController, ContextController, AccountController, ItemController};
 
 

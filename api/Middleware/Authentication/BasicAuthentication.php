@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Middleware\Authentication;
+namespace TaskStepApi\Middleware\Authentication;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
-use TaskStep\Middleware\Helpers\Services;
+use TaskStepApi\Middleware\Helpers\Services;
 use TaskStep\Logic\Exceptions\NotFoundException;
 use TaskStep\Logic\Model\User;
 

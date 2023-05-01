@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Controllers;
+namespace TaskStepApi\Controllers;
 
-use TaskStep\Middleware\Helpers\{Context, Services};
+use TaskStepApi\Middleware\Helpers\{Context, Services};
 use TaskStep\Logic\Exceptions\{DuplicateException, NotFoundException};
 use TaskStep\Logic\Model\UserDaoInterface;
 use TaskStep\Logic\Model\{Registration, Settings};

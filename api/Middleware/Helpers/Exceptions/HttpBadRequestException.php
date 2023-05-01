@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Middleware\Helpers\Exceptions;
+namespace TaskStepApi\Middleware\Helpers\Exceptions;
 
 use Psr\Http\Message\ServerRequestInterface as Request;
 

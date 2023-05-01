@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Controllers;
+namespace TaskStepApi\Controllers;
 
 use TaskStep\Logic\Model\{Project, Compare};
 use TaskStep\Logic\Model\ProjectDaoInterface;
 use TaskStep\Logic\Exceptions\NotFoundException;
-use TaskStep\Middleware\Helpers\{Context, Services};
+use TaskStepApi\Middleware\Helpers\{Context, Services};
 
 class ProjectController extends Controller
 {

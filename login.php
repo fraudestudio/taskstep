@@ -2,7 +2,7 @@
 
 require_once "includes/autoload.php";
 
-use TaskStep\Locale\Locale;
+use TaskStep\Locale;
 use TaskStep\Logic\Data\MySql\Dao\UserDao;
 use TaskStep\Logic\Exceptions\NotFoundException;
 

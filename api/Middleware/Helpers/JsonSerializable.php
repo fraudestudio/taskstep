@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Middleware\Helpers;
+namespace TaskStepApi\Middleware\Helpers;
 
 interface JsonSerializable extends \JsonSerializable
 {

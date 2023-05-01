@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Middleware\Helpers;
+namespace TaskStepApi\Middleware\Helpers;
 
 class Services {
     private static ?Services $_instance = null;
