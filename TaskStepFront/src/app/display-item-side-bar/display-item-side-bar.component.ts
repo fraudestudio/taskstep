@@ -161,7 +161,7 @@ export class DisplayItemSideBarComponent implements OnInit {
    * @param selectedItem the selected item to set to done
    */
   doneItem(selectedItem: Item) {
-        let msg;
+        let msg = "";
         if(!selectedItem.Done){
           selectedItem.Done = true;
           msg = "Votre tâche est marquée comme faite !";

@@ -11,7 +11,7 @@ use TaskStep\Logic\Model\{Section, Export};
 session_start();  
 header("Cache-control: private");
 
-if($_SESSION['loggedin'])
+if($_SESSION['loggedin'] ?? false)
 {
 	$user = $_SESSION['user'];
 }
