@@ -7,7 +7,7 @@ namespace TaskStepApi\Controllers;
 use TaskStepApi\Middleware\Helpers\{Context, Services};
 use TaskStep\Logic\Exceptions\{DuplicateException, NotFoundException};
 use TaskStep\Logic\Model\UserDaoInterface;
-use TaskStep\Logic\Model\{Registration, Settings};
+use TaskStep\Logic\Model\{Registration, Settings, Export};
 use PDOException;
 
 class AccountController extends Controller
@@ -97,5 +97,12 @@ class AccountController extends Controller
 		}
 
 		$this->okResponse();
+	}
+
+	public function export()
+	{
+		$user = $this->requireUser();
+
+		$this->textResponse(Export::generateToken($user));
 	}
 }

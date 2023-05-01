@@ -14,8 +14,8 @@ class Export
 	{
 		$secret = Config::instance()->exportSecret();
 
-		$signature = hash('sha256', $user->email() . $secret);
-		$token = $user->email() . ':' . $signature;
+		$signature = hash('sha256', $user->id() . $secret);
+		$token = $user->id() . ':' . $signature;
 
 		return str_replace(['+','/','='], ['-','_',''], base64_encode($token));
 	}
@@ -27,14 +27,14 @@ class Export
 		$token = base64_decode(str_replace(['-','_'], ['+','/'], $token));
 		$data = explode(':', $token, 2);
 		if (count($data) != 2) return null;
-		list($email, $givenSignature) = $data;
+		list($id, $givenSignature) = $data;
 
-		$expectedSignature = hash('sha256', $email . $secret);
+		$expectedSignature = hash('sha256', $id . $secret);
 		if ($givenSignature !== $expectedSignature) return null;
 
 		try 
 		{
-			return (new UserDao)->readByEmail($email);
+			return (new UserDao)->readById($id);
 		}
 		catch (Exception)
 		{

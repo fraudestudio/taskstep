@@ -65,6 +65,7 @@ $app->group('/api', function ($group) {
     $group->delete('/contexts/{id}', ContextController::bind('delOne'));
 
     $group->put('/account/settings', AccountController::bind('updateSettings'));
+    $group->get('/account/export', AccountController::bind('export'));
 })
 ->add(new BearerAuthentication());
 

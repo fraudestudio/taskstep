@@ -96,22 +96,22 @@ class UserDAO implements UserDaoInterface
     }
 
     /**
-     * Récupère un utilisateur par son adresse mail uniquement.
+     * Récupère un utilisateur par son identifiant.
      * 
-     * @param $email L'adresse mail de l'utilisateur
+     * @param $id L'ID de l'utilisateur
      */
-    public function readByEmail(string $email): User
+    public function readById(int $id): User
     {
         $query = Database::getInstance()->executeQuery(
-            "SELECT u.idUser, u.mail, u.tips, s.style ".
-            "FROM User as u JOIN style as s ON u.style = s.idStyle WHERE u.mail = :mail",
-            ['mail' => $email]
+            "SELECT u.mail, u.tips, s.style ".
+            "FROM User as u JOIN style as s ON u.style = s.idStyle WHERE u.idUser = :id",
+            ['id' => $id]
         );
 
         if ($data = $query->fetch())
         {
-            $user = new User($data['idUser']);
-            $user->setEmail($email);
+            $user = new User($id);
+            $user->setEmail($data['mail']);
             $user->settings()
                 ->setStyle(Style::from($data['style']))
                 ->setTips($data['tips']);
