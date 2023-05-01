@@ -160,7 +160,7 @@ class ItemDao implements ItemDaoInterface
 					join contexts as c on i.context=c.id
 					join sections as s on i.section=s.id
 					join projects as p on i.project=p.id
-				where p.id = :idP AND i.User :idU
+				where p.id = :idP AND i.User = :idU
 			SQL,
 			array('idP'=>$project->id(), 'idU'=>$user->id())
 		);
