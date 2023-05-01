@@ -45,11 +45,12 @@ $app->group('/api', function ($group) {
 $app->group('/api', function ($group) {
     $group->get('/items', ItemController::bind('getAll'));
     $group->post('/items', ItemController::bind('post'));
+    $group->delete('/items/done', ItemController::bind('deleteAllDone'));
+    $group->get('/items/count/undone', ItemController::bind('countUndone'));
+    $group->get('/items/count/by-section', ItemController::bind('countBySection'));
     $group->get('/items/{id}', ItemController::bind('getOne'))->setName('item');
     $group->put('/items/{id}', ItemController::bind('putOne'));
     $group->delete('/items/{id}', ItemController::bind('deleteOne'));
-    $group->get('/items/count/undone', ItemController::bind('countUndone'));
-    $group->get('/items/count/by-section', ItemController::bind('countBySection'));
 
     $group->get('/projects', ProjectController::bind('getAll'));
     $group->post('/projects', ProjectController::bind('post'));

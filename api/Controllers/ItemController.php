@@ -147,22 +147,13 @@ class ItemController extends Controller
 	}
 
 	/**
-	 * Supprime un item.
+	 * Supprime tous les items terminés.
 	 */
 	public function deleteAllDone()
 	{
-		$id = $this->requireInt('id');
+		$count = $this->itemDao->deleteAllDone($this->requireUser());
 
-		try
-		{
-			$project = $this->itemDao->deleteAllDone($id);
-		}
-		catch (NotFoundException)
-		{
-			$this->notFound();
-		}
-
-		$this->okResponse();
+		$this->jsonResponse($count);
 	}
 
 	public function readDaily()
