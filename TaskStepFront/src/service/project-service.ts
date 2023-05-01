@@ -23,7 +23,7 @@ export class ProjectService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get<Project[]>("api/projects", httpOptions).pipe(
+    return this.httpClient.get<Project[]>("../api/projects", httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -40,7 +40,7 @@ export class ProjectService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.post("api/projects", { Title : title },httpOptions).pipe(
+    return this.httpClient.post("../api/projects", { Title : title },httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -56,7 +56,7 @@ export class ProjectService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get<Project>("api/projects/" + id, httpOptions).pipe(
+    return this.httpClient.get<Project>("../api/projects/" + id, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -72,7 +72,7 @@ export class ProjectService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.delete<Project>("api/projects/" + id, httpOptions).pipe(
+    return this.httpClient.delete<Project>("../api/projects/" + id, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -89,7 +89,7 @@ export class ProjectService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.put<Project>("api/projects/" + id, { Title : title}, httpOptions).pipe(
+    return this.httpClient.put<Project>("../api/projects/" + id, { Title : title}, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )

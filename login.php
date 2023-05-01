@@ -83,6 +83,6 @@ $style = $loggedIn ? $_SESSION['user']?->settings()->style()->value : 'classic';
 			<?php endif; ?>
 		</p>
 
-		<span class="securityinfo">TaskStep login system version 1.2</span>
+		<span class="securityinfo">TaskStep login system version 2.0</span>
 
 <?php include('includes/footer.php') ?>

@@ -25,7 +25,7 @@ export class ItemService {
         headers : new HttpHeaders({'Content-Type' : 'application/json',
             'Authorization': 'Bearer ' +  AuthService.token})
         };
-        return this.httpClient.get<Item[]>("api/items?section="+section+"&sort="+sort, httpOptions).pipe(
+        return this.httpClient.get<Item[]>("../api/items?section="+section+"&sort="+sort, httpOptions).pipe(
         tap((response) => console.table(response)),
         catchError((error) => this.handleError(error,[]))
         )
@@ -43,7 +43,7 @@ export class ItemService {
         headers : new HttpHeaders({'Content-Type' : 'application/json',
             'Authorization': 'Bearer ' +  AuthService.token})
         };
-        return this.httpClient.get<Item[]>("api/items?date="+date+"&sort="+sort, httpOptions).pipe(
+        return this.httpClient.get<Item[]>("../api/items?date="+date+"&sort="+sort, httpOptions).pipe(
         tap((response) => console.table(response)),
         catchError((error) => this.handleError(error,[]))
       )
@@ -60,7 +60,7 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
           'Authorization': 'Bearer ' +  AuthService.token})
       };
-      return this.httpClient.get<Item[]>("api/items?context="+context+"&sort="+sort, httpOptions).pipe(
+      return this.httpClient.get<Item[]>("../api/items?context="+context+"&sort="+sort, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -77,7 +77,7 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
           'Authorization': 'Bearer ' +  AuthService.token})
       };
-      return this.httpClient.get<Item[]>("api/items?project="+context+"&sort="+sort, httpOptions).pipe(
+      return this.httpClient.get<Item[]>("../api/items?project="+context+"&sort="+sort, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -92,7 +92,7 @@ export class ItemService {
         headers : new HttpHeaders({'Content-Type' : 'application/json',
           'Authorization': 'Bearer ' +  AuthService.token})
         };
-        return this.httpClient.get<Item[]>("api/items?sort="+sort, httpOptions).pipe(
+        return this.httpClient.get<Item[]>("../api/items?sort="+sort, httpOptions).pipe(
         tap((response) => console.table(response)),
         catchError((error) => this.handleError(error,[]))
         )
@@ -112,7 +112,7 @@ export class ItemService {
     };
 
 
-    return this.httpClient.post("api/items", {
+    return this.httpClient.post("../api/items", {
       Title : item.Title,
       Date : item.Date,
       Notes : item.Notes,
@@ -144,7 +144,7 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get<Item>("api/items/" + id, httpOptions).pipe(
+    return this.httpClient.get<Item>("../api/items/" + id, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -160,7 +160,7 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.delete<Item>("api/items/" + id, httpOptions).pipe(
+    return this.httpClient.delete<Item>("../api/items/" + id, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -177,7 +177,7 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.put("api/items/" + item.Id, { 
+    return this.httpClient.put("../api/items/" + item.Id, { 
       Title : item.Title,
       Date : item.Date,
       Notes : item.Notes,
@@ -207,7 +207,7 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get<number>("api/items/count/undone", httpOptions).pipe(
+    return this.httpClient.get<number>("../api/items/count/undone", httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -223,7 +223,7 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get("api/items/count/by-section", httpOptions).pipe(
+    return this.httpClient.get("../api/items/count/by-section", httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -239,7 +239,7 @@ export class ItemService {
         'Authorization': 'Bearer ' + AuthService.token}),
         responseType: 'text' as 'json'
       };
-      return this.httpClient.get("api/account/export", httpOptions ).pipe(
+      return this.httpClient.get("../api/account/export", httpOptions ).pipe(
         tap((response) => console.table(response)),
         catchError((error) => this.handleError(error,null))
       )
@@ -251,7 +251,7 @@ export class ItemService {
    */
   printAll() {
     this.getToken().subscribe((data) => {
-      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=all&user=" + data;
+      window.location.href = "../print.php?print=all&user=" + data;
     });
   }
 
@@ -262,7 +262,7 @@ export class ItemService {
    */
   printSection(section : string) {
     this.getToken().subscribe((data) => {
-      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=section&section=" + section +"&user=" + data;
+      window.location.href = "../print.php?print=section&section=" + section +"&user=" + data;
     });
   }
 
@@ -272,7 +272,7 @@ export class ItemService {
    */
   printToday(){
     this.getToken().subscribe((data) => {
-      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=today&user=" + data;
+      window.location.href = "../print.php?print=today&user=" + data;
     });
   }
 
@@ -283,7 +283,7 @@ export class ItemService {
    */
   printContext(id : number){
     this.getToken().subscribe((data) => {
-      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=context&tid="+id+"&user=" + data;
+      window.location.href = "../print.php?print=context&tid="+id+"&user=" + data;
     });
   }
   
@@ -294,13 +294,13 @@ export class ItemService {
    */
   printProject(id : number){
     this.getToken().subscribe((data) => {
-      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=project&tid="+id+"&user=" + data;
+      window.location.href = "../print.php?print=project&tid="+id+"&user=" + data;
     });
   }
 
   getCSV(){
     this.getToken().subscribe((data) => {
-      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/export.php?user="+data;
+      window.location.href = "../export.php?user="+data;
     });
   }
 
@@ -313,7 +313,7 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get<Item[]>("api/items/daily/"+date, httpOptions).pipe(
+    return this.httpClient.get<Item[]>("../api/items/daily/"+date, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )        
@@ -328,7 +328,7 @@ export class ItemService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.delete<number>("api/items/done", httpOptions).pipe(
+    return this.httpClient.delete<number>("../api/items/done", httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )    

@@ -40,7 +40,7 @@ $sectionItemsCount = (new ItemDao)->countBySection(USER);
 	<div id="header">
 		<h1>
 			<img src="images/icon.png" alt="" style="vertical-align:middle"/>&nbsp;<a href="index.php">
-				TaskStep <span class="subtitle">1.2-dev</span>
+				TaskStep <span class="subtitle">2.0</span>
 			</a>
 		</h1>
 	</div>

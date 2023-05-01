@@ -28,7 +28,7 @@ export class AuthService {
             })
         };
 
-        return this.httpClient.post<SignInModel>("api/signin",{},httpOptions).pipe(
+        return this.httpClient.post<SignInModel>("../api/signin",{},httpOptions).pipe(
             tap((response) => console.table(response)),
             catchError((error) => this.handleError(error,null))
         )
@@ -48,7 +48,7 @@ export class AuthService {
             })
         };
 
-        return this.httpClient.post("api/signup", { Email : email, Password : password, CaptchaToken : token },httpOptions).pipe(
+        return this.httpClient.post("../api/signup", { Email : email, Password : password, CaptchaToken : token },httpOptions).pipe(
             tap((response) => console.table(response)),
             catchError((error) => this.handleError(error,null))
         )
@@ -66,7 +66,7 @@ export class AuthService {
             'Authorization': 'Bearer ' + AuthService.token})
         };
 
-        return this.httpClient.put("api/account/settings", { Style : theme, Tips : tips },httpOptions).pipe(
+        return this.httpClient.put("../api/account/settings", { Style : theme, Tips : tips },httpOptions).pipe(
             tap((response) => console.table(response)),
             catchError((error) => this.handleError(error,null))
         )
@@ -80,7 +80,7 @@ export class AuthService {
             }) 
         };
 
-        return this.httpClient.put("api/account/password", newPassword, httpOption).pipe(
+        return this.httpClient.put("../api/account/password", newPassword, httpOption).pipe(
             tap((response) => console.table(response)),
             catchError((error) => of(false))
         )        

@@ -23,7 +23,7 @@ export class ContextService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get<Context[]>("api/contexts", httpOptions).pipe(
+    return this.httpClient.get<Context[]>("../api/contexts", httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -41,7 +41,7 @@ export class ContextService {
       'Authorization': 'Bearer ' + AuthService.token})
     };
 
-    return this.httpClient.post("api/contexts", { Title : title },httpOptions).pipe(
+    return this.httpClient.post("../api/contexts", { Title : title },httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -58,7 +58,7 @@ export class ContextService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get<Context>("api/contexts/" + id, httpOptions).pipe(
+    return this.httpClient.get<Context>("../api/contexts/" + id, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,[]))
     )
@@ -74,7 +74,7 @@ export class ContextService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.delete<Context>("api/contexts/" + id,httpOptions).pipe(
+    return this.httpClient.delete<Context>("../api/contexts/" + id,httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -91,7 +91,7 @@ export class ContextService {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.put<Context>("api/contexts/" + id, { Title : title}, httpOptions).pipe(
+    return this.httpClient.put<Context>("../api/contexts/" + id, { Title : title}, httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
