@@ -298,6 +298,11 @@ export class ItemService {
     });
   }
 
+  getCSV(){
+    this.getToken().subscribe((data) => {
+      window.location.href = "http://info-dij-sae001.iut21.u-bourgogne.fr/export.php?user="+data;
+    });
+  }
 
   /**
    * Get the item of today and before today

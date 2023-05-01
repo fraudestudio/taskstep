@@ -107,6 +107,7 @@ export class SettingsComponent {
    * Redirect to a csv download page
    */
   exportCSV(){
+    this.itemService.getCSV();
     this.exportConfirmation = true;
     this.purgeItemConfirmation = false;
     this.changePasswordConfirmation = false;
