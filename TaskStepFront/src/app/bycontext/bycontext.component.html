@@ -1,0 +1,26 @@
+<app-navigation-bar></app-navigation-bar>
+<div id = "container">
+    <div id="content">
+        <div id='editlist'>
+            <h2>{{Title}}</h2>
+            <div *ngIf="message">
+                <div *ngIf='type == "confirmation"' class="confirmation">
+                    <p><img src="assets/images/accept.png" alt="Icône confirmation"/>{{message}}</p>
+                </div>
+                <div *ngIf='type == "warning"' class="warning">
+                    <p><img src="assets/images/exclamation.png" alt="Icône alerte"/>{{message}}</p>
+                </div>
+            </div>
+            <a class="listlinkssmart" routerLink="/addcontext"><img src="assets/images/add.png" alt=""/> Ajouter un contexte</a>
+            <div *ngIf="!IsEditing">
+                <a href="" onclick="return false;" (click)="goItem(context.Id, context.Title)" *ngFor="let context of Contexts" class="listlinkssmart"><img src="assets/images/context.png" alt=""/> {{context.Title}}</a>
+            </div>
+            <div *ngIf="IsEditing">
+                <a href="" onclick="return false;" *ngFor="let context of Contexts" class="listlinkssmart" (click)="goEditMode(context.Id)"><img src="assets/images/pencil.png" alt=""/> {{context.Title}}</a>
+            </div>
+
+            <a href="" onclick="return false;" *ngIf="!IsEditing" class="listlinkssmart" (click)="setEditMode()"><img src="assets/images/context_edit.png" alt=""/> Edtier un contexte</a>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

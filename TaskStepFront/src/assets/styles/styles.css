@@ -1,0 +1,750 @@
+/* Standard Stylesheet for TaskStep */
+/* Created by Loco 2006 */
+
+[data-theme = "classic"]{
+	--background-color: white;
+	--title-color: #333;
+	--subtitle-color: #333;
+
+	--navbar-background-color:#ececef;
+	--navbar-text-color:black;
+
+	--sidebar-text-color:black;
+	--sidebar-background-hover: #ececef;
+
+	--content-color : black;
+	--content-a-color : black;
+
+	--immediate-background-color : #ffa;
+	--immediate-border-color : #cc0;
+
+	--welcome-background-color : #cfc;
+	--welcome-border-color : #0c0;
+
+	--tips-background-color : #ddf;
+	--tips-border-color : #33d;
+	--tips-text-color: #33d;
+
+	--loginbox-color: #f3f3f3;
+	--loginbox-border-color: #ddd;
+	--loginbox-text-color : #555;
+	
+	--button-color : white;
+	--button-text :black;
+	--button-border-color: #ddd;
+	--button-hover-color: #ececef;
+
+	--warning-background-color : rgb(243, 146, 146);
+	--warning-border-color : #ff0000;
+	--warning-text-color : black;
+
+	--confirmation-background-color : #62e081;
+	--confirmation-border-color : rgb(20, 160, 62);
+	--confirmation-text-color : black;
+
+	--editlist-text-color : black;
+	--editlist-hover-color : #ececef;
+
+	--side-bar-undone-color : rgb(164, 14, 14);
+	--side-bar-done-color : green;
+
+	--footer-color : rgb(107, 104, 104);
+	--container-width : 1000px;
+	--header-nav-size : 22px;
+	
+	--inform-bg-color : #ddf;
+	--inform-border-color : #33d;
+
+	--fast-bg-color : rgb(243, 146, 146);
+	--fast-border-color : #ff0000;
+	 
+}
+
+
+[data-theme = "professional"]{
+	--background-color: white;
+	--title-color: white;
+	--subtitle-color: white;
+
+	--navbar-background-color:#ececef;
+	--navbar-text-color:black;
+
+	--sidebar-text-color:black;
+	--sidebar-background-hover: #ececef;
+
+	--content-color : black;
+	--content-a-color : black;
+
+	--immediate-background-color : #ffa;
+	--immediate-border-color : #cc0;
+
+	--welcome-background-color : #cfc;
+	--welcome-border-color : #0c0;
+
+	--tips-background-color : #ddf;
+	--tips-border-color : #33d;
+	--tips-text-color: #33d;
+
+	--loginbox-color: #f3f3f3;
+	--loginbox-border-color: #ddd;
+	--loginbox-text-color : #555;
+	
+	--button-color : white;
+	--button-text :black;
+	--button-border-color: #ddd;
+	--button-hover-color: #ececef;
+
+	--warning-background-color : rgb(243, 146, 146);
+	--warning-border-color : #ff0000;
+	--warning-text-color : black;
+
+	--confirmation-background-color : #62e081;
+	--confirmation-border-color : rgb(20, 160, 62);
+	--confirmation-text-color : black;
+
+	--editlist-text-color : black;
+	--editlist-hover-color : #ececef;
+
+	--side-bar-undone-color : rgb(164, 14, 14);
+	--side-bar-done-color : green;
+
+	--footer-color : rgb(107, 104, 104);
+
+	--header-bg : url(src/assets/images/headerback.jpg);
+	--container-width : 800px;
+	--header-nav-size : 40px;
+
+	--inform-bg-color : #ddf;
+	--inform-border-color : #33d;
+
+	--fast-bg-color : rgb(243, 146, 146);
+	--fast-border-color : #ff0000;
+}
+
+[data-theme = "dark"]{
+	--background-color: #070707;
+	--title-color: white;
+	--subtitle-color:white;
+
+	--navbar-background-color:#1d1d1d;
+	--navbar-text-color:white;
+
+	--sidebar-text-color:white;
+	--sidebar-background-hover:#1d1d1d;
+
+	--content-color : white;
+	--content-a-color : white;
+
+	--select-background-color : #1d1d1d;
+	--select-color: white;
+
+	--immediate-background-color : rgb(39, 39, 2);
+	--immediate-border-color : rgb(105, 105, 0);
+
+	--welcome-background-color : rgb(51, 70, 51);
+	--welcome-border-color : rgb(1, 61, 1);
+
+	--tips-background-color : rgb(47, 47, 78);
+	--tips-border-color : rgb(9, 9, 94);
+	--tips-text-color: rgb(233, 233, 235);
+
+	--loginbox-color: #1d1d1d;
+	--loginbox-border-color: #333333;
+	--loginbox-text-color : white;
+	--loginbox-input-background: #1d1d1d;
+	--loginbox-input-text-color: white;
+	--loginbox-eyes : 100%;
+
+	--button-color : #1d1d1d;
+	--button-text : white;
+	--button-border-color: #333333;
+	--button-hover-color: #070707;
+
+	--warning-background-color : #5a0000;
+	--warning-border-color : #c00;
+	--warning-text-color : white;
+
+	--confirmation-background-color : #0e4d02;
+	--confirmation-border-color : rgb(20, 160, 62);
+	--confirmation-text-color : white;
+
+
+	--editlist-text-color : white;
+	--editlist-hover-color : #1d1d1d;
+
+	--side-bar-undone-color : rgb(255, 6, 6);
+	--side-bar-done-color : rgb(0, 202, 0);
+
+	--footer-color : rgb(192, 191, 191); 
+	--container-width : 1000px;
+	--header-nav-size : 22px;
+
+	--inform-bg-color : rgb(47, 47, 78);
+	--inform-border-color : rgb(9, 9, 94);
+
+	--fast-bg-color : #5a0000;
+	--fast-border-color : #c00;
+}
+
+body{
+	font-family:Helvetica, Arial, sans-serif;
+    background-color: var(--background-color);
+}
+
+button{
+	background-color: var(--button-color);
+	border : 2px solid var(--button-border-color);
+	color:var(--button-text)
+}
+
+button:hover{
+	background-color: var(--button-hover-color);
+}
+
+
+input[type=submit]{
+	background-color: var(--button-color);
+	border : 2px solid var(--button-border-color);
+	color:var(--button-text)
+}
+
+input[type=submit]:hover{
+	background-color: var(--button-hover-color);
+}
+
+
+#container{
+	min-width:800px;
+	max-width:var(--container-width);
+	margin:0 auto;
+}
+
+#footer{
+	padding: 2em 0px;
+	font-size: .7em;
+	text-align: center;
+	color: var(--footer-color);
+	clear: both;
+}
+
+
+#header{
+	background-image: var(--header-bg);
+	border-bottom:1px solid var(--navbar-background-color);
+}
+
+#header h1{
+	font-family:Helvetica, Arial, sans-serif;
+	font-size:14pt;
+	color:#333;
+}
+
+#header h1 a{
+	color:var(--title-color);
+	text-decoration:none;
+}
+
+#headernav{
+	height:var(--header-nav-size);
+	background-color:var(--navbar-background-color);
+	margin-bottom: 14px;
+	padding: 10px;
+}
+
+.subtitle{
+	font-size:10pt;
+	color: var(--subtitle-color);
+	font-weight:normal;
+}
+
+#date-today{
+	position:relative;
+	top:-1.2em;
+	left:400px;
+	font-size:10pt;
+}
+
+#headernav ul{
+	margin:0;
+	padding:0;
+	text-align:center;
+}
+
+#headernav ul li{
+	display:inline;
+	padding-left:14px;
+	list-style-type:none;
+	font-size:10pt;
+}
+
+#headernav ul li a{
+	color:var(--navbar-text-color);
+	text-decoration:none;
+}
+
+#headernav ul li a:hover{
+	text-decoration:underline;
+}
+
+#headernav ul li a img{
+	vertical-align:-3px;
+}
+
+#headernav ul li a:hover img{
+	text-decoration:none;
+}
+
+#adminbox{
+	float:right;
+	background-color:#ddf;
+	border:1px solid #33d;
+	padding:2px;
+	margin:2px;
+	color:#33d;
+	font-size:9pt;
+	text-align:right;
+	line-height:1.6em;
+}
+
+#adminbox a{
+	color:#33d;
+	text-decoration:none;
+}
+
+#adminbox img{
+	vertical-align:middle;
+}
+
+
+#sidebar{
+	border-right:1px dashed #ccc;
+	width:290px;
+	float: left;
+}
+
+#sidebar ul{
+	list-style-type:none;
+	padding:0;
+	margin:0;
+}
+
+#sidebar ul li a{
+	padding:0.9em 0 0.9em 5px;
+	border-bottom:1px dashed #ccc;
+	display:block;
+	color:var(--sidebar-text-color);
+	text-decoration:none;
+	font-size:12pt;
+}
+
+#sidebar ul li a:hover{
+	background-color: var(--sidebar-background-hover);
+}
+
+.noundone{
+	color:var(--side-bar-undone-color);
+	font-size:10pt;
+}
+
+.nodone{
+	color: var(--side-bar-done-color);
+	font-size:10pt;
+}
+
+#sectiontitle{
+	display:block;
+	font-size: .75em;
+}
+
+#content{
+	font-size:10pt;
+	min-width:560px;
+	max-width:760px;
+	margin-left:310px;
+	color:var(--content-color)
+}
+
+#content h2{
+	color:var(--content-color)
+}
+
+
+#content a{
+	color:var(--content-a-color);
+}
+
+.current{
+	padding:5px;
+	background-color:#ffa;
+	border:1px solid #cc0;
+	margin-bottom:10px;
+}
+
+.old{
+	padding:5px;
+	background-color:#fcc;
+	border:1px solid #c00;
+	margin-bottom:10px;
+}
+
+.np{
+	padding:5px;
+	margin-bottom:10px;
+}
+
+a img{
+	border:0;
+}
+
+.actionicon{
+	float:right;
+	padding-left:2px;
+}
+
+#deleted{
+	background-color:#eee;
+	border:1px solid #888;
+	padding:5px;
+}
+
+#updated{
+	background-color:#cfc;
+	border:1px solid #0c0;
+	padding:5px;
+	margin-bottom:10px;
+}
+
+.error{
+	background-color:#fcc;
+	border:1px solid #c00;
+	padding:5px;
+	margin-bottom:10px;
+}
+
+.listlinkstyle a{
+	text-decoration:none;
+}
+
+.printer{
+	float:right;
+	position:relative;
+	top:3px;
+}
+
+.printer a{
+	text-decoration:none;
+}
+
+.printer img{
+	vertical-align:-3px;
+}
+
+.listlinkssmart {
+	display:block;
+	padding:3px;
+	border-top:1px dotted #ccc;
+	text-decoration: none;
+}
+
+#editlist a{
+	color: var(--editlist-text-color);
+	font-size: 12pt;
+}
+
+#editlist h2{
+	margin-bottom: 20px;
+}
+
+#editlist a:hover{
+	background-color:var(--editlist-hover-color);
+}
+
+.inform{
+	background-color:var(--inform-bg-color);
+	border:1px solid var(--inform-border-color);
+	padding:5px;
+	font-size:10pt;
+	margin-bottom:10px;
+}
+
+.inform img{
+	vertical-align:-2px;
+}
+
+.fast{
+	background-color:var(--inform-bg-color);
+	border:1px solid var(--inform-border-color);
+	padding:5px;
+	font-size:10pt;
+	margin-bottom:10px;
+}
+
+.fast img{
+	vertical-align:-2px;
+}
+
+.purgebutton{
+	background-color: var(--button-color);
+	border:1px solid var(--button-border-color);
+	padding:5px;
+	margin-top:3px;
+}
+
+.purgebutton img{
+	vertical-align:-2px;
+}
+
+.purgebutton a{
+	text-decoration:none;
+}
+
+.updatenewbutton{
+	background-color:#cfc;
+	border:1px solid #0c0;
+	padding:5px;
+	margin-top:3px;
+}
+
+.updatenewbutton img{
+	vertical-align:-2px;
+}
+
+.updatenewbutton a{
+	text-decoration:none;
+}
+
+.breaker{
+	width:550px;
+	border-top:1px dashed #ccc;
+	margin-top:10px;
+}
+
+.settingssection h2{
+	padding:0;
+	margin:5px 0;
+}
+
+.warning{
+	color: var(--warning-text-color);
+	background-color: var(--warning-background-color);
+	border: 1px solid var(--warning-border-color);
+	padding: 5px;
+	margin-top: 10px;
+	margin-bottom :20px;
+	margin-right: 250px;
+}
+
+
+.confirmation{
+	color: var(--confirmation-text-color);
+	background-color: var(--confirmation-background-color);
+	border: 1px solid var(--confirmation-border-color);
+	margin-top: 10px;
+	margin-bottom :20px;
+	margin-right: 250px;
+}
+
+select{
+	background-color: var(--select-background-color);
+	color: var(--select-color);
+}
+
+.necessary{
+	border:1px solid #f00;
+}
+
+.marked{
+	color:#f00;
+}
+
+#passwordsettings form input{
+	margin:5px 0;
+}
+
+.sortform{
+	padding-bottom:5px;
+	border-bottom:1px solid #ddd;
+	margin-bottom:5px;
+}
+
+.rightalign{
+	text-align: right;
+}
+
+
+#immediateblock{
+	width:255px;
+	background-color:var(--immediate-background-color);
+	border:1px solid var(--immediate-border-color);
+	padding:5px;
+}
+
+.valign{
+	vertical-align:middle;
+}
+
+h2{
+	padding:0;
+	margin:0 0 4px 0;
+	font-size:10pt;
+	font-family:Helvetica, Arial, sans-serif;
+	color:#000;
+}
+
+#tipsbox{
+	width:255px;
+	background-color:var(--tips-background-color);
+	border:1px solid var(--tips-border-color);
+	padding:5px;
+	margin:10px 0 0 0;
+	color:var(--tips-text-color);
+	font-size:10pt;
+	line-height:1.6em;
+}
+
+#tipsbox h2{
+	color:var(--tips-text-color);;
+}
+
+#tipsbox a{
+	color:var(--tips-text-color);;
+	text-decoration: underline;
+}
+
+#tipsbox a:hover{
+	color: black;
+}
+
+#tipsbox img{
+	vertical-align:middle;
+}
+
+#bookmarklet{
+	float:right;
+	width:210px;
+	background-color:#f3f3f3;
+	border:1px solid #ddd;
+	padding:5px;
+	margin:10px 0 0 0;
+	color:#000;
+	font-size:9pt;
+	line-height:1.6em;
+}
+
+#bookmarklet a{
+	color:#000;
+	text-decoration:none;
+}
+
+#bookmarklet img{
+	vertical-align:middle;
+}
+
+#welcomebox{
+	background-color:var(--welcome-background-color);
+	border:1px solid var(--welcome-border-color);
+	float:right;
+	width:255px;
+	padding:5px;
+	text-align:justify;
+	margin-right: 80px;
+	font-size: 14px;
+}
+
+#welcomebox a{
+	color: var(--content-color);
+}
+
+
+
+#loginbox{
+	margin:100px auto 0px auto;
+	width:300px;
+	background-color:var(--loginbox-color);
+	border:1px solid var(--loginbox-border-color);
+	padding:20px;
+	color:var(--loginbox-text-color);
+}
+
+#loginbox a{
+	color:var(--loginbox-text-color);
+	font-size: 15px;
+	vertical-align: middle;
+	text-decoration: underline;
+	text-align:center;
+}
+
+#loginbox h1{
+	margin:0;
+	padding:0;
+	font-family:Helvetica, sans-serif;
+	font-size:16pt;
+}
+
+#loginbox h1 img{
+	vertical-align:middle;
+}
+
+#loginbox p{
+	text-align:center;
+}
+
+
+#loginbox .warning{
+	color: var(--warning-text-color);
+	background-color: var(--warning-background-color);
+	border: 1px solid var(--warning-border-color);
+	margin-top: 10px;
+	margin-bottom :20px;
+	padding: 5px;
+	margin-right: 0px;
+}
+
+
+#loginbox .confirmation {
+	color: var(--confirmation-text-color);
+	background-color: var(--confirmation-background-color);
+	border: 1px solid var(--confirmation-border-color);
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom :20px;
+	padding: 5px;
+	margin-right: 0px;
+}
+
+#loginbox .warning h2{
+	color: var(--warning-text-color);
+}
+
+
+
+input{
+	background-color: var(--loginbox-input-background);
+	color: var(--loginbox-input-text-color);
+}
+::-ms-reveal{
+	filter: invert(var(--loginbox-eyes));
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(var(--loginbox-eyes));
+}
+
+.securityinfo{
+	font-size:8pt;
+	padding:0;
+	margin:0;
+	color:#bbb;
+	float:right;
+	display:none;
+}
+
+.null{
+	display:none;
+}
+
+
+.linkback a{
+	text-decoration:underline;
+}
+

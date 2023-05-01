@@ -86,15 +86,76 @@ if ($showSuccessMessage): ?>
 <div>
 <table>
 <tr>
-   <td><?= l->forms->title ?>:</td>
-   <td colspan="3" rowspan="1">
-   	<input type='text' id="addtitle" name='title' value="<?= $item->title() ?>" size="60" />
+   <td><?php echo $l_forms_title; ?>:</td>
+   <td colspan="3" rowspan="1"><input type='text' id="addtitle" name='title' value="<?php echo $title ?>" size="60" /></td>
+</tr>
+<tr>
+   <td><?php echo $l_forms_notes; ?>:</td>
+   <td colspan="3" rowspan="1"><input type='text' name='notes' value="<?php echo $notes ?>" size="60" /></td>
+</tr>
+<tr>
+   <td></td>
+   <td><?php echo $l_forms_section; ?>:</td>
+   <td><?php echo $l_forms_context; ?>:</td>
+   <td><?php echo $l_forms_project; ?>:</td>
+</tr>
+<tr>
+	<td></td>
+	<td>
+		<select name='section' size="7">
+		<?php
+		$result4 = $mysqli->query("SELECT * FROM sections ORDER BY id");
+		foreach($l_sectionlist as $key=>$value)
+		{
+			$selected = ($section == $key) ? 'selected="selected"' : '';
+			echo "<option value='$key' $selected>$value</option>\n";
+		}
+		?>
+		</select>
+	</td>
+	<td>
+		<select name='context' size="7">
+		<?php
+		$result2 = $mysqli->query("SELECT * FROM contexts ORDER BY title");
+		while($r=$result2->fetch_array())
+		{
+			$context2=$r["title"];
+			$selected = ($context == $context2) ? 'selected="selected"' : '';
+			echo "<option value='$context2' $selected>$context2</option>\n";
+		} 
+		?>
+		</select>
+	</td>
+	<td>
+		<select name='project' size="7">
+		<?php
+		$result3 = $mysqli->query("SELECT * FROM projects ORDER BY title");
+		while($r=$result3->fetch_array())
+		{
+			$project2=$r["title"];
+			$selected = ($project == $project2) ? 'selected="selected"' : '';
+			echo "<option value='$project2' $selected>$project2</option>\n";
+		}
+		?>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td><span class="listlinkstyle"><a href="edit_types.php?type=context"><img src="images/context_edit.png" alt="" /> <?php echo $l_forms_contexte; ?></a></span></td>
+	<td><span class="listlinkstyle"><a href="edit_types.php?type=project"><img src="images/project_edit.png" alt="" /> <?php echo $l_forms_projecte; ?></a></span></td>
+</tr>
+<tr>
+   <td><?php echo $l_forms_date; ?>:</td>
+   <td colspan="3" rowspan="1" id="holder">
+      <input type='text' autocomplete="off" name='date' value="<?php echo $date ?>" size="60" class="datebox" onfocus="JACS.show(this,event);" />
    </td>
 </tr>
 <tr>
-   <td><?= l->forms->notes ?>:</td>
-   <td colspan="3" rowspan="1">
-   	<input type='text' name='notes' value="<?= $item->notes() ?>" size="60" />
+   <td><?php echo $l_forms_url; ?>:</td>
+   <td>
+      <input type='text' name='url' value="<?php echo $url ?>" size="60" />
    </td>
 </tr>
 <tr>
@@ -178,8 +239,8 @@ if ($showSuccessMessage): ?>
    	<input type="submit" name="submit" value="<?= isset($itemId) ? l->forms->editButton : l->forms->addButton ?>" />
    </td> 
 </tr>
-</table>
-<input type="hidden" name="id" value="<?= $itemId ?? '' ?>" />
+</table> 
+<input type="hidden" name="id" value="<?php echo $id ?>" />
 </div>
 </form>
 
