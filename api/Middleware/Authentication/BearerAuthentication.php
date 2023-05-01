@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Middleware\Authentication;
+namespace TaskStepApi\Middleware\Authentication;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
-use TaskStep\Middleware\Helpers\Services;
-use TaskStep\Logic\Exceptions\NotFoundException;
+use TaskStepApi\Middleware\Helpers\Services;
+use TaskStep\Logic\Exceptions\{NotFoundException, TokenOutOfDateException};
 use TaskStep\Logic\Model\User;
 
-class BasicAuthentication
+class BearerAuthentication
 {
 	public function __invoke(Request $request, RequestHandler $handler) : Response
     {
         $failed = (new \Slim\Psr7\Response())
-            ->withStatus(401);
+            ->withStatus(401)
+            ->withHeader('WWW-Authenticate', 'Bearer');
 
         $authHeader = $request->getHeader('Authorization');
 
@@ -24,21 +25,25 @@ class BasicAuthentication
 
         list($authScheme, $authData) = explode(' ', $authHeader[0], 2);
 
-        if ($authScheme != 'Basic') return $failed;
-
-        list($email, $password) = explode(':', base64_decode($authData));
+        if ($authScheme != 'Bearer') return $failed;
 
         $userDao = Services::instance()->get('userDao');
         try
         {
-            $user = $userDao->readByEmailAndPassword($email, $password);
+            $user = $userDao->readBySessionToken($authData);
+
+            // POUR LES TESTS UNIQUEMENT, À ENLEVER
+            if ($authData != '12345678901234567890')
+                
+            $userDao->refreshSession($authData);
 
             $request = $request->withAttribute('user', $user);
-            return $handler->handle($request);
         }
-        catch (NotFoundException)
+        catch (NotFoundException|TokenOutOfDateException)
         {
             return $failed;
         }
+        
+        return $handler->handle($request);
     }
 }

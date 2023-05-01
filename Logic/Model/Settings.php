@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TaskStep\Logic\Model;
 
-use TaskStep\Middleware\Helpers\JsonSerializable;
+use TaskStepApi\Middleware\Helpers\JsonSerializable;
 
 class Settings implements JsonSerializable
 {
@@ -51,8 +51,8 @@ class Settings implements JsonSerializable
     }
 
     public function jsonDeserialize(mixed $value) : void {
-		$this->_style = $value['Style']
-			?? throw new \Exception("missing 'Style' field in 'Settings' object");
+    	if (!key_exists('Style', $value)) throw new \Exception("missing 'Style' field in 'Settings' object");
+		$this->_style = Style::from($value['Style']);
 
 		$this->_tips = $value['Tips']
 			?? throw new \Exception("missing 'Tips' field in 'Settings' object");

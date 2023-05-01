@@ -5,7 +5,7 @@ include("includes/sessioncheck.php");
 require_once "includes/autoload.php";
 
 use TaskStep\Logic\Data\MySql\Dao\{ItemDao, ProjectDao, ContextDao};
-use TaskStep\Locale\Locale;
+use TaskStep\Locale;
 use TaskStep\Logic\Model\Section;
 
 Locale::load();

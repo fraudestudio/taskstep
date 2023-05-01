@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Controllers;
+namespace TaskStepApi\Controllers;
 
-use TaskStep\Middleware\Helpers\{Context, Services};
-use TaskStep\Logic\Exceptions\DuplicateException;
+use TaskStepApi\Middleware\Helpers\{Context, Services};
+use TaskStep\Logic\Exceptions\{DuplicateException, NotFoundException};
 use TaskStep\Logic\Model\UserDaoInterface;
-use TaskStep\Logic\Model\Registration;
+use TaskStep\Logic\Model\{Registration, Settings};
 use PDOException;
 
 class AccountController extends Controller
@@ -67,5 +67,35 @@ class AccountController extends Controller
 			'Token' => $token,
 			'User' => $user,
 		]);
+	}
+
+	public function changePassword()
+	{
+		$user = $this->requireUser();
+		$password = $this->requireBodyText();
+		
+		if ($password === '') $this->badRequest();
+		
+		if (!$this->userDao->changePassword($user, $password)) $this->badRequest();
+
+		$this->okResponse();
+	}
+
+	public function updateSettings()
+	{
+		$user = $this->requireUser();
+		$settings = $this->requireBodyObject(Settings::class);
+		
+		try
+		{
+			$this->userDao->updateStyle($user, $settings->style());
+			$this->userDao->updateTips($user, $settings->tips());
+		}
+		catch (NotFoundException)
+		{
+			$this->badRequest();
+		}
+
+		$this->okResponse();
 	}
 }

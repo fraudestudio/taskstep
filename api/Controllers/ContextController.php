@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace TaskStep\Controllers;
+namespace TaskStepApi\Controllers;
 
 use TaskStep\Logic\Model\{Context, Compare};
 use TaskStep\Logic\Model\ContextDaoInterface;
 use TaskStep\Logic\Exceptions\NotFoundException;
-use TaskStep\Middleware\Helpers;
+use TaskStepApi\Middleware\Helpers;
 
 class ContextController extends Controller
 {

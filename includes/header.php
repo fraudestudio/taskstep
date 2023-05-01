@@ -4,7 +4,7 @@ include "sessioncheck.php";
 
 require_once "autoload.php";
 
-use TaskStep\Locale\Locale;
+use TaskStep\Locale;
 use TaskStep\Logic\Data\MySql\Dao\{ItemDao, UserDao};
 use TaskStep\Logic\Model\Section;
 
