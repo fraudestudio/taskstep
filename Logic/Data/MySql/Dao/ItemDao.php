@@ -210,11 +210,10 @@ class ItemDao implements ItemDaoInterface
 
 	public function deleteAllDone(User $user) : int
 	{
-		Database::GetInstance()->executeNonQuery(
+		return Database::GetInstance()->executeNonQuery(
 			'DELETE from items where done = 1 and User = :id',
 			array('id'=>$user->id())
 		);
-		return 1;
 	}
 
 	public function countUndone(User $user) : int
