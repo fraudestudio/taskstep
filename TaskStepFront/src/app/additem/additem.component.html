@@ -1,0 +1,120 @@
+<app-navigation-bar></app-navigation-bar>
+
+<div id = "container">
+    
+    <div *ngIf="!isDataIsLoad()" div id ="content">
+        <h2>Chargement des données...</h2>
+    </div>
+    
+
+
+    <div *ngIf="isDataIsLoad()" id = "content">
+        <div *ngIf="message">
+            <div *ngIf='type == "confirmation"' class="confirmation">
+                <p><img src="assets/images/accept.png" alt="Icône confirmation"/>{{message}}</p>
+            </div>
+            <div *ngIf='type == "warning"' class="warning">
+                <p><img src="assets/images/exclamation.png" alt="Icône alerte"/>{{message}}</p>
+            </div>
+        </div>
+        <form #f = "ngForm" (ngSubmit)="submit()">
+            <div>
+            <table>
+                <tr>
+                    <td><label>Titre :</label></td>
+                    <td colspan="3" rowspan="1"><input type="text" name = "title" #name = "ngModel" [(ngModel)]="form.title" required size="60"/></td>
+                </tr>
+                
+                <tr *ngIf="name.errors?.['required']">
+                    <td></td>
+                    <td colspan="4" rowspan="1">
+                        <div class="warning">
+                            <h2>Un titre est nécessaire.</h2>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><label>Notes :</label></td>
+                    <td colspan="3" rowspan="1"><input type="text" name = "notes" #notes = "ngModel" [(ngModel)]="form.note" size="60"/> </td>
+                </tr>
+                
+                <tr>
+                    <td></td>
+                    <td><label>Section:</label></td>
+                    <td><label>Contexte:</label></td>
+                    <td><label>Projet:</label></td>
+                </tr>    
+                <tr></tr>  
+                <tr>
+                    <td></td>
+                    <td>   
+                        <select size="7" name = "section" #section = "ngModel" [(ngModel)]="form.section" required>
+                            <option *ngFor = "let sectionObject of Sections" [value]="sectionObject.Database">{{sectionObject.Title}}</option>     
+                        </select>  
+                    </td>
+                    <td>
+                        <select size="7" name = "context" #context = "ngModel" [(ngModel)]="form.context" required>
+                            <option *ngFor = "let contextObject of Contexts" [value]="contextObject.Id">{{contextObject.Title}}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select size="7" name = "project" #project = "ngModel" [(ngModel)]="form.project" required>
+                            <option *ngFor = "let projectObject of Projects"[value]="projectObject.Id">{{projectObject.Title}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr> 
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <span class="listlinkstyle">
+                        <a href="" onclick="return false;" (click)="editContext()"><img src="assets/images/context_edit.png" alt=""/>Modifier les contextes</a>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="listlinkstyle">
+                            <a href="" onclick="return false;" (click)="editProject()"><img src="assets/images/project_edit.png" alt=""/>Modifier les projets</a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="4" rowspan="1">
+                        <div class="warning" *ngIf="context.errors?.['required'] && !project.errors?.['required']">
+                            <h2>Un contexte est nécessaire.</h2>
+                        </div>
+                        <div class="warning" *ngIf="project.errors?.['required'] && !context.errors?.['required']">
+                            <h2>Un projet est nécessaire.</h2>
+                        </div>
+                        <div class="warning" *ngIf="project.errors?.['required'] && context.errors?.['required']">
+                            <h2>Un contexte et un projet est nécessaire.</h2>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Date de rendu :</label></td>
+                    <td colspan="3" rowspan="1"><input type="date" name = "dueDate" #dueDate = "ngModel" [(ngModel)]="form.dueDate" size="60" required/></td>
+                </tr>
+                <tr>
+                    <td><label>Lien :</label></td>
+                    <td colspan="3" rowspan="1">
+                        <input type="text" name = "url" #url = "ngModel" [(ngModel)]="form.url" size="60"/>
+                    </td>
+                </tr>
+                <br>
+                <br>
+                <tr>
+                    <td colspan="3" rowspan="1">
+                        <input *ngIf="!name.errors?.['required'] && !section.errors?.['required'] 
+                        && !context.errors?.['required'] && !project.errors?.['required'] && !Edit" input type="submit" value="Ajouter une tâche"/>
+                        <input *ngIf="!name.errors?.['required'] && !section.errors?.['required'] 
+                        && !context.errors?.['required'] && !project.errors?.['required'] && Edit" input type="submit" value="Modifier une tâche"/>
+                    </td>
+                </tr>                                  
+            </table>
+            </div>
+        </form>
+    </div>
+</div>
+<app-footer></app-footer>
