@@ -15,8 +15,8 @@
                 <option value="classic" *ngIf='isCurrentThemeEqual("light")' selected>Clair</option>
                 <option value="dark" *ngIf='!isCurrentThemeEqual("dark")'>Sombre</option>
                 <option value="dark" *ngIf='isCurrentThemeEqual("dark")' selected>Sombre</option>
-                <option value="professionnal" *ngIf='!isCurrentThemeEqual("professionnal")'>Professionnelle</option>
-                <option value="professionnal" *ngIf='isCurrentThemeEqual("professionnal")' selected>Professionnelle</option>
+                <option value="professional" *ngIf='!isCurrentThemeEqual("professional")'>Professionnelle</option>
+                <option value="professional" *ngIf='isCurrentThemeEqual("professional")' selected>Professionnelle</option>
             </select>
             <div class="breaker"></div>
             <h2><b>Mot de passe</b></h2>
@@ -38,6 +38,8 @@
             <button class="purgebutton" (click)="purgeItems()"><img src="assets/images/bomb.png" alt="Icône bombe"/> Détruire toutes les tâches faites</button>
             &nbsp;
             <button class="purgebutton" (click)="exportCSV()"><img src="assets/images/page_white_excel.png" alt="Icône CSV"/> Exporter les tâches en CSV</button>
+            &nbsp;
+            <button class="purgebutton" (click)="fluxRSS()"><img src="assets/images/rss.png" alt="Icône RSS"/>Flux RSS</button>
 
             <div *ngIf="PurgeItemConfirmation" class="warning">
                 <h4><img src="assets/images/exclamation.png"/> Attention ! Vous êtes sur le point de détruire toutes les tâches faites.</h4>

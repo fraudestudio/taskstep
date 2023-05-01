@@ -4,6 +4,7 @@ import { ItemService } from 'src/service/item-service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
+import { FakeDatabase } from '../model/FakeDatabase';
 
 @Component({
   selector: 'app-index',

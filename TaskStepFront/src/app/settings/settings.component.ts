@@ -114,12 +114,19 @@ export class SettingsComponent {
   }
 
   /**
+   * Rss
+   */
+  fluxRSS(){
+
+  }
+
+  /**
    * When the display tips statue is changed
    * @param value the statue of the checkbox
    */
   onCheckedChange(value : boolean) {
     sessionStorage.setItem("isCheckedDisplay", String(value));
-    this.authService.updateSettings(ThemeService.getStoredTheme(),value);
+    this.authService.updateSettings(ThemeService.getStoredTheme(),value).subscribe();
   }
 
   /**
@@ -136,6 +143,6 @@ export class SettingsComponent {
    */
   onThemeChange(value : string){
     ThemeService.setTheme(value);
-    this.authService.updateSettings(ThemeService.getStoredTheme(),Boolean(sessionStorage.getItem("isCheckedDisplay")));
+    this.authService.updateSettings(ThemeService.getStoredTheme(),this.isDisplayChecked).subscribe();
   }
 }

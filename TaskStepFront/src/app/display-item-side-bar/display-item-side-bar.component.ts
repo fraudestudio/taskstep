@@ -17,6 +17,10 @@ export class DisplayItemSideBarComponent implements OnInit {
       this.itemService = new ItemService(httpClient, router)  
   }
 
+  verifyDate(date : Date){
+    return Number(date) <= Date.now();
+  }
+
   /**
    * Communication with api thanks to the item service
    */
@@ -114,7 +118,6 @@ export class DisplayItemSideBarComponent implements OnInit {
     else {
       this.router.navigate(["displayItemSideBar"], { state : {data : { title : this.Section, sort : this.currentSort }}});
     }
-
   }
 
   /**
@@ -189,6 +192,8 @@ export class DisplayItemSideBarComponent implements OnInit {
             this.showError()
           }
       })
+
+      FakeDatabase.UpdateSideBar(this.itemService);
   }
 
   /**
@@ -247,6 +252,8 @@ export class DisplayItemSideBarComponent implements OnInit {
         this.showError()
       }
     })
+
+    FakeDatabase.UpdateSideBar(this.itemService);
   }
 
 

@@ -42,9 +42,17 @@ export class SideBarComponent{
   get Done() : string {
     return "(" + this.done + ")";
   }
+
+  set Done(value : string){
+    this.done = Number(value);
+  }
   
   get UnDone() : string {
     return "(" + this.undone + ")";
+  }
+
+  set UnDone(value : string){
+    this.undone = Number(value);
   }
 
   get Database() : string {

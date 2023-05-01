@@ -218,12 +218,12 @@ export class ItemService {
    * Get all the done information the sections
    * @returns 
    */
-  getDoneSection() : Observable<number> {
+  getDoneSection() {
     const httpOptions = {
       headers : new HttpHeaders({'Content-Type' : 'application/json',
       'Authorization': 'Bearer ' + AuthService.token})
     };
-    return this.httpClient.get<number>("api/items/count/undone", httpOptions).pipe(
+    return this.httpClient.get("api/items/count/by-section", httpOptions).pipe(
       tap((response) => console.table(response)),
       catchError((error) => this.handleError(error,null))
     )
@@ -261,7 +261,7 @@ export class ItemService {
    * @returns 
    */
   printContext(id : number){
-    return "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=context&id="+id;
+    return "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=context&tid="+id;
   }
   
   /**
@@ -270,7 +270,7 @@ export class ItemService {
    * @returns 
    */
   printProject(id : number){
-    return "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=project&id="+id;
+    return "http://info-dij-sae001.iut21.u-bourgogne.fr/print.php?print=project&tid="+id;
   }
 
   /**

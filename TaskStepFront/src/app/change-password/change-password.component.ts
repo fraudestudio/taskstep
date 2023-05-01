@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FakeDatabase } from '../model/FakeDatabase';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/service/auth-service';
 
 @Component({
   selector: 'app-change-password',
@@ -8,11 +10,11 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class ChangePasswordComponent {
 
-  constructor(private route: ActivatedRoute,  private router: Router){
-    this.currentPassword = "";//FakeDatabase.GetPassword(String(sessionStorage.getItem("User")));
-  }
+  private authService : AuthService
 
-  private currentPassword : string;
+  constructor(private route: ActivatedRoute,  private router: Router, private httpClient : HttpClient){
+    this.authService = new AuthService(httpClient);
+  }
 
   /**
    * Tell if there is an error
@@ -33,7 +35,6 @@ export class ChangePasswordComponent {
   
 
   isPasswordCorrect() {
-    return this.form.password1 == this.currentPassword;
   }
 
   /**
@@ -51,13 +52,13 @@ export class ChangePasswordComponent {
   }
   
   submit(){
-    if (this.isPasswordCorrect()){
-      //FakeDatabase.ChangePassword(String(sessionStorage.getItem("User")),this.form.password2)
-      this.router.navigate(['settings'],{state : {data : { message : "Votre mot de passe a bien été modifier.", type : "confirmation"}}}); 
-    }
-    else {
-      this.hasError = true;
-    }
-
+    this.authService.updatePassword(this.form.password1,this.form.password2).subscribe((data) => {
+      if (data != false){
+        this.router.navigate(['settings'],{state : {data : { message : "Votre mot de passe a bien été modifier.", type : "confirmation"}}}); 
+      }
+      else {
+        this.hasError = true;
+      }
+    })
   }
 }

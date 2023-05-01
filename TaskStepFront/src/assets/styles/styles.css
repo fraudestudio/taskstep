@@ -54,11 +54,14 @@
 	
 	--inform-bg-color : #ddf;
 	--inform-border-color : #33d;
+
+	--fast-bg-color : rgb(243, 146, 146);
+	--fast-border-color : #ff0000;
 	 
 }
 
 
-[data-theme = "professionnal"]{
+[data-theme = "professional"]{
 	--background-color: white;
 	--title-color: white;
 	--subtitle-color: white;
@@ -113,6 +116,9 @@
 
 	--inform-bg-color : #ddf;
 	--inform-border-color : #33d;
+
+	--fast-bg-color : rgb(243, 146, 146);
+	--fast-border-color : #ff0000;
 }
 
 [data-theme = "dark"]{
@@ -175,6 +181,9 @@
 
 	--inform-bg-color : rgb(47, 47, 78);
 	--inform-border-color : rgb(9, 9, 94);
+
+	--fast-bg-color : #5a0000;
+	--fast-border-color : #c00;
 }
 
 body{
@@ -459,6 +468,18 @@ a img{
 }
 
 .inform img{
+	vertical-align:-2px;
+}
+
+.fast{
+	background-color:var(--inform-bg-color);
+	border:1px solid var(--inform-border-color);
+	padding:5px;
+	font-size:10pt;
+	margin-bottom:10px;
+}
+
+.fast img{
 	vertical-align:-2px;
 }
 
