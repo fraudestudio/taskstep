@@ -69,55 +69,9 @@ else
 	$purged = -1;
 }
 
-// CSV export tool
-if(isset($_GET['export']))
-{
-	$exported = true;
-	$exportFile = "taskstep-export.csv";
-
-	if (is_file($exportFile)) unlink($exportFile);
-
-	if (!$file_handle = fopen($exportFile, "a"))
-	{
-		echo "Cannot open file";
-		$exported = false;
-	}
-
-	$allItems = $items->readAll(USER);
-
-	foreach ($allItems as $item)
-	{
-		$row = implode(',', [
-			$item->id(),
-			$item->title(),
-			$item->date()?->format('Y-m-d') ?? '',
-			$item->notes(),
-			$item->url(),
-			$item->section()->value,
-			$item->context()->title(),
-			$item->project()->title(),
-			$item->done() ? 1 : 0,
-		]);
-
-		if (!fwrite($file_handle, $row . '\n'))
-		{
-			echo "Cannot write to file";
-			$exported = false;
-			break;
-		}
-	}
-
-	fclose($file_handle);
-	chmod($exportFile, 0755);
-}
-else
-{
-	$exported = false;
-}
-
 $baseUrl = $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/');
 
-$rss_channel = Export::generateToken(USER);
+$export = Export::generateToken(USER);
 
 ?>
 
@@ -204,16 +158,12 @@ $rss_channel = Export::generateToken(USER);
 	&ensp;
 	<span class="purgebutton">
 		<img src="images/page_white_excel.png" alt=""/>
-		<?php if ($exported): ?>
-			Exported to <a href='tasktep-export.csv'>taskstep-export.csv</a>
-		<?php else: ?>
-			<a href="settings.php?export=csv"> <?= l->settings->tools->export ?> </a>
-		<?php endif; ?>
+		<a href="export.php?user=<?= $export ?>"> <?= l->settings->tools->export ?> </a>
 	</span>
 	&ensp;
 	<span class="purgebutton">
 		<img src="images/rss.png" alt=""/>
-		<a href="rss.php?channel=<?= $rss_channel ?>" onclick="copylink(event)">RSS feed</a>
+		<a href="rss.php?channel=<?= $export ?>" onclick="copylink(event)">RSS feed</a>
 	</span>
 </div>
 
