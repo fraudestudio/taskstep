@@ -13,13 +13,13 @@
             </div>
             <a class="listlinkssmart" routerLink="/addproject"><img src="assets/images/add.png" alt=""/> Ajouter un projet</a>
             <div *ngIf="!IsEditing">
-                <a href="" onclick="return false;" (click)="goItem(project.Id, project.Title)"  *ngFor="let project of Projects" class="listlinkssmart"><img src="assets/images/project.png" alt=""/> {{project.Title}}</a>
+                <a href="" onclick="return false;" (click)="goItem(project.Id, project.Title)"  *ngFor="let project of Projects" class="listlinkssmart"><img src="assets/images/project.png" alt="SexyBG"/> {{project.Title}}</a>
             </div>
             <div *ngIf="IsEditing">
-                <a href="" onclick="return false;" *ngFor="let project of Projects" class="listlinkssmart" (click)="goEditMode(project.Id)"><img src="assets/images/pencil.png" alt=""/> {{project.Title}}</a>
+                <a href="" onclick="return false;" *ngFor="let project of Projects" class="listlinkssmart" (click)="goEditMode(project.Id)"><img src="assets/images/pencil.png" alt="Images crayon"/> {{project.Title}}</a>
             </div>
 
-            <a href="" onclick="return false;" *ngIf="!IsEditing" class="listlinkssmart" (click)="setEditMode()"><img src="assets/images/project_edit.png" alt=""/> Editer un projet</a>
+            <a href="" onclick="return false;" *ngIf="!IsEditing" class="listlinkssmart" (click)="setEditMode()"><img src="assets/images/project_edit.png" alt="Images edit project"/> Edtier un projet</a>
         </div>
     </div>
 </div>

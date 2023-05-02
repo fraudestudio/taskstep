@@ -11,15 +11,15 @@
                     <p><img src="assets/images/exclamation.png" alt="Icône alerte"/>{{message}}</p>
                 </div>
             </div>
-            <a class="listlinkssmart" routerLink="/addcontext"><img src="assets/images/add.png" alt=""/> Ajouter un contexte</a>
+            <a class="listlinkssmart" routerLink="/addcontext"><img src="assets/images/add.png" alt=" Image d'ajout"/> Ajouter un contexte</a>
             <div *ngIf="!IsEditing">
-                <a href="" onclick="return false;" (click)="goItem(context.Id, context.Title)" *ngFor="let context of Contexts" class="listlinkssmart"><img src="assets/images/context.png" alt=""/> {{context.Title}}</a>
+                <a href="" onclick="return false;" (click)="goItem(context.Id, context.Title)" *ngFor="let context of Contexts" class="listlinkssmart"><img src="assets/images/context.png" alt="SexyBG"/> {{context.Title}}</a>
             </div>
             <div *ngIf="IsEditing">
-                <a href="" onclick="return false;" *ngFor="let context of Contexts" class="listlinkssmart" (click)="goEditMode(context.Id)"><img src="assets/images/pencil.png" alt=""/> {{context.Title}}</a>
+                <a href="" onclick="return false;" *ngFor="let context of Contexts" class="listlinkssmart" (click)="goEditMode(context.Id)"><img src="assets/images/pencil.png" alt="Images de craillon"/> {{context.Title}}</a>
             </div>
 
-            <a href="" onclick="return false;" *ngIf="!IsEditing" class="listlinkssmart" (click)="setEditMode()"><img src="assets/images/context_edit.png" alt=""/> Editer un contexte</a>
+            <a href="" onclick="return false;" *ngIf="!IsEditing" class="listlinkssmart" (click)="setEditMode()"><img src="assets/images/context_edit.png" alt="Images edit context"/> Edtier un contexte</a>
         </div>
     </div>
 </div>
