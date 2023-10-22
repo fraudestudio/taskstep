@@ -1,3 +1,5 @@
+:information_source: (MàJ le 22/10/23) Le dépôt a été archivé et **le site web n'est plus disponible**. Ce projet a été réalisé dans le cadre de la **SAÉ du quatième semestre** de l'année scolaire **2022/2023** par des étudiants de l'**IUT de Dijon**.
+
 # SAÉ 4
 
 Groupe C1 / FraudeStudio : Alexandre ANSTETT, Louis DEVIE, Marc GRANDVINCENT, Matéo FAVARD, Lucas PIRES
